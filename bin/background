@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+
+rm ~/wallpapers/history
+
+if [[ $# -eq 0 ]]; then
+    feh --bg-fill "`ls ~/wallpapers/*.* -1 | shuf -n1 | tee -a ~/wallpapers/history`"
+else
+    while true;
+    do
+        feh --bg-fill "`ls ~/wallpapers/*.* -1 | shuf -n1 | tee -a ~/wallpapers/history`"
+        sleep $1
+    done
+fi

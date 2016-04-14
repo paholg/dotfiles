@@ -1,0 +1,41 @@
+#!/usr/bin/env python2
+import subprocess, sys
+
+# arguments:
+#  auto - screens layed out from left to right
+#  duplicate - all screens at the same area
+#  solo - display main screen only
+#  extsolo - display external only
+
+xrandr = subprocess.check_output('xrandr').split('\n')
+
+minres = '99999999x0'
+display_n = 0
+left = 0
+command = ['xrandr']
+for i, x in enumerate(xrandr):
+  if 'connected' in x:
+    name = x.split()[0]
+    if 'disconnected' in x:
+      command += ['--output', name, '--off']
+    else:
+      res = xrandr[i+1].split()[0]
+      if ('extsolo' in sys.argv and display_n == 0) or ('solo' in sys.argv and display_n != 0):
+        command += ['--output', name, '--off']
+      else:
+        command += ['--output', name, '--mode', res, '--pos', '%ix0' %left, '--rotate', 'normal']
+        width = int(res.split('x')[0])
+        if 'duplicate' in sys.argv:
+          if width < int(minres.split('x')[0]):
+            minres = res
+        else:
+          left += width
+      display_n += 1
+
+if 'duplicate' in sys.argv:
+  # replace all resolutions with the minimum
+  for i, cmd in enumerate(command):
+    if cmd == '--mode':
+      command[i+1] = minres
+print 'Running:', ' '.join(command)
+subprocess.call(command)

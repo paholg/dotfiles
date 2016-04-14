@@ -1,0 +1,9 @@
+# Castnow!
+
+#!/bin/sh
+
+if [ $1 == "l" ]; then
+    castnow --device liv "${@:2}"
+elif [ $1 == "b" ]; then
+    castnow --device bed "${@:2}"
+fi

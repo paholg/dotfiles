@@ -1,0 +1,49 @@
+#!/bin/sh
+
+# set editor to emacs, using daemon in terminal mode
+export EDITOR="emacsclient -c"
+
+# Turn on numlock
+numlockx &
+
+# Rebind caps to backspace
+setxkbmap -option caps:none
+xmodmap -e 'keycode 66 = BackSpace'
+
+# bind menu key to windows key
+xmodmap -e 'keycode 135 = Super_L'
+
+# turn off beep
+xset b off &
+
+# keep screen from turning off
+xset -display :0.0 s noblank
+xset -display :0.0 s noexpose
+xset -display :0.0 s off
+xset -display :0.0 dpms 0 0 0
+xset -display :0.0 -dpms
+
+# path
+if [[ $UID -ge 1000 && -d $HOME/bin && -z $(echo $PATH | grep -o $HOME/bin) ]]; then
+    export PATH=$HOME/bin:${PATH}
+fi
+
+
+# startup programs
+
+emacs --daemon
+
+background 300 &
+
+if [ -z "$(pidof xflux)" ]; then
+    xflux -z 97330 &
+fi
+
+if [ -z "$(pidof compton)" ]; then
+    compton --backend glx --vsync opengl-swc&
+fi
+
+if [ -z "$(pidof trayer)" ]; then
+    trayer --edge top --align left --margin 1812 --SetDockType true --SetPartialStrut true --expand true --widthtype pixel --width 108 --transparent true --tint 0x000000 --height 18 --alpha 0 &
+fi
+

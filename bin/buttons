@@ -1,0 +1,8 @@
+# Add onscreen scrolly buttons
+
+#!/bin/sh
+
+echo "^ca(1,xdotool key Page_Up)U^ca()" | dzen2 -p -fn Monospace-40 -bg black -fg cyan -w 100 -h 80 -x 3080 -y 740 -e "onstart=raise" &
+echo "^ca(1,xdotool key Up)u^ca()" | dzen2 -p -fn Monospace-40 -bg black -fg cyan -w 100 -h 80 -x 3080 -y 820 -e "onstart=raise" &
+echo "^ca(1,xdotool key Down)d^ca()" | dzen2 -p -fn Monospace-40 -bg black -fg cyan -w 100 -h 80 -x 3080 -y 900 -e "onstart=raise" &
+echo "^ca(1,xdotool key Page_Down)D^ca()" | dzen2 -p -fn Monospace-40 -bg black -fg cyan -w 100 -h 80 -x 3080 -y 980 -e "onstart=raise" &
