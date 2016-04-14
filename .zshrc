@@ -1,8 +1,3 @@
-# # set pretzo theme
-# autoload -Uz promtpinit
-# promptinit
-# prompt paho
-
 # path
 if [[ $UID -ge 1000 && -d $HOME/bin && -z $(echo $PATH | grep -o $HOME/bin) ]]
 then
