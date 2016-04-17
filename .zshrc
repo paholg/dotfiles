@@ -32,7 +32,7 @@ alias ls=/usr/bin/exa
 alias la="ls -la"
 alias ll="ls -l"
 
-alias rm="mv -t /tmp "
+alias rem="mv -t /tmp "
 
 # For thefuck
 eval $(thefuck --alias)

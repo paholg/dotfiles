@@ -35,12 +35,12 @@ emacs --daemon
 
 background 300 &
 
-if [ -z "$(pidof xflux)" ]; then
-    xflux -z 97330 &
+if [ -z "$(pidof redshift)" ]; then
+    redshift -t 5000K:3300K &
 fi
 
 if [ -z "$(pidof compton)" ]; then
-    compton --backend glx --vsync opengl-swc&
+    compton --backend glx --vsync opengl-swc &
 fi
 
 if [ -z "$(pidof trayer)" ]; then
