@@ -43,6 +43,14 @@ TRAPALRM() {
     zle reset-prompt
 }
 
+
+# Fix ctrl + arrow keys
+bindkey ";5A" up-line
+bindkey ";5B" down-line
+bindkey ";5C" forward-word
+bindkey ";5D" backward-word
+
+
 # Setup theme
 
 precmd () {
