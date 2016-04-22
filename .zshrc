@@ -1,8 +1,12 @@
 # path
-if [[ $UID -ge 1000 && -d $HOME/bin && -z $(echo $PATH | grep -o $HOME/bin) ]]
-then
-    export PATH=$HOME/bin:${PATH}
-fi
+path_dirs=($HOME/.gem/ruby/2.3.0/bin $HOME/.multirust/toolchains/nightly/cargo/bin $HOME/.multirust/toolchains/stable/cargo/bin $HOME/bin)
+for dir in $path_dirs
+do
+    if [[ $UID -ge 1000 && -d $dir && -z $(echo $PATH | grep -o $dir) ]]
+    then
+        export PATH=$dir:${PATH}
+    fi
+done
 
 # disable ksshaskpass
 export SSH_ASKPASS=""
@@ -31,8 +35,6 @@ bindkey -e
 alias ls=/usr/bin/exa
 alias la="ls -la"
 alias ll="ls -l"
-
-alias rem="mv -t /tmp "
 
 # For thefuck
 eval $(thefuck --alias)

@@ -51,7 +51,15 @@
 ;; (load "preview-latex.el" nil t t)
 
 
-(setq-default fill-column 88)
+;; markdown
+(autoload 'markdown-mode "markdown-mode"
+   "Major mode for editing Markdown files" t)
+(add-to-list 'auto-mode-alist '("\\.text\\'" . markdown-mode))
+(add-to-list 'auto-mode-alist '("\\.markdown\\'" . markdown-mode))
+(add-to-list 'auto-mode-alist '("\\.md\\'" . markdown-mode))
+
+
+(setq-default fill-column 99)
 
 (setq-default indent-tabs-mode nil)
 (setq-default tab-width 2)
