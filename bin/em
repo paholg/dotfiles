@@ -1,7 +1,3 @@
 #!/bin/sh
 
-if [[ !(`ps aux | grep emacs | grep daemon`) ]]; then
-    emacs --daemon
-fi
-emacsclient -c "$@"
-
+emacsclient -c "$@" || (emacs --daemon && emacsclient -c "$@")
