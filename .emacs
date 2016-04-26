@@ -82,7 +82,10 @@
 (menu-bar-mode -1)
 (scroll-bar-mode -1)
 (setq inhibit-startup-message t)
+
 (set-frame-parameter (selected-frame) 'alpha '(85 85))
+(add-to-list 'default-frame-alist '(alpha 85 85))
+(global-auto-revert-mode)
 
 ;; make emacs play nicely with system clipboard
 (setq x-select-enable-clipboard t)
