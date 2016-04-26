@@ -1,5 +1,5 @@
 # path
-path_dirs=($HOME/.gem/ruby/2.3.0/bin $HOME/.multirust/toolchains/nightly/cargo/bin $HOME/.multirust/toolchains/stable/cargo/bin $HOME/bin)
+path_dirs=($HOME/.gem/ruby/2.3.0/bin $HOME/.cargo/bin $HOME/.multirust/toolchains/stable/cargo/bin $HOME/bin)
 for dir in $path_dirs
 do
     if [[ $UID -ge 1000 && -d $dir && -z $(echo $PATH | grep -o $dir) ]]
@@ -7,6 +7,10 @@ do
         export PATH=$dir:${PATH}
     fi
 done
+
+
+export CARGO_HOME=~/.cargo
+export RUST_SRC_PATH=~/git/rust/src
 
 # disable ksshaskpass
 export SSH_ASKPASS=""
