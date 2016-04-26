@@ -14,47 +14,51 @@
   (color-theme-hober)
   :ensure t)
 (use-package relative-line-numbers
-  :config (global-relative-line-numbers-mode t)
+  :config
+  (global-relative-line-numbers-mode t)
   :ensure t)
-
+(use-package recentf
+  :config
+  (recentf-mode 1)
+  :ensure t)
 (use-package rust-mode
   :ensure t)
 (use-package cargo
   :ensure t)
 
-(use-package ycmd
+(use-package f
+  :ensure t)
+(use-package company
   :config
-  (add-hook 'after-init-hook #'global-ycmd-mode)
-  (set-variable 'ycmd-server-command '("python" )
+  (global-company-mode)
+  (setq company-tooltip-align-annotations t)
+  (global-set-key (kbd "<C-tab>") #'company-indent-or-complete-common)
   :ensure t)
 (use-package company-ycmd
   :config
-  (global-company-mode)
-  (global-set-key (kbd "<C-tab>") #'company-indent-or-complete-common)
-  (setq company-tooltip-align-annotations t)
+  (company-ycmd-setup)
   :ensure t)
-(use-package flycheck-ycmd
-  :ensure t)
-;; (use-package racer
-;;   :config
-;;   (add-hook 'rust-mode-hook #'racer-mode)
-;;   (add-hook 'racer-mode-hook #'eldoc-mode)
-;;   :ensure t)
+(use-package ycmd
+  :config
+  (add-hook 'after-init-hook #'global-ycmd-mode)
+  (set-variable 'ycmd-server-command '("python2" "/usr/share/vim/vimfiles/third_party/ycmd/ycmd"))
+  (set-variable 'ycmd-global-config "~/.ycmd_settings.json")
+ :ensure t)
 
-(use-package flycheck
-  :ensure t)
 (use-package markdown-mode
   :ensure t)
 (use-package mmm-mode
   :ensure t)
 (use-package rainbow-mode
   :ensure t)
-(use-package toml
+(use-package toml-mode
   :ensure t)
 (use-package yaml-mode
   :ensure t)
 (use-package haskell-mode
   :ensure t)
+(use-package tex-site
+  :ensure auctex)
 
 ;; -------------------------------------------------------------------------------------
 ;; Config options
@@ -79,6 +83,9 @@
 (scroll-bar-mode -1)
 (setq inhibit-startup-message t)
 (set-frame-parameter (selected-frame) 'alpha '(85 85))
+
+;; make emacs play nicely with system clipboard
+(setq x-select-enable-clipboard t)
 
 ;; highlight parentheses
 (show-paren-mode 1)
@@ -132,10 +139,3 @@
 ;; (require 'nix-mode)
 (require 'tramp)
 (add-to-list 'tramp-remote-path "/run/current-system/sw/bin")
-
-;; make emacs remember recent files across sessions
-(require 'recentf)
-(recentf-mode 1)
-
-;; make emacs play nicely with system clipboard
-(setq x-select-enable-clipboard t)
