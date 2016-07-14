@@ -8,61 +8,49 @@
 (package-refresh-contents)
 (package-initialize)
 
+(setq use-package-always-ensure t)
+
 (use-package color-theme
   :config
   (color-theme-initialize)
-  (color-theme-hober)
-  :ensure t)
+  (color-theme-hober))
 (use-package relative-line-numbers
   :config
-  (global-relative-line-numbers-mode t)
-  :ensure t)
+  (global-relative-line-numbers-mode t))
 (use-package recentf
   :config
-  (recentf-mode 1)
-  :ensure t)
-(use-package rust-mode
-  :ensure t)
-(use-package cargo
-  :ensure t)
+  (recentf-mode 1))
+(use-package rust-mode)
+(use-package cargo)
 
-(use-package f
-  :ensure t)
+(use-package f)
 (use-package company
   :config
   (global-company-mode)
   (setq company-tooltip-align-annotations t)
-  (global-set-key (kbd "<C-tab>") #'company-indent-or-complete-common)
-  :ensure t)
+  (global-set-key (kbd "<tab>") #'company-indent-or-complete-common))
 (use-package company-ycmd
   :config
-  (company-ycmd-setup)
-  :ensure t)
+  (company-ycmd-setup))
 (use-package ycmd
   :config
   (add-hook 'after-init-hook #'global-ycmd-mode)
   (set-variable 'ycmd-server-command '("python2" "/usr/share/vim/vimfiles/third_party/ycmd/ycmd"))
-  (set-variable 'ycmd-global-config "~/.ycmd_settings.json")
- :ensure t)
+  (set-variable 'ycmd-global-config "~/.ycmd_settings.json"))
 
-(use-package markdown-mode
-  :ensure t)
-(use-package mmm-mode
-  :ensure t)
-(use-package rainbow-mode
-  :ensure t)
-(use-package toml-mode
-  :ensure t)
-(use-package yaml-mode
-  :ensure t)
-(use-package haskell-mode
-  :ensure t)
+(use-package markdown-mode)
+(use-package mmm-mode)
+(use-package rainbow-mode)
+(use-package toml-mode)
+(use-package yaml-mode)
+(use-package haskell-mode)
 (use-package tex-site
   :ensure auctex)
 
 ;; -------------------------------------------------------------------------------------
 ;; Config options
 (global-set-key "\C-c;" 'comment-or-uncomment-region)
+(global-unset-key (kbd "C-z"))
 
 (blink-cursor-mode 0)
 (setq visible-bell t)
