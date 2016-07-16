@@ -28,7 +28,7 @@
   :config
   (global-company-mode)
   (setq company-tooltip-align-annotations t)
-  (global-set-key (kbd "<tab>") #'company-indent-or-complete-common))
+  (global-set-key (kbd "C-<tab>") #'company-indent-or-complete-common))
 (use-package company-ycmd
   :config
   (company-ycmd-setup))
@@ -49,7 +49,7 @@
 
 ;; -------------------------------------------------------------------------------------
 ;; Config options
-(global-set-key "\C-c;" 'comment-or-uncomment-region)
+(global-set-key (kbd "C-c ;") 'comment-or-uncomment-region)
 (global-unset-key (kbd "C-z"))
 
 (blink-cursor-mode 0)

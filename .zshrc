@@ -41,6 +41,8 @@ alias ls=/usr/bin/exa
 alias la="ls -la"
 alias ll="ls -l"
 
+export pacman_program="pacaur"
+
 # For thefuck
 eval $(thefuck --alias)
 
