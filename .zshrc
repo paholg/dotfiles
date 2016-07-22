@@ -10,7 +10,7 @@ done
 
 
 export CARGO_HOME=~/.cargo
-export RUST_SRC_PATH=~/git/rust/src
+export RUST_SRC_PATH=/usr/src/rust/src
 
 # disable ksshaskpass
 export SSH_ASKPASS=""

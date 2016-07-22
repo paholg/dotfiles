@@ -25,18 +25,32 @@
 
 (use-package f)
 (use-package company
+  :bind
+  ("C-<tab>" . company-indent-or-complete-common)
   :config
   (global-company-mode)
-  (setq company-tooltip-align-annotations t)
-  (global-set-key (kbd "C-<tab>") #'company-indent-or-complete-common))
+  (setq company-tooltip-align-annotations t))
 (use-package company-ycmd
   :config
   (company-ycmd-setup))
 (use-package ycmd
   :config
-  (add-hook 'after-init-hook #'global-ycmd-mode)
+  (add-hook 'python-mode-hook 'ycmd-mode)
+  (add-hook 'c-mode-hook 'ycmd-mode)
+  (add-hook 'c++-mode-hook 'ycmd-mode)
   (set-variable 'ycmd-server-command '("python2" "/usr/share/vim/vimfiles/third_party/ycmd/ycmd"))
   (set-variable 'ycmd-global-config "~/.ycmd_settings.json"))
+
+(use-package racer
+  :init
+  (setq racer-rust-src-path (file-truename "/usr/src/rust/src"))
+  :config
+  (add-hook 'rust-mode-hook #'racer-mode))
+
+(use-package eldoc
+ :config
+ (add-hook 'ycmd-mode-hook #'eldoc-mode)
+ (add-hook 'racer-mode-hook #'eldoc-mode))
 
 (use-package markdown-mode)
 (use-package mmm-mode)
@@ -44,6 +58,7 @@
 (use-package toml-mode)
 (use-package yaml-mode)
 (use-package haskell-mode)
+(use-package scss-mode)
 (use-package tex-site
   :ensure auctex)
 
@@ -99,6 +114,16 @@
                              (blink-matching-open))))
     (when matching-text (message matching-text))))
 
+
+;; -------------------------------------------------------------------------------------
+;; Backup directory
+(setq
+ backup-by-copying t ; don't clobber symlinks
+ backup-directory-alist '(("." . "~/.emacs.d/backups")) ; don't litter!
+ delete-old-versions t
+ kept-new-versions 6
+ kept-old-versions 2
+ version control t)
 
 ;; -------------------------------------------------------------------------------------
 ;; File modes
