@@ -1,6 +1,6 @@
-# Shortcuts for nix commands
-
 #!/bin/sh
+
+# Shortcuts for nix commands
 
 if [ $1 == 'u' ]; then
     echo "Updating package list..."

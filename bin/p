@@ -1,0 +1,3 @@
+#!/bin/sh
+
+pacmatic "${@:1}"

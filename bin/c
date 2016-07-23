@@ -1,6 +1,6 @@
-# Castnow!
-
 #!/bin/sh
+
+# Castnow!
 
 if [ $1 == "l" ]; then
     castnow --device liv "${@:2}"
