@@ -1,19 +1,12 @@
-# path
-path_dirs=($HOME/.gem/ruby/2.3.0/bin $HOME/.cargo/bin $HOME/.multirust/toolchains/stable/cargo/bin $HOME/bin)
-for dir in $path_dirs
-do
-    if [[ $UID -ge 1000 && -d $dir && -z $(echo $PATH | grep -o $dir) ]]
-    then
-        export PATH=$dir:${PATH}
-    fi
-done
-
-
 export CARGO_HOME=~/.cargo
 export RUST_SRC_PATH=/usr/src/rust/src
+export RUST_NEW_ERROR_FORMAT=true
+
+export MANPAGER="/usr/bin/env most"
+export pacman_program="pacaur"
 
 # disable ksshaskpass
-export SSH_ASKPASS=""
+# export SSH_ASKPASS=""
 
 # ssh keychain
 if [[ -n $DISPLAY ]]; then
@@ -26,6 +19,15 @@ autoload zmv
 
 export LD_LIBRARY_PATH=${LD_LIBRARY_PATH}:/usr/local/lib
 
+# path
+path_dirs=($HOME/.gem/ruby/2.3.0/bin $HOME/.cargo/bin $HOME/.multirust/toolchains/stable/cargo/bin $HOME/bin)
+for dir in $path_dirs
+do
+    if [[ $UID -ge 1000 && -d $dir && -z $(echo $PATH | grep -o $dir) ]]
+    then
+        export PATH=$dir:${PATH}
+    fi
+done
 
 autoload -Uz compinit
 compinit
@@ -40,8 +42,6 @@ bindkey -e
 alias ls=/usr/bin/exa
 alias la="ls -la"
 alias ll="ls -l"
-
-export pacman_program="pacaur"
 
 # For thefuck
 eval $(thefuck --alias)

@@ -3,8 +3,10 @@
 ;; -------------------------------------------------------------------------------------
 ;; Packages
 (require 'package)
-(add-to-list 'package-archives
-    '("melpa" . "http://melpa.org/packages/") t)
+(setq package-archives '(("gnu" . "http://elpa.gnu.org/packages/")
+			 ("marmalade" . "http://marmalade-repo.org/packages/")
+;;			 ("melpa" . "http://melpa.org/packages/")
+			 ))
 (package-refresh-contents)
 (package-initialize)
 
@@ -123,7 +125,7 @@
  delete-old-versions t
  kept-new-versions 6
  kept-old-versions 2
- version control t)
+ version-control t)
 
 ;; -------------------------------------------------------------------------------------
 ;; File modes

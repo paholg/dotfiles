@@ -110,7 +110,7 @@ layout = (avoidStruts . spacing space . gaps [(U, -space), (R, -space), (L, -spa
           onWorkspace (my_workspaces!!3) big_layout $
           onWorkspace (my_workspaces!!11) cal_layout $
           onWorkspace (my_workspaces!!12) big_layout $
-          main_layout) ||| (avoidStruts $ Full) -- ||| (avoidStruts $ mirror_layout)
+          main_layout) ||| Full -- ||| (avoidStruts $ mirror_layout)
 
 -- xmobarLogHook h = dynamicLogWithPP $ xmobarPP
 --   { ppOutput = hPutStrLn h,

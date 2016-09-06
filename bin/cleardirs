@@ -2,7 +2,7 @@
 import glob, os, re, shutil
 
 vid = re.compile(".*\.(mp4|mkv|avi)$")
-bad = re.compile(".*\.(txt|nfo)$")
+bad = re.compile(".*\.(txt|nfo|srt)$")
 baddir = re.compile("[Ss]ample")
 
 dirs = glob.glob("*/")
