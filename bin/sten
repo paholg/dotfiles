@@ -1,0 +1,5 @@
+#!/bin/sh
+
+for f in ~/.local/share/plover/*.json; do
+    rg "\"$1\"" $f
+done

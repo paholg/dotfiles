@@ -1,0 +1,3 @@
+#!/bin/sh
+
+emacs -nw --eval "(ediff-files \"$1\" \"$2\")"

@@ -45,7 +45,7 @@
 
 (use-package racer
   :init
-  (setq racer-rust-src-path (file-truename "/usr/src/rust/src"))
+  (setq racer-rust-src-path "/home/paho/.multirust/toolchains/stable-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/src")
   :config
   (add-hook 'rust-mode-hook #'racer-mode))
 
@@ -155,5 +155,5 @@
 ;; Other stuff
 
 ;; (require 'nix-mode)
-(require 'tramp)
-(add-to-list 'tramp-remote-path "/run/current-system/sw/bin")
+;; (require 'tramp)
+;; (add-to-list 'tramp-remote-path "/run/current-system/sw/bin")

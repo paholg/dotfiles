@@ -1,0 +1,14 @@
+#!/bin/sh
+
+if [ "$1" == "s" ]; then
+    v="stable"
+elif [ "$1" == "b" ]; then
+    v="beta"
+elif [ "$1" == "n" ]; then
+    v="nightly"
+else
+    echo "Run with s, b, or n"
+    exit 1
+fi
+
+exec "rustup" "run" "$v" "${@:2}"

@@ -21,6 +21,8 @@ xmodmap -e 'keycode 135 = Super_L'
 # turn off beep
 xset b off &
 
+xset r rate 200 50
+
 # Disable touchpad when typing
 syndaemon -i 0.5 -K &
 

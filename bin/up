@@ -1,0 +1,8 @@
+#!/bin/sh
+
+echo "Updating Rust"
+rustup update
+echo "Updating Cargo binaries"
+cargo install-update -a
+echo "Updating system"
+p -Suyy

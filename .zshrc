@@ -1,9 +1,10 @@
-export CARGO_HOME=~/.cargo
-export RUST_SRC_PATH=/usr/src/rust/src
+export CARGO_HOME='~/.cargo'
+export RUST_SRC_PATH="$(rustc --print sysroot)/lib/rustlib/src/rust/src"
 export RUST_NEW_ERROR_FORMAT=true
+export GRAVEYARD='~/.graveyard'
 
-export MANPAGER="/usr/bin/env most"
-export pacman_program="pacaur"
+export MANPAGER='/usr/bin/env most'
+export pacman_program='pacaur'
 
 # disable ksshaskpass
 # export SSH_ASKPASS=""
@@ -38,10 +39,14 @@ setopt appendhistory autocd extendedglob
 unsetopt beep
 bindkey -e
 
+disable r
+
 
 alias ls=/usr/bin/exa
 alias la="ls -la"
 alias ll="ls -l"
+alias grep="echo 'use ripgrep!!\n'; /usr/bin/grep"
+alias rm="echo 'use rip!!\n'; /usr/bin/rm"
 
 # For thefuck
 eval $(thefuck --alias)

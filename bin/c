@@ -3,7 +3,7 @@
 # Castnow!
 
 if [ $1 == "l" ]; then
-    castnow --device liv "${@:2}"
+    castnow --address 10.0.0.3 "${@:2}"
 elif [ $1 == "b" ]; then
-    castnow --device bed "${@:2}"
+    castnow --address 10.0.0.2 "${@:2}"
 fi

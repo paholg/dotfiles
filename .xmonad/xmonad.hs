@@ -52,7 +52,7 @@ skyblue = "#87ceeb"
 ws_list = ["`", "1", "2", "3", "4", "5", "6", "7", "8", "9", "0", "-", "="]
 my_workspaces = ["^ca(1,xdotool key super+"++cmd++") "++display++" ^ca()" |
                  ws <- ws_list,
-                 let display = if ws == "`" then "~" else ws,
+                 let display = ws,
                  let cmd = if ws == "`" then "grave"
                            else if ws == "-" then "minus"
                            else if ws == "=" then "equal"
@@ -107,9 +107,6 @@ trip_layout = windowNavigation(three)
 space = 5
 
 layout = (avoidStruts . spacing space . gaps [(U, -space), (R, -space), (L, -space), (D, -space)] $
-          onWorkspace (my_workspaces!!3) big_layout $
-          onWorkspace (my_workspaces!!11) cal_layout $
-          onWorkspace (my_workspaces!!12) big_layout $
           main_layout) ||| Full -- ||| (avoidStruts $ mirror_layout)
 
 -- xmobarLogHook h = dynamicLogWithPP $ xmobarPP
@@ -159,7 +156,6 @@ myManageHook = composeAll . concat $
 my_scratch_pads = [ NS "terminal" spawnTerm findTerm manageTerm,
                     NS "volume" spawnVolume findVolume manageVolume,
                     NS "calc" spawnCalc findCalc manageCalc,
-                    NS "clips" spawnClips findClips manageClips,
                     NS "network" spawnNetwork findNetwork manageNetwork
                   ]
   where
@@ -187,14 +183,6 @@ my_scratch_pads = [ NS "terminal" spawnTerm findTerm manageTerm,
         w = 0.2
         t = 0.02
         l = 1 - w
-    spawnClips = my_terminal ++ " --title clips-player -e clips"
-    findClips = title =? "clips-player"
-    manageClips = customFloating $ W.RationalRect l t w h
-      where
-        h = 0.7
-        w = 0.3
-        t = 0.015
-        l = 1 - w
     spawnNetwork = my_terminal ++ " --title nmtui -e nmtui"
     findNetwork = title =? "nmtui"
     manageNetwork = customFloating $ W.RationalRect l t w h
@@ -216,24 +204,13 @@ my_keys = [
   ("<Print>", spawn "scrot /home/paho/screenshots/%F-%H%M%S.png"),
   ("M-S-u", spawn "upload-ss"),
   -- multi-monitor modes
-  ("M-m", sequence_ [spawn "/home/paho/.screenlayout/all.sh && background", restart "xmonad" True]),
-  ("M-S-m", sequence_ [spawn "/home/paho/.screenlayout/dup.sh && background", restart "xmonad" True]),
-  ("M-C-m", sequence_ [spawn "/home/paho/.screenlayout/solo.sh && background", restart "xmonad" True]),
-  -- background stuff
-  ("M-b", spawn "bg-swap"),
-  ("M-S-b", spawn "bg-last"),
-  ("M-S-n", spawn "bg-next"),
-  ("M-n", spawn "bg-newest"),
-  ("M-C-d", spawn "bg-rm"),
-  -- power stuff
-  ("M-C-S-z", spawn "sudo pm-suspend"),
-  ("M-C-h", spawn "sudp pm-hibernate"),
+  ("M-m",  spawn "/home/paho/bin/monitor"),
+  ("M-C-m", spawn "/home/paho/bin/monitor tv"),
   -- run programs
-  ("M-e", spawn my_terminal),
-  ("M-f", spawn my_pdfviewer),
-  ("M-r", spawn "em"),
+  ("M-t", spawn my_terminal),
+  ("M-a", spawn "em"),
   ("M-u", spawn "pavucontrol"),
-  ("M-p", spawn "dmenu_run -i -nb black -sb grey -nf grey -sf black -fn '-misc-fixed-medium-r-normal--18-*-*-*-*-*-*-*'"),
+  ("M-r", spawn "dmenu_run -i -nb black -sb grey -nf grey -sf black -fn '-misc-fixed-medium-r-normal--18-*-*-*-*-*-*-*'"),
   -- window manager stuff
   ("M-v", sendMessage ToggleStruts), -- toggle covering xmobar
   ("M-<Space>", sendMessage NextLayout), -- swap layouts
@@ -252,22 +229,20 @@ my_keys = [
   ("M-S-[", sendToScreen 0), -- move window to screen 0
   ("M-S-]", sendToScreen 1), -- move window to screen 1
   ("M-g", goToSelected myGSConfig), -- GridSelect
-  ("M-t", withFocused $ windows . W.sink), -- push window into tiling
-  ("M-w", sendMessage $ Go U), -- change focus using wasd
-  ("M-a", sendMessage $ Go L),
-  ("M-s", sendMessage $ Go D),
-  ("M-d", sendMessage $ Go R),
-  ("M-S-w", sendMessage $ Swap U), -- swap windows using shift + wasd
-  ("M-S-a", sendMessage $ Swap L),
-  ("M-S-s", sendMessage $ Swap D),
-  ("M-S-d", sendMessage $ Swap R),
+  ("M-z", withFocused $ windows . W.sink), -- push window into tiling
+  ("M-e", sendMessage $ Go U), -- change focus using wasd
+  ("M-s", sendMessage $ Go L),
+  ("M-d", sendMessage $ Go D),
+  ("M-f", sendMessage $ Go R),
+  ("M-S-e", sendMessage $ Swap U), -- swap windows using shift + wasd
+  ("M-S-s", sendMessage $ Swap L),
+  ("M-S-d", sendMessage $ Swap D),
+  ("M-S-f", sendMessage $ Swap R),
   ("M-i", sendMessage MirrorExpand), -- reduce vertical size
   ("M-k", sendMessage MirrorShrink), -- increase vertical size
-  ("M-z", spawn "transset-df -a -t 0.85"),
   -- Scratch pads
   ("M-o", namedScratchpadAction my_scratch_pads "volume"),
   ("M-c", namedScratchpadAction my_scratch_pads "calc"),
-  ("M-y", namedScratchpadAction my_scratch_pads "clips"),
   ("M-h", namedScratchpadAction my_scratch_pads "network"),
   ("M-x", namedScratchpadAction my_scratch_pads "terminal"),
   -- Media keys
