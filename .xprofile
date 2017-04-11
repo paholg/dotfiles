@@ -32,6 +32,8 @@ emacs --daemon &
 
 background 300 &
 
+monitor &
+
 if [ -z "$(pidof redshift)" ]; then
     redshift -t 5000K:3300K &
 fi

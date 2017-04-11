@@ -1,7 +1,9 @@
-export CARGO_HOME='~/.cargo'
+export CARGO_HOME='/home/paho/.cargo'
 export RUST_SRC_PATH="$(rustc --print sysroot)/lib/rustlib/src/rust/src"
 export RUST_NEW_ERROR_FORMAT=true
-export GRAVEYARD='~/.graveyard'
+
+export PUNCH_DIR='/home/paho/.local/share/punch/'
+alias punch='python2 /home/paho/git/punch/punch'
 
 export MANPAGER='/usr/bin/env most'
 export pacman_program='pacaur'
@@ -19,6 +21,9 @@ fi
 autoload zmv
 
 export LD_LIBRARY_PATH=${LD_LIBRARY_PATH}:/usr/local/lib
+
+# don't remember commands starting with space
+setopt histignorespace
 
 # path
 path_dirs=($HOME/.gem/ruby/2.3.0/bin $HOME/.cargo/bin $HOME/.multirust/toolchains/stable/cargo/bin $HOME/bin)
@@ -46,16 +51,15 @@ alias ls=/usr/bin/exa
 alias la="ls -la"
 alias ll="ls -l"
 alias grep="echo 'use ripgrep!!\n'; /usr/bin/grep"
-alias rm="echo 'use rip!!\n'; /usr/bin/rm"
 
 # For thefuck
 eval $(thefuck --alias)
 
-# Update prompt every second
-TMOUT=1
-TRAPALRM() {
-    zle reset-prompt
-}
+# # Update prompt every second
+# TMOUT=1
+# TRAPALRM() {
+#     zle reset-prompt
+# }
 
 
 # Fix ctrl + arrow keys

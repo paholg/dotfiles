@@ -145,10 +145,10 @@ myManageHook = composeAll . concat $
    [title =? i --> doFullFloat | i <- full_floats_by_title]
   ]
   where
-    floats = ["Steam", "MainThrd"]
+    floats = ["MainThrd"]
     center_floats = ["xmessage", "Tk", "TVTK Scene"]
     ignores = ["Xfce4-notifyd"]
-    full_floats = ["steam"]
+    full_floats = []
     full_floats_by_title = ["Kerbal Space Program", "Starcraft II"]
 
 ------------------------------------------------------------
