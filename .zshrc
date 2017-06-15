@@ -26,7 +26,7 @@ export LD_LIBRARY_PATH=${LD_LIBRARY_PATH}:/usr/local/lib
 setopt histignorespace
 
 # path
-path_dirs=($HOME/.gem/ruby/2.3.0/bin $HOME/.cargo/bin $HOME/.multirust/toolchains/stable/cargo/bin $HOME/bin)
+path_dirs=($HOME/.gem/ruby/2.4.0/bin $HOME/.cargo/bin $HOME/.multirust/toolchains/stable/cargo/bin $HOME/bin)
 for dir in $path_dirs
 do
     if [[ $UID -ge 1000 && -d $dir && -z $(echo $PATH | grep -o $dir) ]]
@@ -50,7 +50,6 @@ disable r
 alias ls=/usr/bin/exa
 alias la="ls -la"
 alias ll="ls -l"
-alias grep="echo 'use ripgrep!!\n'; /usr/bin/grep"
 
 # For thefuck
 eval $(thefuck --alias)

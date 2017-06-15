@@ -1,9 +1,22 @@
 #!/bin/sh
 
 # Castnow!
+set -e
+set -u
+set -f
+set -o pipefail
 
 if [ $1 == "l" ]; then
-    castnow --address 10.0.0.3 "${@:2}"
+    address="10.0.0.3"
 elif [ $1 == "b" ]; then
-    castnow --address 10.0.0.2 "${@:2}"
+    address="10.0.0.2"
+fi
+
+if [ $# -eq 1 ]; then
+    file="$(ls -1 | shuf | head -n1)"
+    echo "Casting $file"
+    castnow --address "$address" "$file"
+else
+    echo "Casting ${@:2}"
+    castnow --address "$address" "${@:2}"
 fi

@@ -3,10 +3,10 @@
 ;; -------------------------------------------------------------------------------------
 ;; Packages
 (require 'package)
-(setq package-archives '(("gnu" . "http://elpa.gnu.org/packages/")
-			 ("marmalade" . "http://marmalade-repo.org/packages/")
-;;			 ("melpa" . "http://melpa.org/packages/")
-			 ))
+(setq package-archives '(("gnu" . "https://elpa.gnu.org/packages/")
+			 ("marmalade" . "https://marmalade-repo.org/packages/")
+			 ("melpa" . "https://melpa.org/packages/")))
+
 (package-refresh-contents)
 (package-initialize)
 
@@ -64,6 +64,12 @@
 (use-package tex-site
   :ensure auctex)
 
+;; For jsx
+(use-package rjsx-mode
+  :init
+  (add-to-list 'auto-mode-alist '("\\.js$" . rjsx-mode))
+  )
+
 ;; -------------------------------------------------------------------------------------
 ;; Config options
 (global-set-key (kbd "C-c ;") 'comment-or-uncomment-region)
@@ -73,7 +79,7 @@
 (setq visible-bell t)
 (setq-default fill-column 99)
 (setq-default indent-tabs-mode nil)
-(setq-default tab-width 2)
+(setq-default tab-width 4)
 (setq-default show-trailing-whitespace t)
 (setq-default major-mode 'text-mode)
 
