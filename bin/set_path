@@ -1,0 +1,12 @@
+#!/usr/bin/env zsh
+
+path_dirs=($GOPATH/bin $HOME/.rbenv/bin $HOME/.rbenv/versions/2.3.4/bin $HOME/.cargo/bin $HOME/.multirust/toolchains/stable/cargo/bin $HOME/bin)
+for dir in $path_dirs; do
+    # if [[ $UID -ge 1000 && -d $dir && -z $(echo $PATH | grep -o $dir) ]]
+    # then
+    export PATH=$dir:${PATH}
+    # echo $dir
+    # fi
+done
+
+

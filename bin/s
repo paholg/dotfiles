@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/env bash
 
 # Script to connect to a pre-defined list of ssh servers with minimal typing.
 
@@ -12,7 +12,7 @@ cmd="ssh"
 if [ $1 == "p" ]; then
     server="paho.asuscomm.com"
 elif [ $1 == "c" ]; then
-    server="10.0.0.4"
+    server="10.0.0.5"
 elif [ $1 == 'o' ]; then
     server="luriegrp@shell.onid.oregonstate.edu"
 elif [ $1 == 'i' ]; then

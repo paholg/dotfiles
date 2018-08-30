@@ -1,41 +1,20 @@
-#!/bin/sh
-
-# path
-if [[ $UID -ge 1000 && -d $HOME/bin && -z $(echo $PATH | grep -o $HOME/bin) ]]; then
-    export PATH=$HOME/bin:${PATH}
-fi
+#!/usr/bin/env bash
 
 # set editor to emacs, using daemon in terminal mode
 export EDITOR="emacsclient -c"
 
-# Turn on numlock
-numlockx &
+fixkb &
 
-# Rebind caps to backspace
-setxkbmap -option caps:none
-xmodmap -e 'keycode 66 = BackSpace'
-
-# bind menu key to windows key
-xmodmap -e 'keycode 135 = Super_L'
-
-# turn off beep
-xset b off &
-
-xset r rate 200 50
-
-# Disable touchpad when typing
+# Touchpad
 syndaemon -i 0.5 -K &
+synclient MaxTapTime=0 &
 
 # startup programs
-
-emacs --daemon &
-
+emacs --daemon > /dev/null &
 background 300 &
 
-monitor &
-
 if [ -z "$(pidof redshift)" ]; then
-    redshift -t 5000K:3300K &
+    redshift -t 5000K:3300K &> /dev/null &
 fi
 
 if [ -z "$(pidof compton)" ]; then

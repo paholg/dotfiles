@@ -1,65 +1,57 @@
-export CARGO_HOME='/home/paho/.cargo'
+export CARGO_HOME=$HOME/.cargo
 export RUST_SRC_PATH="$(rustc --print sysroot)/lib/rustlib/src/rust/src"
 export RUST_NEW_ERROR_FORMAT=true
 
-export PUNCH_DIR='/home/paho/.local/share/punch/'
+export PUNCH_DIR=$HOME/.local/share/punch/
 alias punch='python2 /home/paho/git/punch/punch'
 
 export MANPAGER='/usr/bin/env most'
-export pacman_program='pacaur'
 
-# disable ksshaskpass
-# export SSH_ASKPASS=""
+export GOPATH=$HOME/.go
 
-# ssh keychain
-if [[ -n $DISPLAY ]]; then
-    keychain ~/.ssh/id_rsa &> /dev/null
-    . ~/.keychain/`hostname`-sh
-    #. ~/.keychain/`hostname`-sh-gpg
-fi
+# . $HOME/bin/set_path
 
 autoload zmv
 
 export LD_LIBRARY_PATH=${LD_LIBRARY_PATH}:/usr/local/lib
+export ARDUINO_PATH=/usr/local/arduino
 
-# don't remember commands starting with space
-setopt histignorespace
+# -----------------------------------------------------------------------------------------------
+# Outreach Stuff
 
-# path
-path_dirs=($HOME/.gem/ruby/2.4.0/bin $HOME/.cargo/bin $HOME/.multirust/toolchains/stable/cargo/bin $HOME/bin)
-for dir in $path_dirs
-do
-    if [[ $UID -ge 1000 && -d $dir && -z $(echo $PATH | grep -o $dir) ]]
-    then
-        export PATH=$dir:${PATH}
-    fi
-done
+eval "$(rbenv init -)"
+
+# eval "$(docker-machine env outreach)"
+export OUTREACH_PROJECT_ROOT='/home/paho/src'
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"
+# . "/usr/local/opt/nvm/nvm.sh"
+# [[ -s "/Users/paho/.gvm/scripts/gvm" ]] && source "/Users/paho/.gvm/scripts/gvm"
+# [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+# -----------------------------------------------------------------------------------------------
 
 autoload -Uz compinit
 compinit
+
 HISTFILE=~/.zshhistory
 HISTSIZE=10000
-SAVEHIST=10000
-setopt appendhistory autocd extendedglob
+SAVEHIST=100000
+setopt appendhistory
+setopt sharehistory
+setopt incappendhistory
+setopt histignorespace
+
 unsetopt beep
 bindkey -e
 
 disable r
 
 
-alias ls=/usr/bin/exa
+alias ls=exa
 alias la="ls -la"
 alias ll="ls -l"
-
-# For thefuck
-eval $(thefuck --alias)
-
-# # Update prompt every second
-# TMOUT=1
-# TRAPALRM() {
-#     zle reset-prompt
-# }
-
 
 # Fix ctrl + arrow keys
 bindkey ";5A" up-line
@@ -67,6 +59,8 @@ bindkey ";5B" down-line
 bindkey ";5C" forward-word
 bindkey ";5D" backward-word
 
+# https://github.com/rupa/z
+. $HOME/git/z/z.sh
 
 # Setup theme
 

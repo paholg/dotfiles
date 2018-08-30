@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+
+bin/rails db:migrate && RAILS_ENV=test bin/rails db:migrate

@@ -1,0 +1,23 @@
+#!/usr/bin/env bash
+
+# Script to mount things
+
+if (( "$#" != 1 )); then
+    echo "Precisely one parameter required"
+    exit 1
+fi
+cmd="sshfs"
+extra=""
+if [ $1 == "pi" ]; then
+    remote="pi@10.0.0.4:/storage"
+    local="/home/paho/sshfs/storage/"
+    extra="-o follow_symlinks"
+else
+    echo "Not in list"
+    exit 1
+fi
+echo "Running fusermount -u $local"
+fusermount -u $local
+echo "Running $cmd $remote $local $extra"
+exec "$cmd" "$remote" "$local" $extra
+

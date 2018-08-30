@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+
+if [ "$1" = 's' ]; then
+    kubectl -n schedule-service "${@:2}"
+elif [ "$1" = 't' ]; then
+    kubectl -n traffic-cop "${@:2}"
+else
+    kubectl "$@"
+fi

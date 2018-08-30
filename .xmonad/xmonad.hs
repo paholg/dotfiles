@@ -85,8 +85,8 @@ wsLogHook h = dynamicLogWithPP $ defaultPP {
 -- programs to use
 my_terminal = "xfce4-terminal"
 my_pdfviewer = "zathura"
-my_statusbar = "dzen2 -fn Monospace-10 -bg black -ta l -xs 0"
--- my_statusbar = "~/projects/rustybar/target/release/rustybar &>> ~/.config/rustybar/log"
+-- my_statusbar = "dzen2 -fn Monospace-10 -bg black -ta l -xs 0"
+my_statusbar = "~/src/mine/rustybar/target/release/rustybar"
 
 
 ------------------------------------------------------------
@@ -106,37 +106,16 @@ trip_layout = windowNavigation(three)
 
 space = 5
 
-layout = (avoidStruts . spacing space . gaps [(U, -space), (R, -space), (L, -space), (D, -space)] $
-          main_layout) ||| Full -- ||| (avoidStruts $ mirror_layout)
-
--- xmobarLogHook h = dynamicLogWithPP $ xmobarPP
---   { ppOutput = hPutStrLn h,
---     ppTitle = xmobarColor "#3CB371" "" . shorten 100,
---     ppHidden = noScratchPad
---   }
---   where
---     noScratchPad ws = if ws == "NSP" then "" else ws
-
--- -- If q contains x
--- contains q x = fmap (isInfixOf x) q
+layout = (avoidStruts . spacing space . gaps [(U, -space), (R, -space), (L, -space), (D, -space)] $ main_layout)
+  ||| (avoidStruts $ Full)
+  -- ||| (avoidStruts $ mirror_layout)
 
 ------------------------------------------------------------
 -- adjust program behavior
 myManageHook = composeAll . concat $
   [[
       isFullscreen --> doFullFloat,
-      isDialog --> doFloat,
-
-      -- put startup programs on their respective workspaces
-      className =? "Google-chrome" --> doShift (my_workspaces!!3),
-
-      title =? "gcal" --> doShift (my_workspaces!!11),
-
-      className =? "Rhythmbox" --> doShift (my_workspaces!!12),
-      className =? "Pidgin" --> doShift (my_workspaces!!12),
-      title =? "htop" --> doShift (my_workspaces!!11),
-
-      title =? "Starcraft II" --> doFloat
+      isDialog --> doFloat
    ],
    -- general things
    [className =? i --> doFloat | i <- floats],
@@ -149,7 +128,7 @@ myManageHook = composeAll . concat $
     center_floats = ["xmessage", "Tk", "TVTK Scene"]
     ignores = ["Xfce4-notifyd"]
     full_floats = []
-    full_floats_by_title = ["Kerbal Space Program", "Starcraft II"]
+    full_floats_by_title = []
 
 ------------------------------------------------------------
 -- scratch pads
@@ -165,38 +144,39 @@ my_scratch_pads = [ NS "terminal" spawnTerm findTerm manageTerm,
       where
         h = 0.3
         w = 0.5
-        t = 1 - h
-        l = 0
+        t = 1.0 - h
+        l = 0.0
     spawnVolume = "pavucontrol"
     findVolume = title =? "Volume Control"
     manageVolume = customFloating $ W.RationalRect l t w h
       where
         h = 0.8
         w = 0.5
-        t = (1 - h)/2
-        l = (1 - w)/2
+        t = (1.0 - h)/2.0
+        l = (1.0 - w)/2.0
     spawnCalc = my_terminal ++ " --title calculator -e \"ipython3 --pylab\""
     findCalc = title =? "calculator"
     manageCalc = customFloating $ W.RationalRect l t w h
       where
         h = 0.5
         w = 0.2
-        t = 0.02
-        l = 1 - w
+        t = 0.0
+        l = 1.0 - w
     spawnNetwork = my_terminal ++ " --title nmtui -e nmtui"
     findNetwork = title =? "nmtui"
     manageNetwork = customFloating $ W.RationalRect l t w h
       where
         h = 0.5
         w = 0.5
-        t = (1 - h)/2
-        l = (1 - w)/2
+        t = (1.0 - h)/2.0
+        l = (1.0 - w)/2.0
 
 ------------------------------------------------------------
 -- grid select
 myGSConfig = defaultGSConfig {gs_cellheight = 50, gs_cellwidth = 100}
 
 my_keys = [
+  ("M-;", killAllOtherCopies),
   ("M-'", windows copyToAll),
   -- PrntScr for full screen, Shift+PrntScr for window, Ctrl+PrintScr to click box
   ("C-<Print>", spawn "sleep 0.2; scrot -s /home/paho/screenshots/%F-%H%M%S-s.png"),
@@ -204,24 +184,23 @@ my_keys = [
   ("<Print>", spawn "scrot /home/paho/screenshots/%F-%H%M%S.png"),
   ("M-S-u", spawn "upload-ss"),
   -- multi-monitor modes
-  ("M-m",  spawn "/home/paho/bin/monitor"),
-  ("M-C-m", spawn "/home/paho/bin/monitor tv"),
+  ("M-m",  spawn "/home/paho/bin/fixkb && /home/paho/bin/monitor work"),
+  ("M-C-m", spawn "/home/paho/bin/monitor solo"),
   -- run programs
   ("M-t", spawn my_terminal),
-  ("M-a", spawn "em"),
+  ("M-a", spawn "emacsclient -c"),
   ("M-u", spawn "pavucontrol"),
   ("M-r", spawn "dmenu_run -i -nb black -sb grey -nf grey -sf black -fn '-misc-fixed-medium-r-normal--18-*-*-*-*-*-*-*'"),
   -- window manager stuff
   ("M-v", sendMessage ToggleStruts), -- toggle covering xmobar
   ("M-<Space>", sendMessage NextLayout), -- swap layouts
   ("M-q", kill), -- kill focused window
+  -- ("M-S-l", spawn "slock"), -- lock screen
   ("M-M1-x", spawn "xkill"),
   ("M-M1-q", spawn "killall rustybar"),
   ("M-S-q", restart "xmonad" True), -- refresh xmonad
   ("M-C-q", io (exitWith ExitSuccess)), -- exit xmonad
   ("M-C-l", spawn "dm-tool lock"), -- lock session
-  ("M-j", sendMessage Shrink), -- move center to left
-  ("M-l", sendMessage Expand), -- move center to right
   ("M-,", sendMessage (IncMasterN 1)), -- increase windows on left
   ("M-.", sendMessage (IncMasterN (-1))), -- decrease windows on left
   ("M-[", viewScreen 0), -- change focus to screen 0
@@ -234,12 +213,14 @@ my_keys = [
   ("M-s", sendMessage $ Go L),
   ("M-d", sendMessage $ Go D),
   ("M-f", sendMessage $ Go R),
-  ("M-S-e", sendMessage $ Swap U), -- swap windows using shift + wasd
+  ("M-S-e", sendMessage $ Swap U), -- swap windows using shift + esdf
   ("M-S-s", sendMessage $ Swap L),
   ("M-S-d", sendMessage $ Swap D),
   ("M-S-f", sendMessage $ Swap R),
   ("M-i", sendMessage MirrorExpand), -- reduce vertical size
+  ("M-j", sendMessage Shrink), -- move center to left
   ("M-k", sendMessage MirrorShrink), -- increase vertical size
+  ("M-l", sendMessage Expand), -- move center to right
   -- Scratch pads
   ("M-o", namedScratchpadAction my_scratch_pads "volume"),
   ("M-c", namedScratchpadAction my_scratch_pads "calc"),

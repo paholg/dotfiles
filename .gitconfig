@@ -1,5 +1,16 @@
 [user]
-	email = paho@paholg.com
+	email = paho.luriegregg@outreach.io
 	name = Paho Lurie-Gregg
+  signingkey = 78ED9FC9C9EA50DD
+
 [push]
-	default = simple
+	default = current
+
+[commit]
+    gpgSign = true
+
+[gpg]
+	program = gpg2
+
+[rebase]
+	autosquash = true
