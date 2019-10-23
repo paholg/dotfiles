@@ -86,7 +86,7 @@ wsLogHook h = dynamicLogWithPP $ defaultPP {
 my_terminal = "xfce4-terminal"
 my_pdfviewer = "zathura"
 -- my_statusbar = "dzen2 -fn Monospace-10 -bg black -ta l -xs 0"
-my_statusbar = "~/src/mine/rustybar/target/release/rustybar"
+my_statusbar = "RUST_BACKTRACE=1 ~/src/mine/rustybar/target/release/rustybar"
 
 
 ------------------------------------------------------------
@@ -94,20 +94,19 @@ my_statusbar = "~/src/mine/rustybar/target/release/rustybar"
 
 tall = renamed [Replace "Tall"] $ ResizableTall 1 (1/20) (10/20) []
 -- mirror = renamed [Replace "Mirror" ] $ ResizableTall 2 (4/100) (89/100) []
-big = renamed [Replace "Big"] $ ResizableTall 1 (1/20) (18/20) []
-cal = renamed [Replace "Cal"] $ ResizableTall 2 (1/20) (15/20) []
-three = ThreeCol 1 (4/100) (1/2)
+-- big = renamed [Replace "Big"] $ ResizableTall 1 (1/20) (18/20) []
+-- cal = renamed [Replace "Cal"] $ ResizableTall 2 (1/20) (15/20) []
+-- three = ThreeCol 1 (4/100) (1/2)
 
-big_layout = windowNavigation (big)
-cal_layout = windowNavigation (cal)
 main_layout = windowNavigation (tall)
+-- big_layout = windowNavigation (big)
+-- cal_layout = windowNavigation (cal)
 -- mirror_layout = windowNavigation (mirror)
-trip_layout = windowNavigation(three)
+-- trip_layout = windowNavigation(three)
 
 space = 5
 
-layout = (avoidStruts . spacing space . gaps [(U, -space), (R, -space), (L, -space), (D, -space)] $ main_layout)
-  ||| (avoidStruts $ Full)
+layout = (avoidStruts . spacing space . gaps [(U, -space), (R, -space), (L, -space), (D, -space)] $ main_layout) ||| (avoidStruts $ Full)
   -- ||| (avoidStruts $ mirror_layout)
 
 ------------------------------------------------------------
@@ -132,11 +131,12 @@ myManageHook = composeAll . concat $
 
 ------------------------------------------------------------
 -- scratch pads
-my_scratch_pads = [ NS "terminal" spawnTerm findTerm manageTerm,
-                    NS "volume" spawnVolume findVolume manageVolume,
-                    NS "calc" spawnCalc findCalc manageCalc,
-                    NS "network" spawnNetwork findNetwork manageNetwork
-                  ]
+scratch_pads = [ NS "terminal" spawnTerm findTerm manageTerm,
+                 NS "bitwarden" spawnBitwarden findBitwarden manageBitwarden,
+                 NS "volume" spawnVolume findVolume manageVolume,
+                 NS "calc" spawnCalc findCalc manageCalc,
+                 NS "network" spawnNetwork findNetwork manageNetwork
+               ]
   where
     spawnTerm = my_terminal ++ " --title scratchpad"
     findTerm = title =? "scratchpad"
@@ -146,6 +146,14 @@ my_scratch_pads = [ NS "terminal" spawnTerm findTerm manageTerm,
         w = 0.5
         t = 1.0 - h
         l = 0.0
+    spawnBitwarden = my_terminal ++ " --title bitwarden"
+    findBitwarden = title =? "bitwarden"
+    manageBitwarden = customFloating $ W.RationalRect l t w h
+      where
+        h = 1
+        w = 0.5
+        t = 1.0 - h
+        l = (1.0 - w)/2.0
     spawnVolume = "pavucontrol"
     findVolume = title =? "Volume Control"
     manageVolume = customFloating $ W.RationalRect l t w h
@@ -192,7 +200,7 @@ my_keys = [
   ("M-u", spawn "pavucontrol"),
   ("M-r", spawn "dmenu_run -i -nb black -sb grey -nf grey -sf black -fn '-misc-fixed-medium-r-normal--18-*-*-*-*-*-*-*'"),
   -- window manager stuff
-  ("M-v", sendMessage ToggleStruts), -- toggle covering xmobar
+  ("M-v", sendMessage ToggleStruts),
   ("M-<Space>", sendMessage NextLayout), -- swap layouts
   ("M-q", kill), -- kill focused window
   -- ("M-S-l", spawn "slock"), -- lock screen
@@ -222,10 +230,11 @@ my_keys = [
   ("M-k", sendMessage MirrorShrink), -- increase vertical size
   ("M-l", sendMessage Expand), -- move center to right
   -- Scratch pads
-  ("M-o", namedScratchpadAction my_scratch_pads "volume"),
-  ("M-c", namedScratchpadAction my_scratch_pads "calc"),
-  ("M-h", namedScratchpadAction my_scratch_pads "network"),
-  ("M-x", namedScratchpadAction my_scratch_pads "terminal"),
+  ("M-o", namedScratchpadAction scratch_pads "volume"),
+  ("M-c", namedScratchpadAction scratch_pads "calc"),
+  ("M-h", namedScratchpadAction scratch_pads "network"),
+  ("M-x", namedScratchpadAction scratch_pads "terminal"),
+  ("M-p", namedScratchpadAction scratch_pads "bitwarden"),
   -- Media keys
   ("<XF86AudioMute>", spawn "pactl set-sink-mute 0 toggle"),
   ("<XF86AudioLowerVolume>", spawn "pactl set-sink-volume 0 -3%"),
@@ -241,9 +250,10 @@ main = do
   my_statusbar <- spawnPipe my_statusbar
   xmonad $ ewmh $ withUrgencyHook NoUrgencyHook defaultConfig {
     workspaces = my_workspaces,
-    startupHook = setWMName "LG3D", -- makes java apps work
+    startupHook = docksStartupHook <+> setWMName "LG3D", -- makes java apps work
     manageHook =  manageDocks <+> myManageHook <+> manageHook defaultConfig
-                  <+> namedScratchpadManageHook my_scratch_pads,
+                  <+> namedScratchpadManageHook scratch_pads,
+    handleEventHook = docksEventHook <+> handleEventHook defaultConfig,
     layoutHook = layout,
     logHook = wsLogHook my_statusbar,
     borderWidth = 0,
@@ -252,4 +262,4 @@ main = do
     --focusedBorderColor = black,
     modMask = mod4Mask, -- rebind Mod to Windows key
     terminal = my_terminal
-    } `additionalKeysP` (my_keys)
+  } `additionalKeysP` (my_keys)

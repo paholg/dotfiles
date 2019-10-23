@@ -16,19 +16,38 @@ autoload zmv
 export LD_LIBRARY_PATH=${LD_LIBRARY_PATH}:/usr/local/lib
 export ARDUINO_PATH=/usr/local/arduino
 
+export GPG_TTY=$(tty)
+
 # -----------------------------------------------------------------------------------------------
 # Outreach Stuff
 
-eval "$(rbenv init -)"
+# eval "$(rbenv init -)"
 
 # eval "$(docker-machine env outreach)"
 export OUTREACH_PROJECT_ROOT='/home/paho/src'
 
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"
+# export NVM_DIR="$HOME/.nvm"
+# [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"
 # . "/usr/local/opt/nvm/nvm.sh"
 # [[ -s "/Users/paho/.gvm/scripts/gvm" ]] && source "/Users/paho/.gvm/scripts/gvm"
 # [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+# asdf version manager
+. $HOME/.asdf/asdf.sh
+. $HOME/.asdf/completions/asdf.bash
+
+source $OUTREACH_PROJECT_ROOT/dev-environment/actions/fullstack/setup
+
+function ignore-ami {
+  AMI=$(cat terraform.tfstate | jq -Mc '.modules | map(select(.path == ["root","outreach_ami"]))[0].outputs.image.value' | tr : =)
+  [[ "${AMI:0:1}" != "{" ]] && echo "Error getting outreach-ami state from terraform.tfstate." && return
+  GITROOT=$(command git rev-parse --show-toplevel) || return
+  command git checkout ":/modules/outreach-ami/main.tf"
+  sed -i.bak -e "s/\"\${zipmap(var.ami_names, data.aws_ami.lookup.*.id)}\"/$AMI/" "$GITROOT/modules/outreach-ami/main.tf" || return
+  echo "Updated outreach-ami to: $AMI"
+  echo "Undo with: git checkout :/modules/outreach-ami/main.tf"
+}
+alias unignore-ami="git checkout :/modules/outreach-ami/main.tf"
 
 # -----------------------------------------------------------------------------------------------
 
@@ -61,6 +80,33 @@ bindkey ";5D" backward-word
 
 # https://github.com/rupa/z
 . $HOME/git/z/z.sh
+
+# ------------------------------------------------------------------------------
+# broot
+function br {
+    f=$(mktemp)
+
+    (
+	set +e
+	broot --out "$f" "$@"
+	code=$?
+	if [ "$code" != 0 ]; then
+	    rm -f "$f"
+	    exit "$code"
+	fi
+    )
+    code=$?
+    if [ "$code" != 0 ]; then
+	return "$code"
+    fi
+
+    d=$(cat "$f")
+    rm -f "$f"
+
+    if [ "$(wc -c <(echo -n "$d") | head -c1)" != 0 ]; then
+	cd "$d"
+    fi
+}
 
 # Setup theme
 
@@ -96,12 +142,10 @@ prompt_setup () {
     time='%F{cyan}%*%f'
     prompt='%F{cyan}❯❯ %f'
 
-
     PROMPT="$user@$host:$dir \${vcs_info_msg_0_}
 $prompt"
     RPROMPT="$time"
     SPROMPT='zsh: correct %F{red}%R%f to %F{green}%r%f [nyae]? '
-
 
     return 0
 }

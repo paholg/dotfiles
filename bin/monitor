@@ -21,17 +21,17 @@ elif [ $1 == 'work' ]; then
     --output DP2 --off
 elif [ $1 == 'work2' ]; then
     xrandr \
-    --output eDP1 --off \
+    --output eDP1 --mode 1920x1080 --pos 2160x1800 \
     --output HDMI1 --off \
     --output HDMI2 --off \
-    --output DP1 --primary --mode 3840x2160 --pos 0x0 --rotate left --rate 29.98 \
-    --output HDMI2 --mode 3840x2160 --pos 2160x0 --rotate left \
+    --output DP1 --primary --mode 1920x1080 --pos 0x0 --rotate left --rate 29.98 \
+    --output HDMI2 --mode 1920x1080 --pos 1080x0 --rotate left \
     --output DP2 --off
 elif [ $1 == 'home' ]; then
     xrandr \
-    --output eDP1 --primary --mode 1920x1080 --pos 1440x1800 \
+    --output eDP1 --mode 1920x1080 --pos 2560x1000 \
     --output HDMI1 --off \
-    --output HDMI2 --mode 2560x1440 --pos 0x0 --rotate right \
+    --output HDMI2 --primary --rotate normal --mode 2560x1440 --pos 0x0 \
     --output DP1 --off \
     --output DP2 --off
 fi

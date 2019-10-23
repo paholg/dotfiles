@@ -1,9 +1,84 @@
-#!/usr/bin/env bash
+#!/usr/bin/env ruby
 
-if [ "$1" = 's' ]; then
-    kubectl -n schedule-service "${@:2}"
-elif [ "$1" = 't' ]; then
-    kubectl -n traffic-cop "${@:2}"
-else
-    kubectl "$@"
-fi
+require 'optparse'
+
+TRAFFIC_COP = 'traffic-cop'
+DEFAULT = 'default'
+ETL = 'etl'
+MONOLITH = 'monolith'
+
+
+options = {}
+options[:app] = MONOLITH
+
+optparse = OptionParser.new do |opts|
+  opts.banner = "Usage: $0 [options] BENTO CMD"
+
+  opts.on('-t', '--traffic-cop', 'Set namespace to traffic-cop.') do |arg|
+    options[:namespace] = TRAFFIC_COP
+    options[:app] = TRAFFIC_COP
+  end
+
+  opts.on('-e', '--etl', 'Set namespace to default, exec commands on etl worker.') do |arg|
+    options[:namespace] = DEFAULT
+    options[:app] = ETL
+  end
+
+  opts.on('-p', '--pod', 'Force run command on a pod.') do |arg|
+    options[:use_pod] = true
+  end
+end
+
+positional_args = optparse.parse!
+bento = positional_args[0]
+namespace = options[:namespace] || bento
+
+cmd = positional_args[1..-1]
+
+cluster = case bento
+          when 'staging1a' then 'staging.us-east-2'
+          when 'staging2' then 'staging.us-west-2'
+          when /app1./ then 'production.us-west-2'
+          when /app2./ then 'production.us-east-1'
+          else
+            puts "Unknown bento: #{bento}"
+            exit 1
+          end
+puts `kubectl config use-context #{cluster}`
+
+use_pod = options[:use_pod]
+case cmd[0]
+when 'c'
+  use_pod = true
+  cmd[0] = 'bundle exec rails c'
+when 'b'
+  use_pod = true
+  cmd[0] = 'bash'
+end
+
+def get_pod(app, namespace, bento)
+  label_flag = case app
+               when MONOLITH then 'rails_console=true'
+               when TRAFFIC_COP then "bento=#{bento},worker=ScheduleMailingConsumer"
+               when ETL then "app=etl,tier=worker"
+               else
+                 puts "Unknown app: #{app}"
+               end
+
+  if app == MONOLITH
+    # Ensure server pod is up!
+    puts `kubectl -n #{bento} scale --replicas=1 deployment server-console`
+  end
+
+  `kubectl -n #{namespace} get pods -l#{label_flag} -o jsonpath='{.items[0].metadata.name}'`
+end
+
+kube_cmd = if use_pod
+             pod = get_pod(options[:app], namespace, bento)
+             "kubectl -n #{namespace} exec -it #{pod} #{cmd.join(' ')}"
+           else
+             "kubectl -n #{namespace} #{cmd.join(' ')}"
+           end
+
+puts kube_cmd
+exec(kube_cmd)

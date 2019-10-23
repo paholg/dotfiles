@@ -4,8 +4,8 @@
 ;; Packages
 (require 'package)
 (setq package-archives '(
-			 ;; ("gnu" . "https://elpa.gnu.org/packages/")
-                         ;; ("marmalade" . "https://marmalade-repo.org/packages/")
+                        ;; ("gnu" . "https://elpa.gnu.org/packages/")
+                        ;; ("marmalade" . "https://marmalade-repo.org/packages/")
                          ("melpa" . "https://melpa.org/packages/")))
 
 (package-refresh-contents)
@@ -13,38 +13,29 @@
 
 (setq use-package-always-ensure t)
 
-(use-package auto-complete)
 (use-package cargo)
-(use-package coffee-mode
-  :init
-  (add-to-list 'auto-mode-alist '("\\.cjsx$" . coffee-mode)))
 (use-package color-theme
   :config
   (color-theme-initialize)
   (color-theme-hober))
-;; (use-package column-marker
-;;   :config
-;;   (setq column-marker-1 100))
 (use-package company
   :bind
   ("C-<tab>" . company-indent-or-complete-common)
   :config
   (global-company-mode)
   (setq company-tooltip-align-annotations t))
-(use-package company-ycmd
-  :config
-  (company-ycmd-setup))
 (use-package default-text-scale
   :config
   (default-text-scale-mode 1))
-(use-package enh-ruby-mode
-  :init
-  (add-to-list 'auto-mode-alist '("\\.rb$" . enh-ruby-mode))
-  (add-to-list 'interpreter-mode-alist '("ruby" . enh-ruby-mode)))
 (use-package eldoc
   :config
   (add-hook 'ycmd-mode-hook #'eldoc-mode)
   (add-hook 'racer-mode-hook #'eldoc-mode))
+(use-package elixir-mode)
+(use-package enh-ruby-mode
+  :init
+  (add-to-list 'auto-mode-alist '("\\.rb$" . enh-ruby-mode))
+  (add-to-list 'interpreter-mode-alist '("ruby" . enh-ruby-mode)))
 (use-package exec-path-from-shell
   :config
   (exec-path-from-shell-initialize))
@@ -70,9 +61,7 @@
 (use-package helm-projectile
   :config
   (helm-projectile-on))
-(use-package inf-ruby
-  :config
-  (add-hook 'after-init-hook 'inf-ruby-switch-setup))
+(use-package jsonnet-mode)
 (use-package json-mode
   :init
   (add-to-list 'auto-mode-alist '("\\.json$" . json-mode)))
@@ -84,6 +73,7 @@
 (use-package projectile
   :config
   (projectile-global-mode)
+  (define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map)
   (add-hook 'ruby-mode-hook 'projectile-mode)
   (add-hook 'enh-ruby-mode-hook 'projectile-mode)
   (setq projectile-indexing-method 'alien)
@@ -109,28 +99,13 @@
   (setq js-indent-level 2)
   (setq tab-width 2)
   (setq js2-basic-offset 2))
-(use-package rbenv
-  :config
-  (global-rbenv-mode))
 (use-package robe
   :config
-  (add-hook 'ruby-mode-hook 'robe-mode)
-  (add-hook 'enh-ruby-mode-hook 'robe-mode)
-  (eval-after-load 'company
-    '(push 'company-robe company-backends))
-  (add-hook 'robe-mode-hook 'ac-robe-setup))
-(use-package rspec-mode
-  :defer t
-  :config
-  (progn
-    (defun rspec-ruby-mode-hook ()
-      (tester-init-test-run #'rspec-run-single-file "_spec.rb$")
-      (tester-init-test-suite-run #'rake-test))
-    (add-hook 'enh-ruby-mode-hook 'rspec-ruby-mode-hook))
-  (add-hook 'ruby-mode-hook 'rspec-mode))
+  (add-hook 'enh-ruby-mode-hook 'robe-mode))
 (use-package rust-mode
-  :init
-  (setq rust-format-on-save t))
+  ;; :init
+  ;; (setq rust-format-on-save t)
+  )
 (use-package scss-mode)
 (use-package tex-site
   :ensure auctex)
@@ -140,14 +115,9 @@
 (use-package toml-mode)
 (use-package typescript-mode)
 (use-package yaml-mode)
-(use-package ycmd
-  :config
-  (add-hook 'python-mode-hook 'ycmd-mode)
-  (add-hook 'c-mode-hook 'ycmd-mode)
-  (add-hook 'c++-mode-hook 'ycmd-mode)
-  (set-variable 'ycmd-server-command
-                '("python2" "/usr/share/vim/vimfiles/third_party/ycmd/ycmd"))
-  (set-variable 'ycmd-global-config "~/.ycmd_settings.json"))
+(use-package yari
+  :bind
+  ("M-n" . yari))
 
 ;; -----------------------------------------------------------------------------
 ;; Config options
@@ -268,7 +238,7 @@
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
    (quote
-    (lua-mode rbenv yari yaml-mode use-package toml-mode terraform-mode scss-mode rspec-mode robe rjsx-mode rainbow-mode racer projectile-rails mmm-mode markdown-mode json-mode helm-projectile haskell-mode graphviz-dot-mode go-mode fill-column-indicator exec-path-from-shell enh-ruby-mode diminish default-text-scale company-ycmd column-marker column-enforce-mode color-theme coffee-mode cargo auto-complete auctex))))
+    (dockerfile-mode alchemist 0blayout elixir-mode company-tabnine jsonnet-mode stylus-mode lua-mode rbenv yari yaml-mode use-package toml-mode terraform-mode scss-mode rspec-mode robe rjsx-mode rainbow-mode racer projectile-rails mmm-mode markdown-mode json-mode helm-projectile haskell-mode graphviz-dot-mode go-mode fill-column-indicator exec-path-from-shell enh-ruby-mode diminish default-text-scale company-ycmd column-marker column-enforce-mode color-theme coffee-mode cargo auto-complete auctex))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.

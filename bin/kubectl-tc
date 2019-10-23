@@ -1,0 +1,6 @@
+#!/bin/bash -e
+
+kubectl-bento $1
+pod=$(kubectl get pods -n traffic-cop -l bento=$1,worker=ScheduleMailingConsumer -o jsonpath='{.items[0].metadata.name}')
+echo $pod
+kubectl -n traffic-cop exec -it $pod bundle exec rails c

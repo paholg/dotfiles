@@ -10,7 +10,7 @@ syndaemon -i 0.5 -K &
 synclient MaxTapTime=0 &
 
 # startup programs
-emacs --daemon > /dev/null &
+emacs --daemon &> /dev/null &
 background 300 &
 
 if [ -z "$(pidof redshift)" ]; then

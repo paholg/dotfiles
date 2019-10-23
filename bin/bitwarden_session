@@ -1,0 +1,4 @@
+#!/bin/sh
+
+BW_SESSION="$(bw unlock --raw || bw login --raw)"
+export BW_SESSION=$BW_SESSION

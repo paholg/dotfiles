@@ -9,15 +9,10 @@ fi
 
 cmd="ssh"
 
-if [ $1 == "p" ]; then
-    server="paho.asuscomm.com"
-elif [ $1 == "c" ]; then
-    server="10.0.0.5"
-elif [ $1 == 'o' ]; then
-    server="luriegrp@shell.onid.oregonstate.edu"
-elif [ $1 == 'i' ]; then
-    server="-q paho@openpower8.osuosl.org"
-
+if [ $1 == "pi" ]; then
+    server="pi@10.0.0.2"
+elif [ $1 == "b" ]; then
+    server="paho@10.0.0.4"
 elif [ $1 == "q" ]; then
     server="quipu.physics.oregonstate.edu"
 elif [ $1 == "k" ]; then

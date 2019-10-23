@@ -7,10 +7,20 @@
 	default = current
 
 [commit]
-    gpgSign = true
 
 [gpg]
 	program = gpg2
 
 [rebase]
 	autosquash = true
+
+[pager]
+  log = diffr --colors added:none:foreground:green --colors refine-added:none:foreground:0xaa,0xff,0xaa --colors removed:none:foreground:red --colors refine-removed:none:foreground:0xff,0xaa,0xaa | less -R
+  show = diffr --colors added:none:foreground:green --colors refine-added:none:foreground:0xaa,0xff,0xaa --colors removed:none:foreground:red --colors refine-removed:none:foreground:0xff,0xaa,0xaa | less -R
+  diff = diffr --colors added:none:foreground:green --colors refine-added:none:foreground:0xaa,0xff,0xaa --colors removed:none:foreground:red --colors refine-removed:none:foreground:0xff,0xaa,0xaa | less -R
+
+[color "diff-highlight"]
+  oldNormal = "red"
+  oldHighlight = "#ffaaaa"
+  newNormal = "green"
+  newHighlight = "#aaffaa"
