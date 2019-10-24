@@ -211,10 +211,10 @@ my_keys = [
   ("M-C-l", spawn "dm-tool lock"), -- lock session
   ("M-,", sendMessage (IncMasterN 1)), -- increase windows on left
   ("M-.", sendMessage (IncMasterN (-1))), -- decrease windows on left
-  ("M-[", viewScreen 0), -- change focus to screen 0
-  ("M-]", viewScreen 1), -- change focus to creen 1
-  ("M-S-[", sendToScreen 0), -- move window to screen 0
-  ("M-S-]", sendToScreen 1), -- move window to screen 1
+  -- ("M-[", viewScreen 0), -- change focus to screen 0
+  -- ("M-]", viewScreen 1), -- change focus to creen 1
+  -- ("M-S-[", sendToScreen 0), -- move window to screen 0
+  -- ("M-S-]", sendToScreen 1), -- move window to screen 1
   ("M-g", goToSelected myGSConfig), -- GridSelect
   ("M-z", withFocused $ windows . W.sink), -- push window into tiling
   ("M-e", sendMessage $ Go U), -- change focus using wasd

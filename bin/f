@@ -1,4 +1,4 @@
 #!/usr/bin/env bash
 
-EXPR="s/FontName.*/FontName=Hack $1/g"
+EXPR="s/FontName.*/FontName=Monospace $1/g"
 sed -i "$EXPR" ~/.config/xfce4/terminal/terminalrc

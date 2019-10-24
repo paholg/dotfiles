@@ -3,21 +3,14 @@
 ;; -----------------------------------------------------------------------------
 ;; Packages
 (require 'package)
-(setq package-archives '(
-                        ;; ("gnu" . "https://elpa.gnu.org/packages/")
-                        ;; ("marmalade" . "https://marmalade-repo.org/packages/")
-                         ("melpa" . "https://melpa.org/packages/")))
-
-(package-refresh-contents)
+(setq package-archives '(("melpa" . "https://melpa.org/packages/")))
 (package-initialize)
+(package-refresh-contents)
 
+(require 'use-package-ensure)
 (setq use-package-always-ensure t)
 
 (use-package cargo)
-(use-package color-theme
-  :config
-  (color-theme-initialize)
-  (color-theme-hober))
 (use-package company
   :bind
   ("C-<tab>" . company-indent-or-complete-common)
@@ -69,7 +62,6 @@
   :config
   (global-linum-mode))
 (use-package markdown-mode)
-(use-package mmm-mode)
 (use-package projectile
   :config
   (projectile-global-mode)
@@ -91,7 +83,6 @@
   (setq racer-rust-src-path "/home/paho/.multirust/toolchains/stable-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/src")
   :config
   (add-hook 'rust-mode-hook #'racer-mode))
-(use-package rainbow-mode)
 (use-package rjsx-mode
   :init
   (add-to-list 'auto-mode-alist '("\\.js$" . rjsx-mode))
@@ -135,7 +126,7 @@
 (setq indent-line-function 'insert-tab)
 
 ;; Because of daemon mode, all graphical settings must go here
-(add-to-list 'default-frame-alist '(font . "Hack-10"))
+(add-to-list 'default-frame-alist '(font . "Monospace-10"))
 
 (setq line-number-mode t)
 (setq column-number-mode t)
@@ -162,25 +153,8 @@
 (setq x-select-enable-clipboard t)
 
 ;; highlight parentheses
-(show-paren-mode 1)
 (setq show-paren-delay 0)
-(require 'paren)
-(set-face-background 'show-paren-match-face "#333333")
-(set-face-foreground 'show-paren-match-face "#ffffff")
-(set-face-attribute 'show-paren-match-face nil :weight 'black)
-
-;; show offscreen parenthesis in minibuffer
-(defadvice show-paren-function
-    (after show-matching-paren-offscreen activate)
-  "If the matching paren is offscreen, show the matching line in the
-        echo area. Has no effect if the character before point is not of
-        the syntax class ')'."
-  (interactive)
-  (let* ((cb (char-before (point)))
-         (matching-text (and cb
-                             (char-equal (char-syntax cb) ?\) )
-                             (blink-matching-open))))
-    (when matching-text (message matching-text))))
+(show-paren-mode 1)
 
 ;; -----------------------------------------------------------------------------
 ;; Backup directory
@@ -236,6 +210,10 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(custom-enabled-themes (quote (hober)))
+ '(custom-safe-themes
+   (quote
+    ("31772cd378fd8267d6427cec2d02d599eee14a1b60e9b2b894dd5487bd30978e" default)))
  '(package-selected-packages
    (quote
     (dockerfile-mode alchemist 0blayout elixir-mode company-tabnine jsonnet-mode stylus-mode lua-mode rbenv yari yaml-mode use-package toml-mode terraform-mode scss-mode rspec-mode robe rjsx-mode rainbow-mode racer projectile-rails mmm-mode markdown-mode json-mode helm-projectile haskell-mode graphviz-dot-mode go-mode fill-column-indicator exec-path-from-shell enh-ruby-mode diminish default-text-scale company-ycmd column-marker column-enforce-mode color-theme coffee-mode cargo auto-complete auctex))))

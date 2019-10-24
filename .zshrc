@@ -18,6 +18,10 @@ export ARDUINO_PATH=/usr/local/arduino
 
 export GPG_TTY=$(tty)
 
+source $HOME/.profile
+
+eval `keychain --quiet --eval github_id_rsa`
+
 # -----------------------------------------------------------------------------------------------
 # Outreach Stuff
 
@@ -79,7 +83,7 @@ bindkey ";5C" forward-word
 bindkey ";5D" backward-word
 
 # https://github.com/rupa/z
-. $HOME/git/z/z.sh
+# . $HOME/git/z/z.sh
 
 # ------------------------------------------------------------------------------
 # broot
