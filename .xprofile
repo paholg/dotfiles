@@ -3,7 +3,7 @@
 # set editor to emacs, using daemon in terminal mode
 export EDITOR="emacsclient -c"
 
-xsetroot -cursor left_ptr
+xsetroot -cursor_name left_ptr &
 
 fixkb &
 
@@ -22,6 +22,6 @@ if [ -z "$(pidof -s redshift)" ]; then
     redshift -t 5000K:3300K &> /dev/null &
 fi
 
-if [ -z "$(pidof -s compton)" ]; then
-    compton --backend glx --vsync opengl-swc &
-fi
+# if [ -z "$(pidof -s compton)" ]; then
+#     compton --backend glx --vsync opengl-swc &
+# fi

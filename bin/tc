@@ -1,3 +1,5 @@
 #!/usr/bin/env bash
 
 outreach -e $1 ssh kafka.service.consul "/opt/confluent/bin/kafka-console-consumer --bootstrap-server localhost:9092 --topic traffic_cop_schedule_mailings_v2 --partition $2 --offset $3 --max-messages $4" | jq .
+
+outreach -e $BENTO ssh kafka.service.consul "/opt/confluent/bin/kafka-console-consumer --bootstrap-server localhost:9092 --topic $TOPIC --partition $PARTITION --offset $OFFSET --max-messages $1" | jq .

@@ -9,8 +9,6 @@ export MANPAGER='/usr/bin/env most'
 
 export GOPATH=$HOME/.go
 
-# . $HOME/bin/set_path
-
 autoload zmv
 
 export LD_LIBRARY_PATH=${LD_LIBRARY_PATH}:/usr/local/lib
@@ -25,16 +23,7 @@ eval `keychain --quiet --eval github_id_rsa`
 # -----------------------------------------------------------------------------------------------
 # Outreach Stuff
 
-# eval "$(rbenv init -)"
-
-# eval "$(docker-machine env outreach)"
 export OUTREACH_PROJECT_ROOT='/home/paho/src'
-
-# export NVM_DIR="$HOME/.nvm"
-# [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"
-# . "/usr/local/opt/nvm/nvm.sh"
-# [[ -s "/Users/paho/.gvm/scripts/gvm" ]] && source "/Users/paho/.gvm/scripts/gvm"
-# [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
 # asdf version manager
 . $HOME/.asdf/asdf.sh
