@@ -162,7 +162,7 @@ scratch_pads = [ NS "terminal" spawnTerm findTerm manageTerm,
         w = 0.5
         t = (1.0 - h)/2.0
         l = (1.0 - w)/2.0
-    spawnCalc = my_terminal ++ " --title calculator -e \"ipython3 --pylab\""
+    spawnCalc = my_terminal ++ " --title calculator -e irb"
     findCalc = title =? "calculator"
     manageCalc = customFloating $ W.RationalRect l t w h
       where
