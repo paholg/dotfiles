@@ -49,12 +49,15 @@
   ("M-x" . helm-M-x)
   ("C-x r b" . helm-filtered-bookmarks)
   ("C-x C-f" . helm-find-files))
-(use-package helm-rg
-  :bind
-  ("C-c C-p" . helm-rg))
 (use-package helm-projectile
   :config
   (helm-projectile-on))
+(use-package helm-ag
+  :config
+  (setq helm-ag-base-command "rg --vimgrep --no-heading --smart-case --hidden" )
+  :bind
+  ("C-c C-p" . helm-ag))
+(use-package helm-swoop)
 (use-package jsonnet-mode)
 (use-package json-mode
   :init
@@ -68,16 +71,17 @@
 (use-package lsp-mode
   :config (add-hook 'prog-mode-hook 'lsp)
   :commands lsp)
-(use-package flycheck
-  :config (global-flycheck-mode))
-(use-package flycheck-inline
-  :config
-  (with-eval-after-load 'flycheck
-    (add-hook 'flycheck-mode-hook #'flycheck-inline-mode)))
-(use-package flycheck-rust
-  :config
-  (with-eval-after-load 'rust-mode
-    (add-hook 'flycheck-mode-hook #'flycheck-rust-setup)))
+(use-package lua-mode)
+;; (use-package flycheck
+;;   :config (global-flycheck-mode))
+;; (use-package flycheck-inline
+;;   :config
+;;   (with-eval-after-load 'flycheck
+;;     (add-hook 'flycheck-mode-hook #'flycheck-inline-mode)))
+;; (use-package flycheck-rust
+;;   :config
+;;   (with-eval-after-load 'rust-mode
+;;     (add-hook 'flycheck-mode-hook #'flycheck-rust-setup)))
 ;; (use-package lsp-ui
 ;;   :hook ((lsp-mode . lsp-ui-mode))
 ;;   :commands lsp-ui-mode)
@@ -108,6 +112,9 @@
 (use-package recentf
   :config
   (recentf-mode 1))
+(use-package robe
+  :config
+  (add-hook 'enh-ruby-mode-hook 'robe-mode))
 ;; (use-package racer
 ;;   :init
 ;;   (setq racer-rust-src-path "/home/paho/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/src")
@@ -246,7 +253,7 @@
  '(lsp-ui-peek-enable nil)
  '(package-selected-packages
    (quote
-    (dockerfile-mode alchemist 0blayout elixir-mode company-tabnine jsonnet-mode stylus-mode lua-mode rbenv yari yaml-mode use-package toml-mode terraform-mode scss-mode rspec-mode robe rjsx-mode rainbow-mode racer projectile-rails mmm-mode markdown-mode json-mode helm-projectile haskell-mode graphviz-dot-mode go-mode fill-column-indicator exec-path-from-shell enh-ruby-mode diminish default-text-scale company-ycmd column-marker column-enforce-mode color-theme coffee-mode cargo auto-complete auctex))))
+    (helm-ag mustache-mode dockerfile-mode alchemist 0blayout elixir-mode company-tabnine jsonnet-mode stylus-mode lua-mode rbenv yari yaml-mode use-package toml-mode terraform-mode scss-mode rspec-mode robe rjsx-mode rainbow-mode racer projectile-rails mmm-mode markdown-mode json-mode helm-projectile haskell-mode graphviz-dot-mode go-mode fill-column-indicator exec-path-from-shell enh-ruby-mode diminish default-text-scale company-ycmd column-marker column-enforce-mode color-theme coffee-mode cargo auto-complete auctex))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.

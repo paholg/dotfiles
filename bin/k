@@ -6,6 +6,7 @@ TRAFFIC_COP = 'traffic-cop'
 DEFAULT = 'default'
 ETL = 'etl'
 MONOLITH = 'monolith'
+SCHEDULER = 'scheduler'
 
 
 options = {}
@@ -17,6 +18,10 @@ optparse = OptionParser.new do |opts|
   opts.on('-t', '--traffic-cop', 'Set namespace to traffic-cop.') do |arg|
     options[:namespace] = TRAFFIC_COP
     options[:app] = TRAFFIC_COP
+  end
+
+  opts.on('-s', '--scheduler', 'Use scheduler.') do |arg|
+    options[:label] = 'app=scheduler'
   end
 
   opts.on('-e', '--etl', 'Set namespace to default, exec commands on etl worker.') do |arg|
@@ -56,9 +61,9 @@ when 'b'
   cmd[0] = 'bash'
 end
 
-def get_pod(app, namespace, bento)
+def get_pod(app, namespace, bento, label)
   label_flag = case app
-               when MONOLITH then 'rails_console=true'
+               when MONOLITH then label || 'rails_console=true'
                when TRAFFIC_COP then "bento=#{bento},worker=ScheduleMailingConsumer"
                when ETL then "app=etl,tier=worker"
                else
@@ -74,7 +79,7 @@ def get_pod(app, namespace, bento)
 end
 
 kube_cmd = if use_pod
-             pod = get_pod(options[:app], namespace, bento)
+             pod = get_pod(options[:app], namespace, bento, options[:label])
              "kubectl -n #{namespace} exec -it #{pod} #{cmd.join(' ')}"
            else
              "kubectl -n #{namespace} #{cmd.join(' ')}"

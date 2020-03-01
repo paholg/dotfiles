@@ -1,7 +1,5 @@
 #!/usr/bin/env bash
 
-killall compton
-
 if [ "$#" == 0 ] || [ $1 == 'auto' ]; then
     echo "NOT THING YET"
 elif [ $1 == 'solo' ]; then
@@ -34,7 +32,6 @@ elif [ $1 == 'home' ]; then
     --output DP2 --off
 fi
 
-# compton --backend glx --vsync opengl-swc &
 background &
 
 fixkb &
