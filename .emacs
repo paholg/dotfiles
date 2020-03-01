@@ -1,16 +1,24 @@
-(set-background-color "black")
-
 ;; -----------------------------------------------------------------------------
-;; Packages
+;; Package setup
 (require 'package)
 (setq package-archives '(("gnu" . "https://elpa.gnu.org/packages/")
                          ("melpa" . "https://melpa.org/packages/")))
 (package-initialize)
-(package-refresh-contents)
 
-(require 'use-package-ensure)
+;; Bootstrap 'use-package'
+(eval-after-load 'gnutls
+  '(add-to-list 'gnutls-trustfiles "/etc/ssl/cert.pem"))
+(unless (package-installed-p 'use-package)
+  (package-refresh-contents)
+  (package-install 'use-package))
+(eval-when-compile
+  (require 'use-package))
+(require 'bind-key)
 (setq use-package-always-ensure t)
 
+;; -----------------------------------------------------------------------------
+;; Use-package
+(use-package color-theme-modern)
 (use-package cargo)
 (use-package company
   :bind
@@ -21,10 +29,6 @@
 (use-package default-text-scale
   :config
   (default-text-scale-mode 1))
-;; (use-package eldoc
-;;   :config
-;;   (add-hook 'ycmd-mode-hook #'eldoc-mode)
-;;   (add-hook 'racer-mode-hook #'eldoc-mode))
 (use-package elixir-mode)
 (use-package enh-ruby-mode
   :init
@@ -175,8 +179,6 @@
 (setq ruby-insert-encoding-magic-comment nil)
 (setq enh-ruby-add-encoding-comment-on-save nil)
 
-(set-frame-parameter (selected-frame) 'alpha '(85 85))
-(add-to-list 'default-frame-alist '(alpha 85 85))
 (global-auto-revert-mode)
 
 (setq-default
@@ -236,16 +238,11 @@
         (id (read-string "id: ")))
     (insert "[" action " " id "](https://outreach-io.atlassian.net/browse/"
             id")")))
-
-;; (require 'nix-mode)
-;; (require 'tramp)
-;; (add-to-list 'tramp-remote-path "/run/current-system/sw/bin")
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(custom-enabled-themes (quote (hober)))
  '(custom-safe-themes
    (quote
     ("31772cd378fd8267d6427cec2d02d599eee14a1b60e9b2b894dd5487bd30978e" default)))
@@ -259,4 +256,4 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(flymake-error ((t (:underline nil)))))
+ )
