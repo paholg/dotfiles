@@ -2,45 +2,17 @@ export CARGO_HOME=$HOME/.cargo
 export RUST_SRC_PATH="$(rustc --print sysroot)/lib/rustlib/src/rust/src"
 export RUST_NEW_ERROR_FORMAT=true
 
-export PUNCH_DIR=$HOME/.local/share/punch/
-alias punch='python2 /home/paho/git/punch/punch'
-
 export MANPAGER='/usr/bin/env most'
-
-export GOPATH=$HOME/.go
 
 autoload zmv
 
 export LD_LIBRARY_PATH=${LD_LIBRARY_PATH}:/usr/local/lib
-export ARDUINO_PATH=/usr/local/arduino
 
 export GPG_TTY=$(tty)
 
 source $HOME/.profile
 
-eval `keychain --quiet --eval github_id_rsa`
-
-# -----------------------------------------------------------------------------------------------
-# Outreach Stuff
-
-export OUTREACH_PROJECT_ROOT='/home/paho/src'
-
-# asdf version manager
-. $HOME/.asdf/asdf.sh
-. $HOME/.asdf/completions/asdf.bash
-
-source $OUTREACH_PROJECT_ROOT/dev-environment/actions/fullstack/setup
-
-function ignore-ami {
-  AMI=$(cat terraform.tfstate | jq -Mc '.modules | map(select(.path == ["root","outreach_ami"]))[0].outputs.image.value' | tr : =)
-  [[ "${AMI:0:1}" != "{" ]] && echo "Error getting outreach-ami state from terraform.tfstate." && return
-  GITROOT=$(command git rev-parse --show-toplevel) || return
-  command git checkout ":/modules/outreach-ami/main.tf"
-  sed -i.bak -e "s/\"\${zipmap(var.ami_names, data.aws_ami.lookup.*.id)}\"/$AMI/" "$GITROOT/modules/outreach-ami/main.tf" || return
-  echo "Updated outreach-ami to: $AMI"
-  echo "Undo with: git checkout :/modules/outreach-ami/main.tf"
-}
-alias unignore-ami="git checkout :/modules/outreach-ami/main.tf"
+eval `keychain --quiet --eval id_rsa`
 
 # -----------------------------------------------------------------------------------------------
 
@@ -60,7 +32,6 @@ bindkey -e
 
 disable r
 
-
 alias ls=exa
 alias la="ls -la"
 alias ll="ls -l"
@@ -71,35 +42,7 @@ bindkey ";5B" down-line
 bindkey ";5C" forward-word
 bindkey ";5D" backward-word
 
-# https://github.com/rupa/z
-# . $HOME/git/z/z.sh
-
 # ------------------------------------------------------------------------------
-# broot
-function br {
-    f=$(mktemp)
-
-    (
-	set +e
-	broot --out "$f" "$@"
-	code=$?
-	if [ "$code" != 0 ]; then
-	    rm -f "$f"
-	    exit "$code"
-	fi
-    )
-    code=$?
-    if [ "$code" != 0 ]; then
-	return "$code"
-    fi
-
-    d=$(cat "$f")
-    rm -f "$f"
-
-    if [ "$(wc -c <(echo -n "$d") | head -c1)" != 0 ]; then
-	cd "$d"
-    fi
-}
 
 # Setup theme
 
@@ -145,8 +88,4 @@ $prompt"
 
 prompt_setup '$@'
 
-# The next line updates PATH for the Google Cloud SDK.
-if [ -f '/home/paho/google-cloud-sdk/path.zsh.inc' ]; then . '/home/paho/google-cloud-sdk/path.zsh.inc'; fi
-
-# The next line enables shell command completion for gcloud.
-if [ -f '/home/paho/google-cloud-sdk/completion.zsh.inc' ]; then . '/home/paho/google-cloud-sdk/completion.zsh.inc'; fi
+source /home/paho/.config/broot/launcher/bash/br
