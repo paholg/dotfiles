@@ -202,7 +202,7 @@ my_keys = [
   -- window manager stuff
   ("M-v", sendMessage ToggleStruts),
   ("M-<Space>", sendMessage NextLayout), -- swap layouts
-  ("M-q", kill), -- kill focused window
+  ("M-S-q", kill), -- kill focused window
   -- ("M-S-l", spawn "slock"), -- lock screen
   ("M-M1-x", spawn "xkill"),
   ("M-M1-q", spawn "killall rustybar"),

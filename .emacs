@@ -1,3 +1,4 @@
+
 ;; -----------------------------------------------------------------------------
 ;; Package setup
 (require 'package)
@@ -73,19 +74,22 @@
 
 ;; lsp things
 (use-package lsp-mode
-  :config (add-hook 'prog-mode-hook 'lsp)
+  :init (setq lsp-keymap-prefix "C-l")
+  :hook (
+         (rust-mode . lsp)
+         (lsp-mode . lsp-enable-which-key-integration))
   :commands lsp)
 (use-package lua-mode)
-;; (use-package flycheck
-;;   :config (global-flycheck-mode))
-;; (use-package flycheck-inline
-;;   :config
-;;   (with-eval-after-load 'flycheck
-;;     (add-hook 'flycheck-mode-hook #'flycheck-inline-mode)))
-;; (use-package flycheck-rust
-;;   :config
-;;   (with-eval-after-load 'rust-mode
-;;     (add-hook 'flycheck-mode-hook #'flycheck-rust-setup)))
+(use-package flycheck
+  :config (global-flycheck-mode))
+(use-package flycheck-inline
+  :config
+  (with-eval-after-load 'flycheck
+    (add-hook 'flycheck-mode-hook #'flycheck-inline-mode)))
+(use-package flycheck-rust
+  :config
+  (with-eval-after-load 'rust-mode
+    (add-hook 'flycheck-mode-hook #'flycheck-rust-setup)))
 ;; (use-package lsp-ui
 ;;   :hook ((lsp-mode . lsp-ui-mode))
 ;;   :commands lsp-ui-mode)
@@ -246,12 +250,12 @@
  '(custom-enabled-themes (quote (hober)))
  '(custom-safe-themes
    (quote
-    ("31772cd378fd8267d6427cec2d02d599eee14a1b60e9b2b894dd5487bd30978e" default)))
+    ("51ec7bfa54adf5fff5d466248ea6431097f5a18224788d0bd7eb1257a4f7b773" "830877f4aab227556548dc0a28bf395d0abe0e3a0ab95455731c9ea5ab5fe4e1" "13a8eaddb003fd0d561096e11e1a91b029d3c9d64554f8e897b2513dbf14b277" "2809bcb77ad21312897b541134981282dc455ccd7c14d74cc333b6e549b824f3" "7f1d414afda803f3244c6fb4c2c64bea44dac040ed3731ec9d75275b9e831fe5" "31772cd378fd8267d6427cec2d02d599eee14a1b60e9b2b894dd5487bd30978e" default)))
  '(lsp-ui-doc-enable nil)
  '(lsp-ui-peek-enable nil)
  '(package-selected-packages
    (quote
-    (helm-ag mustache-mode dockerfile-mode alchemist 0blayout elixir-mode company-tabnine jsonnet-mode stylus-mode lua-mode rbenv yari yaml-mode use-package toml-mode terraform-mode scss-mode rspec-mode robe rjsx-mode rainbow-mode racer projectile-rails mmm-mode markdown-mode json-mode helm-projectile haskell-mode graphviz-dot-mode go-mode fill-column-indicator exec-path-from-shell enh-ruby-mode diminish default-text-scale company-ycmd column-marker column-enforce-mode color-theme coffee-mode cargo auto-complete auctex))))
+    (solarized-theme helm-ag mustache-mode dockerfile-mode alchemist 0blayout elixir-mode company-tabnine jsonnet-mode stylus-mode lua-mode rbenv yari yaml-mode use-package toml-mode terraform-mode scss-mode rspec-mode robe rjsx-mode rainbow-mode racer projectile-rails mmm-mode markdown-mode json-mode helm-projectile haskell-mode graphviz-dot-mode go-mode fill-column-indicator exec-path-from-shell enh-ruby-mode diminish default-text-scale company-ycmd column-marker column-enforce-mode color-theme coffee-mode cargo auto-complete auctex))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.

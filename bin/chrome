@@ -1,3 +1,0 @@
-#!/usr/bin/env bash
-
-google-chrome --disable-gpu-driver-bug-workarounds --enable-native-gpu-memory-buffers
