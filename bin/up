@@ -1,11 +1,18 @@
 #!/bin/sh
 
-echo "Updating Rust"
-rustup update
-echo "Updating Cargo binaries"
-rustup run nightly cargo install-update -a
-echo "Updating system"
-# p -Suyy
+set -ex
 
-sudo apt update
-sudo apt upgrade
+if `command -v rustup >/dev/null 2>&1`; then
+    rustup update
+    cargo install-update -a
+fi
+
+if `command -v yay >/dev/null 2>&1`; then
+    yay
+elif `command -v yum >/dev/null 2>&1`; then
+    yum check-update
+    yum update
+elif `command -v brew >/dev/null 2>&1`; then
+    brew update
+fi
+
