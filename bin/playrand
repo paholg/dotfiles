@@ -1,5 +1,0 @@
-#!/bin/sh
-
-FILE="$(ls -1 $1 | shuf | head -n1)"
-echo $FILE
-vlc "$FILE"

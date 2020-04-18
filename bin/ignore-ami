@@ -1,9 +1,0 @@
-#!/usr/bin/env bash
-
-AMI=$(cat terraform.tfstate | jq -Mc '.modules | map(select(.path == ["root","outreach_ami"]))[0].outputs.image.value' | tr : =)
-[[ "${AMI:0:1}" != "{" ]] && echo "Error getting outreach-ami state from terraform.tfstate." && return
-GITROOT=$(command git rev-parse --show-toplevel) || return
-command git checkout ":/modules/outreach-ami/main.tf"
-sed -i.bak -e "s/\"\${zipmap(var.ami_names, data.aws_ami.lookup.*.id)}\"/$AMI/" "$GITROOT/modules/outreach-ami/main.tf" || return
-echo "Updated outreach-ami to: $AMI"
-echo "Undo with: git checkout :/modules/outreach-ami/main.tf"

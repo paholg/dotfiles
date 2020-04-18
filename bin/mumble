@@ -1,5 +1,0 @@
-#!/bin/sh
-
-/usr/bin/mumble &
-
-sleep 2 && killall speech-dispatcher
