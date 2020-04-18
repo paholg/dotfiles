@@ -14,5 +14,8 @@ elif `command -v yum >/dev/null 2>&1`; then
     yum update
 elif `command -v brew >/dev/null 2>&1`; then
     brew update
+elif `command -v apt >/dev/null 2>&1`; then
+    apt update
+    apt upgrade
 fi
 
