@@ -1,15 +1,6 @@
 #!/usr/bin/env bash
 
-# set editor to emacs, using daemon in terminal mode
-export EDITOR="emacsclient -c"
-
-xsetroot -cursor_name left_ptr &
-
 fixkb &
-
-# Touchpad
-# syndaemon -i 0.5 -K &
-# synclient MaxTapTime=0 &
 
 # startup programs
 background 300 &
@@ -21,7 +12,3 @@ fi
 if [ -z "$(pidof -s redshift)" ]; then
     redshift -t 5000K:3300K &> /dev/null &
 fi
-
-# if [ -z "$(pidof -s compton)" ]; then
-#     compton --backend glx --vsync opengl-swc &
-# fi

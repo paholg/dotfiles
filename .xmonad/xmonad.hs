@@ -86,8 +86,7 @@ wsLogHook h = dynamicLogWithPP $ defaultPP {
 my_terminal = "alacritty"
 my_pdfviewer = "okular"
 -- my_statusbar = "dzen2 -fn Monospace-10 -bg black -ta l -xs 0"
-my_statusbar = "RUST_BACKTRACE=1 ~/src/mine/rustybar/target/release/rustybar"
-
+my_statusbar = "RUST_BACKTRACE=1 ~/src/rustybar/target/release/rustybar"
 
 ------------------------------------------------------------
 -- layouts
@@ -202,13 +201,12 @@ my_keys = [
   -- window manager stuff
   ("M-v", sendMessage ToggleStruts),
   ("M-<Space>", sendMessage NextLayout), -- swap layouts
-  ("M-S-q", kill), -- kill focused window
+  ("M-C-q", kill), -- kill focused window
   -- ("M-S-l", spawn "slock"), -- lock screen
-  ("M-M1-x", spawn "xkill"),
-  ("M-M1-q", spawn "killall rustybar"),
-  ("M-S-q", restart "xmonad" True), -- refresh xmonad
-  ("M-C-q", io (exitWith ExitSuccess)), -- exit xmonad
   ("M-C-l", spawn "dm-tool lock"), -- lock session
+  ("M-M1-x", spawn "xkill"),
+  ("M-S-q", restart "xmonad" True), -- refresh xmonad
+  ("M-M1-q", io (exitWith ExitSuccess)), -- exit xmonad
   ("M-,", sendMessage (IncMasterN 1)), -- increase windows on left
   ("M-.", sendMessage (IncMasterN (-1))), -- decrease windows on left
   -- ("M-[", viewScreen 0), -- change focus to screen 0
@@ -236,10 +234,13 @@ my_keys = [
   ("M-x", namedScratchpadAction scratch_pads "terminal"),
   ("M-p", namedScratchpadAction scratch_pads "bitwarden"),
   -- Media keys
-  ("<XF86AudioMute>", spawn "pactl set-sink-mute 0 toggle"),
-  ("<XF86AudioLowerVolume>", spawn "pactl set-sink-volume 0 -3%"),
-  ("<XF86AudioRaiseVolume>", spawn "pactl set-sink-volume 0 +3%"),
-  ("<XF86MonBrightnessUp>", spawn "xbacklight -inc 10"),
+  ("<XF86AudioMute>",         spawn "pactl set-sink-mute @DEFAULT_SINK@ toggle"),
+  ("M-S-<Space>",             spawn "pactl set-sink-mute @DEFAULT_SINK@ toggle"),
+  ("<XF86AudioLowerVolume>",  spawn "pactl set-sink-volume @DEFAULT_SINK@ -5%"),
+  ("M-[",                     spawn "pactl set-sink-volume @DEFAULT_SINK@ -5%"),
+  ("<XF86AudioRaiseVolume>",  spawn "pactl set-sink-volume @DEFAULT_SINK@ +5%"),
+  ("M-]",                     spawn "pactl set-sink-volume @DEFAULT_SINK@ +5%"),
+  ("<XF86MonBrightnessUp>",   spawn "xbacklight -inc 10"),
   ("<XF86MonBrightnessDown>", spawn "xbacklight -dec 10")
   ] ++ -- workspace switching
           [("M-" ++ name, windows $ W.greedyView ws) | (name, ws) <- zip ws_list my_workspaces] ++

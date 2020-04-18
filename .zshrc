@@ -33,6 +33,14 @@ done
 # ------------------------------------------------------------------------------
 # Program specific settings
 
+if `command -v emacsclient >/dev/null 2>&1`; then
+    export EDITOR="emacsclient -c"
+elif `command -v emacs >/dev/null 2>&1`; then
+    export EDITOR="emacs -nw -c"
+elif `command -v vim >/dev/null 2>&1`; then
+    export EDITOR="vim"
+fi
+
 if `command -v keychain >/dev/null 2>&1`; then
     eval `keychain --quiet --eval id_rsa`
 fi
