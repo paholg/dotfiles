@@ -1,3 +1,6 @@
+-- Note for arch: May need to run `ghc-pkg recache` sometimes to get
+-- `xmonad --recompile` to work again
+
 import qualified XMonad.StackSet as W
 import XMonad
 import XMonad.Hooks.DynamicLog
