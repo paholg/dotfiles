@@ -10,7 +10,7 @@ cmd="sshfs"
 extra=""
 if [ $1 == "s" ]; then
     remote="10.0.0.4:/storage"
-    local="/home/paho/sshfs/storage/"
+    local="/home/$USER/sshfs/storage/"
     extra="-o follow_symlinks"
 else
     echo "Not in list"
