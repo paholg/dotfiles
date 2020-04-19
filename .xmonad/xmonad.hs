@@ -49,6 +49,7 @@ orchid = "#da70d6"
 sienna = "#a0522d"
 darkgoldenrod = "#b8860b"
 skyblue = "#87ceeb"
+darkblue = "#003b6b"
 
 ------------------------------------------------------------
 -- set up workspace info
@@ -108,7 +109,7 @@ main_layout = windowNavigation (tall)
 
 space = 5
 
-layout = (avoidStruts . spacing space . gaps [(U, -space), (R, -space), (L, -space), (D, -space)] $ main_layout) ||| (avoidStruts $ Full)
+layout = (noBorders . avoidStruts . spacing space . gaps [(U, -space), (R, -space), (L, -space), (D, -space)] $ main_layout) ||| (noBorders . avoidStruts $ Full)
   -- ||| (avoidStruts $ mirror_layout)
 
 ------------------------------------------------------------
@@ -204,6 +205,7 @@ my_keys = [
   -- window manager stuff
   ("M-v", sendMessage ToggleStruts),
   ("M-<Space>", sendMessage NextLayout), -- swap layouts
+  ("M-q", spawn ""), -- unbind this key
   ("M-C-q", kill), -- kill focused window
   -- ("M-S-l", spawn "slock"), -- lock screen
   ("M-C-l", spawn "dm-tool lock"), -- lock session
@@ -260,8 +262,8 @@ main = do
     handleEventHook = docksEventHook <+> handleEventHook defaultConfig,
     layoutHook = layout,
     logHook = wsLogHook my_statusbar,
-    borderWidth = 0,
-    normalBorderColor = "black",
+    borderWidth = 2,
+    normalBorderColor = darkblue,
     focusedBorderColor = skyblue,
     --focusedBorderColor = black,
     modMask = mod4Mask, -- rebind Mod to Windows key
