@@ -1,37 +1,16 @@
 #!/usr/bin/env bash
 
-if [ "$#" == 0 ] || [ $1 == 'auto' ]; then
-    echo "NOT THING YET"
-elif [ $1 == 'solo' ]; then
-    xrandr \
-    --output eDP1 --primary --mode 1920x1080 --pos 0x0 \
-    --output HDMI1 --off \
-    --output HDMI2 --off \
-    --output DP1 --off \
-    --output DP2 --off
-elif [ $1 == 'work' ]; then
-    xrandr \
-    --output eDP1 --mode 1920x1080 --pos 4320x3200 \
-    --output HDMI1 --off \
-    --output HDMI2 --mode 3840x2160 --pos 2160x0 --rotate left \
-    --output DP1 --primary --mode 3840x2160 --pos 0x0 --rotate left --rate 29.98 \
-    --output DP2 --off
-elif [ $1 == 'work2' ]; then
-    xrandr \
-    --output eDP1 --mode 1920x1080 --pos 2160x1800 \
-    --output HDMI1 --off \
-    --output HDMI2 --off \
-    --output DP1 --off \
-    --output DP2 --mode 3840x2160 --pos 0x0 --rotate left
-elif [ $1 == 'home' ]; then
-    xrandr \
-    --output eDP1 --mode 1920x1080 --pos 2560x1000 \
-    --output HDMI1 --off \
-    --output HDMI2 --primary --rotate normal --mode 2560x1440 --pos 0x0 \
-    --output DP1 --off \
-    --output DP2 --off
+set -ex
+
+fixkb &
+
+if [ $1 == '1' ]; then
+    sh $HOME/.screenlayout/mode1.sh
+elif [ $1 == '2' ]; then
+    sh $HOME/.screenlayout/mode2.sh
+else
+    echo "INVALID"
+    exit 1
 fi
 
 background &
-
-fixkb &

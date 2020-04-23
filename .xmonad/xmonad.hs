@@ -195,8 +195,8 @@ my_keys = [
   ("<Print>", spawn "scrot /home/paho/screenshots/%F-%H%M%S.png"),
   ("M-S-u", spawn "upload-ss"),
   -- multi-monitor modes
-  ("M-m",  spawn "/home/paho/bin/fixkb && /home/paho/bin/monitor work"),
-  ("M-C-m", spawn "/home/paho/bin/monitor solo"),
+  ("M-m",  spawn "monitor 1"),
+  ("M-C-m",  spawn "monitor 2"),
   -- run programs
   ("M-t", spawn my_terminal),
   ("M-a", spawn "emacsclient -c"),

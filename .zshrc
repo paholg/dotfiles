@@ -19,16 +19,7 @@ bindkey -e
 # Repeats last command.
 disable r
 
-# ------------------------------------------------------------------------------
-# Set env vars
-path_dirs=(
-    $HOME/.cargo/bin
-    $HOME/bin
-)
-
-for dir in $path_dirs; do
-    export PATH=$dir:${PATH}
-done
+source $HOME/.profile
 
 # ------------------------------------------------------------------------------
 # Program specific settings

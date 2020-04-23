@@ -5,6 +5,8 @@ fixkb &
 # startup programs
 background 300 &
 
+# ------------------------------------------------------------------------------
+
 if [ -z "$(pidof -s emacs)" ]; then
    emacs --daemon &> /dev/null &
 fi
