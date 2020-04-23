@@ -4,7 +4,7 @@ set -ex
 
 if `command -v rustup >/dev/null 2>&1`; then
     rustup update
-    cargo install-update -a || true
+    cargo +nightly install-update -a || true
 fi
 
 if `command -v yay >/dev/null 2>&1`; then

@@ -1,4 +1,3 @@
-
 ;; -----------------------------------------------------------------------------
 ;; Package setup
 (require 'package)
@@ -19,6 +18,10 @@
 
 ;; -----------------------------------------------------------------------------
 ;; Use-package
+(use-package auto-package-update
+  :init
+  (auto-package-update-at-time "22:50")
+  )
 (use-package color-theme-modern)
 (use-package cargo)
 (use-package company
@@ -30,6 +33,11 @@
 (use-package default-text-scale
   :config
   (default-text-scale-mode 1))
+(use-package eldoc
+  :config
+  (setq eldoc-idle-delay 0)
+  (setq eldoc-echo-area-use-multiline-p nil)
+)
 (use-package elixir-mode)
 (use-package enh-ruby-mode
   :init
@@ -75,32 +83,46 @@
 ;; lsp things
 (use-package lsp-mode
   :init (setq lsp-keymap-prefix "C-l")
-  :hook (
-         (rust-mode . lsp)
-         (lsp-mode . lsp-enable-which-key-integration))
+  :hook
+  (rust-mode . lsp)
+  :config
+
+  (setq lsp-eldoc-enable-hover t)
+  (setq lsp-eldoc-render-all nil)
+  (setq lsp-idle-delay 0)
+  (setq lsp-prefer-capf t)
+
+  (setq company-minimum-prefix-length 1
+        company-idle-delay 0)
+  (setq gc-cons-threshold 104857600) ;; 100 MB
+  (setq read-process-output-max (* 1024 1024))
   :commands lsp)
+(use-package lsp-ui
+  :bind
+  ("C-i" . lsp-ui-doc-glance)
+  :config
+  (setq lsp-ui-doc-header t)
+  (setq lsp-ui-doc-include-signature t)
+
+  (setq lsp-ui-sideline-enable t)
+  (setq lsp-ui-sideline-show-diagnostics t)
+  (setq lsp-ui-sideline-diagnostic-max-line-length 40)
+  (setq lsp-ui-sideline-show-code-actions nil)
+  (setq lsp-ui-sideline-delay 0.0)
+
+  :commands lsp-ui-mode
+  )
 (use-package lua-mode)
 (use-package flycheck
   :config (global-flycheck-mode))
-(use-package flycheck-inline
-  :config
-  (with-eval-after-load 'flycheck
-    (add-hook 'flycheck-mode-hook #'flycheck-inline-mode)))
 (use-package flycheck-rust
   :config
   (with-eval-after-load 'rust-mode
     (add-hook 'flycheck-mode-hook #'flycheck-rust-setup)))
-;; (use-package lsp-ui
-;;   :hook ((lsp-mode . lsp-ui-mode))
-;;   :commands lsp-ui-mode)
-(use-package company-lsp
-  :commands company-lsp)
 (use-package helm-lsp :commands helm-lsp-workspace-symbol)
 (use-package lsp-treemacs :commands lsp-treemacs-errors-list)
-(use-package yasnippet)
-;; optionally if you want to use debugger
-;; (use-package dap-mode)
-;; (use-package dap-LANGUAGE) to load the dap adapter for your language
+(use-package yasnippet
+  :config (yas-global-mode 1))
 
 
 (use-package markdown-mode)
@@ -108,8 +130,6 @@
   :config
   (projectile-mode)
   (define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map)
-  ;; (add-hook 'ruby-mode-hook 'projectile-mode)
-  ;; (add-hook 'enh-ruby-mode-hook 'projectile-mode)
   (setq projectile-indexing-method 'alien)
   (setq projectile-enable-caching t))
 (use-package projectile-rails
@@ -123,11 +143,6 @@
 (use-package robe
   :config
   (add-hook 'enh-ruby-mode-hook 'robe-mode))
-;; (use-package racer
-;;   :init
-;;   (setq racer-rust-src-path "/home/paho/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/src")
-;;   :config
-;;   (add-hook 'rust-mode-hook #'racer-mode))
 (use-package rjsx-mode
   :init
   (add-to-list 'auto-mode-alist '("\\.js$" . rjsx-mode))
@@ -137,8 +152,10 @@
   (setq js2-basic-offset 2))
 (use-package rust-mode
   :config
+  (setq lsp-rust-server 'rust-analyzer)
   (setq rust-format-on-save t)
-  )
+  (setq rust-format-show-buffer nil)
+  (setq rust-format-goto-problem nil))
 (use-package scss-mode)
 (use-package tex-site
   :ensure auctex)
