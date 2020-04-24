@@ -106,6 +106,9 @@
   :config
   (setq lsp-ui-doc-header t)
   (setq lsp-ui-doc-include-signature t)
+  (setq lsp-ui-doc-enable nil)
+  (setq lsp-ui-doc-position 'bottom)
+  (setq lsp-ui-doc-aliggnment 'frame)
 
   (setq lsp-ui-sideline-enable t)
   (setq lsp-ui-sideline-show-diagnostics t)
