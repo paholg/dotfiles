@@ -143,7 +143,7 @@ scratch_pads = [ NS "terminal" spawnTerm findTerm manageTerm,
   where
     spawnTerm = my_terminal ++ " --title scratchpad"
     findTerm = title =? "scratchpad"
-    manageTerm = customFloating $ W.RationalRect l t w h
+    manageTerm = customFloating $ l t w h
       where
         h = 0.3
         w = 0.5
@@ -190,9 +190,9 @@ my_keys = [
   ("M-;", killAllOtherCopies),
   ("M-'", windows copyToAll),
   -- PrntScr for full screen, Shift+PrntScr for window, Ctrl+PrintScr to click box
-  ("C-<Print>", spawn "sleep 0.2; scrot -s /home/paho/screenshots/%F-%H%M%S-s.png"),
-  ("S-<Print>", spawn "scrot -u /home/paho/screenshots/%F-%H%M%S-f.png"),
-  ("<Print>", spawn "scrot /home/paho/screenshots/%F-%H%M%S.png"),
+  ("C-<Print>", spawn "sleep 0.2; scrot -s $HOME/screenshots/%F-%H%M%S-s.png"),
+  ("S-<Print>", spawn "scrot -u $HOME/screenshots/%F-%H%M%S-f.png"),
+  ("<Print>", spawn "scrot $HOME/screenshots/%F-%H%M%S.png"),
   ("M-S-u", spawn "upload-ss"),
   -- multi-monitor modes
   ("M-m",  spawn "monitor 1"),
@@ -240,7 +240,7 @@ my_keys = [
   ("M-p", namedScratchpadAction scratch_pads "bitwarden"),
   -- Media keys
   ("<XF86AudioMute>",         spawn "pactl set-sink-mute @DEFAULT_SINK@ toggle"),
-  ("M-S-<Space>",             spawn "pactl set-sink-mute @DEFAULT_SINK@ toggle"),
+  -- ("M-S-<Space>",             spawn "pactl set-sink-mute @DEFAULT_SINK@ toggle"),
   ("<XF86AudioLowerVolume>",  spawn "pactl set-sink-volume @DEFAULT_SINK@ -5%"),
   ("M-[",                     spawn "pactl set-sink-volume @DEFAULT_SINK@ -5%"),
   ("<XF86AudioRaiseVolume>",  spawn "pactl set-sink-volume @DEFAULT_SINK@ +5%"),

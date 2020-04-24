@@ -19,7 +19,7 @@ font:
   bold_italic:
     family: monospace
     style: Bold Italic
-  size: 11.0
+  size: 13.0
 
 # Colors (Solarized Dark)
 colors:

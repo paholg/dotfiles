@@ -32,6 +32,13 @@
   :init (auto-package-update-at-time "20:00"))
 (use-package color-theme-modern)
 (use-package cargo)
+(use-package crux
+  :config
+  (global-set-key [remap move-beginning-of-line] #'crux-move-beginning-of-line)
+  :bind
+  ("M-k" . crux-kill-whole-line)
+  ("C-c :" . crux-duplicate-and-comment-current-line-or-region)
+  )
 (use-package company
   :bind
   ("C-<tab>" . company-lsp)
@@ -54,6 +61,8 @@
 (use-package exec-path-from-shell
   :config
   (exec-path-from-shell-initialize))
+(use-package expand-region
+  :bind ("C-=" . er/expand-region))
 (use-package f)
 (use-package go-mode
   :config
@@ -197,7 +206,7 @@
 (setq indent-line-function 'insert-tab)
 
 ;; Because of daemon mode, all graphical settings must go here
-(add-to-list 'default-frame-alist '(font . "Monospace-12"))
+(add-to-list 'default-frame-alist '(font . "Monospace-13"))
 
 (setq line-number-mode t)
 (setq column-number-mode t)
@@ -261,3 +270,18 @@
 
 ;; -----------------------------------------------------------------------------
 ;; Other stuff
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(package-selected-packages
+   (quote
+    (crux yasnippet yari yaml-mode use-package typescript-mode toml-mode terraform-mode sqlformat spacemacs-theme solarized-theme scss-mode robe rjsx-mode projectile-rails one-themes lua-mode lsp-ui lsp-treemacs jsonnet-mode json-mode helm-swoop helm-rg helm-projectile helm-lsp helm-ag haskell-mode go-mode flycheck-rust flycheck-inline exec-path-from-shell enh-ruby-mode elixir-mode default-text-scale company-lsp color-theme-modern cargo auto-package-update auctex)))
+ '(spacemacs-theme-custom-colors (quote ((bg1 . "black") (comment-bg . "#212026")))))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )
