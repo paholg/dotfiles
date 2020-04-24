@@ -20,11 +20,16 @@
 ;; Use-package
 (use-package spacemacs-theme
   :defer t
-  :init (load-theme 'spacemacs-dark t))
-(use-package auto-package-update
   :init
-  (auto-package-update-at-time "22:50")
-  )
+  (custom-set-variables
+   '(spacemacs-theme-custom-colors
+     '(
+       (bg1 . "black")
+       (comment-bg . "#212026")
+       )))
+  (load-theme 'spacemacs-dark t))
+(use-package auto-package-update
+  :init (auto-package-update-at-time "20:00"))
 (use-package color-theme-modern)
 (use-package cargo)
 (use-package company
@@ -192,7 +197,7 @@
 (setq indent-line-function 'insert-tab)
 
 ;; Because of daemon mode, all graphical settings must go here
-(add-to-list 'default-frame-alist '(font . "Monospace-10"))
+(add-to-list 'default-frame-alist '(font . "Monospace-12"))
 
 (setq line-number-mode t)
 (setq column-number-mode t)
