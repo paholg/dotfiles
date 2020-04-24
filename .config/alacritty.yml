@@ -21,42 +21,53 @@ font:
     style: Bold Italic
   size: 13.0
 
-# Colors (Solarized Dark)
+# ------------------------------------------------------------------------------
+# From: https://github.com/aaron-williamson/base16-alacritty/blob/master/colors/base16-spacemacs-256.yml
+# Base16 Spacemacs 256 - alacritty color config
+# Nasser Alshammari (https://github.com/nashamri/spacemacs-theme)
 colors:
   # Default colors
   primary:
-    # background: '#002b36' # base03
-    background: '#000000' # base03
-    foreground: '#839496' # base0
+    background: '0x1f2022'
+    foreground: '0xa3a3a3'
 
-  # Cursor colors
+  # Colors the cursor will use if `custom_cursor_colors` is true
   cursor:
-    text:   '#000000' # base03
-    cursor: '#839496' # base0
+    text: '0x1f2022'
+    cursor: '0xa3a3a3'
 
   # Normal colors
   normal:
-    black:   '#073642' # base02
-    red:     '#dc322f' # red
-    green:   '#859900' # green
-    yellow:  '#b58900' # yellow
-    blue:    '#268bd2' # blue
-    magenta: '#d33682' # magenta
-    cyan:    '#2aa198' # cyan
-    white:   '#eee8d5' # base2
+    black:   '0x1f2022'
+    red:     '0xf2241f'
+    green:   '0x67b11d'
+    yellow:  '0xb1951d'
+    blue:    '0x4f97d7'
+    magenta: '0xa31db1'
+    cyan:    '0x2d9574'
+    white:   '0xa3a3a3'
 
   # Bright colors
   bright:
-    black:   '#586e75' # base01
-    red:     '#cb4b16' # orange
-    green:   '#586e75' # base01
-    yellow:  '#657b83' # base00
-    blue:    '#839496' # base0
-    magenta: '#6c71c4' # violet
-    cyan:    '#93a1a1' # base1
-    white:   '#fdf6e3' # base3
+    black:   '0x585858'
+    red:     '0xf2241f'
+    green:   '0x67b11d'
+    yellow:  '0xb1951d'
+    blue:    '0x4f97d7'
+    magenta: '0xa31db1'
+    cyan:    '0x2d9574'
+    white:   '0xf8f8f8'
 
-background_opacity: 1.0
+  indexed_colors:
+    - { index: 16, color: '0xffa500' }
+    - { index: 17, color: '0xb03060' }
+    - { index: 18, color: '0x282828' }
+    - { index: 19, color: '0x444155' }
+    - { index: 20, color: '0xb8b8b8' }
+    - { index: 21, color: '0xe8e8e8' }
+
+  background_opacity: 1.0
+# ------------------------------------------------------------------------------
 
 dynamic_title: true
 

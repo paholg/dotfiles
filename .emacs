@@ -21,12 +21,6 @@
 (use-package spacemacs-theme
   :defer t
   :init
-  (custom-set-variables
-   '(spacemacs-theme-custom-colors
-     '(
-       (bg1 . "black")
-       (comment-bg . "#212026")
-       )))
   (load-theme 'spacemacs-dark t))
 (use-package auto-package-update
   :init (auto-package-update-at-time "20:00"))
@@ -117,19 +111,19 @@
 (use-package lsp-ui
   :bind
   ("C-i" . lsp-ui-doc-glance)
+  ("<tab>" . indent-for-tab-command)
   :config
   (setq lsp-ui-doc-header t)
   (setq lsp-ui-doc-include-signature t)
   (setq lsp-ui-doc-enable nil)
   (setq lsp-ui-doc-position 'bottom)
-  (setq lsp-ui-doc-aliggnment 'frame)
+  (setq lsp-ui-doc-alignment 'frame)
 
   (setq lsp-ui-sideline-enable t)
   (setq lsp-ui-sideline-show-diagnostics t)
   (setq lsp-ui-sideline-diagnostic-max-line-length 40)
   (setq lsp-ui-sideline-show-code-actions nil)
   (setq lsp-ui-sideline-delay 0.0)
-
   :commands lsp-ui-mode
   )
 (use-package lua-mode)
@@ -143,8 +137,6 @@
 (use-package lsp-treemacs :commands lsp-treemacs-errors-list)
 (use-package yasnippet
   :config (yas-global-mode 1))
-
-
 (use-package markdown-mode)
 (use-package projectile
   :config
