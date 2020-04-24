@@ -1,3 +1,4 @@
+
 ;; -----------------------------------------------------------------------------
 ;; Package setup
 (require 'package)
@@ -93,7 +94,7 @@
 
 ;; lsp things
 (use-package lsp-mode
-  :init (setq lsp-keymap-prefix "C-l")
+  :init (setq lsp-keymap-prefix "C-o")
   :hook
   (rust-mode . lsp)
   :config

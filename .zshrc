@@ -118,7 +118,7 @@ set_prompt () {
     local -h user host dir vcs time prompt
     user="%F{${ZSH_USER_COLOR:-magenta}}%n%f"
     host="%F{${ZSH_HOST_COLOR:-white}}%m%f"
-    dir='%F{green}%~%f'
+    dir='%F{cyan}%~%f'
     time='%F{cyan}%*%f'
     top_left="$user@$host:$dir ${vcs_info_msg_0_}"
     bottom_left='%F{cyan}$ %f'
