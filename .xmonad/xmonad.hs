@@ -143,7 +143,7 @@ scratch_pads = [ NS "terminal" spawnTerm findTerm manageTerm,
   where
     spawnTerm = my_terminal ++ " --title scratchpad"
     findTerm = title =? "scratchpad"
-    manageTerm = customFloating $ l t w h
+    manageTerm = customFloating $ W.RationalRect l t w h
       where
         h = 0.3
         w = 0.5
