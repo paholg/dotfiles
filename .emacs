@@ -125,6 +125,8 @@
   (setq lsp-ui-doc-position 'bottom)
   (setq lsp-ui-doc-alignment 'frame)
 
+  (setq lsp-ui-peek-fontify 'always) ;; highlight usage inside peek
+
   (setq lsp-ui-sideline-enable t)
   (setq lsp-ui-sideline-show-diagnostics t)
   (setq lsp-ui-sideline-diagnostic-max-line-length 40)
