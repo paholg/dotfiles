@@ -116,7 +116,6 @@
 (use-package lsp-ui
   :hook (lsp-ui-mode . lsp-ui-peek-mode)
   :bind
-  ("TAB" . indent-for-tab-command) ;; lsp-ui overrides this by default.
   ("C-i" . lsp-ui-doc-glance)
   ("M-/" . lsp-ui-peek-find-references)
   :config
@@ -197,6 +196,8 @@
 (global-set-key (kbd "M-n") 'forward-paragraph)
 (global-set-key (kbd "M-p") 'backward-paragraph)
 (global-unset-key (kbd "C-z"))
+;; lsp-ui tries to steal TAB. Rebinding it after all other package settings seems to work.
+(global-set-key (kbd "TAB") 'indent-for-tab-command)
 
 (blink-cursor-mode 0)
 (setq visible-bell t)
