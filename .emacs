@@ -114,9 +114,11 @@
 
   :commands lsp)
 (use-package lsp-ui
+  :hook (lsp-ui-mode . lsp-ui-peek-mode)
   :bind
-  ("C-i" . lsp-ui-doc-glance)
   ("TAB" . indent-for-tab-command) ;; lsp-ui overrides this by default.
+  ("C-i" . lsp-ui-doc-glance)
+  ("M-/" . lsp-ui-peek-find-references)
   :config
   (setq lsp-ui-doc-header t)
   (setq lsp-ui-doc-include-signature t)
