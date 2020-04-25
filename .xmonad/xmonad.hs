@@ -31,25 +31,15 @@ import XMonad.Hooks.UrgencyHook
 import Data.List
 
 
--- some colors -----------------------------------
-black = "#000000"
-white = "#FFFFFF"
-lightgray = "#AAAAAA"
-gray = "#777777"
-slategray = "#708090"
-red = "#C11B17"
-green = "#347C17"
-blue = "#00688B"
-yellow = "#FFFF00"
-palegreen = "#98fb98"
-purple = "#a020f0"
-palevioletred = "#db7093"
-thistle = "#d8bfd8"
-orchid = "#da70d6"
-sienna = "#a0522d"
-darkgoldenrod = "#b8860b"
-skyblue = "#87ceeb"
-darkblue = "#003b6b"
+-- Spacemacs dark-mode colors
+black =   "#0a0814"
+red =     "#f2241f"
+green =   "#67b11d"
+yellow =  "#b1951d"
+blue =    "#4f97d7"
+magenta = "#a31db1"
+cyan =    "#2d9574"
+white =   "#a3a3a3"
 
 ------------------------------------------------------------
 -- set up workspace info
@@ -63,16 +53,16 @@ my_workspaces = ["^ca(1,xdotool key super+"++cmd++") "++display++" ^ca()" |
                            else ws
                 ]
 wsLogHook h = dynamicLogWithPP $ defaultPP {
-  ppCurrent = dzenColor black green,
-  ppVisible = dzenColor black gray,
-  ppHidden = dzenColor gray black . noScratchPad,
+  ppCurrent = dzenColor black cyan,
+  ppVisible = dzenColor black white,
+  ppHidden = dzenColor white black . noScratchPad,
   ppUrgent = dzenColor black red,
   ppOrder = \(ws:l:t:_) ->
   [ ws,
     "^ca(1,xdotool key super+space)^fg(" ++ blue ++ ")" ++ layout l ++"^ca()",
     "^ca(1,xdotool key super+Tab) "++ t ++"^ca()"
   ],
-  ppTitle = dzenColor skyblue black,
+  ppTitle = dzenColor blue black,
   ppSep = " ",
   ppWsSep = "",
   ppOutput = hPutStrLn h
@@ -90,7 +80,7 @@ wsLogHook h = dynamicLogWithPP $ defaultPP {
 my_terminal = "alacritty"
 my_pdfviewer = "okular"
 -- my_statusbar = "dzen2 -fn Monospace-10 -bg black -ta l -xs 0"
-my_statusbar = "RUST_BACKTRACE=1 ~/src/rustybar/target/release/rustybar"
+my_statusbar = "RUST_BACKTRACE=1 ~/src/rustybar/target/release/rustybar &> /tmp/rustylog"
 
 ------------------------------------------------------------
 -- layouts
@@ -263,9 +253,8 @@ main = do
     layoutHook = layout,
     logHook = wsLogHook my_statusbar,
     borderWidth = 2,
-    normalBorderColor = darkblue,
-    focusedBorderColor = skyblue,
-    --focusedBorderColor = black,
+    normalBorderColor = blue,
+    focusedBorderColor = cyan,
     modMask = mod4Mask, -- rebind Mod to Windows key
     terminal = my_terminal
   } `additionalKeysP` (my_keys)
