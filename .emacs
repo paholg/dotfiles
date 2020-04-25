@@ -1,4 +1,3 @@
-
 ;; -----------------------------------------------------------------------------
 ;; Package setup
 (require 'package)
@@ -74,6 +73,8 @@
   ("M-x" . helm-M-x)
   ("C-x r b" . helm-filtered-bookmarks)
   ("C-x C-f" . helm-find-files))
+(use-package helm-descbinds
+  :bind ("C-h b" . helm-descbinds))
 (use-package helm-projectile
   :config
   (helm-projectile-on))
@@ -94,9 +95,11 @@
 
 ;; lsp things
 (use-package lsp-mode
-  :init (setq lsp-keymap-prefix "C-o")
+  :init
+  (setq lsp-keymap-prefix "C-o")
   :hook
   (rust-mode . lsp)
+  (lsp-mode . lsp-enable-which-key-integration)
   :config
 
   (setq lsp-eldoc-enable-hover t)
@@ -108,11 +111,12 @@
         company-idle-delay 0)
   (setq gc-cons-threshold 104857600) ;; 100 MB
   (setq read-process-output-max (* 1024 1024))
+
   :commands lsp)
 (use-package lsp-ui
   :bind
   ("C-i" . lsp-ui-doc-glance)
-  ("<tab>" . indent-for-tab-command)
+  ("TAB" . indent-for-tab-command) ;; lsp-ui overrides this by default.
   :config
   (setq lsp-ui-doc-header t)
   (setq lsp-ui-doc-include-signature t)
@@ -178,6 +182,8 @@
   (add-hook 'terraform-mode-hook #'terraform-format-on-save-mode))
 (use-package toml-mode)
 (use-package typescript-mode)
+(use-package which-key
+  :config (which-key-mode))
 (use-package yaml-mode)
 (use-package yari
   :bind
@@ -186,6 +192,8 @@
 ;; -----------------------------------------------------------------------------
 ;; Config options
 (global-set-key (kbd "C-c ;") 'comment-or-uncomment-region)
+(global-set-key (kbd "M-n") 'forward-paragraph)
+(global-set-key (kbd "M-p") 'backward-paragraph)
 (global-unset-key (kbd "C-z"))
 
 (blink-cursor-mode 0)
