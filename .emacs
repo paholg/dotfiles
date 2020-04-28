@@ -76,13 +76,10 @@
 (use-package helm-descbinds
   :bind ("C-h b" . helm-descbinds))
 (use-package helm-projectile
+  :bind ("M-s" . helm-projectile-rg)
   :config
   (helm-projectile-on))
-(use-package helm-ag
-  :config
-  (setq helm-ag-base-command "rg --vimgrep --no-heading --smart-case --hidden" )
-  :bind
-  ("C-c C-p" . helm-ag))
+(use-package helm-rg)
 (use-package helm-swoop)
 (use-package jsonnet-mode)
 (use-package json-mode
