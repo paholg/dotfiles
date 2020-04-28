@@ -187,6 +187,7 @@ my_keys = [
   -- multi-monitor modes
   ("M-m",  spawn "monitor 1"),
   ("M-C-m",  spawn "monitor 2"),
+  ("M-S-m",  spawn "monitor 3"),
   -- run programs
   ("M-t", spawn my_terminal),
   ("M-a", spawn "emacsclient -c"),

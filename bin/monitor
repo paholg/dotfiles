@@ -4,13 +4,6 @@ set -ex
 
 fixkb &
 
-if [ $1 == '1' ]; then
-    sh $HOME/.screenlayout/mode1.sh
-elif [ $1 == '2' ]; then
-    sh $HOME/.screenlayout/mode2.sh
-else
-    echo "INVALID"
-    exit 1
-fi
+sh $HOME/.screenlayout/mode$1.sh
 
 background &

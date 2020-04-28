@@ -281,6 +281,7 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(flycheck-checker-error-threshold 1000)
  '(package-selected-packages
    (quote
     (crux yasnippet yari yaml-mode use-package typescript-mode toml-mode terraform-mode sqlformat spacemacs-theme solarized-theme scss-mode robe rjsx-mode projectile-rails one-themes lua-mode lsp-ui lsp-treemacs jsonnet-mode json-mode helm-swoop helm-rg helm-projectile helm-lsp helm-ag haskell-mode go-mode flycheck-rust flycheck-inline exec-path-from-shell enh-ruby-mode elixir-mode default-text-scale company-lsp color-theme-modern cargo auto-package-update auctex)))
