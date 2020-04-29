@@ -131,6 +131,8 @@
   (setq lsp-ui-sideline-delay 0.0)
   :commands lsp-ui-mode
   )
+(use-package lsp-java
+  :hook (java-mode . lsp))
 (use-package lua-mode)
 (use-package flycheck
   :config (global-flycheck-mode))
@@ -273,19 +275,3 @@
 
 ;; -----------------------------------------------------------------------------
 ;; Other stuff
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(flycheck-checker-error-threshold 1000)
- '(package-selected-packages
-   (quote
-    (crux yasnippet yari yaml-mode use-package typescript-mode toml-mode terraform-mode sqlformat spacemacs-theme solarized-theme scss-mode robe rjsx-mode projectile-rails one-themes lua-mode lsp-ui lsp-treemacs jsonnet-mode json-mode helm-swoop helm-rg helm-projectile helm-lsp helm-ag haskell-mode go-mode flycheck-rust flycheck-inline exec-path-from-shell enh-ruby-mode elixir-mode default-text-scale company-lsp color-theme-modern cargo auto-package-update auctex)))
- '(spacemacs-theme-custom-colors (quote ((bg1 . "black") (comment-bg . "#212026")))))
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- )
