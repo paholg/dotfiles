@@ -76,7 +76,6 @@
 (use-package helm-descbinds
   :bind ("C-h b" . helm-descbinds))
 (use-package helm-projectile
-  :bind ("M-s" . helm-projectile-rg)
   :config
   (helm-projectile-on))
 (use-package helm-rg)
