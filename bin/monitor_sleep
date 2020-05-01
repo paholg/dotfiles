@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+
+set -e
+
+if [[ $1 == "off" ]]; then
+    xset s off
+    xset -dpms
+else
+    xset s 600
+    xset +dpms
+fi
