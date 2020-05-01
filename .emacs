@@ -210,7 +210,7 @@
 (setq indent-line-function 'insert-tab)
 
 ;; Because of daemon mode, all graphical settings must go here
-(add-to-list 'default-frame-alist '(font . "Monospace-16"))
+(add-to-list 'default-frame-alist '(font . "Monospace-13"))
 
 (setq line-number-mode t)
 (setq column-number-mode t)
