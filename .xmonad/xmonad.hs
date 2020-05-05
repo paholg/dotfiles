@@ -184,6 +184,7 @@ my_keys = [
   ("S-<Print>", spawn "scrot -u $HOME/screenshots/%F-%H%M%S-f.png"),
   ("<Print>", spawn "scrot $HOME/screenshots/%F-%H%M%S.png"),
   ("M-S-u", spawn "upload-ss"),
+  ("M-n", spawn "monitor_sleep now"),
   -- multi-monitor modes
   ("M-m",  spawn "monitor 1"),
   ("M-C-m",  spawn "monitor 2"),

@@ -5,7 +5,7 @@ monitor 1 &
 fixkb &
 
 # startup programs
-background 300 &
+background 30 &
 
 # ------------------------------------------------------------------------------
 
