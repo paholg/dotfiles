@@ -1,25 +1,32 @@
 # ------------------------------------------------------------------------------
 # General settings
 
+source $HOME/.profile
+source $HOME/dotfiles/zsh-z.plugin.zsh
+
 # zsh completions
 autoload -Uz compinit
 compinit
 
 HISTFILE=~/.zshhistory
-HISTSIZE=10000
+HISTSIZE=100000
 SAVEHIST=100000
-setopt appendhistory
-setopt sharehistory
-setopt incappendhistory
-setopt histignorespace
+
+# ------------------------------------------------------------------------------
+# Set zsh options. See http://zsh.sourceforge.net/Doc/Release/Options.html
+
+setopt INC_APPEND_HISTORY
+# Should prevent any dups, but non-contiguous dups still show up.
+setopt HIST_IGNORE_ALL_DUPS
+setopt HIST_FIND_NO_DUPS
+setopt HIST_IGNORE_SPACE
+setopt HIST_REDUCE_BLANKS
 
 unsetopt beep
 bindkey -e
 
 # Repeats last command.
 disable r
-
-source $HOME/.profile
 
 # ------------------------------------------------------------------------------
 # Program specific settings
@@ -112,6 +119,9 @@ set_prompt () {
     zstyle ':vcs_info:*+start-up:*' hooks set_novcs_prompt_symbol
     zstyle ':vcs_info:git*+set-message:*' hooks set_vcs_prompt_symbol git_precmd
     zstyle ':vcs_info:*+set-message:*' hooks set_vcs_prompt_symbol
+
+    # Make completions nicer
+    zstyle ':completion:*' menu select
 
     # ------------------------------------------------------------------------------------
 
