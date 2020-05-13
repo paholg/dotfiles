@@ -6,7 +6,7 @@ if [[ $1 == "off" ]]; then
     xset s off
     xset -dpms
 elif [[ $1 == "now" ]]; then
-    sleep 0.1
+    sleep 0.2
     xset dpms force off
 else
     xset s 600

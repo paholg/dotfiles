@@ -26,13 +26,6 @@
   :init (auto-package-update-at-time "20:00"))
 (use-package color-theme-modern)
 (use-package cargo)
-(use-package crux
-  :config
-  (global-set-key [remap move-beginning-of-line] #'crux-move-beginning-of-line)
-  :bind
-  ("M-k" . crux-kill-whole-line)
-  ("C-c :" . crux-duplicate-and-comment-current-line-or-region)
-  )
 (use-package company
   :bind
   ("C-<tab>" . company-lsp)
