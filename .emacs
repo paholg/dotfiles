@@ -119,7 +119,7 @@
   (setq lsp-ui-sideline-enable t)
   (setq lsp-ui-sideline-show-diagnostics t)
   (setq lsp-ui-sideline-diagnostic-max-line-length 40)
-  (setq lsp-ui-sideline-show-code-actions nil)
+  (setq lsp-ui-sideline-show-code-actions t)
   (setq lsp-ui-sideline-delay 0.0)
   :commands lsp-ui-mode
   )
