@@ -57,6 +57,7 @@
     (setq gofmt-command "goimports")
     (add-hook 'before-save-hook 'gofmt-before-save))
   (add-hook 'go-mode-hook 'go-save-hook))
+(use-package gnuplot)
 (use-package haskell-mode)
 (use-package helm
   :config
@@ -265,5 +266,3 @@
 (add-to-list 'auto-mode-alist '("SConstruct" . python-mode))
 (add-to-list 'auto-mode-alist '("\\.sage\\'" . python-mode))
 
-;; -----------------------------------------------------------------------------
-;; Other stuff
