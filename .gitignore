@@ -1,4 +1,6 @@
 *
+!dotfiles/
+!dotfiles/**/*
 !bin/
 !bin/*
 bin/*~

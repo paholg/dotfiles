@@ -4,6 +4,6 @@ set -ex
 
 fixkb &
 
-sh $HOME/.screenlayout/mode$1.sh
+sh $HOME/dotfiles/`hostname`/screenlayout/$1.sh
 
 background &

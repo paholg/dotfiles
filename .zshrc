@@ -60,8 +60,8 @@ if `/usr/bin/env most >/dev/null 2>&1`; then
 fi
 
 # ------------------------------------------------------------------------------
-# Load extra settings files
-source $HOME/.zshrc.local
+# Load host-specific settings
+source $HOME/dotfiles/`hostname`/zshrc
 
 # ------------------------------------------------------------------------------
 # Set up prompt

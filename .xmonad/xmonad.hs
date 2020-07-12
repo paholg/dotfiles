@@ -1,35 +1,35 @@
 -- Note for arch: May need to run `ghc-pkg recache` sometimes to get
 -- `xmonad --recompile` to work again
 
-import qualified XMonad.StackSet as W
+import Data.List
+import System.Exit
+import System.IO
 import XMonad
+import XMonad.Actions.CopyWindow
+import XMonad.Actions.CopyWindow
+import XMonad.Actions.CycleWS
+import XMonad.Actions.GridSelect
+import XMonad.Actions.PhysicalScreens
 import XMonad.Hooks.DynamicLog
 import XMonad.Hooks.EwmhDesktops(ewmh)
 import XMonad.Hooks.ManageDocks
 import XMonad.Hooks.ManageHelpers
-import XMonad.Util.Run
-import XMonad.Util.EZConfig(additionalKeysP)
-import XMonad.Layout.NoBorders
 import XMonad.Hooks.SetWMName
-import XMonad.Actions.CopyWindow
-import System.IO
-import System.Exit
-import XMonad.Actions.CopyWindow
-import XMonad.Actions.GridSelect
-import XMonad.Layout.WindowNavigation
-import XMonad.Layout.ResizableTile
-import XMonad.Layout.Renamed
-import XMonad.Layout.Spacing
-import XMonad.Layout.Gaps
-import XMonad.Util.Scratchpad
-import XMonad.Util.NamedScratchpad
-import XMonad.Actions.PhysicalScreens
-import XMonad.Layout.ThreeColumns
-import XMonad.Layout.MultiColumns
-import XMonad.Layout.PerWorkspace
 import XMonad.Hooks.UrgencyHook
-import Data.List
-
+import XMonad.Layout.Gaps
+import XMonad.Layout.MultiColumns
+import XMonad.Layout.NoBorders
+import XMonad.Layout.PerWorkspace
+import XMonad.Layout.Renamed
+import XMonad.Layout.ResizableTile
+import XMonad.Layout.Spacing
+import XMonad.Layout.ThreeColumns
+import XMonad.Layout.WindowNavigation
+import XMonad.Util.EZConfig(additionalKeysP)
+import XMonad.Util.NamedScratchpad
+import XMonad.Util.Run
+import XMonad.Util.Scratchpad
+import qualified XMonad.StackSet as W
 
 -- Spacemacs dark-mode colors
 black =   "#0a0814"
@@ -177,28 +177,25 @@ scratch_pads = [ NS "terminal" spawnTerm findTerm manageTerm,
 myGSConfig = defaultGSConfig {gs_cellheight = 50, gs_cellwidth = 100}
 
 my_keys = [
-  ("M-;", killAllOtherCopies),
-  ("M-'", windows copyToAll),
   -- PrntScr for full screen, Shift+PrntScr for window, Ctrl+PrintScr to click box
   ("C-<Print>", spawn "sleep 0.2; scrot -s $HOME/screenshots/%F-%H%M%S-s.png"),
   ("S-<Print>", spawn "scrot -u $HOME/screenshots/%F-%H%M%S-f.png"),
   ("<Print>", spawn "scrot $HOME/screenshots/%F-%H%M%S.png"),
-  ("M-S-u", spawn "upload-ss"),
   ("M-n", spawn "monitor_sleep now"),
   -- multi-monitor modes
-  ("M-m",  spawn "monitor 1"),
-  ("M-C-m",  spawn "monitor 2"),
-  ("M-S-m",  spawn "monitor 3"),
+  ("M-m",  spawn "monitor_switch default"),
+  ("M-C-m",  spawn "monitor_switch ctrl"),
+  ("M-S-m",  spawn "monitor_switch shift"),
+  ("M-C-S-m",  spawn "monitor_switch ctrl-shift"),
   -- run programs
   ("M-t", spawn my_terminal),
   ("M-a", spawn "emacsclient -c"),
-  ("M-u", spawn "pavucontrol"),
   ("M-r", spawn "dmenu_run -i -nb black -sb grey -nf grey -sf black -fn '-misc-fixed-medium-r-normal--18-*-*-*-*-*-*-*'"),
   -- window manager stuff
   ("M-v", sendMessage ToggleStruts),
-  ("M-<Space>", sendMessage NextLayout), -- swap layouts
+  ("M-<Space>", sendMessage NextLayout),
   ("M-q", spawn ""), -- unbind this key
-  ("M-C-q", kill), -- kill focused window
+  ("M-C-q", kill),
   -- ("M-S-l", spawn "slock"), -- lock screen
   ("M-C-l", spawn "dm-tool lock"), -- lock session
   ("M-M1-x", spawn "xkill"),
@@ -206,10 +203,10 @@ my_keys = [
   ("M-M1-q", io (exitWith ExitSuccess)), -- exit xmonad
   ("M-,", sendMessage (IncMasterN 1)), -- increase windows on left
   ("M-.", sendMessage (IncMasterN (-1))), -- decrease windows on left
-  -- ("M-[", viewScreen 0), -- change focus to screen 0
-  -- ("M-]", viewScreen 1), -- change focus to creen 1
-  -- ("M-S-[", sendToScreen 0), -- move window to screen 0
-  -- ("M-S-]", sendToScreen 1), -- move window to screen 1
+  ("M-[", prevScreen),
+  ("M-]", nextScreen),
+  ("M-S-[", shiftNextScreen),
+  ("M-S-]", shiftPrevScreen),
   ("M-g", goToSelected myGSConfig), -- GridSelect
   ("M-z", withFocused $ windows . W.sink), -- push window into tiling
   ("M-e", sendMessage $ Go U), -- change focus using wasd
@@ -232,11 +229,11 @@ my_keys = [
   ("M-p", namedScratchpadAction scratch_pads "bitwarden"),
   -- Media keys
   ("<XF86AudioMute>",         spawn "pactl set-sink-mute @DEFAULT_SINK@ toggle"),
-  -- ("M-S-<Space>",             spawn "pactl set-sink-mute @DEFAULT_SINK@ toggle"),
+  ("M-S-<Space>",             spawn "pactl set-sink-mute @DEFAULT_SINK@ toggle"),
   ("<XF86AudioLowerVolume>",  spawn "pactl set-sink-volume @DEFAULT_SINK@ -5%"),
-  ("M-[",                     spawn "pactl set-sink-volume @DEFAULT_SINK@ -5%"),
   ("<XF86AudioRaiseVolume>",  spawn "pactl set-sink-volume @DEFAULT_SINK@ +5%"),
-  ("M-]",                     spawn "pactl set-sink-volume @DEFAULT_SINK@ +5%"),
+  ("M-<Down>",                     spawn "pactl set-sink-volume @DEFAULT_SINK@ -5%"),
+  ("M-<Up>",                     spawn "pactl set-sink-volume @DEFAULT_SINK@ +5%"),
   ("<XF86MonBrightnessUp>",   spawn "xbacklight -inc 10"),
   ("<XF86MonBrightnessDown>", spawn "xbacklight -dec 10")
   ] ++ -- workspace switching
