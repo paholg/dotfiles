@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+set -ex
+
+ln -s $HOME/dotfiles/`hostname`/ssh_config $HOME/.ssh/config
