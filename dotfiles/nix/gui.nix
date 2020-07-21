@@ -31,14 +31,16 @@
       libinput.enable = true;
       xkbOptions = "eurosign:e";
       desktopManager.plasma5.enable = true;
-      displayManager.lightdm.enable = true;
-      displayManager.defaultSession = "none+xmonad";
-      displayManager.sessionCommands = with pkgs; lib.mkAfter
+      displayManager = {
+        defaultSession = "none+xmonad";
+        lightdm.enable = true;
+        sessionCommands = with pkgs; lib.mkAfter
         ''
           fixkb &
           xsetroot -cursor_name left_ptr &
           background 150 &
         '';
+      };
       deviceSection = ''
         Option "TearFree" "true"
       '';
@@ -63,9 +65,14 @@
     };
   };
 
+  services.avahi.enable = true;
+
   environment.systemPackages = with pkgs; [
     alacritty
     arandr
+    (chromium.override {
+      commandLineArgs = "--load-media-router-component-extension=1";
+    })
     dmenu
     dzen2
     emacs
