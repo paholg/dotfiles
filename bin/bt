@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+
+set -ex
+
+air="38:EC:0D:3C:6B:19"
+hd3="00:22:D9:00:1A:6A"
+
+if [[ $1 == "off" ]]; then
+    bluetoothctl power off
+else
+    bluetoothctl power on
+    bluetoothctl connect ${!1}
+fi
