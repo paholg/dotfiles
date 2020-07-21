@@ -28,6 +28,11 @@ bindkey -e
 # Repeats last command.
 disable r
 
+# Fix ctrl + left/right arrows
+autoload -U select-word-style
+select-word-style bash
+bindkey "^[[1;5C" forward-word
+bindkey "^[[1;5D" backward-word
 # ------------------------------------------------------------------------------
 # Program specific settings
 
@@ -58,6 +63,7 @@ fi
 if `/usr/bin/env most >/dev/null 2>&1`; then
     export MANPAGER='/usr/bin/env most'
 fi
+
 
 # ------------------------------------------------------------------------------
 # Load host-specific settings
