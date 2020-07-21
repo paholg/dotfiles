@@ -196,10 +196,9 @@ my_keys = [
   ("M-<Space>", sendMessage NextLayout),
   ("M-q", spawn ""), -- unbind this key
   ("M-C-q", kill),
-  -- ("M-S-l", spawn "slock"), -- lock screen
-  ("M-C-l", spawn "dm-tool lock"), -- lock session
+  ("M-C-l", spawn "physlock"),
   ("M-M1-x", spawn "xkill"),
-  ("M-S-q", restart "xmonad" True), -- refresh xmonad
+  ("M-S-q", sequence_ [spawn "killall rustybar", restart "xmonad" True]),
   ("M-M1-q", io (exitWith ExitSuccess)), -- exit xmonad
   ("M-,", sendMessage (IncMasterN 1)), -- increase windows on left
   ("M-.", sendMessage (IncMasterN (-1))), -- decrease windows on left
