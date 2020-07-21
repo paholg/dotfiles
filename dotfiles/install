@@ -1,4 +1,8 @@
 #!/usr/bin/env bash
-set -ex
+set -x
 
 ln -s $HOME/dotfiles/`hostname`/ssh_config $HOME/.ssh/config
+
+if test -f "`hostname`/configuration.nix"; then
+    sudo ln -s $HOME/dotfiles/`hostname`/configuration.nix /etc/nixos/configuration.nix
+fi
