@@ -3,8 +3,17 @@
 {
   imports =
     [
-      ../common.nix
+      ../nix/common.nix
+      ../nix/gui.nix
     ];
+
+  swapDevices = [
+    {
+      device = "/swapfile";
+      priority = 100;
+      size = 32768;
+    }
+  ];
 
   networking.hostName = "t14s";
   networking.interfaces.enp2s0f0.useDHCP = true;
