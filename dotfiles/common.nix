@@ -59,6 +59,9 @@
       xkbOptions = "eurosign:e";
       displayManager.sddm.enable = true;
       displayManager.defaultSession = "none+xmonad";
+      deviceSection = ''
+        Option "TearFree" "true"
+      '';
       windowManager = {
         xmonad = {
           enable = true;
@@ -91,7 +94,6 @@
     firefox-bin
     htop
     git
-    glibc
     lshw
     pciutils # lspci, etc.
     psmisc # killall, fuser, etc.
