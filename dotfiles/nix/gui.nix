@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ config, pkgs, ... }:
 
 {
   hardware = {
@@ -14,10 +14,10 @@
   sound.enable = true;
 
   services = {
-    # physlock = {
-    #   allowAnyUser = true;
-    #   enable = true;
-    # };
+    physlock = {
+      allowAnyUser = true;
+      enable = true;
+    };
     redshift = {
       enable = true;
       temperature = {
@@ -30,8 +30,15 @@
       layout = "us";
       libinput.enable = true;
       xkbOptions = "eurosign:e";
-      displayManager.sddm.enable = true;
+      desktopManager.plasma5.enable = true;
+      displayManager.lightdm.enable = true;
       displayManager.defaultSession = "none+xmonad";
+      displayManager.sessionCommands = with pkgs; lib.mkAfter
+        ''
+          fixkb &
+          xsetroot -cursor_name left_ptr &
+          background 150 &
+        '';
       deviceSection = ''
         Option "TearFree" "true"
       '';
@@ -46,12 +53,13 @@
           ];
         };
       };
-      # xautolock = {
-      #   enable = true;
-      #   enableNotifier = true;
-      #   locker = ''${config.security.wrapperDir}/physlock'';
-      #   notifier = ''${pkgs.libnotify}/bin/notify-send "Locking in 10 seconds"'';
-      # };
+      xautolock = {
+        enable = true;
+        enableNotifier = true;
+        locker = ''${config.security.wrapperDir}/physlock'';
+        notifier = ''${pkgs.libnotify}/bin/notify-send "Locking in 10 seconds"'';
+        time = 15;
+      };
     };
   };
 

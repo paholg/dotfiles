@@ -228,11 +228,13 @@ my_keys = [
   ("M-p", namedScratchpadAction scratch_pads "bitwarden"),
   -- Media keys
   ("<XF86AudioMute>",         spawn "pactl set-sink-mute @DEFAULT_SINK@ toggle"),
-  ("M-S-<Space>",             spawn "pactl set-sink-mute @DEFAULT_SINK@ toggle"),
+  ("M-<Left>",                spawn "pactl set-sink-mute @DEFAULT_SINK@ toggle"),
+  ("<XF86AudioMicMute>",      spawn "pactl set-source-mute @DEFAULT_SOURCE@ toggle"),
+  ("M-<Right>",               spawn "pactl set-source-mute @DEFAULT_SOURCE@ toggle"),
   ("<XF86AudioLowerVolume>",  spawn "pactl set-sink-volume @DEFAULT_SINK@ -5%"),
   ("<XF86AudioRaiseVolume>",  spawn "pactl set-sink-volume @DEFAULT_SINK@ +5%"),
-  ("M-<Down>",                     spawn "pactl set-sink-volume @DEFAULT_SINK@ -5%"),
-  ("M-<Up>",                     spawn "pactl set-sink-volume @DEFAULT_SINK@ +5%"),
+  ("M-<Down>",                spawn "pactl set-sink-volume @DEFAULT_SINK@ -5%"),
+  ("M-<Up>",                  spawn "pactl set-sink-volume @DEFAULT_SINK@ +5%"),
   ("<XF86MonBrightnessUp>",   spawn "xbrightness +6554"),
   ("<XF86MonBrightnessDown>", spawn "xbrightness -6554")
   ] ++ -- workspace switching

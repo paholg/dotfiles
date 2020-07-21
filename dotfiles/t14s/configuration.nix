@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ config, lib, pkgs, ... }:
 
 {
   imports =
@@ -14,6 +14,22 @@
       size = 32768;
     }
   ];
+
+  hardware.cpu.amd.updateMicrocode =
+    lib.mkDefault config.hardware.enableRedistributableFirmware;
+
+  hardware.enableAllFirmware = true;
+  boot = {
+    kernelParams = [
+      "iommu=soft"
+      "idle=nomwait"
+      "mem_sleep_default=deep"
+    ];
+    kernelModules = [ "acpi_call" ];
+    extraModulePackages = with config.boot.kernelPackages; [ acpi_call ];
+  };
+
+  services.fwupd.enable = true;
 
   networking.hostName = "t14s";
   networking.interfaces.enp2s0f0.useDHCP = true;

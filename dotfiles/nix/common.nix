@@ -7,6 +7,7 @@
     ];
 
   system.stateVersion = "20.03";
+  system.autoUpgrade.enable = true;
 
   boot = {
     kernelParams = [

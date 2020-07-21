@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-set -ex
+set -e
 
 air="38:EC:0D:3C:6B:19"
 hd3="00:22:D9:00:1A:6A"
