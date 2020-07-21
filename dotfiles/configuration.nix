@@ -113,11 +113,13 @@
     firefox-bin
     htop
     git
+    glibc
     lshw
     nix-direnv
     pciutils # lspci, etc.
     psmisc # killall, fuser, etc.
     ripgrep
+    rust-analyzer
     rustup
     scrot
     xbrightness

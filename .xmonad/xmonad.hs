@@ -233,8 +233,8 @@ my_keys = [
   ("<XF86AudioRaiseVolume>",  spawn "pactl set-sink-volume @DEFAULT_SINK@ +5%"),
   ("M-<Down>",                     spawn "pactl set-sink-volume @DEFAULT_SINK@ -5%"),
   ("M-<Up>",                     spawn "pactl set-sink-volume @DEFAULT_SINK@ +5%"),
-  ("<XF86MonBrightnessUp>",   spawn "xbacklight -inc 10"),
-  ("<XF86MonBrightnessDown>", spawn "xbacklight -dec 10")
+  ("<XF86MonBrightnessUp>",   spawn "xbrightness +6554"),
+  ("<XF86MonBrightnessDown>", spawn "xbrightness -6554")
   ] ++ -- workspace switching
           [("M-" ++ name, windows $ W.greedyView ws) | (name, ws) <- zip ws_list my_workspaces] ++
           [("M-S-" ++ name, windows $ W.shift ws) | (name, ws) <- zip ws_list my_workspaces] ++
