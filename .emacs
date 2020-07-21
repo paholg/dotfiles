@@ -81,6 +81,8 @@
 (use-package linum
   :config
   (global-linum-mode))
+(use-package nix-mode
+  :mode "\\.nix\\'")
 (use-package sqlformat)
 
 ;; lsp things

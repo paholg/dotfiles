@@ -1,8 +1,14 @@
 #!/usr/bin/env bash
 
-monitor 1 &
+monitor_switch default &
 
 fixkb &
+
+# Load resources
+xrdb -merge .Xresources &
+
+# Set cursor
+xsetroot -cursor_name left_ptr
 
 # startup programs
 background 150 &
