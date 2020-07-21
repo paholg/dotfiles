@@ -5,6 +5,8 @@ set_bg() {
     eval $cmd
 }
 
+mkdir -p ~/wallpapers
+
 if [[ $# -eq 0 ]]; then
     set_bg
 else

@@ -9,13 +9,3 @@ xsetroot -cursor_name left_ptr
 
 # startup programs
 background 150 &
-
-# ------------------------------------------------------------------------------
-
-if [ -z "$(pidof -s emacs)" ]; then
-   emacs --daemon &> /dev/null &
-fi
-
-if [ -z "$(pidof -s redshift)" ]; then
-    redshift -t 5000K:3300K &> /dev/null &
-fi
