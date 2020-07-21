@@ -13,6 +13,12 @@
   location.provider = "geoclue2";
   sound.enable = true;
 
+  environment.sessionVariables = {
+    GTK_DATA_PREFIX = [
+      "${config.system.path}"
+    ];
+  };
+
   services = {
     physlock = {
       allowAnyUser = true;
@@ -67,7 +73,14 @@
 
   services.avahi.enable = true;
 
+  qt5 = {
+    enable = true;
+    platformTheme = "gnome";
+    style = "adwaita-dark";
+  };
+
   environment.systemPackages = with pkgs; [
+    adwaita-qt
     alacritty
     arandr
     (chromium.override {
@@ -79,6 +92,7 @@
     firefox-bin
     pavucontrol
     scrot
+    vlc
     xbrightness
     xorg.xmodmap
     xorg.xrandr
