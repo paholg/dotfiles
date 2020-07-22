@@ -10,6 +10,7 @@
   system.autoUpgrade.enable = true;
 
   boot = {
+    earlyVconsoleSetup = true;
     kernelParams = [
       "consoleblank=60"
     ];
@@ -25,7 +26,7 @@
 
   i18n.defaultLocale = "en_US.UTF-8";
   console = {
-    font = "Lat2-Terminus16";
+    # font = "ter-i32b";
     keyMap = "us";
   };
   time.timeZone = "America/Los_Angeles";
@@ -52,11 +53,13 @@
     htop
     keychain
     lshw
+    nix-index
     pciutils # lspci, etc.
     psmisc # killall, fuser, etc.
     ripgrep
     rust-analyzer
     rustup
+    wget
     zsh
   ];
 }

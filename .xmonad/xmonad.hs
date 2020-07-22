@@ -79,8 +79,7 @@ wsLogHook h = dynamicLogWithPP $ defaultPP {
 -- programs to use
 my_terminal = "alacritty"
 my_pdfviewer = "okular"
--- my_statusbar = "dzen2 -fn Monospace-10 -bg black -ta l -xs 0"
-my_statusbar = "RUST_BACKTRACE=1 ~/src/rustybar/target/release/rustybar &> /tmp/rustylog"
+my_statusbar = "RUST_BACKTRACE=1 ~/src/rustybar/target/release/rustybar > /tmp/rustylog 2>&1"
 
 ------------------------------------------------------------
 -- layouts
