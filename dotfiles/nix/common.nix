@@ -26,7 +26,8 @@
   i18n.defaultLocale = "en_US.UTF-8";
   console = {
     earlySetup = true;
-    # font = "ter-i32b";
+    font = "ter-i32b";
+    packages = [pkgs.terminus_font];
     keyMap = "us";
   };
   time.timeZone = "America/Los_Angeles";
