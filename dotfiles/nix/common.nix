@@ -10,7 +10,6 @@
   system.autoUpgrade.enable = true;
 
   boot = {
-    earlyVconsoleSetup = true;
     kernelParams = [
       "consoleblank=60"
     ];
@@ -26,6 +25,7 @@
 
   i18n.defaultLocale = "en_US.UTF-8";
   console = {
+    earlySetup = true;
     # font = "ter-i32b";
     keyMap = "us";
   };
@@ -54,7 +54,9 @@
     keychain
     lshw
     nix-index
+    openssl
     pciutils # lspci, etc.
+    pkg-config
     psmisc # killall, fuser, etc.
     ripgrep
     rust-analyzer

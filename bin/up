@@ -4,20 +4,24 @@ set -ex
 
 pushd $HOME/dotfiles/ && ./up && popd
 
-if `command -v yay >/dev/null 2>&1`; then
+if `command -v yay &> /dev/null`; then
     yay
-elif `command -v yum >/dev/null 2>&1`; then
+elif `command -v yum &> /dev/null`; then
     sudo yum check-update
     sudo yum update
-elif `command -v brew >/dev/null 2>&1`; then
-    brew update
-elif `command -v apt >/dev/null 2>&1`; then
+elif `command -v nixos-rebuild &> /dev/null`; then
+    sudo nixos-rebuild switch --upgrade
+elif `command -v apt &> /dev/null`; then
     sudo apt update
     sudo apt upgrade
 fi
 
-if `command -v rustup >/dev/null 2>&1`; then
+if `command -v rustup &> /dev/null`; then
     rustup update
-    cargo install-update -a || true
+    if `command -v nix-shell &> /dev/null`; then
+        nix-shell -p openssl pkgconfig --run "cargo install-update -a || true"
+    else
+        cargo install-update -a || true
+    fi
 fi
 
