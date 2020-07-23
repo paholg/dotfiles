@@ -88,7 +88,6 @@
     })
     dmenu
     dzen2
-    emacs
     firefox-bin
     pavucontrol
     scrot
