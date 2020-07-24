@@ -65,6 +65,7 @@
   environment.systemPackages = with pkgs; [
     acpi
     arandr
+    dash
     diffr
     emacs
     exa
