@@ -1,0 +1,36 @@
+version: '3.3'
+services:
+  transmission:
+    volumes:
+      - '/mnt/storage/completed:/completed'
+      - '/mnt/storage/downloads:/downloads'
+      - '/etc/localtime:/etc/localtime:ro'
+    env_file:
+      - secret
+    environment:
+      - CREATE_TUN_DEVICE=true
+      - OPENVPN_PROVIDER=PIA
+      - OPENVPN_CONFIG=CA Vancouver
+      # - OPENVPN_USERNAME= SET FROM FILE
+      # - OPENVPN_PASSWORD= SET FROM FILE
+      - WEBPROXY_ENABLED=false
+      - LOCAL_NETWORK=10.0.0.0/8
+      - TRANSMISSION_INCOMPLETE_DIR=/downloads
+      - TRANSMISSION_DOWNLOAD_DIR=/completed
+    cap_add:
+      - NET_ADMIN
+    logging:
+      driver: json-file
+      options:
+        max-size: 100m
+    ports:
+      - '9091:9091'
+    image: haugene/transmission-openvpn
+  rss:
+    depends_on:
+      - transmission
+    env_from:
+      - secret
+    environment:
+      # - RSS_URL= SET FROM FILE
+    image: haugene/transmission-rss
