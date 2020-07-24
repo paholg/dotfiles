@@ -17,6 +17,12 @@
 (setq use-package-always-ensure t)
 
 ;; -----------------------------------------------------------------------------
+;; Per-host settings
+(let ((host (substring (shell-command-to-string "hostname") 0 -1)))
+  (let ((host_file ( concat "~/dotfiles/" host "/emacs.el")))
+    (if (file-exists-p host_file) (load host_file))))
+
+;; -----------------------------------------------------------------------------
 ;; Use-package
 (use-package spacemacs-theme
   :defer t
