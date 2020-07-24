@@ -1,13 +1,16 @@
 # ------------------------------------------------------------------------------
 # Set path
-path_dirs=(
+path_dirs="
     $HOME/.cargo/bin
     $HOME/bin
-)
+"
 
-for dir in $path_dirs; do
-    export PATH=$dir:${PATH}
+echo $path_dirs | tr ' ' '\n' | while read dir; do
+    if [ -n "$dir" ]; then
+        export PATH=$dir:${PATH}
+    fi
 done
+
 # ------------------------------------------------------------------------------
 
 if [ -e $HOME/.nix-profile/etc/profile.d/nix.sh ]; then
