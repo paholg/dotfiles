@@ -14,7 +14,6 @@
 (eval-when-compile
   (require 'use-package))
 (require 'bind-key)
-(setq use-package-always-ensure t)
 
 ;; -----------------------------------------------------------------------------
 ;; Per-host settings
@@ -24,6 +23,7 @@
 
 ;; -----------------------------------------------------------------------------
 ;; Use-package
+(setq use-package-always-ensure t)
 (use-package spacemacs-theme
   :defer t
   :init
@@ -38,6 +38,10 @@
   :config
   (global-company-mode)
   (setq company-tooltip-align-annotations t))
+(use-package dap-mode
+  :after lsp-mode
+  :config (dap-auto-configure-mode))
+(use-package dap-java :ensure nil)
 (use-package default-text-scale
   :config
   (default-text-scale-mode 1))
@@ -184,6 +188,7 @@
   (add-to-list 'auto-mode-alist '("\\.tf$" . terraform-mode))
   (add-hook 'terraform-mode-hook #'terraform-format-on-save-mode))
 (use-package toml-mode)
+(use-package tramp)
 (use-package typescript-mode)
 (use-package which-key
   :config (which-key-mode))
