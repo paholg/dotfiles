@@ -1,4 +1,8 @@
-;; -----------------------------------------------------------------------------
+;;; .emacs --- Emacs init file
+;;; Commentary:
+;;; What more is there to say?
+;;; Code:
+
 ;; Package setup
 (require 'package)
 (setq package-archives '(("gnu" . "https://elpa.gnu.org/packages/")
