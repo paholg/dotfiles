@@ -5,10 +5,8 @@ path_dirs="
     $HOME/bin
 "
 
-echo $path_dirs | tr ' ' '\n' | while read dir; do
-    if [ -n "$dir" ]; then
-        export PATH=$dir:${PATH}
-    fi
+for dir in $(echo $path_dirs); do
+    export PATH=$dir:${PATH}
 done
 
 # ------------------------------------------------------------------------------
