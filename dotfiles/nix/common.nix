@@ -11,7 +11,7 @@
 
   boot = {
     kernelParams = [
-      "consoleblank=60"
+      "consoleblank=30"
     ];
 
     loader = {
@@ -80,6 +80,7 @@
     pkg-config
     psmisc # killall, fuser, etc.
     ripgrep
+    ruby
     rust-analyzer
     rustup
     wget

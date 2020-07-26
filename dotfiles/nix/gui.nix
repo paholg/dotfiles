@@ -96,6 +96,7 @@
     firefox-bin
     pavucontrol
     scrot
+    signal-desktop
     vlc
     xbrightness
     xorg.xmodmap
