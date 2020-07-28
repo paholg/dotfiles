@@ -4,6 +4,7 @@ Requires=docker.service
 After=docker.service
 
 [Service]
+User=paho
 Type=oneshot
 RemainAfterExit=true
 WorkingDirectory=/home/paho/dotfiles/box/torrent/
