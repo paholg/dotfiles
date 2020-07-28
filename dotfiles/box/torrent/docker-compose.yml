@@ -29,8 +29,8 @@ services:
   rss:
     depends_on:
       - transmission
-    env_from:
+    env_file:
       - secret
-    environment:
+    # environment:
       # - RSS_URL= SET FROM FILE
     image: haugene/transmission-rss
