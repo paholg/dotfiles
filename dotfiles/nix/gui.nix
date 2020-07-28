@@ -2,12 +2,12 @@
 
 {
   hardware = {
+    bluetooth.enable = true;
     pulseaudio = {
       enable = true;
       # Includes bluetooth support:
       package = pkgs.pulseaudioFull;
     };
-    bluetooth.enable = true;
   };
 
   location.provider = "geoclue2";
@@ -23,6 +23,12 @@
     physlock = {
       allowAnyUser = true;
       enable = true;
+    };
+    printing = {
+      enable = true;
+      drivers = [
+        pkgs.samsungUnifiedLinuxDriver
+      ];
     };
     redshift = {
       enable = true;
@@ -94,6 +100,10 @@
     dmenu
     dzen2
     firefox-bin
+    gimp
+    gnome3.eog
+    libreoffice
+    okular
     pavucontrol
     scrot
     signal-desktop
@@ -101,6 +111,7 @@
     xbrightness
     xorg.xmodmap
     xorg.xrandr
+    xournal
   ];
 }
 
