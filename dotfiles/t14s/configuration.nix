@@ -22,7 +22,7 @@
   boot = {
     kernelParams = [
       "iommu=soft"
-      "idle=nowait"
+      "idle=nomwait"
       "mem_sleep_default=deep"
     ];
     kernelModules = [ "acpi_call" ];

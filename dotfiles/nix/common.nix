@@ -72,6 +72,7 @@
     feh
     git
     htop
+    jq
     keychain
     lshw
     nix-index
@@ -83,6 +84,7 @@
     ruby
     rust-analyzer
     rustup
+    sshfs-fuse
     wget
     zsh
   ];

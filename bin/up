@@ -16,6 +16,12 @@ elif `command -v apt &> /dev/null`; then
     sudo apt upgrade
 fi
 
+if `command -v fwupdmgr &> /dev/null`; then
+    fwupdmgr refresh
+    fwupdmgr get-updates
+    fwupdmgr update
+fi
+
 if `command -v rustup &> /dev/null`; then
     rustup update
     if `command -v nix-shell &> /dev/null`; then
