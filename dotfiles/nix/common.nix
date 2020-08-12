@@ -68,9 +68,6 @@
     acpi
     arandr
     dash
-    diffr
-    emacs
-    exa
     feh
     git
     home-manager

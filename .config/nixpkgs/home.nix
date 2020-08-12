@@ -1,1 +1,1 @@
-/home/paho/dotfiles/home.nix
+/home/paho/dotfiles/home/home.nix

@@ -1,7 +1,10 @@
 { pkgs, ... }:
 
 {
-  home.packages = [];
+  home.packages = with pkgs; [
+    diffr
+    exa
+  ];
 
   programs.emacs = {
     enable = true;
