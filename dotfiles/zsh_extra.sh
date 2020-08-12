@@ -1,33 +1,4 @@
 # ------------------------------------------------------------------------------
-# General settings
-
-source $HOME/.profile
-source $HOME/dotfiles/zsh-z.plugin.zsh
-
-# zsh completions
-autoload -Uz compinit
-compinit
-
-HISTFILE=~/.zshhistory
-HISTSIZE=100000
-SAVEHIST=100000
-
-# ------------------------------------------------------------------------------
-# Set zsh options. See http://zsh.sourceforge.net/Doc/Release/Options.html
-
-setopt INC_APPEND_HISTORY
-# Should prevent any dups, but non-contiguous dups still show up.
-setopt HIST_IGNORE_ALL_DUPS
-setopt HIST_FIND_NO_DUPS
-setopt HIST_IGNORE_SPACE
-setopt HIST_REDUCE_BLANKS
-
-unsetopt beep
-bindkey -e
-
-# Repeats last command.
-disable r
-
 # Fix ctrl + left/right arrows
 autoload -U select-word-style
 select-word-style bash
@@ -63,7 +34,6 @@ fi
 if `/usr/bin/env most >/dev/null 2>&1`; then
     export MANPAGER='/usr/bin/env most'
 fi
-
 
 # ------------------------------------------------------------------------------
 # Load host-specific settings

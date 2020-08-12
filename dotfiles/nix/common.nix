@@ -62,6 +62,8 @@
     emacs.enable = true;
   };
 
+  environment.pathsToLink = [ "/share/zsh" ];
+
   environment.systemPackages = with pkgs; [
     acpi
     arandr
@@ -71,6 +73,7 @@
     exa
     feh
     git
+    home-manager
     htop
     jq
     keychain
