@@ -101,13 +101,10 @@
 
 ;; lsp things
 (use-package lsp-mode
-  :init
-  (setq lsp-keymap-prefix "C-o")
   :hook
   (rust-mode . lsp)
-  (lsp-mode . lsp-enable-which-key-integration)
   :config
-
+  (define-key lsp-mode-map (kbd "C-o") lsp-command-map)
   (setq lsp-eldoc-enable-hover t)
   (setq lsp-eldoc-render-all nil)
   (setq lsp-idle-delay 0)
@@ -117,7 +114,6 @@
         company-idle-delay 0)
   (setq gc-cons-threshold 104857600) ;; 100 MB
   (setq read-process-output-max (* 1024 1024))
-
   :commands lsp)
 (use-package lsp-ui
   :hook (lsp-ui-mode . lsp-ui-peek-mode)
