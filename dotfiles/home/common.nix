@@ -6,13 +6,7 @@
     exa
   ];
 
-  programs.emacs = {
-    enable = true;
-  };
-
-  # programs.firefox = {
-  #   enable = true;
-  # };
+  programs.emacs = { enable = true; };
 
   programs.home-manager = {
     enable = true;
@@ -32,12 +26,10 @@
       size = 100000;
       share = true;
     };
-    plugins = [
-      {
-        name = "z";
-        src = ./zsh-z.plugin.zsh;
-      }
-    ];
+    zplug = {
+      enable = true;
+      plugins = [{ name = "agkozak/zsh-z"; }];
+    };
     initExtra = (builtins.readFile ./zsh_extra.sh);
   };
 }

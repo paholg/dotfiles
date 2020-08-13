@@ -1,8 +1,11 @@
 #!/usr/bin/env bash
-set -x
+set -uxo pipefail
 
 ln -s $HOME/dotfiles/`hostname`/ssh_config $HOME/.ssh/config
 
 if test -f "`hostname`/configuration.nix"; then
     sudo ln -s $HOME/dotfiles/`hostname`/configuration.nix /etc/nixos/configuration.nix
 fi
+
+mkdir -p $HOME/.config/nixpkgs
+ln -sf $HOME/dotfiles/`hostname`/home.nix $HOME/.config/nixpkgs/home.nix

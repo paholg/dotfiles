@@ -1,1 +1,0 @@
-/home/paho/dotfiles/home/home.nix

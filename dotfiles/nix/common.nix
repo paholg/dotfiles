@@ -75,6 +75,7 @@
     jq
     keychain
     lshw
+    nixfmt
     nix-index
     openssl
     pciutils # lspci, etc.
