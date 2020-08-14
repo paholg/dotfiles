@@ -3,9 +3,23 @@
 {
   imports = [ ./emacs.nix ];
 
-  home.packages = with pkgs; [ diffr exa ];
+  home.packages = with pkgs; [ exa ];
 
   programs = {
+    git = {
+      enable = true;
+      userName = "Paho Lurie-Gregg";
+      userEmail = "paho@paholg.com";
+      delta = {
+        enable = true;
+        options = { line-numbers = true; };
+      };
+      extraConfig = {
+        push.default = "current";
+        rebase.autosquash = true;
+      };
+    };
+
     home-manager = {
       enable = true;
       path = "...";
