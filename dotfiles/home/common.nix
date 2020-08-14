@@ -3,13 +3,22 @@
 {
   imports = [ ./emacs.nix ];
 
-  home.packages = with pkgs; [ exa ];
+  home.packages = with pkgs; [ exa gitAndTools.delta ];
+  home.stateVersion = "20.09";
+
+  home = {
+    keyboard.options = { };
+    sessionVariables = {
+      EDITOR = "emacsclient -c";
+      RUST_NEW_ERROR_FORMAT = true;
+      CARGO_HOME = "$HOME/.cargo";
+    };
+  };
 
   programs = {
     git = {
       enable = true;
       userName = "Paho Lurie-Gregg";
-      userEmail = "paho@paholg.com";
       delta = {
         enable = true;
         options = { line-numbers = true; };
@@ -40,11 +49,23 @@
         size = 100000;
         share = true;
       };
+      shellAliases = {
+        ls = "exa";
+        la = "ls -la";
+        ll = "ls -l";
+      };
       zplug = {
         enable = true;
         plugins = [{ name = "agkozak/zsh-z"; }];
       };
       initExtra = (builtins.readFile ./zsh_extra.sh);
+    };
+  };
+
+  services = {
+    gpg-agent = {
+      enable = true;
+      enableSshSupport = true;
     };
   };
 }
