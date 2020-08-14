@@ -14,9 +14,7 @@
   sound.enable = true;
 
   environment.sessionVariables = {
-    GTK_DATA_PREFIX = [
-      "${config.system.path}"
-    ];
+    GTK_DATA_PREFIX = [ "${config.system.path}" ];
   };
 
   services = {
@@ -26,9 +24,7 @@
     };
     printing = {
       enable = true;
-      drivers = [
-        pkgs.samsungUnifiedLinuxDriver
-      ];
+      drivers = [ pkgs.samsungUnifiedLinuxDriver ];
     };
     redshift = {
       enable = true;
@@ -51,12 +47,12 @@
       displayManager = {
         defaultSession = "none+xmonad";
         lightdm.enable = true;
-        sessionCommands = with pkgs; lib.mkAfter
-        ''
-          fixkb &
-          xsetroot -cursor_name left_ptr &
-          background 150 &
-        '';
+        sessionCommands = with pkgs;
+          lib.mkAfter ''
+            fixkb &
+            xsetroot -cursor_name left_ptr &
+            background 150 &
+          '';
       };
       deviceSection = ''
         Option "TearFree" "true"
@@ -75,8 +71,9 @@
       xautolock = {
         enable = true;
         enableNotifier = true;
-        locker = ''${config.security.wrapperDir}/physlock'';
-        notifier = ''${pkgs.libnotify}/bin/notify-send "Locking in 10 seconds"'';
+        locker = "${config.security.wrapperDir}/physlock";
+        notifier =
+          ''${pkgs.libnotify}/bin/notify-send "Locking in 10 seconds"'';
         time = 15;
       };
     };

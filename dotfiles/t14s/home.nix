@@ -1,9 +1,5 @@
 { pkgs, ... }:
 
 {
-  imports =
-    [
-      ../home/common.nix
-      ../home/gui.nix
-    ];
+  imports = [ ../home/common.nix ../home/gui.nix ];
 }

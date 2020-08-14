@@ -33,7 +33,7 @@ in {
 
       company = {
         enable = true;
-        diminish = ["company-mode"];
+        diminish = [ "company-mode" ];
         bind = { "C-<tab>" = "company-lsp"; };
         hook = [ "(after-init . global-company-mode)" ];
       };
@@ -76,7 +76,7 @@ in {
 
       flycheck = {
         enable = true;
-        diminish = ["flycheck-mode"];
+        diminish = [ "flycheck-mode" ];
         config = "(global-flycheck-mode)";
       };
 
@@ -96,7 +96,7 @@ in {
 
       helm = {
         enable = true;
-        diminish = ["helm-mode"];
+        diminish = [ "helm-mode" ];
         bind = {
           "M-x" = "helm-M-x";
           "C-x r b" = "helm-filtered-bookmarks";
@@ -113,11 +113,14 @@ in {
         bind = { "C-h b" = "helm-descbinds"; };
       };
 
-      helm-lsp = { enable = true; command = [ "helm-lsp-workspace-symbol" ]; };
+      helm-lsp = {
+        enable = true;
+        command = [ "helm-lsp-workspace-symbol" ];
+      };
 
       helm-projectile = {
         enable = true;
-        diminish = ["projectile-mode"];
+        diminish = [ "projectile-mode" ];
         config = "(helm-projectile-on)";
       };
 
@@ -195,11 +198,7 @@ in {
 
       markdown-mode = {
         enable = true;
-        mode = [
-          ''"\\.mdwn\\'"''
-          ''"\\.markdown\\'"''
-          ''"\\.md\\'"''
-        ];
+        mode = [ ''"\\.mdwn\\'"'' ''"\\.markdown\\'"'' ''"\\.md\\'"'' ];
       };
 
       nix-mode = {
@@ -224,7 +223,7 @@ in {
 
       rust-mode = {
         enable = true;
-        after = ["lsp"];
+        after = [ "lsp" ];
         mode = [ ''"\\.rs\\'"'' ];
         config = ''
           (setq lsp-rust-server 'rust-analyzer
