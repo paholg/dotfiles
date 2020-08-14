@@ -7,8 +7,6 @@
         args = [ "--login" ];
       };
 
-      env = { TERM = "xterm-256color"; };
-
       scrolling = {
         history = 100000;
         multiplier = 3;
