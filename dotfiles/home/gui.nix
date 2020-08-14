@@ -1,10 +1,7 @@
 { pkgs, ... }:
 
 {
-  imports =
-    [
-      ./alacritty.nix
-    ];
+  imports = [ ./alacritty.nix ];
 
   # programs.firefox = {
   #   enable = true;

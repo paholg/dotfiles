@@ -1,12 +1,9 @@
 { pkgs, ... }:
 
 {
-  home.packages = with pkgs; [
-    diffr
-    exa
-  ];
+  imports = [ ./emacs.nix ];
 
-  programs.emacs = { enable = true; };
+  home.packages = with pkgs; [ diffr exa ];
 
   programs.home-manager = {
     enable = true;
