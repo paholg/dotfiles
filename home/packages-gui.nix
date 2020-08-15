@@ -10,6 +10,7 @@
     dmenu
     dzen2
     gimp
+    glxinfo
     gnome3.eog
     libnotify
     libreoffice

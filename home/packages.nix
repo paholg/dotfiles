@@ -26,6 +26,7 @@
     rust-analyzer
     rustup
     sshfs-fuse
+    strace
     wget
     zsh
   ];
