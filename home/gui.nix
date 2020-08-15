@@ -18,12 +18,6 @@
         night = 3300;
       };
     };
-
-    screen-locker = {
-      enable = true;
-      inactiveInterval = 10;
-      lockCmd = "physlock";
-    };
   };
 
   xsession = {
@@ -56,6 +50,5 @@
         ];
       };
     };
-
   };
 }

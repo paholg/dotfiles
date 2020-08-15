@@ -48,6 +48,14 @@
       deviceSection = ''
         Option "TearFree" "true"
       '';
+      xautolock = {
+        enable = true;
+        enableNotifier = true;
+        locker = "${config.security.wrapperDir}/physlock";
+        notifier =
+          ''${pkgs.libnotify}/bin/notify-send "Locking in 10 seconds"'';
+        time = 10;
+      };
     };
   };
 
