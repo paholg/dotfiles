@@ -1,23 +1,28 @@
 #!/usr/bin/env bash
-set -euxo pipefail
+set -euo pipefail
 
-ln -s ../../nixfmt-check .git/hooks/pre-commit
-
-if test -f "`hostname`/configuration.nix"; then
-    read -p "Replace /etc/nixos/configuration.nix? (y/N) " yn
+function check_replace {
+    read -p "Replace $1? (y/N) " yn
     if [ "$yn" != "y" ]; then
         exit 1
     fi
+}
+
+check_replace ".git/hooks/pre-commit"
+ln -sf ../../nixfmt-check .git/hooks/pre-commit
+
+if test -f "`hostname`/configuration.nix"; then
+    check_replace "/etc/nixos/configuration.nix"
+
     sudo ln -sf $HOME/dotfiles/`hostname`/configuration.nix /etc/nixos/configuration.nix
+    sudo nixos-rebuild switch
 fi
 
 if test -f "`hostname`/home.nix"; then
-    read -p "Replace $HOME/.config/nixpkgs/home.nix? (y/N) " yn
-    if [ "$yn" != "y" ]; then
-        exit 1
-    fi
+    check_replace "$HOME/.config/nixpkgs/home.nix"
 
     mkdir -p $HOME/.config/nixpkgs
     ln -sf $HOME/dotfiles/`hostname`/home.nix $HOME/.config/nixpkgs/home.nix
+    home-manager switch
 fi
 
