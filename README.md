@@ -1,13 +1,13 @@
 # dotfiles
 Some of my config files and scripts I find useful.
 
-# Clone instructions
-This is designed to be used with the worktree set to your home directory. Clone
-as follows:
+Configuration is now all managed by [home-manager](https://github.com/rycee/home-manager), so the
+only configuration here is for that and for NixOS.
 
-```
-git clone --no-checkout https://github.com/paholg/dotfiles.git
-cd dotfiles
-git config core.worktree "../../"
-git reset --hard origin/master
-```
+
+# Instructions
+
+Create a directory with `hostname` as its name, including `home.nix` for home-manager and/or
+`configuration.nix` for NixOs.
+
+Then, run `./install.sh`.

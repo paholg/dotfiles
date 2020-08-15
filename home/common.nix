@@ -18,7 +18,7 @@
     ".profile".text = ''
       path_dirs="
           $HOME/.cargo/bin
-          $HOME/bin
+          $HOME/dotfiles/bin
       "
 
       for dir in $(echo $path_dirs); do
