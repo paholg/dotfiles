@@ -58,6 +58,7 @@
         options = { line-numbers = true; };
       };
       extraConfig = {
+        pull.rebase = true;
         push.default = "current";
         rebase.autosquash = true;
       };
