@@ -24,6 +24,7 @@
           mouse_left_click = "do_action";
           mouse_middle_click = "close_all";
           mouse_right_click = "close_current";
+          show_indicators = true;
         };
       };
     };
