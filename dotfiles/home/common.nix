@@ -7,7 +7,6 @@
   home.stateVersion = "20.09";
 
   home = {
-    keyboard.options = { };
     sessionVariables = {
       EDITOR = "emacsclient -c";
       RUST_NEW_ERROR_FORMAT = true;
@@ -28,21 +27,6 @@
     '';
 
     ".tvnamer.json".text = (builtins.readFile ./tvnamer.json);
-
-    ".xinitrc".text = ''
-      monitor_switch default &
-
-      fixkb &
-
-      # Set cursor
-      xsetroot -cursor_name left_ptr
-
-      # startup programs
-      background 150 &
-
-      # Load resources
-      xrdb -merge .Xresources &
-          '';
 
     ".Xresources".text = ''
       Xft.dpi: 120

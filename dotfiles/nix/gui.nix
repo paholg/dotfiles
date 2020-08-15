@@ -26,13 +26,6 @@
       enable = true;
       drivers = [ pkgs.samsungUnifiedLinuxDriver ];
     };
-    redshift = {
-      enable = true;
-      temperature = {
-        day = 5000;
-        night = 3300;
-      };
-    };
     xserver = {
       enable = true;
       layout = "us";
@@ -43,39 +36,22 @@
         tapping = false;
       };
       xkbOptions = "eurosign:e";
-      desktopManager.plasma5.enable = true;
-      displayManager = {
-        defaultSession = "none+xmonad";
-        lightdm.enable = true;
-        sessionCommands = with pkgs;
-          lib.mkAfter ''
-            fixkb &
-            xsetroot -cursor_name left_ptr &
-            background 150 &
-          '';
-      };
+      # desktopManager.plasma5.enable = true;
+      # displayManager = {
+      #   defaultSession = "none+xmonad";
+      #   lightdm.enable = true;
+      # };
       deviceSection = ''
         Option "TearFree" "true"
       '';
-      windowManager = {
-        xmonad = {
-          enable = true;
-          enableContribAndExtras = true;
-          extraPackages = haskellPackages: [
-            haskellPackages.xmonad
-            haskellPackages.xmonad-contrib
-            haskellPackages.xmonad-extras
-          ];
-        };
-      };
-      xautolock = {
-        enable = true;
-        enableNotifier = true;
-        locker = "${config.security.wrapperDir}/physlock";
-        notifier =
-          ''${pkgs.libnotify}/bin/notify-send "Locking in 10 seconds"'';
-        time = 15;
-      };
+      # xautolock = {
+      #   enable = true;
+      #   enableNotifier = true;
+      #   locker = "${config.security.wrapperDir}/physlock";
+      #   notifier =
+      #     ''${pkgs.libnotify}/bin/notify-send "Locking in 10 seconds"'';
+      #   time = 15;
+      # };
     };
   };
 
