@@ -22,9 +22,11 @@ if `command -v home-manager &> /dev/null`; then
 fi
 
 if `command -v fwupdmgr &> /dev/null`; then
-    fwupdmgr refresh
-    fwupdmgr get-updates
-    fwupdmgr update
+    if `fwupdmgr refresh`; then
+        if `fwupdmgr get-updates`; then
+            fwupdmgr update
+        fi
+    fi
 fi
 
 if `command -v rustup &> /dev/null`; then
