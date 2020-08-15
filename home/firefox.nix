@@ -27,6 +27,7 @@ in {
         isDefault = true;
         settings = {
           "browser.display.background_color" = "#bdbdbd";
+          "browser.download.dir" = "$HOME/downloads";
           "browser.search.suggest.enabled" = false;
           "browser.startup.page" = 3;
           "browser.tabs.closeWindowWithLastTab" = false;
