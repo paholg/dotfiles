@@ -14,6 +14,11 @@
     };
   };
 
+  environment = {
+    pathsToLink = [ "/share/zsh" ];
+    systemPackages = with pkgs; [ home-manager ];
+  };
+
   networking.networkmanager.enable = true;
   networking.useDHCP = false;
 
@@ -51,32 +56,4 @@
     isNormalUser = true;
     extraGroups = [ "networkmanager" "wheel" ];
   };
-
-  environment.pathsToLink = [ "/share/zsh" ];
-
-  environment.systemPackages = with pkgs; [
-    acpi
-    arandr
-    dash
-    feh
-    git
-    home-manager
-    htop
-    jq
-    keychain
-    lshw
-    nixfmt
-    nix-index
-    openssl
-    pciutils # lspci, etc.
-    pkg-config
-    psmisc # killall, fuser, etc.
-    ripgrep
-    ruby
-    rust-analyzer
-    rustup
-    sshfs-fuse
-    wget
-    zsh
-  ];
 }

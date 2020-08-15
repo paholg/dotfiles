@@ -66,29 +66,5 @@
     platformTheme = "gnome";
     style = "adwaita-dark";
   };
-
-  environment.systemPackages = with pkgs; [
-    adwaita-qt
-    alacritty
-    arandr
-    (chromium.override {
-      commandLineArgs = "--load-media-router-component-extension=1";
-    })
-    dmenu
-    dzen2
-    firefox-bin
-    gimp
-    gnome3.eog
-    libreoffice
-    okular
-    pavucontrol
-    scrot
-    signal-desktop
-    vlc
-    xbrightness
-    xorg.xmodmap
-    xorg.xrandr
-    xournal
-  ];
 }
 

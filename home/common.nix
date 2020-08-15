@@ -1,9 +1,8 @@
-{ pkgs, ... }:
+{ ... }:
 
 {
-  imports = [ ./emacs.nix ];
+  imports = [ ./emacs.nix ./packages.nix ];
 
-  home.packages = with pkgs; [ exa gitAndTools.delta ];
   home.stateVersion = "20.09";
 
   home = {

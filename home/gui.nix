@@ -1,13 +1,9 @@
 { pkgs, ... }:
 
 {
-  imports = [ ./alacritty.nix ];
+  imports = [ ./alacritty.nix ./firefox.nix ./packages-gui.nix ];
 
   home.packages = with pkgs; [ physlock ];
-
-  # programs.firefox = {
-  #   enable = true;
-  # };
 
   services = {
     redshift = {
