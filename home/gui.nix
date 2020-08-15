@@ -1,7 +1,7 @@
 { pkgs, ... }:
 
 {
-  imports = [ ./alacritty.nix ./firefox.nix ./packages-gui.nix ];
+  imports = [ ./alacritty.nix ./packages-gui.nix ];
 
   home.packages = with pkgs; [ physlock ];
 
