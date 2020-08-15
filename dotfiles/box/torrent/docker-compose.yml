@@ -2,8 +2,7 @@ version: '3.3'
 services:
   transmission:
     volumes:
-      - '/mnt/storage/completed:/completed'
-      - '/mnt/storage/downloads:/downloads'
+      - '/mnt/storage:/data'
       - '/etc/localtime:/etc/localtime:ro'
     env_file:
       - secret
@@ -15,8 +14,8 @@ services:
       # - OPENVPN_PASSWORD= SET FROM FILE
       - WEBPROXY_ENABLED=false
       - LOCAL_NETWORK=10.0.0.0/8
-      - TRANSMISSION_INCOMPLETE_DIR=/downloads
-      - TRANSMISSION_DOWNLOAD_DIR=/completed
+      - TRANSMISSION_INCOMPLETE_DIR=/data/downloads
+      - TRANSMISSION_DOWNLOAD_DIR=/data/completed
     cap_add:
       - NET_ADMIN
     logging:
