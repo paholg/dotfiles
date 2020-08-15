@@ -1,6 +1,1 @@
-*
-!dotfiles/
-!dotfiles/**/*
-!bin/
-!bin/*
-bin/*~
+result

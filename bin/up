@@ -16,6 +16,11 @@ elif `command -v apt &> /dev/null`; then
     sudo apt upgrade
 fi
 
+if `command -v home-manager &> /dev/null`; then
+    nix-channel --update
+    home-manager switch
+fi
+
 if `command -v fwupdmgr &> /dev/null`; then
     fwupdmgr refresh
     fwupdmgr get-updates

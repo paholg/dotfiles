@@ -1,35 +1,23 @@
 { config, lib, pkgs, ... }:
 
 {
-  imports =
-    [
-      ../nix/common.nix
-      ../nix/gui.nix
-    ];
+  imports = [ ../nix/common.nix ../nix/gui.nix ];
 
-  swapDevices = [
-    {
-      device = "/swapfile";
-      priority = 100;
-      size = 32768;
-    }
-  ];
+  swapDevices = [{
+    device = "/swapfile";
+    priority = 100;
+    size = 32768;
+  }];
 
   hardware.cpu.amd.updateMicrocode =
     lib.mkDefault config.hardware.enableRedistributableFirmware;
 
   hardware.enableAllFirmware = true;
   boot = {
-    kernelParams = [
-      "iommu=soft"
-      "idle=nomwait"
-      "mem_sleep_default=deep"
-    ];
+    kernelParams = [ "iommu=soft" "idle=nomwait" "mem_sleep_default=deep" ];
     kernelModules = [ "acpi_call" ];
     extraModulePackages = with config.boot.kernelPackages; [ acpi_call ];
   };
-
-  services.fwupd.enable = true;
 
   networking.hostName = "t14s";
   networking.interfaces.enp2s0f0.useDHCP = true;
@@ -37,5 +25,5 @@
 
   # New kernal required for Ryzen 4750 video card:
   boot.kernelPackages = pkgs.linuxPackages_latest;
-  services.xserver.videoDrivers = ["amdgpu"];
+  services.xserver.videoDrivers = [ "amdgpu" ];
 }

@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+for f in `fd .nix$`; do
+    nixfmt -c $f
+done

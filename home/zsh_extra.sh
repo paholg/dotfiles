@@ -10,37 +10,15 @@ bindkey "^[[1;5D" backward-word
 # ------------------------------------------------------------------------------
 # Program specific settings
 
-if `command -v emacsclient >/dev/null 2>&1`; then
-    export EDITOR="emacsclient -c"
-elif `command -v emacs >/dev/null 2>&1`; then
-    export EDITOR="emacs -nw -c"
-elif `command -v vim >/dev/null 2>&1`; then
-    export EDITOR="vim"
-fi
-
-if `command -v keychain >/dev/null 2>&1`; then
-    eval `keychain --quiet --eval id_rsa`
-fi
-
-if `command -v exa >/dev/null 2>&1`; then
-    alias ls=exa
-    alias la="ls -la"
-    alias ll="ls -l"
-fi
-
 if `command -v rustc >/dev/null 2>&1`; then
     export RUST_SRC_PATH="$(rustc --print sysroot)/lib/rustlib/src/rust/src"
-    export RUST_NEW_ERROR_FORMAT=true
-    export CARGO_HOME=$HOME/.cargo
-fi
-
-if `/usr/bin/env most >/dev/null 2>&1`; then
-    export MANPAGER='/usr/bin/env most'
 fi
 
 # ------------------------------------------------------------------------------
 # Load host-specific settings
-source $HOME/dotfiles/`hostname`/zshrc
+if [ -f $HOME/dotfiles/`hostname`/zshrc ]; then
+    source $HOME/dotfiles/`hostname`/zshrc
+fi
 
 # ------------------------------------------------------------------------------
 # Set up prompt

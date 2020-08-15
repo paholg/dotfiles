@@ -1,23 +1,22 @@
 { pkgs, ... }:
 
 {
-  imports =
-    [
-      /etc/nixos/hardware-configuration.nix
-    ];
+  imports = [ /etc/nixos/hardware-configuration.nix ];
 
   system.stateVersion = "20.03";
   system.autoUpgrade.enable = true;
-
   boot = {
-    kernelParams = [
-      "consoleblank=30"
-    ];
+    kernelParams = [ "consoleblank=30" ];
 
     loader = {
       systemd-boot.enable = true;
       efi.canTouchEfiVariables = true;
     };
+  };
+
+  environment = {
+    pathsToLink = [ "/share/zsh" ];
+    systemPackages = with pkgs; [ home-manager ];
   };
 
   networking.networkmanager.enable = true;
@@ -46,7 +45,7 @@
     ];
     earlySetup = true;
     font = "ter-i32b";
-    packages = [pkgs.terminus_font];
+    packages = [ pkgs.terminus_font ];
     keyMap = "us";
   };
   time.timeZone = "America/Los_Angeles";
@@ -57,35 +56,4 @@
     isNormalUser = true;
     extraGroups = [ "networkmanager" "wheel" ];
   };
-
-  services = {
-    emacs.enable = true;
-  };
-
-  environment.pathsToLink = [ "/share/zsh" ];
-
-  environment.systemPackages = with pkgs; [
-    acpi
-    arandr
-    dash
-    feh
-    git
-    home-manager
-    htop
-    jq
-    keychain
-    lshw
-    nix-index
-    openssl
-    pciutils # lspci, etc.
-    pkg-config
-    psmisc # killall, fuser, etc.
-    ripgrep
-    ruby
-    rust-analyzer
-    rustup
-    sshfs-fuse
-    wget
-    zsh
-  ];
 }

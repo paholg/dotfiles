@@ -2,5 +2,3 @@
 set -ex
 
 git pull
-
-home-manager switch
