@@ -25,6 +25,10 @@
       for dir in $(echo $path_dirs); do
           export PATH=$dir:$PATH
       done
+
+      if test -f "$HOME/.nix-prfile/etc/profile.d/nix.sh"; then
+        . $HOME/.nix-prfile/etc/profile.d/nix.sh
+      fi
     '';
 
     ".tvnamer.json".text = (builtins.readFile ./tvnamer.json);

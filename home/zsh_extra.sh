@@ -1,6 +1,3 @@
-# Todo: Maybe do this from home.nix?
-source $HOME/.profile
-
 # ------------------------------------------------------------------------------
 # Fix ctrl + left/right arrows
 autoload -U select-word-style
