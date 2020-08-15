@@ -4,8 +4,13 @@
   home.packages = with pkgs; [
     acpi
     arandr
+    bat
+    bat-extras.batgrep
+    bat-extras.batman
     exa
+    fd
     feh
+    fzf
     git
     gitAndTools.delta
     htop
