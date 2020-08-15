@@ -16,9 +16,43 @@
   };
 
   home.file = {
-    ".tvnamer.json" = {
-      text = (builtins.readFile ./tvnamer.json);
-    };
+    ".profile".text = ''
+      path_dirs="
+          $HOME/.cargo/bin
+          $HOME/bin
+      "
+
+      for dir in $(echo $path_dirs); do
+          export PATH=$dir:$PATH
+      done
+    '';
+
+    ".tvnamer.json".text = (builtins.readFile ./tvnamer.json);
+
+    ".xinitrc".text = ''
+      monitor_switch default &
+
+      fixkb &
+
+      # Set cursor
+      xsetroot -cursor_name left_ptr
+
+      # startup programs
+      background 150 &
+
+      # Load resources
+      xrdb -merge .Xresources &
+          '';
+
+    ".Xresources".text = ''
+      Xft.dpi: 120
+      Xft.autohint: 0
+      Xft.lcdfilter:  lcddefault
+      Xft.hintstyle:  hintfull
+      Xft.hinting: 1
+      Xft.antialias: 1
+      Xcursor.size: 16
+    '';
   };
 
   manual = {
