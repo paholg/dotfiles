@@ -26,8 +26,8 @@
           export PATH=$dir:$PATH
       done
 
-      if test -f "$HOME/.nix-prfile/etc/profile.d/nix.sh"; then
-        . $HOME/.nix-prfile/etc/profile.d/nix.sh
+      if test -f "$HOME/.nix-profile/etc/profile.d/nix.sh"; then
+        . $HOME/.nix-profile/etc/profile.d/nix.sh
       fi
     '';
 
