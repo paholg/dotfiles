@@ -18,14 +18,18 @@
   };
 
   services = {
+    fwupd.enable = true;
+
     physlock = {
       allowAnyUser = true;
       enable = true;
     };
+
     printing = {
       enable = true;
       drivers = [ pkgs.samsungUnifiedLinuxDriver ];
     };
+
     xserver = {
       enable = true;
       layout = "us";
@@ -36,22 +40,14 @@
         tapping = false;
       };
       xkbOptions = "eurosign:e";
-      # desktopManager.plasma5.enable = true;
-      # displayManager = {
-      #   defaultSession = "none+xmonad";
-      #   lightdm.enable = true;
-      # };
+      desktopManager.plasma5.enable = true;
+      displayManager = {
+        defaultSession = "plasma5";
+        lightdm.enable = true;
+      };
       deviceSection = ''
         Option "TearFree" "true"
       '';
-      # xautolock = {
-      #   enable = true;
-      #   enableNotifier = true;
-      #   locker = "${config.security.wrapperDir}/physlock";
-      #   notifier =
-      #     ''${pkgs.libnotify}/bin/notify-send "Locking in 10 seconds"'';
-      #   time = 15;
-      # };
     };
   };
 

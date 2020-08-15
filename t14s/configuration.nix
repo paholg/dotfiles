@@ -19,8 +19,6 @@
     extraModulePackages = with config.boot.kernelPackages; [ acpi_call ];
   };
 
-  services.fwupd.enable = true;
-
   networking.hostName = "t14s";
   networking.interfaces.enp2s0f0.useDHCP = true;
   networking.interfaces.wlp3s0.useDHCP = true;
