@@ -15,6 +15,17 @@
     };
   };
 
+  home.file = {
+    ".tvnamer.json" = {
+      text = (builtins.readFile ./tvnamer.json);
+    };
+  };
+
+  manual = {
+    html.enable = true;
+    json.enable = true;
+  };
+
   programs = {
     git = {
       enable = true;
