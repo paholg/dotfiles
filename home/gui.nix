@@ -6,6 +6,28 @@
   home.packages = with pkgs; [ physlock ];
 
   services = {
+    dunst = {
+      enable = true;
+      settings = {
+        global = {
+          follow = "keyboard";
+          geometry = "800x3-0+24";
+          indicate_hidden = true;
+          shrink = true;
+          horizontal_padding = 24;
+          font = "Monospace 12";
+          format = "%a: %s";
+          alignment = "right";
+          word_wrap = true;
+          dmenu = "/usr/bin/env dmenu";
+          browser = "/usr/bin/env firefox";
+          mouse_left_click = "do_action";
+          mouse_middle_click = "close_all";
+          mouse_right_click = "close_current";
+        };
+      };
+    };
+
     redshift = {
       enable = true;
       provider = "geoclue2";

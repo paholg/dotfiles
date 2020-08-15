@@ -11,6 +11,7 @@
     dzen2
     gimp
     gnome3.eog
+    libnotify
     libreoffice
     okular
     pavucontrol
