@@ -15,8 +15,27 @@
       fsType = "btrfs";
     };
   };
+  services.btrfs.autoScrub.enable = true;
 
   networking.hostName = "box";
+
+  environment.systemPackages = with pkgs; [ docker-compose ];
+
+  systemd.services.transmission = {
+    description = "Run transmission inside docker with openvpn";
+    wantedBy = [ "multi-user.target" ];
+    after = [ "docker.service" ];
+    required = [ "docker.service" ];
+    serviceConfig = {
+      User = "paho";
+      Type = "oneshot";
+      RemainAfterExit = true;
+      WorkingDirectory = /home/paho/dotfiles/box/torrent;
+      ExecStart =
+        "${pkgs.docker-compose}/bin/docker-compose up -d --remove-orphans";
+      ExecStop = "${pkgs.docker-compose}/bin/docker-compose down";
+    };
+  };
 
   # TODO: Switch to ddclient once > 3.9.1
   services.cron = {
@@ -25,8 +44,6 @@
       "*/5 * * * * paho . /etc/profile; /home/paho/dotfiles/box/ddns.sh >> /tmp/cron.log"
     ];
   };
-
-  services.btrfs.autoScrub.enable = true;
 
   services.openssh = {
     enable = true;
