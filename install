@@ -15,7 +15,7 @@ if test -f "`hostname`/configuration.nix"; then
     check_replace "/etc/nixos/configuration.nix"
 
     sudo ln -sf $HOME/dotfiles/`hostname`/configuration.nix /etc/nixos/configuration.nix
-    sudo nixos-rebuild switch
+    sudo nixos-rebuild switch --upgrade
 fi
 
 if test -f "`hostname`/home.nix"; then
@@ -23,6 +23,9 @@ if test -f "`hostname`/home.nix"; then
 
     mkdir -p $HOME/.config/nixpkgs
     ln -sf $HOME/dotfiles/`hostname`/home.nix $HOME/.config/nixpkgs/home.nix
+
+    nix-channel --add https://github.com/rycee/home-manager/archive/master.tar.gz home-manager
+    nix-channel --update
     home-manager switch
 fi
 
