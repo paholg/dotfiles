@@ -19,15 +19,19 @@
       });
   };
 
-  security.acme.certs = { "home.paholg.com".email = "paho@paholg.com"; };
+  security.acme = {
+    acceptTerms = true;
+    email = "paho@paholg.com";
+  };
+
+  networking.firewall.allowedTCPPorts = [ 80 443 ];
 
   services.nginx = {
     enable = true;
-    virtualHosts."com.paholg.home" = {
-      addSSL = true;
+    virtualHosts."home.paholg.com" = {
       # Let's Encrypt certs!
       enableACME = true;
-      root = "/var/www/home.paholg.com";
+      root = "/var/www/home";
       forceSSL = true;
 
       # http2 can more performant for streaming: https://blog.cloudflare.com/introducing-http2/
