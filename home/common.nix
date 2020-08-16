@@ -108,7 +108,7 @@
         ll = "ls -l";
 
         em = "emacsclient -c";
-        emt = "emacscleint -t";
+        emt = "emacsclient -t";
 
         brances = "git branch -v --sort=-committerdate | head -n10";
         ipinfo = "curl ipinfo.io 2> /dev/null | jq .";
