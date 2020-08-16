@@ -2,6 +2,6 @@
 
 set -euo pipefail
 
-for f in `fd .nix$`; do
+for f in `git diff --name-only --cached -- *.nix`; do
     nixfmt -c $f
 done
