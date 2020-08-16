@@ -106,6 +106,14 @@
         ls = "exa";
         la = "ls -la";
         ll = "ls -l";
+
+        em = "emacsclient -c";
+        emt = "emacscleint -t";
+
+        brances = "git branch -v --sort=-committerdate | head -n10";
+        ipinfo = "curl ipinfo.io 2> /dev/null | jq .";
+
+        t = "tmux attach";
       };
       zplug = {
         enable = true;
