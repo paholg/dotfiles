@@ -21,11 +21,14 @@
 
   environment.systemPackages = with pkgs; [ docker-compose ];
 
+  virtualisation.docker.enable = true;
+  users.users.paho.extraGroups = [ "docker" ];
+  networking.firewall.allowedTCPPorts = [ 9091 ];
   systemd.services.transmission = {
     description = "Run transmission inside docker with openvpn";
     wantedBy = [ "multi-user.target" ];
     after = [ "docker.service" ];
-    required = [ "docker.service" ];
+    requires = [ "docker.service" ];
     serviceConfig = {
       User = "paho";
       Type = "oneshot";
