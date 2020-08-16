@@ -20,6 +20,7 @@
     signal-desktop
     vlc
     xbrightness
+    xdotool
     xorg.xmodmap
     xorg.xrandr
     xournal
