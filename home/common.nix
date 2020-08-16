@@ -36,8 +36,6 @@
       . ~/.profile
     '';
 
-    ".tvnamer.json".text = (builtins.readFile ./tvnamer.json);
-
     ".Xresources".text = ''
       Xft.dpi: 120
       Xft.autohint: 0
