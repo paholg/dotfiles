@@ -15,8 +15,9 @@
       hostname = "10.0.0.4";
       user = "paho";
     };
+
     home = {
-      hostname = "174.21.77.15";
+      hostname = "home.paholg.com";
       user = "paho";
     };
   };

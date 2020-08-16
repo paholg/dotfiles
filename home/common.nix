@@ -18,7 +18,9 @@
   home.file = {
     ".profile".text = ''
       # For non-NixOs:
-      . $HOME/.nix-profile/etc/profile.d/nix.sh
+      if test -f $HOME/.nix-profile/etc/profile.d/nix.sh; then
+        . $HOME/.nix-profile/etc/profile.d/nix.sh
+      fi
 
       path_dirs="
           $HOME/.cargo/bin
@@ -28,6 +30,10 @@
       for dir in $(echo $path_dirs); do
           export PATH=$dir:$PATH
       done
+    '';
+
+    ".zprofile".text = ''
+      . ~/.profile
     '';
 
     ".tvnamer.json".text = (builtins.readFile ./tvnamer.json);
