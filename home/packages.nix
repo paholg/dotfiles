@@ -8,6 +8,7 @@
     bat-extras.batgrep
     bat-extras.batman
     bat-extras.prettybat
+    bind
     exa
     fd
     feh

@@ -18,6 +18,14 @@
 
   networking.hostName = "box";
 
+  # TODO: Switch to ddclient once > 3.9.1
+  services.cron = {
+    enable = true;
+    systemCronJobs = [
+      "*/5 * * * * nix-shell /home/paho/git/gandi-live-dns --run /home/paho/git/gandi-live-dns/src/gandi-live-dns.py"
+    ];
+  };
+
   services.btrfs.autoScrub.enable = true;
 
   services.openssh = {
