@@ -1,31 +1,38 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-function check_replace {
-    read -p "Replace $1? (y/N) " yn
+function check_continue {
+    read -p "$1 (y/N) " yn
     if [ "$yn" != "y" ]; then
         exit 1
     fi
 }
 
-check_replace ".git/hooks/pre-commit"
+check_continue "Replace .git/hooks/pre-commit?"
 ln -sf ../../nixfmt-check .git/hooks/pre-commit
 
 if test -f "`hostname`/configuration.nix"; then
-    check_replace "/etc/nixos/configuration.nix"
+    check_continue "Replace /etc/nixos/configuration.nix?"
 
     sudo ln -sf $HOME/dotfiles/`hostname`/configuration.nix /etc/nixos/configuration.nix
+
+    check_continue "Switch to NixOs unstable?"
+    sudo nix-channel --add https://nixos.org/channels/nixos-unstable nixos
     sudo nixos-rebuild switch --upgrade
 fi
 
 if test -f "`hostname`/home.nix"; then
-    check_replace "$HOME/.config/nixpkgs/home.nix"
+    check_continue "Replace $HOME/.config/nixpkgs/home.nix?"
 
     mkdir -p $HOME/.config/nixpkgs
     ln -sf $HOME/dotfiles/`hostname`/home.nix $HOME/.config/nixpkgs/home.nix
 
     nix-channel --add https://github.com/rycee/home-manager/archive/master.tar.gz home-manager
     nix-channel --update
-    home-manager switch
+
+    echo "Installing. You may need to log out first on NixOs, or add a thing elsewhere."
+    echo "See https://github.com/rycee/home-manager#installation"
+
+    nix-shell '<home-manager>' -A install
 fi
 

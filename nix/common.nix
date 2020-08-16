@@ -14,10 +14,7 @@
     };
   };
 
-  environment = {
-    pathsToLink = [ "/share/zsh" ];
-    systemPackages = with pkgs; [ home-manager ];
-  };
+  environment = { pathsToLink = [ "/share/zsh" ]; };
 
   networking.networkmanager.enable = true;
   networking.useDHCP = false;
