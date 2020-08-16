@@ -1,7 +1,7 @@
 { pkgs, ... }:
 
 {
-  imports = [ ../home/common.nix ../home/firefox.nix ../home/gui.nix ];
+  imports = [ ../home/common.nix ];
 
   home = {
     username = "paho";

@@ -7,6 +7,7 @@
     bat
     bat-extras.batgrep
     bat-extras.batman
+    bat-extras.prettybat
     exa
     fd
     feh
