@@ -22,7 +22,7 @@
   services.cron = {
     enable = true;
     systemCronJobs = [
-      "*/5 * * * * nix-shell /home/paho/git/gandi-live-dns --run /home/paho/git/gandi-live-dns/src/gandi-live-dns.py"
+      "*/5 * * * * paho . /etc/profile; /home/paho/dotfiles/box/ddns.sh >> /tmp/cron.log"
     ];
   };
 
