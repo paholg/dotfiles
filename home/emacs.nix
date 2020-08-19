@@ -20,13 +20,6 @@ in {
     '';
 
     usePackage = {
-      auto-package-update = {
-        enable = true;
-        config = ''
-          (auto-package-update-at-time "20:00")
-        '';
-      };
-
       cargo = { enable = true; };
 
       color-theme-modern = { enable = true; };
