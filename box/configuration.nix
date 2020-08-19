@@ -36,7 +36,7 @@
       WorkingDirectory = /home/paho/dotfiles/box/torrent;
       ExecStart =
         "${pkgs.docker-compose}/bin/docker-compose up -d --remove-orphans";
-      ExecStop = "${pkgs.docker-compose}/bin/docker-compose down";
+      ExecStop = "${pkgs.docker-compose}/bin/docker-compose stop";
     };
   };
 
