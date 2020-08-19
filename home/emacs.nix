@@ -80,14 +80,6 @@ in {
         config = "(global-flycheck-mode)";
       };
 
-      flycheck-rust = {
-        enable = true;
-        config = ''
-          (with-eval-after-load 'rust-mode
-            (add-hook 'flycheck-mode-hook #'flycheck-rust-setup))
-        '';
-      };
-
       gnuplot = { enable = true; };
 
       go-mode = { enable = true; };
@@ -221,17 +213,7 @@ in {
         command = [ "ripgrep-regexp" ];
       };
 
-      rust-mode = {
-        enable = true;
-        after = [ "lsp" ];
-        mode = [ ''"\\.rs\\'"'' ];
-        config = ''
-          (setq lsp-rust-server 'rust-analyzer
-                rust-format-on-save t
-                rust-format-show-buffer nil
-                rust-format-goto-problem nil)
-        '';
-      };
+      rustic = { enable = true; };
 
       sqlformat = { enable = true; };
 
