@@ -21,6 +21,7 @@
     nixfmt
     openssl
     pciutils # lspci, etc.
+    perl
     pkg-config
     psmisc # killall, fuser, etc.
     ripgrep
