@@ -39,6 +39,7 @@ in {
           "extensions.pocket.enabled" = false;
           "general.smoothScroll" = false;
           "layout.css.devPixelsPerPx" = "1";
+          "media.videocontrols.picture-in-picture.enabled" = false;
           "network.IDN_show_punycode" = true;
           "network.allow-experiments" = false;
           "signon.rememberSignons" = false;

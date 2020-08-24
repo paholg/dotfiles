@@ -19,6 +19,10 @@ if test -f "`hostname`/configuration.nix"; then
     check_continue "Switch to NixOs unstable?"
     sudo nix-channel --add https://nixos.org/channels/nixos-unstable nixos
     sudo nixos-rebuild switch --upgrade
+else
+    echo "Not on NixOs!"
+    echo "You may need to install nscd"
+    echo "See: https://github.com/NixOS/nixpkgs/issues/12335#issuecomment-212325290"
 fi
 
 if test -f "`hostname`/home.nix"; then
