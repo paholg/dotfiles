@@ -7,6 +7,7 @@
     (chromium.override {
       commandLineArgs = "--load-media-router-component-extension=1";
     })
+    discord
     dmenu
     dzen2
     gimp

@@ -30,6 +30,7 @@
     rustup
     sshfs-fuse
     strace
+    usbutils
     wget
     zsh
   ];

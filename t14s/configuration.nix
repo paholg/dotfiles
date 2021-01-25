@@ -26,4 +26,12 @@
   # New kernal required for Ryzen 4750 video card:
   boot.kernelPackages = pkgs.linuxPackages_latest;
   services.xserver.videoDrivers = [ "amdgpu" ];
+
+  hardware = {
+    opengl.driSupport32Bit = true;
+    opengl.extraPackages32 = with pkgs.pkgsi686Linux; [ libva ];
+    pulseaudio.support32Bit = true;
+    steam-hardware.enable = true;
+  };
+  environment.systemPackages = with pkgs; [ steam ];
 }
