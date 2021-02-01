@@ -73,4 +73,7 @@
 (add-to-list 'auto-mode-alist '("\\.socket\\'" . conf-unix-mode))
 (add-to-list 'auto-mode-alist '("\\.path\\'" . conf-unix-mode))
 
+(require 'spacemacs-dark-theme)
+(load-theme 'spacemacs-dark t)
+
 ;;; emacs_prelude.el ends here

@@ -22,8 +22,6 @@ in {
     usePackage = {
       cargo = { enable = true; };
 
-      color-theme-modern = { enable = true; };
-
       company = {
         enable = true;
         diminish = [ "company-mode" ];
@@ -89,6 +87,7 @@ in {
         };
         config = ''
           (helm-mode 1)
+          (require 'helm-config)
           (setq helm-split-window-default-side 'other)
         '';
       };
@@ -211,13 +210,14 @@ in {
 
       sqlformat = { enable = true; };
 
-      spacemacs-theme = {
-        enable = true;
-        defer = true;
-        init = ''
-          (load-theme 'spacemacs-dark t)
-        '';
-      };
+      # Temporarily disabled due to issues.
+      # spacemacs-theme = {
+      #   enable = true;
+      #   defer = true;
+      #   init = ''
+      #     (load-theme 'spacemacs-dark t)
+      #   '';
+      # };
 
       toml-mode = { enable = true; };
 
