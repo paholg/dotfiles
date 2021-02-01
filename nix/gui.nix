@@ -35,9 +35,11 @@
       layout = "us";
       libinput = {
         enable = true;
-        clickMethod = "clickfinger";
-        disableWhileTyping = true;
-        tapping = false;
+        touchpad = {
+          clickMethod = "clickfinger";
+          disableWhileTyping = true;
+          tapping = false;
+        };
       };
       xkbOptions = "eurosign:e";
       desktopManager.plasma5.enable = true;
