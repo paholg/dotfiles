@@ -73,7 +73,9 @@
 (add-to-list 'auto-mode-alist '("\\.socket\\'" . conf-unix-mode))
 (add-to-list 'auto-mode-alist '("\\.path\\'" . conf-unix-mode))
 
-(require 'spacemacs-dark-theme)
+;; Was not working with use-package, so including directly
+(add-to-list 'load-path "~/dotfiles/home/spacemacs-theme/")
+(add-to-list 'custom-theme-load-path "~/dotfiles/home/spacemacs-theme/")
 (load-theme 'spacemacs-dark t)
 
 ;;; emacs_prelude.el ends here
