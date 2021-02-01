@@ -79,14 +79,12 @@ in {
 
       helm = {
         enable = true;
-        diminish = [ "helm-mode" ];
         bind = {
           "M-x" = "helm-M-x";
           "C-x r b" = "helm-filtered-bookmarks";
           "C-x C-f" = "helm-find-files";
         };
         config = ''
-          (helm-mode 1)
           (require 'helm-config)
           (setq helm-split-window-default-side 'other)
         '';
