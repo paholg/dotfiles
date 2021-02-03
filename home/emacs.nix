@@ -146,6 +146,7 @@ in {
           (setq lsp-eldoc-enable-hover t
                 lsp-eldoc-render-all nil
                 lsp-idle-delay 0
+                lsp-enable-snippet nil
                 company-minimum-prefix-length 1
                 company-idle-delay 0
                 gc-cons-threshold 104857600 ;; 100 MB
