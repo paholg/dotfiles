@@ -14,10 +14,7 @@ in {
     recommendedGcSettings = true;
 
     prelude = (builtins.readFile ./emacs_prelude.el);
-    postlude = ''
-      ;; lsp-ui tries to steal TAB. Rebinding it after all other package settings seems to work.
-      (global-set-key (kbd "TAB") 'indent-for-tab-command)
-    '';
+    postlude = (builtins.readFile ./emacs_postlude.el);
 
     usePackage = {
       cargo = { enable = true; };

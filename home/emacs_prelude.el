@@ -1,14 +1,7 @@
-;;; .emacs --- Emacs init file
+;;; .emacs --- Emacs beginning of init file
 ;;; Commentary:
 ;;; What more is there to say?
 ;;; Code:
-
-;; -----------------------------------------------------------------------------
-;; Per-host settings
-(let ((host (substring (shell-command-to-string "hostname") 0 -1)))
-  (let ((host_file ( concat "~/dotfiles/" host "/emacs.el")))
-    (if (file-exists-p host_file) (load host_file))))
-
 
 ;; -----------------------------------------------------------------------------
 ;; Config options
