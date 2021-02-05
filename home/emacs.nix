@@ -84,6 +84,7 @@ in {
         config = ''
           (require 'helm-config)
           (setq helm-split-window-default-side 'other)
+          (helm-mode 1)
         '';
       };
 
