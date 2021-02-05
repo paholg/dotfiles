@@ -3,8 +3,6 @@
 {
   imports = [ ./alacritty.nix ./packages-gui.nix ];
 
-  home.packages = with pkgs; [ physlock ];
-
   nixpkgs.config.allowUnfree = true;
 
   services = {
