@@ -139,6 +139,7 @@ in {
       lsp-mode = {
         enable = true;
         command = [ "lsp" ];
+        hook = [ "(lsp-mode . lsp-ui-mode)" ];
         config = ''
           (define-key lsp-mode-map (kbd "C-o") lsp-command-map)
           (setq lsp-eldoc-enable-hover t
@@ -203,7 +204,12 @@ in {
         command = [ "ripgrep-regexp" ];
       };
 
-      rustic = { enable = true; };
+      rustic = {
+        enable = true;
+        config = ''
+          (setq rustic-format-on-save t)
+        '';
+      };
 
       sqlformat = { enable = true; };
 
