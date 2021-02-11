@@ -53,6 +53,12 @@
   };
 
   programs = {
+    direnv = {
+      enable = true;
+      enableZshIntegration = true;
+      enableNixDirenvIntegration = true;
+    };
+
     git = {
       enable = true;
       userName = "Paho Lurie-Gregg";
