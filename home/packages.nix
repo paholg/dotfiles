@@ -9,6 +9,7 @@
     bat-extras.batman
     bat-extras.prettybat
     bind
+    direnv
     exa
     fd
     feh
