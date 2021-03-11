@@ -19,17 +19,24 @@
     jq
     lshw
     nixfmt
+    nmap
+    nodePackages.bash-language-server
     openssl
     pciutils # lspci, etc.
     perl
     pkg-config
     psmisc # killall, fuser, etc.
+    python-language-server
     ripgrep
+    rnix-lsp
     ruby
     rust-analyzer
     rustup
+    socat
+    sparse
     sshfs-fuse
     strace
+    unison
     usbutils
     wget
     zsh

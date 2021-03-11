@@ -19,6 +19,7 @@
     pavucontrol
     scrot
     signal-desktop
+    slack
     vlc
     xbrightness
     xdotool

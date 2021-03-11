@@ -18,12 +18,12 @@
 
 (global-subword-mode 1)
 
-(setq-default fill-column 100
+(setq-default fill-column 80
               indent-tabs-mode nil
               tab-width 2
               show-trailing-whitespace t
               major-mode 'text-mode
-              whitespace-line-column 100
+              whitespace-line-column 80
               whitespace-style '(face lines-tall))
 
 (setq visible-bell t

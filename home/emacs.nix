@@ -22,7 +22,7 @@ in {
       company = {
         enable = true;
         diminish = [ "company-mode" ];
-        bind = { "C-<tab>" = "company-lsp"; };
+        bind = { "C-<tab>" = "company-complete"; };
         hook = [ "(after-init . global-company-mode)" ];
       };
 
@@ -71,6 +71,14 @@ in {
         enable = true;
         diminish = [ "flycheck-mode" ];
         config = "(global-flycheck-mode)";
+      };
+
+      flycheck-rust = {
+        enable = true;
+        config = ''
+          (with-eval-after-load 'rust-mode
+            (add-hook 'flycheck-mode-hook #'flycheck-rust-setup))
+        '';
       };
 
       gnuplot = { enable = true; };
@@ -136,50 +144,56 @@ in {
         config = "(global-linum-mode)";
       };
 
-      lsp-java = {
-        enable = true;
-        hook = [ "(java-mode . lsp)" ];
-      };
+      lsp-java = { enable = true; };
 
       lsp-mode = {
         enable = true;
         command = [ "lsp" ];
-        hook = [ "(lsp-mode . lsp-ui-mode)" ];
+        hook = [ "(prog-mode . lsp)" ];
         config = ''
           (define-key lsp-mode-map (kbd "C-o") lsp-command-map)
-          (setq lsp-eldoc-enable-hover t
-                lsp-eldoc-render-all nil
-                lsp-idle-delay 0
-                lsp-enable-snippet nil
-                lsp-enable-links nil
-                company-minimum-prefix-length 1
-                company-idle-delay 0
-                gc-cons-threshold 104857600 ;; 100 MB
-                read-process-output-max (* 1024 1024))
+          (setq
+            lsp-eldoc-enable-hover t
+            lsp-eldoc-render-all nil
+            lsp-idle-delay 0
+            lsp-enable-snippet nil
+            company-minimum-prefix-length 1
+            company-idle-delay 0
+            gc-cons-threshold 104857600 ;; 100 MB
+            read-process-output-max (* 1024 1024)
+          )'';
+      };
+
+      lsp-python-ms = {
+        enable = true;
+        init = ''
+          (setq lsp-python-ms-executable (executable-find "python-language-server"))
         '';
       };
 
       lsp-ui = {
         enable = true;
         command = [ "lsp-ui-mode" ];
-        hook = [ "(lsp-ui-mode . lsp-ui-peek-mode)" ];
+        hook =
+          [ "(lsp-mode . lsp-ui-mode)" "(lsp-ui-mode . lsp-ui-peek-mode)" ];
         bind = {
           "C-i" = "lsp-ui-doc-glance";
           "M-/" = "lsp-ui-peek-find-references";
         };
         config = ''
-          (setq lsp-ui-doc-header t
-                lsp-ui-doc-include-signature t
-                lsp-ui-doc-enable nil
-                lsp-ui-doc-position 'bottom
-                lsp-ui-doc-alignment 'frame
-                lsp-ui-peek-fontify 'always ;; highlight usage inside peek
-                lsp-ui-sideline-enable t
-                lsp-ui-sideline-show-diagnostics t
-                lsp-ui-sideline-diagnostic-max-line-length 40
-                lsp-ui-sideline-show-code-actions t
-                lsp-ui-sideline-delay 0.0)
-        '';
+          (setq
+            lsp-ui-doc-header t
+            lsp-ui-doc-include-signature t
+            lsp-ui-doc-enable nil
+            lsp-ui-doc-position 'bottom
+            lsp-ui-doc-alignment 'frame
+            lsp-ui-peek-fontify 'always ;; highlight usage inside peek
+            lsp-ui-sideline-enable t
+            lsp-ui-sideline-show-diagnostics t
+            lsp-ui-sideline-diagnostic-max-line-length 40
+            lsp-ui-sideline-show-code-actions t
+            lsp-ui-sideline-delay 0.0
+          )'';
       };
 
       lua-mode = { enable = true; };
@@ -200,7 +214,7 @@ in {
         config = ''
           (projectile-mode)
           (setq projectile-indexing-method 'alien
-                 projectile-enable-caching t)
+                projectile-enable-caching t)
         '';
       };
 
@@ -209,10 +223,16 @@ in {
         command = [ "ripgrep-regexp" ];
       };
 
-      rustic = {
+      rust-mode = {
         enable = true;
+        mode = [ ''"\\.rs\\'"'' ];
         config = ''
-          (setq rustic-format-on-save t)
+          (setq
+            lsp-rust-server 'rust-analyzer
+            rust-format-on-save t
+            rust-format-show-buffer nil
+            rust-format-goto-problem nil
+          )
         '';
       };
 

@@ -16,6 +16,9 @@
   };
 
   home.file = {
+    ".config/rustfmt/rustfmt.toml".text = ''
+      edition = "2018"
+    '';
     ".profile".text = ''
       # For non-NixOs:
       if test -f $HOME/.nix-profile/etc/profile.d/nix.sh; then
@@ -70,6 +73,15 @@
         pull.rebase = true;
         push.default = "current";
         rebase.autosquash = true;
+        init.defaultBranch = "main";
+      };
+      aliases = {
+        b = "branch";
+        c = "commit";
+        co = "checkout";
+        l = "log";
+        s = "status";
+        sw = "switch";
       };
     };
 
@@ -114,7 +126,7 @@
         em = "emacsclient -c";
         emt = "emacsclient -t";
 
-        brances = "git branch -v --sort=-committerdate | head -n10";
+        branches = "git branch -v --sort=-committerdate | head -n10";
         ipinfo = "curl ipinfo.io 2> /dev/null | jq .";
 
         t = "tmux attach";
