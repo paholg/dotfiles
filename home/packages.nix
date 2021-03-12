@@ -17,6 +17,7 @@
     fzf
     git
     gitAndTools.delta
+    gitAndTools.hub
     htop
     jq
     llvmPackages.bintools

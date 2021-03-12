@@ -74,7 +74,7 @@
         options = { line-numbers = true; };
       };
       extraConfig = {
-        pull.rebase = true;
+        pull.rebase = false;
         push.default = "current";
         rebase.autosquash = true;
         init.defaultBranch = "main";
