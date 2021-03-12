@@ -9,6 +9,8 @@
     bat-extras.batman
     bat-extras.prettybat
     bind
+    clang
+    clang-tools
     exa
     fd
     feh
@@ -17,7 +19,9 @@
     gitAndTools.delta
     htop
     jq
+    llvmPackages.bintools
     lshw
+    niv
     nixfmt
     nmap
     nodePackages.bash-language-server
@@ -27,6 +31,7 @@
     pkg-config
     psmisc # killall, fuser, etc.
     python-language-server
+    python3
     ripgrep
     rnix-lsp
     ruby
