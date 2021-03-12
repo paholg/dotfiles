@@ -12,6 +12,7 @@ in {
   programs.emacs.init = {
     enable = true;
     recommendedGcSettings = true;
+    earlyInit = "(setq package-enable-at-startup t)";
 
     prelude = (builtins.readFile ./emacs_prelude.el);
     postlude = (builtins.readFile ./emacs_postlude.el);
