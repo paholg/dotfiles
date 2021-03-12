@@ -132,12 +132,11 @@ in {
         mode = [ ''"\\.json\\'"'' ];
       };
 
-      # Temporarily disabled due to 404
-      # latex = {
-      #   enable = true;
-      #   package = epkgs: epkgs.auctex;
-      #   mode = [ ''("\\.tex\\'" . latex-mode)'' ];
-      # };
+      latex = {
+        enable = true;
+        package = epkgs: epkgs.auctex;
+        mode = [ ''("\\.tex\\'" . latex-mode)'' ];
+      };
 
       linum = {
         enable = true;
