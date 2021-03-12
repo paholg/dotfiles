@@ -33,6 +33,10 @@
       for dir in $(echo $path_dirs); do
           export PATH=$dir:$PATH
       done
+
+      if `command -v rustc >/dev/null 2>&1`; then
+          export RUST_SRC_PATH="$(rustc --print sysroot)/lib/rustlib/src/rust/src"
+      fi
     '';
 
     ".zprofile".text = ''

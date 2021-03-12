@@ -4,12 +4,6 @@ autoload -U select-word-style
 select-word-style bash
 bindkey "^[[1;5C" forward-word
 bindkey "^[[1;5D" backward-word
-# ------------------------------------------------------------------------------
-# Program specific settings
-
-if `command -v rustc >/dev/null 2>&1`; then
-    export RUST_SRC_PATH="$(rustc --print sysroot)/lib/rustlib/src/rust/src"
-fi
 
 # ------------------------------------------------------------------------------
 # Load host-specific settings

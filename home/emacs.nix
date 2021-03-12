@@ -227,6 +227,7 @@ in {
       rust-mode = {
         enable = true;
         mode = [ ''"\\.rs\\'"'' ];
+        bind = { "C-c C-c" = "rust-test"; };
         config = ''
           (setq
             lsp-rust-server 'rust-analyzer
