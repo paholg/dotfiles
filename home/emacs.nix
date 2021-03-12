@@ -205,6 +205,7 @@ in {
       nix-mode = {
         enable = true;
         mode = [ ''"\\.nix\\'"'' ];
+        bind = { "C-c C-f" = "nix-format-buffer"; };
       };
 
       projectile = {
