@@ -9,6 +9,10 @@
     bat-extras.batman
     bat-extras.prettybat
     bind
+    cargo-edit
+    cargo-outdated
+    cargo-update
+    cargo-watch
     clang
     clang-tools
     exa
