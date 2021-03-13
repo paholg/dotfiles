@@ -182,17 +182,9 @@ in {
         };
         config = ''
           (setq
-            lsp-ui-doc-header t
-            lsp-ui-doc-include-signature t
-            lsp-ui-doc-enable nil
-            lsp-ui-doc-position 'bottom
-            lsp-ui-doc-alignment 'frame
             lsp-ui-peek-fontify 'always ;; highlight usage inside peek
-            lsp-ui-sideline-enable t
-            lsp-ui-sideline-show-diagnostics t
-            lsp-ui-sideline-diagnostic-max-line-length 40
-            lsp-ui-sideline-show-code-actions t
-            lsp-ui-sideline-delay 0.0
+            lsp-ui-doc-enable nil
+            lsp-ui-sideline-enable nil
           )'';
       };
 
@@ -228,12 +220,16 @@ in {
         enable = true;
         mode = [ ''"\\.rs\\'"'' ];
         bind = { "C-c C-c" = "rust-test"; };
+        hook = [ "( rust-mode . lsp-rust-analyzer-inlay-hints-mode )" ];
         config = ''
           (setq
             lsp-rust-server 'rust-analyzer
             rust-format-on-save t
             rust-format-show-buffer nil
             rust-format-goto-problem nil
+            lsp-rust-analyzer-server-display-inlay-hints t
+            lsp-rust-analyzer-display-parameter-hints t
+            lsp-rust-analyzer-display-chaining-hints t
           )
         '';
       };
