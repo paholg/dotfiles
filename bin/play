@@ -1,0 +1,33 @@
+#!/usr/bin/env bash
+
+# A modified version of the playground script found here:
+# https://www.greyblake.com/blog/2021-03-12-rust-playground-at-your-fingertips/
+#
+# While the original runs vim and cargo in tmux panes, this one relies on you
+# having a graphical $EDITOR.
+#
+# Depends on `cargo-edit` and `cargo-watch`.
+
+set -euxo pipefail
+
+ensure_cargo_cmd() {
+    if ! cargo help $1 > /dev/null; then
+        exit 1
+    fi
+}
+ensure_cargo_cmd add
+ensure_cargo_cmd watch
+
+PLAYGROUND_DIR="/tmp/rust_playground"
+TIMESTAMP=$(date +"%Y-%m-%d-%H%M%S")
+PROJECT_DIR="${PLAYGROUND_DIR}/pg-${TIMESTAMP}"
+
+cargo new $PROJECT_DIR
+cd $PROJECT_DIR
+
+for CRATE in $@; do
+    cargo add $CRATE
+done
+
+$EDITOR "./src/main.rs" &
+cargo watch -s 'clear && cargo run -q'
