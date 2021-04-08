@@ -43,6 +43,7 @@
     rust-analyzer
     rustup
     socat
+    solargraph
     sparse
     sshfs-fuse
     strace
