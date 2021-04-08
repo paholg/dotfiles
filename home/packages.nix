@@ -10,6 +10,7 @@
     bat-extras.prettybat
     bind
     cargo-edit
+    cargo-kcov
     cargo-outdated
     cargo-update
     cargo-watch
@@ -22,8 +23,10 @@
     git
     gitAndTools.delta
     gitAndTools.hub
+    gnuplot
     htop
     jq
+    kcov
     llvmPackages.bintools
     lshw
     niv

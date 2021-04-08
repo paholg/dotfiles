@@ -13,7 +13,7 @@ elif `command -v nixos-rebuild &> /dev/null`; then
     sudo nixos-rebuild switch --upgrade
 elif `command -v apt &> /dev/null`; then
     sudo apt update
-    sudo apt upgrade
+    sudo apt dist-upgrade
 fi
 
 if `command -v home-manager &> /dev/null`; then
