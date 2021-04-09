@@ -133,11 +133,13 @@ in {
         mode = [ ''"\\.json\\'"'' ];
       };
 
-      latex = {
-        enable = true;
-        package = epkgs: epkgs.auctex;
-        mode = [ ''("\\.tex\\'" . latex-mode)'' ];
-      };
+      # Auctex fails to install every update because the nixos version lags the
+      # upstream version, and old versions are very quickly removed from elpa :(
+      # latex = {
+      #   enable = true;
+      #   package = epkgs: epkgs.auctex;
+      #   mode = [ ''("\\.tex\\'" . latex-mode)'' ];
+      # };
 
       linum = {
         enable = true;
