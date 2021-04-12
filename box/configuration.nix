@@ -57,5 +57,6 @@
   users.users.paho.openssh.authorizedKeys.keys = [
     "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIHKrH/6MunuWSo4l+YKk1NQUyVi37rBwJUxG71iOlTmP paho@t14s"
     "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIGCqUokxT7ofD/zeVcBZGuZLBZm6ZeEggi48Xr8gE0XU JuiceSSH"
+    "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIFCNUTLTtVqiU4w5pCPaDVbu/x34YoHHOjkHMjMFnuTD paho@ue9668188711e51.ant.amazon.com"
   ];
 }
