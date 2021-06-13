@@ -3,7 +3,9 @@
 set -e
 
 air="38:EC:0D:3C:6B:19"
-hd3="00:22:D9:00:1A:6A"
+com="00:22:D9:00:1A:6A"
+mx3="C4:0C:13:1D:76:38"
+ear="94:DB:56:72:04:C8"
 
 if [[ $1 == "off" ]]; then
     bluetoothctl power off

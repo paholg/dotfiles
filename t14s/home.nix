@@ -26,4 +26,6 @@
     ZSH_USER_COLOR = "green";
     ZSH_HOST_COLOR = "cyan";
   };
+
+  home.packages = with pkgs; [ lutris vulkan-tools glibc yubikey-manager ];
 }

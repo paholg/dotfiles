@@ -9,6 +9,7 @@
     bat-extras.batman
     bat-extras.prettybat
     bind
+    binutils
     cargo-edit
     cargo-kcov
     cargo-outdated
@@ -16,6 +17,7 @@
     cargo-watch
     clang
     clang-tools
+    diskus
     exa
     fd
     feh
@@ -27,7 +29,6 @@
     htop
     jq
     kcov
-    llvmPackages.bintools
     lshw
     niv
     nixfmt
