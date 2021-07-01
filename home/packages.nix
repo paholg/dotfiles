@@ -27,7 +27,7 @@
     gitAndTools.hub
     gnuplot
     htop
-    jc
+    # jc
     jq
     kcov
     lshw
