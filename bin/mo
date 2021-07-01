@@ -14,6 +14,10 @@ if [ $1 == "s" ]; then
     remote="home:/mnt/storage"
     local="$HOME/sshfs/storage/"
     extra="-o follow_symlinks"
+elif [ $1 == "box" ]; then
+    remote="box:/mnt/storage"
+    local="$HOME/sshfs/storage/"
+    extra="-o follow_symlinks"
 else
     echo "Not in list"
     exit 1
