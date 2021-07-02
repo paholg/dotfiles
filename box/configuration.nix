@@ -44,7 +44,7 @@
   services.cron = {
     enable = true;
     systemCronJobs = [
-      "*/5 * * * * paho . /etc/profile; /home/paho/dotfiles/box/ddns.sh >> /tmp/cron.log"
+      "* * * * * paho . /etc/profile; /home/paho/dotfiles/box/ddns.sh &> /tmp/cron.log"
     ];
   };
 

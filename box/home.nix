@@ -19,5 +19,5 @@
     ZSH_HOST_COLOR = "magenta";
   };
 
-  home.packages = with pkgs; [ python38Packages.tvnamer ];
+  # home.packages = with pkgs; [ python38Packages.tvnamer ];
 }
