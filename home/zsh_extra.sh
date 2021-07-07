@@ -88,7 +88,28 @@ set_prompt () {
     return 0
 }
 
+title_host() {
+    if [ -n "$SSH_CLIENT" ] || [ -n "$SSH_TTY" ]; then
+        host="%m: "
+    else
+        host=""
+    fi
+    echo $host
+}
+
+# Set title
+# See ArchWiki: https://wiki.archlinux.org/title/zsh#xterm_title
+xterm_title_precmd() {
+	  print -Pn -- "\e]2;$(title_host)%~\a"
+}
+
+xterm_title_preexec() {
+	print -Pn -- "\e]2;$(title_host)" && print -n -- "${(q)1}" && print -Pn -- ' (%~)\a'
+}
+
 autoload -Uz vcs_info
 autoload -Uz add-zsh-hook
 
 add-zsh-hook precmd set_prompt
+add-zsh-hook -Uz precmd xterm_title_precmd
+add-zsh-hook -Uz preexec xterm_title_preexec
