@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, sources, ... }:
 
 let
   nur-no-pkgs = import (builtins.fetchTarball
@@ -6,6 +6,13 @@ let
 
 in {
   imports = [ nur-no-pkgs.repos.rycee.hmModules.emacs-init ];
+
+  nixpkgs.overlays = [
+    (import (builtins.fetchTarball {
+      url =
+        "https://github.com/nix-community/emacs-overlay/archive/master.tar.gz";
+    }))
+  ];
 
   services.emacs.enable = true;
   programs.emacs.enable = true;

@@ -27,5 +27,11 @@
     ZSH_HOST_COLOR = "cyan";
   };
 
-  home.packages = with pkgs; [ lutris vulkan-tools glibc yubikey-manager ];
+  home.packages = with pkgs; [
+    glibc
+    lutris
+    texlive.combined.scheme-full
+    vulkan-tools
+    yubikey-manager
+  ];
 }
