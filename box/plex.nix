@@ -7,8 +7,8 @@
     dataDir = "/mnt/storage/plex";
     package = pkgs.plex.overrideAttrs (x:
       let
-        version = "1.22.0.4163-d8c4875dd";
-        sha1 = "ff4e43e2d666b9f5e071e3921bb8f9af76bb0a4d";
+        version = "1.23.6.4881-e2e58f321";
+        sha1 = "737b004edcd2d4ebe480887d667dd71238b18429";
       in {
         name = "plex-${version}";
         src = pkgs.fetchurl {
