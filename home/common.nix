@@ -1,7 +1,7 @@
 { ... }:
 
 {
-  imports = [ ./emacs.nix ./packages.nix ];
+  imports = [ ./emacs.nix ./packages.nix ./starship.nix ];
 
   home.stateVersion = "20.09";
 
