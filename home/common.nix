@@ -109,6 +109,11 @@
       '';
     };
 
+    zoxide = {
+      enable = true;
+      enableZshIntegration = true;
+    };
+
     zsh = {
       enable = true;
       enableAutosuggestions = true;
@@ -134,10 +139,6 @@
         ipinfo = "curl ipinfo.io 2> /dev/null | jq .";
 
         t = "tmux attach";
-      };
-      zplug = {
-        enable = true;
-        plugins = [{ name = "agkozak/zsh-z"; }];
       };
       initExtra = (builtins.readFile ./zsh_extra.sh);
     };
