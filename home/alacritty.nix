@@ -17,19 +17,19 @@
       font = {
         size = 13.0;
         normal = {
-          family = "monospace";
+          family = "FiraCode Nerd Font Mono";
           style = "Regular";
         };
         bold = {
-          family = "monospace";
+          family = "FiraCode Nerd Font Mono";
           style = "Bold";
         };
         italic = {
-          family = "monospace";
+          family = "FiraCode Nerd Font Mono";
           style = "Italic";
         };
         bold_italic = {
-          family = "monospace";
+          family = "FiraCode Nerd Font Mono";
           style = "Bold Italic";
         };
       };

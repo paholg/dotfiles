@@ -5,6 +5,8 @@
 
   home.stateVersion = "20.09";
 
+  fonts.fontconfig.enable = true;
+
   home = {
     sessionVariables = {
       EDITOR = "emacsclient -c";

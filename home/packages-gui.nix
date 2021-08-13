@@ -16,6 +16,7 @@
     googleearth
     libnotify
     libreoffice
+    (nerdfonts.override { fonts = [ "FiraCode" ]; })
     okular
     pavucontrol
     scrot

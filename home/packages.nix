@@ -27,6 +27,7 @@
     gitAndTools.hub
     gnuplot
     htop
+    ion
     # jc
     jq
     kcov
