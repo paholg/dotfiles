@@ -14,12 +14,21 @@ fi
 # # ------------------------------------------------------------------------------
 # Set title
 # See ArchWiki: https://wiki.archlinux.org/title/zsh#xterm_title
+title_host() {
+    if [ -n "$SSH_CLIENT" ] || [ -n "$SSH_TTY" ]; then
+        host="%m: "
+    else
+        host=""
+    fi
+    echo $host
+}
+
 xterm_title_precmd() {
-	  print -Pn -- "\e]2;%~\a"
+	  print -Pn -- "\e]2;$(title_host)%~\a"
 }
 
 xterm_title_preexec() {
-	print -Pn -- "\e]2;" && print -n -- "${(q)1}" && print -Pn -- ' (%~)\a'
+	print -Pn -- "\e]2;$(title_host)" && print -n -- "${(q)1}" && print -Pn -- ' (%~)\a'
 }
 
 precmd_functions+=(xterm_title_precmd)
