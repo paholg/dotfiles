@@ -34,7 +34,6 @@ in {
           "browser.download.dir" = "$HOME/downloads";
           "browser.search.suggest.enabled" = false;
           "browser.startup.page" = 3;
-          "browser.tabs.closeWindowWithLastTab" = false;
           "browser.urlbar.placeholderName" = "DuckDuckGo";
           "devtools.theme" = "dark";
           "experiments.activeExperiment" = false;

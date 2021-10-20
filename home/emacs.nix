@@ -34,6 +34,8 @@ in {
         hook = [ "(after-init . global-company-mode)" ];
       };
 
+      csv-mode = { enable = true; };
+
       # conf-unix-mode = {
       #   enable = true;
       #   mode = [

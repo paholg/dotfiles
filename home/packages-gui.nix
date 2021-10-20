@@ -7,6 +7,7 @@
     (chromium.override {
       commandLineArgs = "--load-media-router-component-extension=1";
     })
+    brightnessctl
     discord
     dmenu
     dzen2
@@ -23,7 +24,6 @@
     signal-desktop
     slack
     vlc
-    xbrightness
     xdotool
     xorg.xmodmap
     xorg.xrandr

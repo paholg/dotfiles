@@ -3,6 +3,7 @@
 {
   hardware = {
     bluetooth.enable = true;
+
     pulseaudio = {
       enable = true;
       # Includes bluetooth support:
@@ -44,7 +45,7 @@
       xkbOptions = "eurosign:e";
       desktopManager.plasma5.enable = true;
       displayManager = {
-        defaultSession = "plasma5";
+        defaultSession = "plasma";
         lightdm.enable = true;
       };
       deviceSection = ''
