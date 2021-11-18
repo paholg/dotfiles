@@ -18,6 +18,7 @@
     clang
     clang-tools
     diskus
+    dmidecode
     exa
     fd
     feh

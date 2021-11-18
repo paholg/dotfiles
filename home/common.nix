@@ -21,6 +21,9 @@
     ".config/rustfmt/rustfmt.toml".text = ''
       edition = "2018"
     '';
+    ".config/nix/nix.conf".text = ''
+      experimental-features = nix-command flakes
+    '';
     ".profile".text = ''
       # For non-NixOs:
       if test -f $HOME/.nix-profile/etc/profile.d/nix.sh; then

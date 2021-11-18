@@ -8,6 +8,7 @@
       commandLineArgs = "--load-media-router-component-extension=1";
     })
     brightnessctl
+    dialog
     discord
     dmenu
     dzen2
@@ -28,5 +29,6 @@
     xorg.xmodmap
     xorg.xrandr
     xournal
+    zoom-us
   ];
 }
