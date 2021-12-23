@@ -29,7 +29,6 @@
 
   home.packages = with pkgs; [
     glibc
-    lutris
     texlive.combined.scheme-full
     vulkan-tools
     yubikey-manager

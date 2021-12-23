@@ -13,11 +13,7 @@
     lib.mkDefault config.hardware.enableRedistributableFirmware;
 
   hardware.enableAllFirmware = true;
-  boot = {
-    kernelParams = [ "iommu=soft" "idle=nomwait" "mem_sleep_default=deep" ];
-    kernelModules = [ "acpi_call" ];
-    extraModulePackages = with config.boot.kernelPackages; [ acpi_call ];
-  };
+  boot = { kernelParams = [ "iommu=pt" ]; };
 
   networking.hostName = "t14s";
   networking.interfaces.enp2s0f0.useDHCP = true;
