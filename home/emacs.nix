@@ -55,11 +55,6 @@ in {
         config = "(default-text-scale-mode 1)";
       };
 
-      direnv = {
-        enable = true;
-        config = "(direnv-mode)";
-      };
-
       eldoc = {
         enable = true;
         config = ''
