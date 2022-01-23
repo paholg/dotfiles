@@ -1,7 +1,7 @@
 { pkgs, ... }:
 
 {
-  imports = [ ./alacritty.nix ./packages-gui.nix ];
+  imports = [ ./packages-gui.nix ];
 
   nixpkgs.config.allowUnfree = true;
 

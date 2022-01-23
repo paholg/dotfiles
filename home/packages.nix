@@ -2,23 +2,17 @@
 
 {
   home.packages = with pkgs; [
-    acpi
     arandr
     bat
     bat-extras.batgrep
     bat-extras.batman
     bat-extras.prettybat
     bind
-    binutils
     cargo-edit
-    cargo-kcov
     cargo-outdated
     cargo-update
     cargo-watch
-    clang
-    clang-tools
     diskus
-    dmidecode
     exa
     fd
     feh
@@ -29,10 +23,7 @@
     gnuplot
     htop
     ion
-    # jc
     jq
-    kcov
-    lshw
     niv
     nixfmt
     nmap
@@ -41,8 +32,6 @@
     pciutils # lspci, etc.
     perl
     pkg-config
-    psmisc # killall, fuser, etc.
-    python-language-server
     python3
     ripgrep
     rnix-lsp
@@ -51,11 +40,8 @@
     rustup
     socat
     solargraph
-    sparse
     sshfs-fuse
-    strace
     unison
-    usbutils
     wget
     zsh
   ];

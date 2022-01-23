@@ -15,7 +15,7 @@
       window.dynamic_title = true;
 
       font = {
-        size = 13.0;
+        size = 18.0;
         normal = {
           family = "FiraCode Nerd Font Mono";
           style = "Regular";

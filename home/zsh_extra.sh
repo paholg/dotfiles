@@ -1,3 +1,5 @@
+setopt interactivecomments
+
 # ------------------------------------------------------------------------------
 # Fix ctrl + left/right arrows
 autoload -U select-word-style

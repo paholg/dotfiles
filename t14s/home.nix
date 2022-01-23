@@ -1,7 +1,13 @@
 { pkgs, ... }:
 
 {
-  imports = [ ../home/common.nix ../home/firefox.nix ../home/gui.nix ];
+  imports = [
+    ../home/common.nix
+    ../home/common-linux.nix
+    ../home/firefox.nix
+    ../home/gui.nix
+    ../home/packages-gui-linux.nix
+  ];
 
   home = {
     username = "paho";
@@ -20,11 +26,6 @@
       hostname = "home.paholg.com";
       user = "paho";
     };
-  };
-
-  programs.zsh.sessionVariables = {
-    ZSH_USER_COLOR = "green";
-    ZSH_HOST_COLOR = "cyan";
   };
 
   home.packages = with pkgs; [
