@@ -15,15 +15,18 @@
   hardware.enableAllFirmware = true;
   boot = { kernelParams = [ "iommu=pt" ]; };
 
-  networking.hostName = "t14s";
-  networking.interfaces.enp2s0f0.useDHCP = true;
-  networking.interfaces.wlp3s0.useDHCP = true;
+  networking = {
+    hostName = "t14s";
+    useNetworkd = true;
+    useDHCP = false;
+  };
 
   # New kernal required for Ryzen 4750 video card:
   boot.kernelPackages = pkgs.linuxPackages_latest;
   services.xserver.videoDrivers = [ "amdgpu" ];
 
   hardware = {
+    enableRedistributableFirmware = true;
     opengl = {
       enable = true;
       driSupport32Bit = true;
