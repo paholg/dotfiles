@@ -25,9 +25,14 @@
       experimental-features = nix-command flakes
     '';
     ".profile".text = ''
-      # For non-NixOs:
+      # For non-NixOs, single-user:
       if test -f $HOME/.nix-profile/etc/profile.d/nix.sh; then
         . $HOME/.nix-profile/etc/profile.d/nix.sh
+      fi
+
+      # For non-NixOs, multi-user:
+      if test -f '/nix/var/nix/profiles/default/etc/profile.d/nix.sh'
+        . '/nix/var/nix/profiles/default/etc/profile.d/nix.sh'
       fi
 
       path_dirs="
@@ -77,6 +82,7 @@
         push.default = "current";
         rebase.autosquash = true;
         init.defaultBranch = "main";
+        credential.helper = "store";
       };
       aliases = {
         b = "branch";
@@ -117,7 +123,6 @@
       enable = true;
       enableAutosuggestions = true;
       enableCompletion = true;
-      # enableVteIntegration = true;
       defaultKeymap = "emacs";
       history = {
         expireDuplicatesFirst = true;
@@ -140,13 +145,6 @@
         t = "tmux attach";
       };
       initExtra = (builtins.readFile ./zsh_extra.sh);
-    };
-  };
-
-  services = {
-    gpg-agent = {
-      enable = true;
-      enableSshSupport = true;
     };
   };
 }
