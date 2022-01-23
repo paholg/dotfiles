@@ -13,7 +13,6 @@
     gimp
     glxinfo
     gnome3.eog
-    googleearth
     libnotify
     libreoffice
     okular

@@ -142,6 +142,8 @@
         branches = "git branch -v --sort=-committerdate | head -n10";
         ipinfo = "curl ipinfo.io 2> /dev/null | jq .";
 
+        sudop = "sudo env PATH=$PATH";
+
         t = "tmux attach";
       };
       initExtra = (builtins.readFile ./zsh_extra.sh);
