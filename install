@@ -43,3 +43,8 @@ if test -f "`hostname`/home.nix"; then
     nix-shell '<home-manager>' -A install
 fi
 
+if test -f "`hostname`/install"; then
+    echo "Running hostname-specific install"
+
+    . `hostname`/install
+fi
