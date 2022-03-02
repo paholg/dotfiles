@@ -10,5 +10,5 @@
 
   programs.git.userEmail = "paho.lurie-gregg@beyondidentity.com";
 
-  home.packages = with pkgs; [ awscli2 ];
+  home.packages = with pkgs; [ awscli2 go mercurial yarn ];
 }

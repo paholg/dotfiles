@@ -8,6 +8,8 @@
     bat-extras.batman
     bat-extras.prettybat
     bind
+    bitwarden-cli
+    cargo-audit
     cargo-edit
     cargo-outdated
     cargo-update

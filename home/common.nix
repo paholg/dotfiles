@@ -9,7 +9,7 @@
 
   home = {
     sessionVariables = {
-      EDITOR = "emacsclient -c";
+      EDITOR = "emacsclient -t";
       ALTERNATE_EDITOR = "emacs";
       RUST_NEW_ERROR_FORMAT = true;
       CARGO_HOME = "$HOME/.cargo";
@@ -38,6 +38,7 @@
       path_dirs="
           $HOME/.cargo/bin
           $HOME/dotfiles/bin
+          $HOME/bin
       "
 
       for dir in $(echo $path_dirs); do
