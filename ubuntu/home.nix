@@ -45,12 +45,11 @@
   };
 
   programs.zsh.shellAliases = {
-    cb = ''
-      function _cb() { nix-shell -p openssl pkgconfig tpm2-tss --run "cargo build "$@""}; _cb'';
-    cr = ''
-      function _cr() { nix-shell -p openssl pkgconfig tpm2-tss --run "cargo run "$@""}; _cr'';
-    ct = ''
-      function _ct() { nix-shell -p openssl pkgconfig tpm2-tss --run "cargo test "$@""}; _ct'';
+    ns = ''
+      function _ns() { nix-shell -p openssl pkgconfig tpm2-tss --run ""$@"" }; _ns'';
+    cb = ''ns "cargo build"'';
+    cr = ''ns "cargo run"'';
+    ct = ''ns "cargo test"'';
   };
 
   home.packages = with pkgs; [
