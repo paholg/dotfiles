@@ -30,6 +30,7 @@
     nixfmt
     nmap
     nodePackages.bash-language-server
+    nodePackages.typescript-language-server
     openssl
     pciutils # lspci, etc.
     perl
@@ -43,6 +44,7 @@
     socat
     solargraph
     sshfs-fuse
+    swift
     unison
     wget
     zsh
