@@ -87,8 +87,11 @@
       };
       aliases = {
         b = "branch";
+        bt = "branch -v --sort=-committerdate";
         c = "commit";
         co = "checkout";
+        d = "diff";
+        dc = "diff --cached";
         l = "log";
         s = "status";
         sw = "switch";
