@@ -25,7 +25,7 @@
     userEmail = "paho.lurie-gregg@beyondidentity.com";
     signing = {
       gpgPath = "/opt/beyond-identity/bin/gpg-bi";
-      key = "DF4EEF201EA52C82651B3015CB98DCF706D022DC";
+      key = "0A0862F72BBF7DDBEC6DCB6A8B7CC784EDC9150D";
       signByDefault = true;
     };
   };
@@ -55,7 +55,9 @@
   home.packages = with pkgs; [
     awscli2
     docker-compose
+    fpm
     go
+    gopls
     mercurial
     nodejs
     sqlitebrowser
