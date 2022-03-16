@@ -9,6 +9,7 @@
     bat-extras.prettybat
     bind
     bitwarden-cli
+    bottom
     cargo-audit
     cargo-edit
     cargo-outdated
@@ -47,6 +48,7 @@
     swift
     unison
     wget
+    zenith
     zsh
   ];
 }

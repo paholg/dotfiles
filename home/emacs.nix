@@ -33,6 +33,8 @@ in {
         hook = [ "(after-init . global-company-mode)" ];
       };
 
+      csharp-mode = { enable = true; };
+
       csv-mode = { enable = true; };
 
       # conf-unix-mode = {

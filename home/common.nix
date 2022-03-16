@@ -143,7 +143,9 @@
         em = "emacsclient -c";
         emt = "emacsclient -t";
 
-        branches = "git branch -v --sort=-committerdate | head -n10";
+        g = "git";
+
+        bt = "git bt | head -n10";
         ipinfo = "curl ipinfo.io 2> /dev/null | jq .";
 
         sudop = "sudo env PATH=$PATH";

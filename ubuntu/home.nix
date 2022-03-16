@@ -46,7 +46,7 @@
 
   programs.zsh.shellAliases = {
     ns = ''
-      function _ns() { nix-shell -p openssl pkgconfig tpm2-tss --run ""$@"" }; _ns'';
+      function _ns() { nix-shell -p pkgconfig openssl tpm2-tss sqlite --run ""$@"" }; _ns'';
     cb = ''ns "cargo build"'';
     cr = ''ns "cargo run"'';
     ct = ''ns "cargo test"'';
