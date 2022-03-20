@@ -28,11 +28,13 @@
     nixfmt
     nmap
     nodePackages.bash-language-server
+    nodePackages.typescript-language-server
     openssl
     pciutils # lspci, etc.
     perl
     pkg-config
     python3
+    python39Packages.pip
     ripgrep
     rnix-lsp
     ruby
@@ -43,6 +45,7 @@
     sshfs-fuse
     unison
     wget
+    zip
     zsh
   ];
 }
