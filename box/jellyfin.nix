@@ -21,6 +21,6 @@
 
   security.acme = {
     acceptTerms = true;
-    email = "paho@paholg.com";
+    defaults.email = "paho@paholg.com";
   };
 }
