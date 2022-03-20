@@ -8,6 +8,9 @@
     bat-extras.batman
     bat-extras.prettybat
     bind
+    bitwarden-cli
+    bottom
+    cargo-audit
     cargo-edit
     cargo-outdated
     cargo-update
@@ -43,8 +46,10 @@
     socat
     solargraph
     sshfs-fuse
+    swift
     unison
     wget
+    zenith
     zip
     zsh
   ];

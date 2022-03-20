@@ -33,6 +33,8 @@ in {
         hook = [ "(after-init . global-company-mode)" ];
       };
 
+      csharp-mode = { enable = true; };
+
       csv-mode = { enable = true; };
 
       # conf-unix-mode = {
@@ -176,6 +178,14 @@ in {
         '';
       };
 
+      lsp-sourcekit = {
+        enable = true;
+        after = [ "lsp-mode" ];
+        init = ''
+          (setq lsp-sourcekit-executable (executable-find "sourcekit-lsp"))
+        '';
+      };
+
       lsp-ui = {
         enable = true;
         command = [ "lsp-ui-mode" ];
@@ -241,6 +251,11 @@ in {
 
       sqlformat = { enable = true; };
 
+      swift-mode = {
+        enable = true;
+        hook = [ "(swift-mode . (lambda () (lsp)))" ];
+      };
+
       # Temporarily disabled due to issues.
       # spacemacs-theme = {
       #   enable = true;
@@ -251,6 +266,8 @@ in {
       # };
 
       toml-mode = { enable = true; };
+
+      typescript-mode = { enable = true; };
 
       tramp = { enable = true; };
 

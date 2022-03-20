@@ -35,7 +35,7 @@
 (setq inhibit-startup-message t)
 
 ;; Because of daemon mode, all graphical settings must go here
-(set-frame-font "FiraCode Nerd Font Mono-13" nil t)
+(set-frame-font "FiraCode Nerd Font Mono-12" nil t)
 
 (global-auto-revert-mode)
 (add-hook 'prog-mode-hook #'whitespace-mode)

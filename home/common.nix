@@ -9,7 +9,7 @@
 
   home = {
     sessionVariables = {
-      EDITOR = "emacsclient -c";
+      EDITOR = "emacsclient -t";
       ALTERNATE_EDITOR = "emacs";
       RUST_NEW_ERROR_FORMAT = true;
       CARGO_HOME = "$HOME/.cargo";
@@ -38,6 +38,7 @@
       path_dirs="
           $HOME/.cargo/bin
           $HOME/dotfiles/bin
+          $HOME/bin
       "
 
       for dir in $(echo $path_dirs); do
@@ -86,8 +87,11 @@
       };
       aliases = {
         b = "branch";
+        bt = "branch -v --sort=-committerdate";
         c = "commit";
         co = "checkout";
+        d = "diff";
+        dc = "diff --cached";
         l = "log";
         s = "status";
         sw = "switch";
@@ -139,7 +143,9 @@
         em = "emacsclient -c";
         emt = "emacsclient -t";
 
-        branches = "git branch -v --sort=-committerdate | head -n10";
+        g = "git";
+
+        bt = "git bt | head -n10";
         ipinfo = "curl ipinfo.io 2> /dev/null | jq .";
 
         sudop = "sudo env PATH=$PATH";
