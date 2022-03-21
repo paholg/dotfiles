@@ -12,9 +12,11 @@
     bottom
     cargo-audit
     cargo-edit
+    cargo-insta
     cargo-outdated
     cargo-update
     cargo-watch
+    choose
     diskus
     exa
     fd
