@@ -28,10 +28,5 @@
     };
   };
 
-  home.packages = with pkgs; [
-    glibc
-    texlive.combined.scheme-full
-    vulkan-tools
-    yubikey-manager
-  ];
+  home.packages = with pkgs; [ glibc vulkan-tools yubikey-manager ];
 }

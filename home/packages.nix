@@ -39,6 +39,7 @@
     perl
     pkg-config
     python3
+    python39Packages.pip
     ripgrep
     rnix-lsp
     ruby
@@ -51,6 +52,7 @@
     unison
     wget
     zenith
+    zip
     zsh
   ];
 }

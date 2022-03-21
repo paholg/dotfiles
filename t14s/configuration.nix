@@ -36,4 +36,7 @@
     steam-hardware.enable = true;
   };
   environment.systemPackages = with pkgs; [ steam ];
+
+  users.users.paho.extraGroups = [ "docker" ];
+  virtualisation.docker.enable = true;
 }
