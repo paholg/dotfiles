@@ -38,18 +38,18 @@
     };
 
     enclave2 = {
-      hostname = "172.20.128.135";
-      user = "ubuntu";
+      hostname = "172.20.146.16";
+      user = "ec2-user";
       identityFile = "/home/paho/.ssh/enclave-key.pem";
     };
   };
 
   programs.zsh.shellAliases = {
     ns = ''
-      function _ns() { nix-shell -p pkgconfig openssl tpm2-tss sqlite --run ""$@"" }; _ns'';
-    cb = ''ns "cargo build"'';
-    cr = ''ns "cargo run"'';
-    ct = ''ns "cargo test"'';
+      function _ns() { nix-shell -p pkgconfig openssl tpm2-tss sqlite --run "$*" }; _ns'';
+    cb = ''function _cb() { ns "cargo build "$*"" }; _cb'';
+    cr = ''function _cr() { ns "cargo build "$*"" }; _cr'';
+    ct = ''function _ct() { ns "cargo build "$*"" }; _ct'';
   };
 
   home.packages = with pkgs; [
