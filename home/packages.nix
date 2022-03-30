@@ -15,6 +15,7 @@
     cargo-outdated
     cargo-update
     cargo-watch
+    difftastic
     diskus
     exa
     fd

@@ -28,7 +28,7 @@
 
     printing = {
       enable = true;
-      drivers = [ pkgs.samsungUnifiedLinuxDriver ];
+      drivers = [ pkgs.samsung-unified-linux-driver ];
     };
 
     xserver = {
