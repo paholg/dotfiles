@@ -93,6 +93,7 @@
         d = "diff";
         dc = "diff --cached";
         l = "log";
+        rsw = "restore --staged --worktree";
         s = "status";
         sw = "switch";
       };
@@ -144,8 +145,8 @@
         emt = "emacsclient -t";
 
         g = "git";
+        gbt = "git bt | head -n10";
 
-        bt = "git bt | head -n10";
         ipinfo = "curl ipinfo.io 2> /dev/null | jq .";
 
         sudop = "sudo env PATH=$PATH";
