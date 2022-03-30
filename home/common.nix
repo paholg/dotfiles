@@ -79,6 +79,7 @@
         options = { line-numbers = true; };
       };
       extraConfig = {
+        diff.external = "difft";
         pull.rebase = false;
         push.default = "current";
         rebase.autosquash = true;
