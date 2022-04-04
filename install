@@ -23,6 +23,7 @@ else
     echo "Not on NixOs!"
     echo "You may need to install nscd"
     echo "See: https://github.com/NixOS/nixpkgs/issues/12335#issuecomment-212325290"
+    nix-channel --add https://nixos.org/channels/nixpkgs-unstable nixpkgs
 fi
 
 if test -f "`hostname`/home.nix"; then

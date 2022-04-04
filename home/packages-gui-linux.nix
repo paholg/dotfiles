@@ -4,9 +4,7 @@
   home.packages = with pkgs; [
     adwaita-qt
     arandr
-    (chromium.override {
-      commandLineArgs = "--load-media-router-component-extension=1";
-    })
+    # chromium
     brightnessctl
     discord
     dzen2
@@ -21,10 +19,12 @@
     signal-desktop
     slack
     vlc
+    xclip
     xdotool
     xorg.xmodmap
     xorg.xrandr
     xournal
+    xsel
     zoom-us
   ];
 }

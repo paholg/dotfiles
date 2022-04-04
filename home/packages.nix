@@ -3,6 +3,7 @@
 {
   home.packages = with pkgs; [
     arandr
+    aws-rotate-key
     bat
     bat-extras.batgrep
     bat-extras.batman
@@ -12,6 +13,7 @@
     bottom
     cargo-audit
     cargo-edit
+    cargo-expand
     cargo-insta
     cargo-outdated
     cargo-update

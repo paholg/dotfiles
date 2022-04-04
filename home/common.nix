@@ -24,6 +24,7 @@
     ".config/nix/nix.conf".text = ''
       experimental-features = nix-command flakes
     '';
+
     ".profile".text = ''
       # For non-NixOs, single-user:
       if test -f $HOME/.nix-profile/etc/profile.d/nix.sh; then
@@ -97,6 +98,14 @@
         rsw = "restore --staged --worktree";
         s = "status";
         sw = "switch";
+      };
+    };
+
+    helix = {
+      enable = true;
+      settings = {
+        editor = { idle-timeout = 0; };
+        theme = "bogster";
       };
     };
 

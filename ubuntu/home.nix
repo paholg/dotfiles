@@ -15,9 +15,9 @@
     sessionVariables = {
       GOPATH = "$HOME/go";
       ZEROPW = "$GOPATH/src/gitlab.com/zeropw/zero";
-      BI_CRYPTO_PROVIDER_HAL = "true";
       AWS_PROFILE = "development";
       CARGO_REGISTRY_AUTH_URL = "$(cat $HOME/.git-credentials)";
+      GONOSUMDB = "go.beyondidentity.com/*";
     };
   };
 
@@ -30,26 +30,15 @@
     };
   };
 
-  programs.ssh.matchBlocks = {
-    enclave = {
-      hostname = "172.20.132.57";
-      user = "ec2-user";
-      identityFile = "/home/paho/.ssh/enclave-key.pem";
-    };
-
-    enclave2 = {
-      hostname = "172.20.146.16";
-      user = "ec2-user";
-      identityFile = "/home/paho/.ssh/enclave-key.pem";
-    };
-  };
+  programs.ssh.matchBlocks = { };
 
   programs.zsh.shellAliases = {
     ns = ''
       function _ns() { nix-shell -p pkgconfig openssl tpm2-tss sqlite --run "$*" }; _ns'';
+    c = ''function _c() { ns "cargo "$*"" }; _c'';
     cb = ''function _cb() { ns "cargo build "$*"" }; _cb'';
-    cr = ''function _cr() { ns "cargo build "$*"" }; _cr'';
-    ct = ''function _ct() { ns "cargo build "$*"" }; _ct'';
+    cr = ''function _cr() { ns "cargo run "$*"" }; _cr'';
+    ct = ''function _ct() { ns "cargo test "$*"" }; _ct'';
   };
 
   home.packages = with pkgs; [
@@ -60,6 +49,11 @@
     gopls
     mercurial
     nodejs
+    openapi-generator-cli
+    python39Packages.swagger-spec-validator
+    python39Packages.swagger-ui-bundle
+    python310Packages.openapi-spec-validator
+    redoc-cli
     sqlitebrowser
     tpm2-tss
     yarn

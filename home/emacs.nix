@@ -56,6 +56,8 @@ in {
         config = "(default-text-scale-mode 1)";
       };
 
+      dockerfile-mode = { enable = true; };
+
       eldoc = {
         enable = true;
         config = ''
