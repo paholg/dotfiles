@@ -53,6 +53,7 @@
     sshfs-fuse
     swift
     unison
+    vim
     wget
     zenith
     zip

@@ -8,13 +8,13 @@ import XMonad
 import XMonad.Actions.CopyWindow
 import XMonad.Actions.CopyWindow
 import XMonad.Actions.CycleWS
-import XMonad.Actions.GridSelect
 import XMonad.Actions.PhysicalScreens
 import XMonad.Hooks.DynamicLog
 import XMonad.Hooks.EwmhDesktops(ewmh)
 import XMonad.Hooks.ManageDocks
 import XMonad.Hooks.ManageHelpers
 import XMonad.Hooks.SetWMName
+import XMonad.Hooks.StatusBar.PP
 import XMonad.Hooks.UrgencyHook
 import XMonad.Layout.Gaps
 import XMonad.Layout.MultiColumns
@@ -52,7 +52,7 @@ my_workspaces = ["^ca(1,xdotool key super+"++cmd++") "++display++" ^ca()" |
                            else if ws == "=" then "equal"
                            else ws
                 ]
-wsLogHook h = dynamicLogWithPP $ defaultPP {
+wsLogHook h = dynamicLogWithPP $ def {
   ppCurrent = dzenColor black cyan,
   ppVisible = dzenColor black white,
   ppHidden = dzenColor white black . noScratchPad,
@@ -172,9 +172,6 @@ scratch_pads = [ NS "terminal" spawnTerm findTerm manageTerm,
         l = (1.0 - w)/2.0
 
 ------------------------------------------------------------
--- grid select
-myGSConfig = defaultGSConfig {gs_cellheight = 50, gs_cellwidth = 100}
-
 my_keys = [
   -- PrntScr for full screen, Shift+PrntScr for window, Ctrl+PrintScr to click box
   ("C-<Print>", spawn "sleep 0.2; scrot -s $HOME/screenshots/%F-%H%M%S-s.png"),
@@ -205,7 +202,6 @@ my_keys = [
   ("M-]", nextScreen),
   ("M-S-[", shiftNextScreen),
   ("M-S-]", shiftPrevScreen),
-  ("M-g", goToSelected myGSConfig), -- GridSelect
   ("M-z", withFocused $ windows . W.sink), -- push window into tiling
   ("M-e", sendMessage $ Go U), -- change focus using wasd
   ("M-s", sendMessage $ Go L),
@@ -243,12 +239,12 @@ my_keys = [
 
 main = do
   my_statusbar <- spawnPipe my_statusbar
-  xmonad $ ewmh $ withUrgencyHook NoUrgencyHook defaultConfig {
+  xmonad $ ewmh $ withUrgencyHook NoUrgencyHook def {
     workspaces = my_workspaces,
     startupHook = docksStartupHook <+> setWMName "LG3D", -- makes java apps work
-    manageHook =  manageDocks <+> myManageHook <+> manageHook defaultConfig
+    manageHook =  manageDocks <+> myManageHook <+> manageHook def
                   <+> namedScratchpadManageHook scratch_pads,
-    handleEventHook = docksEventHook <+> handleEventHook defaultConfig,
+    handleEventHook = docksEventHook <+> handleEventHook def,
     layoutHook = layout,
     logHook = wsLogHook my_statusbar,
     borderWidth = 2,
