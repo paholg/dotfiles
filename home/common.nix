@@ -9,8 +9,7 @@
 
   home = {
     sessionVariables = {
-      EDITOR = "emacsclient -t";
-      ALTERNATE_EDITOR = "emacs";
+      EDITOR = "hx";
       RUST_NEW_ERROR_FORMAT = true;
       CARGO_HOME = "$HOME/.cargo";
       MANPAGER = "sh -c 'col -bx | bat -l man -p'";
