@@ -2,7 +2,7 @@
 
 # Rebind caps to backspace
 setxkbmap -option caps:none
-xmodmap -e 'keycode 66 = BackSpace'
+xmodmap -e 'keycode 66 = Escape'
 
 # bind menu key to windows key
 xmodmap -e 'keycode 135 = Super_L'
