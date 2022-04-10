@@ -54,6 +54,7 @@
     swift
     unison
     vim
+    wally-cli
     wget
     zenith
     zip
