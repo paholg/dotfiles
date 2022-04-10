@@ -3,10 +3,10 @@
 # A modified version of the playground script found here:
 # https://www.greyblake.com/blog/2021-03-12-rust-playground-at-your-fingertips/
 #
-# While the original runs vim and cargo in tmux panes, this one relies on you
-# having a graphical $EDITOR.
+# While the original runs vim and cargo in tmux panes, this one opens your
+# $EDITOR in a separate alacritty terminal.
 #
-# Depends on `cargo-edit` and `cargo-watch`.
+# Depends on `cargo-edit`, `cargo-watch`, and `alacritty`.
 
 set -euxo pipefail
 
@@ -29,5 +29,5 @@ for CRATE in $@; do
     cargo add $CRATE
 done
 
-$EDITOR "./src/main.rs" &
+alacritty -e $EDITOR "./src/main.rs" &
 cargo watch -s 'clear && cargo run -q'
