@@ -1,0 +1,135 @@
+# attribute = "lilac"
+keyword = { fg = "keyword", modifiers = ["bold"] }
+"keyword.directive" = "func" # -- preprocessor comments (#if in C)
+namespace = "func"
+# punctuation = "lavender"
+# "punctuation.delimiter" = "lavender"
+# operator = "lilac"
+# special = "honey"
+# variable.other.member = "white"
+# variable = "var"
+# "variable.parameter" = { fg = "lavender", modifiers = ["underlined"] }
+# "variable.parameter" = { fg = "lavender" }
+"variable.builtin" = "keyword"
+type = { fg = "type", modifiers = ["bold"] }
+"type.builtin" = "type" # TODO: distinguish?
+# constructor = "lilac"
+function = "func"
+# "function.macro" = "lilac"
+# "function.builtin" = "white"
+# tag = "almond"
+comment = { fg = "comment", bg = "comment-bg"}
+constant = "const"
+# "constant.builtin" = "white"
+string = "str"
+# "constant.numeric" = "chamois"
+# "constant.character.escape" = "honey"
+# used for lifetimes
+label = "var"
+
+"markup.heading" = "head1"
+"markup.bold" = { modifiers = ["bold"] }
+"markup.italic" = { modifiers = ["italic"] }
+"markup.link.url" = { fg = "comment", modifiers = ["underlined"] }
+# "markup.link.text" = "almond"
+# "markup.raw" = "almond"
+
+# "diff.plus" = "#35bf86"
+# "diff.minus" = "#f22c86"
+# "diff.delta" = "#6f44f0"
+
+# TODO: diferentiate doc comment
+# concat (ERROR) @error.syntax and "MISSING ;" selectors for errors
+
+"ui.background" = { bg = "bg1" }
+"ui.linenr" = { fg = "lnum", bg = "bg2" }
+"ui.linenr.selected" = { fg = "base", bg = "bg2" }
+# "ui.statusline" = { fg = "lilac", bg = "revolver" }
+# "ui.statusline.inactive" = { fg = "lavender", bg = "revolver" }
+# "ui.popup" = { bg = "revolver" }
+# "ui.window" = { fg = "bossanova" }
+# "ui.help" = { bg = "#7958DC", fg = "#171452" }
+
+"ui.text" = { fg = "base" }
+# "ui.text.focus" = { fg = "white" }
+
+"ui.selection" = { bg = "highlight-dim" }
+"ui.selection.primary" = { bg = "highlight" }
+# TODO: namespace ui.cursor as ui.selection.cursor?
+"ui.cursor.select" = { bg = "cursor" }
+"ui.cursor.insert" = { bg = "base-dim" }
+# "ui.cursor.match" = { fg = "mat", bg = "cursor" }
+"ui.cursor" = { modifiers = ["reversed"] }
+# "ui.highlight" = { bg = "bossanova" }
+
+# "ui.menu.selected" = { fg = "revolver", bg = "white" }
+
+# diagnostic = { modifiers = ["underlined"] }
+
+warning = "war"
+error = "err"
+# info = "delta"
+# hint = "silver"
+
+
+[palette]
+act1          = "#121212"
+act2          = "#444444"
+base          = "#b2b2b2"
+base-dim      = "#585858"
+bg1           = "#262626"
+bg2           = "#1c1c1c"
+bg3           = "#121212"
+bg4           = "#080808"
+bg-alt        = "#353535"
+border        = "#111111"
+cblk          = "#b2b2b2"
+cblk-bg       = "#262626"
+cblk-ln       = "#af5faf"
+cblk-ln-bg    = "#333333"
+cursor        = "#d0d0d0"
+const         = "#d75fd7"
+comment       = "#008787"
+comment-light = "#008787"
+comment-bg    = "#262626"
+comp          = "#d75fd7"
+err           = "#e0211d"
+func          = "#d75fd7"
+head1         = "#268bd2"
+head1-bg      = "#262626"
+head2         = "#2aa198"
+head2-bg      = "#262626"
+head3         = "#67b11d"
+head3-bg      = "#262626"
+head4         = "#875f00"
+head4-bg      = "#262626"
+highlight     = "#444444"
+highlight-dim = "#333333"
+keyword       = "#268bd2"
+lnum          = "#444444"
+mat           = "#86dc2f"
+meta          = "#af875f"
+str           = "#2aa198"
+suc           = "#86dc2f"
+ttip          = "#888888"
+ttip-sl       = "#333333"
+ttip-bg       = "#444444"
+type          = "#df005f"
+var           = "#8787d7"
+war           = "#dc752f"
+# colors
+aqua          = "#2aa198"
+aqua-bg       = "#262626"
+green         = "#67b11d"
+green-bg      = "#262626"
+green-bg-s    = "#262626"
+cyan          = "#00ffff"
+red           = "#d70000"
+red-bg        = "#262626"
+red-bg-s      = "#262626"
+blue          = "#268bd2"
+blue-bg       = "#262626"
+blue-bg-s     = "#262626"
+magenta       = "#af00df"
+yellow        = "#875f00"
+yellow-bg     = "#262626"
