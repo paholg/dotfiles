@@ -44,7 +44,7 @@ label = "var"
 "ui.background" = { bg = "bg1" }
 "ui.linenr" = { fg = "lnum", bg = "bg2" }
 "ui.linenr.selected" = { fg = "base", bg = "bg2" }
-# "ui.statusline" = { fg = "lilac", bg = "revolver" }
+"ui.statusline" = { fg = "base", bg = "bg2" }
 # "ui.statusline.inactive" = { fg = "lavender", bg = "revolver" }
 # "ui.popup" = { bg = "revolver" }
 # "ui.window" = { fg = "bossanova" }
