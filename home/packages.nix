@@ -2,6 +2,7 @@
 
 {
   home.packages = with pkgs; [
+    angle-grinder
     arandr
     aws-rotate-key
     bat
