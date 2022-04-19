@@ -42,6 +42,7 @@
     pciutils # lspci, etc.
     perl
     pkg-config
+    pgcli
     python3
     python39Packages.pip
     ripgrep
@@ -53,7 +54,7 @@
     socat
     solargraph
     sshfs-fuse
-    swift
+    # swift
     unison
     vim
     wally-cli
