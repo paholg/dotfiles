@@ -18,6 +18,9 @@
       AWS_PROFILE = "development";
       CARGO_REGISTRY_AUTH_URL = "$(cat $HOME/.git-credentials)";
       GONOSUMDB = "go.beyondidentity.com/*";
+      GOPROXY = "$(cat $HOME/.goproxy)";
+      DATABASE_URL =
+        "postgres://localhost?user=postgres&password=postgres&dbname=authn";
     };
   };
 
@@ -36,13 +39,15 @@
     ns = ''
       function _ns() { nix-shell -p pkgconfig openssl tpm2-tss sqlite --run "$*" }; _ns'';
     c = ''function _c() { ns "cargo "$*"" }; _c'';
-    cb = ''function _cb() { ns "cargo build "$*"" }; _cb'';
-    cr = ''function _cr() { ns "cargo run "$*"" }; _cr'';
-    ct = ''function _ct() { ns "cargo test "$*"" }; _ct'';
+    ccheck = ''
+      function _ccheck() { ns "cargo check --color always "$*" 2>&1 | bat" }; _ccheck'';
+    ctest = ''
+      function _ctest() { ns "cargo test --color always "$*" 2>&1 | bat" }; _ctest'';
   };
 
   home.packages = with pkgs; [
     awscli2
+    docker
     docker-compose
     fpm
     go
@@ -55,6 +60,7 @@
     python310Packages.openapi-spec-validator
     redoc-cli
     sqlitebrowser
+    sqlx-cli
     tpm2-tss
     yarn
   ];

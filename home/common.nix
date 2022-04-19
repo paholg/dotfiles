@@ -118,14 +118,7 @@
     tmux = {
       enable = true;
       newSession = true;
-      shortcut = "t";
       terminal = "xterm-256color";
-      extraConfig = ''
-        bind-key 'i' select-pane -U
-        bind-key 'k' select-pane -D
-        bind-key 'j' select-pane -L
-        bind-key 'l' select-pane -R
-      '';
     };
 
     zoxide = {

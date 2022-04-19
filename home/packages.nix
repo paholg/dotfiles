@@ -29,6 +29,7 @@
     gitAndTools.delta
     gitAndTools.hub
     gnuplot
+    haskell-language-server
     htop
     ion
     jq
@@ -48,6 +49,7 @@
     ruby
     rust-analyzer
     rustup
+    sd
     socat
     solargraph
     sshfs-fuse

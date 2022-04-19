@@ -212,6 +212,8 @@ in {
         mode = [ ''"\\.mdwn\\'"'' ''"\\.markdown\\'"'' ''"\\.md\\'"'' ];
       };
 
+      mustache-mode = { enable = true; };
+
       nix-mode = {
         enable = true;
         mode = [ ''"\\.nix\\'"'' ];
