@@ -207,13 +207,9 @@ my_keys = [
   ("M-s", sendMessage $ Go L),
   ("M-d", sendMessage $ Go D),
   ("M-f", sendMessage $ Go R),
-  ("M-S-e", sendMessage $ Swap U), -- swap windows using shift + esdf
-  ("M-S-s", sendMessage $ Swap L),
-  ("M-S-d", sendMessage $ Swap D),
-  ("M-S-f", sendMessage $ Swap R),
-  ("M-i", sendMessage MirrorExpand), -- reduce vertical size
-  ("M-j", sendMessage Shrink), -- move center to left
-  ("M-k", sendMessage MirrorShrink), -- increase vertical size
+  ("M-h", sendMessage Shrink), -- move center to left
+  ("M-j", sendMessage MirrorShrink), -- increase vertical size
+  ("M-k", sendMessage MirrorExpand), -- reduce vertical size
   ("M-l", sendMessage Expand), -- move center to right
   -- Scratch pads
   ("M-o", namedScratchpadAction scratch_pads "volume"),
