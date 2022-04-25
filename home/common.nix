@@ -113,6 +113,12 @@
       path = "...";
     };
 
+    mcfly = {
+      enable = true;
+      enableFuzzySearch = true;
+      enableZshIntegration = true;
+    };
+
     ssh = { enable = true; };
 
     tmux = {

@@ -26,10 +26,10 @@
       enable = true;
     };
 
-    printing = {
-      enable = true;
-      drivers = [ pkgs.samsung-unified-linux-driver ];
-    };
+    # printing = {
+    #   enable = true;
+    #   drivers = [ pkgs.samsung-unified-linux-driver ];
+    # };
 
     xserver = {
       enable = true;
