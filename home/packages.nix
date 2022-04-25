@@ -12,6 +12,7 @@
     bind
     bitwarden-cli
     bottom
+    broot
     cargo-audit
     cargo-edit
     cargo-expand
@@ -56,6 +57,7 @@
     solargraph
     sshfs-fuse
     # swift
+    tokei
     unison
     vim
     wally-cli
