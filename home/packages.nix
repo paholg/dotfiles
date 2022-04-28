@@ -24,6 +24,7 @@
     clang
     difftastic
     diskus
+    du-dust
     exa
     fd
     feh

@@ -20,7 +20,7 @@
       GONOSUMDB = "go.beyondidentity.com/*";
       GOPROXY = "$(cat $HOME/.goproxy)";
       DATABASE_URL =
-        "postgres://localhost?user=postgres&password=postgres&dbname=authn";
+        "postgres://postgres:authnpw@dockerhost:8015/postgres?sslmode=disable";
     };
   };
 
@@ -35,15 +35,7 @@
 
   programs.ssh.matchBlocks = { };
 
-  programs.zsh.shellAliases = {
-    ns = ''
-      function _ns() { nix-shell -p pkgconfig openssl tpm2-tss sqlite --run "$*" }; _ns'';
-    c = ''function _c() { ns "cargo "$*"" }; _c'';
-    ccheck = ''
-      function _ccheck() { ns "cargo check --color always "$*" 2>&1 | bat" }; _ccheck'';
-    ctest = ''
-      function _ctest() { ns "cargo test --color always "$*" 2>&1 | bat" }; _ctest'';
-  };
+  programs.zsh.shellAliases = { };
 
   home.packages = with pkgs; [
     awscli2
