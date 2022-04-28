@@ -98,7 +98,7 @@
       enable = true;
       settings = {
         editor = { idle-timeout = 0; };
-        theme = "bogster";
+        theme = "paho-theme";
       };
     };
 
@@ -151,6 +151,15 @@
 
         g = "git";
         gbt = "git bt | head -n10";
+
+        hx-install = ''
+          pushd ~/git/helix && \
+          git pull && \
+          cargo install --path helix-term && \
+          hx --grammar fetch && \
+          hx --grammar build && \
+          ln -s $PWD/runtime ~/.config/helix/runtime; \
+          popd'';
 
         ipinfo = "curl ipinfo.io 2> /dev/null | jq .";
 
