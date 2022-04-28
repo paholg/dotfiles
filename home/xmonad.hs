@@ -79,7 +79,7 @@ wsLogHook h = dynamicLogWithPP $ def {
 -- programs to use
 my_terminal = "alacritty"
 my_pdfviewer = "okular"
-my_statusbar = "RUST_BACKTRACE=1 ~/src/rustybar/target/release/rustybar > /tmp/rustylog 2>&1"
+my_statusbar = "~/bin/rustybar > /tmp/rustylog 2>&1"
 
 ------------------------------------------------------------
 -- layouts

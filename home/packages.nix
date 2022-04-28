@@ -21,6 +21,7 @@
     cargo-update
     cargo-watch
     choose
+    clang
     difftastic
     diskus
     exa
@@ -35,6 +36,8 @@
     htop
     ion
     jq
+    mdcat
+    mold
     niv
     nixfmt
     nmap

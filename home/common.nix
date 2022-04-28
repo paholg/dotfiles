@@ -1,7 +1,7 @@
 { ... }:
 
 {
-  imports = [ ./emacs.nix ./packages.nix ./starship.nix ];
+  imports = [ ./packages.nix ./starship.nix ];
 
   home.stateVersion = "20.09";
 
@@ -13,12 +13,15 @@
       RUST_NEW_ERROR_FORMAT = true;
       CARGO_HOME = "$HOME/.cargo";
       MANPAGER = "sh -c 'col -bx | bat -l man -p'";
+      CARGO_TARGET_DIR = "$HOME/.cargo/cache";
     };
   };
 
   home.file = {
-    ".config/rustfmt/rustfmt.toml".text = ''
-      edition = "2018"
+    ".cargo/config.toml".text = ''
+      [target.x86_64-unknown-linux-gnu]
+      linker = "clang"
+      rustflags = ["-C", "link-arg=-fuse-ld=mold"]
     '';
     ".config/nix/nix.conf".text = ''
       experimental-features = nix-command flakes
