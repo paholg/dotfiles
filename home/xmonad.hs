@@ -14,7 +14,7 @@ import XMonad.Hooks.EwmhDesktops(ewmh)
 import XMonad.Hooks.ManageDocks
 import XMonad.Hooks.ManageHelpers
 import XMonad.Hooks.SetWMName
-import XMonad.Hooks.StatusBar.PP
+-- import XMonad.Hooks.StatusBar.PP
 import XMonad.Hooks.UrgencyHook
 import XMonad.Layout.Gaps
 import XMonad.Layout.MultiColumns
@@ -77,7 +77,7 @@ wsLogHook h = dynamicLogWithPP $ def {
 
 ------------------------------------------------------------
 -- programs to use
-my_terminal = "alacritty"
+my_terminal = "gnome-terminal -e zsh"
 my_pdfviewer = "okular"
 my_statusbar = "~/bin/rustybar > /tmp/rustylog 2>&1"
 
@@ -185,7 +185,7 @@ my_keys = [
   ("M-C-S-m",  spawn "monitor_switch ctrl-shift"),
   -- run programs
   ("M-t", spawn my_terminal),
-  ("M-a", spawn "emacsclient -c"),
+  ("M-a", spawn "emacs"),
   ("M-r", spawn "dmenu_run -i -nb black -sb grey -nf grey -sf black -fn '-misc-fixed-medium-r-normal--18-*-*-*-*-*-*-*'"),
   -- window manager stuff
   ("M-v", sendMessage ToggleStruts),
@@ -194,7 +194,7 @@ my_keys = [
   ("M-C-q", kill),
   ("M-C-l", spawn "physlock"),
   ("M-M1-x", spawn "xkill"),
-  ("M-S-q", sequence_ [spawn "killall rustybar", restart "xmonad" True]),
+  ("M-S-C-q", sequence_ [spawn "killall rustybar", restart "xmonad" True]),
   ("M-M1-q", io (exitWith ExitSuccess)), -- exit xmonad
   ("M-,", sendMessage (IncMasterN 1)), -- increase windows on left
   ("M-.", sendMessage (IncMasterN (-1))), -- decrease windows on left
@@ -214,7 +214,6 @@ my_keys = [
   -- Scratch pads
   ("M-o", namedScratchpadAction scratch_pads "volume"),
   ("M-c", namedScratchpadAction scratch_pads "calc"),
-  ("M-h", namedScratchpadAction scratch_pads "network"),
   ("M-x", namedScratchpadAction scratch_pads "terminal"),
   ("M-p", namedScratchpadAction scratch_pads "bitwarden"),
   -- Media keys

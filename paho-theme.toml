@@ -52,7 +52,7 @@
 "ui.selection" = { bg = "highlight-dim" }
 "ui.selection.primary" = { bg = "highlight"}
 "ui.cursor.match" = { fg = "mat", bg = "bg4" }
-"ui.cursor" = { fg = "cursor", modifiers = ["reversed"] }
+"ui.cursor" = { fg = "cursor", bg = "bg2", modifiers = ["reversed"] }
 "ui.cursor.insert" = { fg = "base-dim", modifiers = ["reversed"] }
 "ui.menu.selected" = { fg = "#e5ded6", bg = "#313f4e" }
 
@@ -61,7 +61,6 @@
 "info" = "suc"
 "hint" = "base"
 
-# make diagnostic underlined, to distinguish with selection text.
 diagnostic = { bg = "bg-err", modifiers = ["italic"] }
 
 
@@ -71,7 +70,7 @@ act2          = "#444444"
 base          = "#b2b2b2"
 base-dim      = "#585858"
 bg1           = "#262626"
-bg-err        = "#522626"
+bg-err        = "#2b0e0e"
 bg2           = "#1c1c1c"
 bg3           = "#121212"
 bg4           = "#080808"
