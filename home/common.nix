@@ -105,8 +105,18 @@
 
     helix = {
       enable = true;
+      languages = [
+        {
+          name = "rust";
+          rulers = [ 101 ];
+        }
+        {
+          name = "git-commit";
+          rulers = [ 51 73 ];
+        }
+      ];
       settings = {
-        editor = { idle-timeout = 0; };
+        editor = { rulers = [ 81 ]; };
         theme = "paho-theme";
       };
     };
