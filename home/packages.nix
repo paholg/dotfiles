@@ -21,7 +21,7 @@
     cargo-update
     cargo-watch
     choose
-    # clang
+    clang
     difftastic
     diskus
     du-dust
@@ -37,7 +37,6 @@
     htop
     ion
     jq
-    llvm-vscode
     mdcat
     mold
     niv
@@ -48,7 +47,7 @@
     openssl
     pciutils # lspci, etc.
     perl
-    # pkg-config
+    pkg-config
     pgcli
     python3
     python39Packages.pip
@@ -62,13 +61,11 @@
     solargraph
     sshfs-fuse
     # swift
-    taplo-cli
     tokei
     unison
     vim
     wally-cli
     wget
-    yaml-language-server
     zenith
     zip
     zsh
