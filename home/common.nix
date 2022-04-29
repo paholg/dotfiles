@@ -8,7 +8,6 @@
   fonts.fontconfig.enable = true;
 
   home = {
-    sessionPath = [ "$HOME/.cargo/bin" "$HOME/dotfiles/bin" "$HOME/bin" ];
     sessionVariables = {
       EDITOR = "hx";
       RUST_NEW_ERROR_FORMAT = true;
@@ -42,6 +41,16 @@
       if `command -v rustc >/dev/null 2>&1`; then
           export RUST_SRC_PATH="$(rustc --print sysroot)/lib/rustlib/src/rust/src"
       fi
+
+      path_dirs="
+        $HOME/.cargo/bin
+        $HOME/dotfiles/bin
+        $HOME/bin
+      "
+
+      for dir in $(echo $path_dirs); do
+        export PATH=$dir:$PATH
+      done
     '';
 
     ".zprofile".text = ''
