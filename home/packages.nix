@@ -10,6 +10,7 @@
     bat-extras.batman
     bat-extras.prettybat
     bind
+    # binutils
     bitwarden-cli
     bottom
     broot
@@ -21,7 +22,7 @@
     cargo-update
     cargo-watch
     choose
-    clang
+    # clang
     difftastic
     diskus
     du-dust

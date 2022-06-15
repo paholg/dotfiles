@@ -13,7 +13,10 @@
     lib.mkDefault config.hardware.enableRedistributableFirmware;
 
   hardware.enableAllFirmware = true;
-  boot = { kernelParams = [ "iommu=pt" ]; };
+  boot = {
+    kernelParams = [ "iommu=pt" ];
+    initrd.kernelModules = [ "amdgpu" ];
+  };
 
   networking = {
     hostName = "t14s";
@@ -23,12 +26,16 @@
 
   # New kernal required for Ryzen 4750 video card:
   boot.kernelPackages = pkgs.linuxPackages_latest;
-  services.xserver.videoDrivers = [ "amdgpu" ];
-
+  services.xserver = {
+    enable = true;
+    videoDrivers = [ "amdgpu" ];
+  };
   hardware = {
     enableRedistributableFirmware = true;
     opengl = {
       enable = true;
+      # Enable Vulkan
+      driSupport = true;
       driSupport32Bit = true;
       extraPackages32 = with pkgs.pkgsi686Linux; [ libva ];
     };
