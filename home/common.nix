@@ -108,7 +108,7 @@
       languages = [
         {
           name = "rust";
-          rulers = [ 101 ];
+          rulers = [ 81 101 ];
         }
         {
           name = "git-commit";
@@ -116,7 +116,11 @@
         }
       ];
       settings = {
-        editor = { rulers = [ 81 ]; };
+        editor = {
+          auto-pairs = false;
+          rulers = [ 81 ];
+          file-picker = { hidden = false; };
+        };
         theme = "paho-theme";
       };
     };
