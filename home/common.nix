@@ -117,7 +117,6 @@
       ];
       settings = {
         editor = {
-          auto-pairs = false;
           rulers = [ 81 ];
           file-picker = { hidden = false; };
         };

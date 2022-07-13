@@ -18,7 +18,7 @@
       bat-extras.batman
       bat-extras.prettybat
       bind
-      # binutils
+      binutils
       bitwarden-cli
       bottom
       broot
