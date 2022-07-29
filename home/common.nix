@@ -117,9 +117,9 @@
       ];
       settings = {
         editor = {
-          auto-pairs = false;
           rulers = [ 81 ];
           file-picker = { hidden = false; };
+          lsp = { display-messages = true; };
         };
         theme = "paho-theme";
       };
@@ -174,6 +174,8 @@
 
         g = "git";
         gbt = "git bt | head -n10";
+        gsw = ''
+          git switch $(git branch -v --sort=-committerdate | fzf | cut -c3- | cut -d " " -f1)'';
 
         hx-install = ''
           pushd ~/git/helix && \

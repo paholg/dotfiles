@@ -1,8 +1,6 @@
 "attribute" = "#dc7759"
 "keyword" = { fg = "keyword", modifiers = ["bold"] }
 "namespace" = "func"
-# "punctuation" = "keyword"
-# "operator" = { fg = "keyword", modifiers = ["bold"] }
 "special" = "#7fdc59"
 "variable.other.member" = "#c6b8ad"
 "variable" = "#c6b8ad"
@@ -47,7 +45,7 @@
 "ui.text.focus" = { fg = "#e5ded6", modifiers= ["bold"] }
 "ui.virtual" = "#627d9d"
 "ui.virtual.ruler" = { bg = "bg3" }
-"ui.virtual.whitespace" = "base-dim"
+"ui.virtual.whitespace" = "base"
 
 "ui.selection" = { bg = "highlight-dim" }
 "ui.selection.primary" = { bg = "highlight"}
@@ -59,9 +57,9 @@
 "warning" = "war"
 "error" = "err"
 "info" = "suc"
-"hint" = "base"
+"hint" = "yellow"
 
-diagnostic = { bg = "bg-err", modifiers = ["italic"] }
+"diagnostic" = { bg = "bg-err", modifiers = ["italic"] }
 
 
 [palette]

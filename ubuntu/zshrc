@@ -1,2 +1,2 @@
 # Ensure these paths are set first
-export PATH=$HOME/bin:$HOME/dotfiles/bin:$HOME/.cargo/bin:$PATH
+export PATH=$HOME/bin:$HOME/dotfiles/bin:$HOME/.cargo/bin:$HOME/.local/bin:$PATH

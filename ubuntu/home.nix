@@ -20,7 +20,7 @@
       GONOSUMDB = "go.beyondidentity.com/*";
       GOPROXY = "$(cat $HOME/.goproxy)";
       DATABASE_URL =
-        "postgres://postgres:authnpw@dockerhost:8015/postgres?sslmode=disable";
+        "postgresql://postgres:beyondidentity@dockerhost:5435/postgres?sslmode=disable";
     };
   };
 
@@ -28,7 +28,7 @@
     userEmail = "paho.lurie-gregg@beyondidentity.com";
     signing = {
       gpgPath = "/opt/beyond-identity/bin/gpg-bi";
-      key = "0A0862F72BBF7DDBEC6DCB6A8B7CC784EDC9150D";
+      key = "64B10D69F869D49CA4D716B817A44143A74D6094";
       signByDefault = true;
     };
   };
@@ -51,6 +51,7 @@
     python39Packages.swagger-ui-bundle
     python310Packages.openapi-spec-validator
     redoc-cli
+    remmina
     sqlitebrowser
     sqlx-cli
     tpm2-tss

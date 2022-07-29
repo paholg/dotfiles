@@ -14,6 +14,8 @@ in {
     }))
   ];
 
+  services.emacs.enable = true;
+
   programs.emacs.enable = true;
   programs.emacs.init = {
     enable = true;

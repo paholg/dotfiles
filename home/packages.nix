@@ -14,6 +14,7 @@
     bitwarden-cli
     bottom
     broot
+    # binutils
     cargo-audit
     cargo-edit
     cargo-expand
@@ -36,6 +37,7 @@
     gnuplot
     haskell-language-server
     htop
+    hyperfine
     ion
     jq
     mdcat
@@ -48,10 +50,10 @@
     openssl
     pciutils # lspci, etc.
     perl
-    pkg-config
+    # pkg-config
     pgcli
     python3
-    python39Packages.pip
+    # python39Packages.pip
     ripgrep
     rnix-lsp
     ruby
@@ -62,11 +64,14 @@
     solargraph
     sshfs-fuse
     # swift
+    taplo-cli
     tokei
     unison
     vim
+    vscode-extensions.llvm-org.lldb-vscode
     wally-cli
     wget
+    yaml-language-server
     zenith
     zip
     zsh
