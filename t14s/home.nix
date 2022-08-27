@@ -7,6 +7,7 @@
     ../home/firefox.nix
     ../home/gui.nix
     ../home/packages-gui-linux.nix
+    ../home/packages-bi.nix
   ];
 
   home = {

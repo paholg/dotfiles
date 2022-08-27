@@ -13,6 +13,7 @@
     gnome3.eog
     libnotify
     libreoffice
+    lxqt.lxqt-policykit
     okular
     pavucontrol
     scrot

@@ -9,7 +9,6 @@
     kcov
     lshw
     psmisc # killall, fuser, etc.
-    python-language-server
     sparse
     strace
     usbutils

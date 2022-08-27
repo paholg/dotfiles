@@ -73,6 +73,9 @@
     json.enable = true;
   };
 
+  nixpkgs.config = import ./nixpkgs-config.nix;
+  xdg.configFile."nixpkgs/config.nix".source = ./nixpkgs-config.nix;
+
   programs = {
     git = {
       enable = true;
@@ -180,7 +183,7 @@
         hx-install = ''
           pushd ~/git/helix && \
           git pull && \
-          cargo install --path helix-term && \
+          nix develop -c "cargo install --path helix-term" && \
           hx --grammar fetch && \
           hx --grammar build && \
           ln -s $PWD/runtime ~/.config/helix/runtime; \

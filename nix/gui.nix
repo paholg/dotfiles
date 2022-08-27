@@ -21,6 +21,8 @@
   services = {
     fwupd.enable = true;
 
+    gnome = { gnome-keyring.enable = true; };
+
     physlock = {
       allowAnyUser = true;
       enable = true;
