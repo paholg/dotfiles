@@ -5,6 +5,7 @@
     ../home/common.nix
     ../home/common-linux.nix
     ../home/gui.nix
+    ../home/firefox.nix
     ../home/packages-gui.nix
     ../home/packages-gui-linux.nix
   ];
@@ -14,7 +15,7 @@
     homeDirectory = "/home/paho";
     sessionVariables = {
       GOPATH = "$HOME/go";
-      ZEROPW = "$GOPATH/src/gitlab.com/zeropw/zero";
+      ZEROPW = "$HOME/bi/zero";
       AWS_PROFILE = "development";
       CARGO_REGISTRY_AUTH_URL = "$(cat $HOME/.git-credentials)";
       GONOSUMDB = "go.beyondidentity.com/*";
@@ -28,7 +29,7 @@
     userEmail = "paho.lurie-gregg@beyondidentity.com";
     signing = {
       gpgPath = "/opt/beyond-identity/bin/gpg-bi";
-      key = "64B10D69F869D49CA4D716B817A44143A74D6094";
+      key = "5F78989E28A4FC0D7D507176AE9E04831E891B04";
       signByDefault = true;
     };
   };

@@ -77,7 +77,7 @@ wsLogHook h = dynamicLogWithPP $ def {
 
 ------------------------------------------------------------
 -- programs to use
-my_terminal = "alacritty"
+my_terminal = "nixGL alacritty"
 my_pdfviewer = "okular"
 my_statusbar = "rustybar"
 
@@ -214,7 +214,6 @@ my_keys = [
   -- Scratch pads
   ("M-o", namedScratchpadAction scratch_pads "volume"),
   ("M-c", namedScratchpadAction scratch_pads "calc"),
-  ("M-h", namedScratchpadAction scratch_pads "network"),
   ("M-x", namedScratchpadAction scratch_pads "terminal"),
   ("M-p", namedScratchpadAction scratch_pads "bitwarden"),
   -- Media keys

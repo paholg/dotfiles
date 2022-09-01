@@ -13,6 +13,8 @@
   home = {
     username = "paho";
     homeDirectory = "/home/paho";
+
+    keyboard.options = [ "caps:backspace" ];
   };
 
   programs.git.userEmail = "paho@paholg.com";

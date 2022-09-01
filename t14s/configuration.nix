@@ -3,12 +3,6 @@
 {
   imports = [ ../nix/common.nix ../nix/gui.nix ];
 
-  swapDevices = [{
-    device = "/swapfile";
-    priority = 100;
-    size = 32768;
-  }];
-
   hardware.cpu.amd.updateMicrocode =
     lib.mkDefault config.hardware.enableRedistributableFirmware;
 

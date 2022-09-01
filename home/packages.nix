@@ -30,7 +30,8 @@
       cargo-update
       cargo-watch
       choose
-      clang
+      # clang
+      curl
       difftastic
       diskus
       du-dust
@@ -57,7 +58,7 @@
       openssl
       pciutils # lspci, etc.
       perl
-      pkg-config
+      # pkg-config
       pgcli
       python-with-my-packages
       python310Packages.python-lsp-server

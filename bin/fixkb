@@ -1,11 +1,11 @@
 #!/bin/sh
 
 # Rebind caps to backspace
-setxkbmap -option caps:none
+setxkbmap -option caps:backspace
 xmodmap -e 'keycode 66 = BackSpace'
 
 # bind menu key to windows key
-xmodmap -e 'keycode 135 = Super_L'
+# xmodmap -e 'keycode 135 = Super_L'
 
 # turn off beep
 xset b off &

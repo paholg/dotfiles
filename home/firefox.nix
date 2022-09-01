@@ -8,6 +8,7 @@ let
 in {
   programs.firefox = {
     enable = true;
+
     # Commented to avoid error:
     #
     # error: Your configuration mentions firefox.enableAdobeFlash. All plugin related options have been removed, since Firefox from version 52 onwards no longer supports npapi plugins (see https://support.mozilla.org/en-US/kb/npapi-plugins).

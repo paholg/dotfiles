@@ -23,6 +23,10 @@
       linker = "clang"
       rustflags = ["-C", "link-arg=-fuse-ld=mold"]
     '';
+
+    ".config/helix/themes/paho-theme.toml".text =
+      builtins.readFile ./paho-theme.toml;
+
     ".config/nix/nix.conf".text = ''
       experimental-features = nix-command flakes
     '';
@@ -167,6 +171,8 @@
       shellAliases = {
         ccheck = ''cargo check --color always 2>&1 "$*" | bat'';
         ctest = ''cargo test --color always 2>&1 "$*" | bat'';
+
+        hx = "CARGO_TARGET_DIR=~/.cargo/cache2 hx";
 
         ls = "exa";
         la = "ls -la";

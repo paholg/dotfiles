@@ -52,6 +52,7 @@
 
       # startup programs
       background 150 &
+      /usr/lib/policykit-1-gnome/polkit-gnome-authentication-agent-1i &
 
       # Load resources
       xrdb -merge .Xresources &

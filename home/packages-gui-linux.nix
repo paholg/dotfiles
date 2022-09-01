@@ -13,6 +13,7 @@
     gnome3.eog
     libnotify
     libreoffice
+    lxappearance
     lxqt.lxqt-policykit
     okular
     pavucontrol
@@ -26,6 +27,5 @@
     xorg.xrandr
     xournal
     xsel
-    zoom-us
   ];
 }
