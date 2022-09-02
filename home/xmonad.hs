@@ -29,6 +29,7 @@ import XMonad.Util.EZConfig(additionalKeysP)
 import XMonad.Util.NamedScratchpad
 import XMonad.Util.Run
 import XMonad.Util.Scratchpad
+import XMonad.Util.SpawnOnce
 import qualified XMonad.StackSet as W
 
 -- Spacemacs dark-mode colors
@@ -192,7 +193,7 @@ my_keys = [
   ("M-<Space>", sendMessage NextLayout),
   ("M-q", spawn ""), -- unbind this key
   ("M-C-q", kill),
-  ("M-C-l", spawn "physlock"),
+  ("M-C-l", spawn "slock"),
   ("M-M1-x", spawn "xkill"),
   ("M-S-q", sequence_ [spawn "killall rustybar", restart "xmonad" True]),
   ("M-M1-q", io (exitWith ExitSuccess)), -- exit xmonad
@@ -232,11 +233,17 @@ my_keys = [
           [("M-S-" ++ name, windows $ W.shift ws) | (name, ws) <- zip ws_list my_workspaces] ++
           [("M-C-" ++ name, windows $ copy ws) | (name, ws) <- zip ws_list my_workspaces]
 
+startup = do
+  setWMName "LG3D" -- makes java apps work
+  spawnOnce "slack"
+  spawnOnce "firefox"
+  spawnOnce "bifox"
+
 main = do
   my_statusbar <- spawnPipe my_statusbar
   xmonad $ ewmh $ withUrgencyHook NoUrgencyHook def {
     workspaces = my_workspaces,
-    startupHook = docksStartupHook <+> setWMName "LG3D", -- makes java apps work
+    startupHook = startup,
     manageHook =  manageDocks <+> myManageHook <+> manageHook def
                   <+> namedScratchpadManageHook scratch_pads,
     handleEventHook = docksEventHook <+> handleEventHook def,

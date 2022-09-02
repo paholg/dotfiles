@@ -52,7 +52,11 @@
 
       # startup programs
       background 150 &
-      /usr/lib/policykit-1-gnome/polkit-gnome-authentication-agent-1i &
+      /usr/lib/policykit-1-gnome/polkit-gnome-authentication-agent-1 &
+      beyond-identity credentials &
+
+      xset s 600
+      xss-lock slock +resetsaver
 
       # Load resources
       xrdb -merge .Xresources &

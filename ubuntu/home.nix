@@ -16,6 +16,7 @@
     sessionVariables = {
       GOPATH = "$HOME/go";
       ZEROPW = "$HOME/bi/zero";
+      AUTHN = "$HOME/bi/authn";
       AWS_PROFILE = "development";
       CARGO_REGISTRY_AUTH_URL = "$(cat $HOME/.git-credentials)";
       GONOSUMDB = "go.beyondidentity.com/*";
