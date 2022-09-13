@@ -48,6 +48,7 @@
       httpie
       ion
       jq
+      jwt-cli
       mdcat
       mold
       niv
@@ -71,7 +72,7 @@
       socat
       solargraph
       sshfs-fuse
-      # swift
+      swift
       tokei
       unison
       vim
