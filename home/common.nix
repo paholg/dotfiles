@@ -10,7 +10,7 @@
   home = {
     sessionVariables = {
       EDITOR = "hx";
-      RUST_NEW_ERROR_FORMAT = true;
+      RUST_NEW_ERROR_FORMAT = "true";
       CARGO_HOME = "$HOME/.cargo";
       MANPAGER = "sh -c 'col -bx | bat -l man -p'";
       CARGO_TARGET_DIR = "$HOME/.cargo/cache";
@@ -32,15 +32,15 @@
     '';
 
     ".profile".text = ''
-      # # For non-NixOs, single-user:
-      # if test -f $HOME/.nix-profile/etc/profile.d/nix.sh; then
-      #   . $HOME/.nix-profile/etc/profile.d/nix.sh
-      # fi
+      # For non-NixOs, single-user:
+      if test -f $HOME/.nix-profile/etc/profile.d/nix.sh; then
+        . $HOME/.nix-profile/etc/profile.d/nix.sh
+      fi
 
-      # # For non-NixOs, multi-user:
-      # if test -f '/nix/var/nix/profiles/default/etc/profile.d/nix.sh'; then
-      #   . '/nix/var/nix/profiles/default/etc/profile.d/nix.sh'
-      # fi
+      # For non-NixOs, multi-user:
+      if test -f '/nix/var/nix/profiles/default/etc/profile.d/nix.sh'; then
+        . '/nix/var/nix/profiles/default/etc/profile.d/nix.sh'
+      fi
 
       if `command -v rustc >/dev/null 2>&1`; then
           export RUST_SRC_PATH="$(rustc --print sysroot)/lib/rustlib/src/rust/src"
@@ -50,6 +50,7 @@
         $HOME/.cargo/bin
         $HOME/dotfiles/bin
         $HOME/bin
+        $HOME/go/bin
       "
 
       for dir in $(echo $path_dirs); do
@@ -139,7 +140,12 @@
 
     mcfly = {
       enable = true;
-      enableFuzzySearch = true;
+      enableZshIntegration = true;
+      fuzzySearchFactor = 3;
+    };
+
+    nix-index = {
+      enable = true;
       enableZshIntegration = true;
     };
 
@@ -169,8 +175,9 @@
         share = true;
       };
       shellAliases = {
-        ccheck = ''cargo check --color always 2>&1 "$*" | bat'';
-        ctest = ''cargo test --color always 2>&1 "$*" | bat'';
+        ccheck = ''cargo check --color always 2>&1 "$*" | bat -p'';
+        ctest = ''cargo test --color always 2>&1 "$*" | bat -p'';
+        cwatch = ''cargo watch -s "cargo check --color always 2>&1 | bat -p"'';
 
         hx = "CARGO_TARGET_DIR=~/.cargo/cache2 hx";
 

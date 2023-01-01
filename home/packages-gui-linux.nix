@@ -4,17 +4,18 @@
   home.packages = with pkgs; [
     adwaita-qt
     arandr
-    # chromium
+    chromium
     brightnessctl
     discord
     dzen2
     gimp
     glxinfo
-    gnome3.eog
+    gnome.eog
     libnotify
     libreoffice
     lxappearance
     lxqt.lxqt-policykit
+    # mangohud
     okular
     pavucontrol
     scrot

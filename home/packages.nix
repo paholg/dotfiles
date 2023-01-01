@@ -7,6 +7,7 @@
         with python-packages; [
           numpy
           black
+          torch
         ];
       python-with-my-packages = python3.withPackages my-python-packages;
     in [
@@ -51,6 +52,7 @@
       jwt-cli
       mdcat
       mold
+      neofetch
       niv
       nixfmt
       nmap
@@ -61,8 +63,8 @@
       perl
       # pkg-config
       pgcli
-      python-with-my-packages
-      python310Packages.python-lsp-server
+      # python-with-my-packages
+      # python310Packages.python-lsp-server
       ripgrep
       rnix-lsp
       ruby
@@ -72,11 +74,12 @@
       socat
       solargraph
       sshfs-fuse
-      swift
+      # swift
       tokei
       unison
       vim
       wally-cli
+      wasm-bindgen-cli
       wget
       zenith
       zip

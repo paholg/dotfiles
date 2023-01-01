@@ -46,17 +46,25 @@
     fpm
     go
     gopls
+    jetbrains.idea-community
+    kubectl
+    kops
     mercurial
+    minikube
     nodejs
     openapi-generator-cli
+    openjdk8
     python39Packages.swagger-spec-validator
     python39Packages.swagger-ui-bundle
     python310Packages.openapi-spec-validator
+    qemu_full
     redoc-cli
     remmina
     sqlitebrowser
     sqlx-cli
     tpm2-tss
+    wineWowPackages.stable
     yarn
+    yubikey-manager
   ];
 }
