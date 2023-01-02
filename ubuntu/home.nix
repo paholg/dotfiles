@@ -27,12 +27,17 @@
   };
 
   programs.git = {
-    userEmail = "paho.lurie-gregg@beyondidentity.com";
+    userEmail = "paho@paholg.com";
     signing = {
       gpgPath = "/opt/beyond-identity/bin/gpg-bi";
       key = "5F78989E28A4FC0D7D507176AE9E04831E891B04";
       signByDefault = true;
     };
+
+    includes = [{
+      condition = "gitdir:~/bi";
+      contents.user.email = "paho.lurie-gregg@beyondidentity.com";
+    }];
   };
 
   programs.ssh.matchBlocks = { };

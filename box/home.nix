@@ -6,6 +6,11 @@
   home = {
     username = "paho";
     homeDirectory = "/home/paho";
+
+    sessionVariables = {
+      IMDB_RENAME_DATA_DIR = "/mnt/storage/imdb-rename";
+      IMDB_RENAME_DEST_DIR = "/mnt/storage/";
+    };
   };
 
   home.file = {
