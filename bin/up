@@ -42,5 +42,9 @@ if test -f $HOME/dotfiles/`hostname`/up; then
     $HOME/dotfiles/`hostname`/up
 fi
 
+if command -v imdb-rename; then
+    imdb-rename --update-data
+fi
+
 fixkb
 
