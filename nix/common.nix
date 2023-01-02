@@ -30,22 +30,22 @@
   console = {
     # spacemacs colors:
     colors = [
-      "0x1f2022"
-      "0xf2241f"
-      "0x67b11d"
-      "0xb1951d"
-      "0x4f97d7"
-      "0xa31db1"
-      "0x2d9574"
-      "0xa3a3a3"
-      "0x585858"
-      "0xf2241f"
-      "0x67b11d"
-      "0xb1951d"
-      "0x4f97d7"
-      "0xa31db1"
-      "0x2d9574"
-      "0xf8f8f8"
+      "1f2022"
+      "f2241f"
+      "67b11d"
+      "b1951d"
+      "4f97d7"
+      "a31db1"
+      "2d9574"
+      "a3a3a3"
+      "585858"
+      "f2241f"
+      "67b11d"
+      "b1951d"
+      "4f97d7"
+      "a31db1"
+      "2d9574"
+      "f8f8f8"
     ];
     earlySetup = true;
     font = "ter-i32b";
