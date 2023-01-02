@@ -15,9 +15,5 @@
     };
   };
 
-  home.file = {
-    ".config/tvnamer/tvnamer.json".text = (builtins.readFile ./tvnamer.json);
-  };
-
   programs.git.userEmail = "paho@paholg.com";
 }
