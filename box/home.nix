@@ -17,5 +17,5 @@
 
   programs.git.userEmail = "paho@paholg.com";
 
-  home.packages = with pkgs; [ clang ];
+  home.packages = with pkgs; [ clang python3 ];
 }
