@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 # A modified version of the playground script found here:
-# https://www.greyblake.com/blog/2021-03-12-rust-playground-at-your-fingertips/
+# https://www.greyblake.com/blog/rust-playground-at-your-fingertips/
 #
 # While the original runs vim and cargo in tmux panes, this one opens your
 # $EDITOR in a separate alacritty terminal.
