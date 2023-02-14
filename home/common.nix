@@ -125,11 +125,20 @@
       ];
       settings = {
         editor = {
-          rulers = [ 81 ];
+          indent-guides.render = true;
           file-picker = { hidden = false; };
           lsp = { display-messages = true; };
+          rulers = [ 81 ];
+          soft-wrap.enable = true;
+          whitespace.render = "none";
         };
         theme = "paho-theme";
+
+        keys = {
+          normal = {
+            space = { "c" = "file_picker_in_current_buffer_directory"; };
+          };
+        };
       };
     };
 

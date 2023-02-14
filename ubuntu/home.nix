@@ -15,7 +15,7 @@
     homeDirectory = "/home/paho";
     sessionVariables = {
       GOPATH = "$HOME/go";
-      ZEROPW = "$HOME/bi/zero";
+      ZEROPW = "$GOPATH/src/gitlab.com/zeropw/zero";
       AUTHN = "$HOME/bi/authn";
       AWS_PROFILE = "development";
       CARGO_REGISTRY_AUTH_URL = "$(cat $HOME/.git-credentials)";
@@ -35,7 +35,7 @@
     };
 
     includes = [{
-      condition = "gitdir:~/bi";
+      condition = "gitdir:~/bi/";
       contents.user.email = "paho.lurie-gregg@beyondidentity.com";
     }];
   };

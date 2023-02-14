@@ -45,7 +45,6 @@
 "ui.text.focus" = { fg = "#e5ded6", modifiers= ["bold"] }
 "ui.virtual" = "#627d9d"
 "ui.virtual.ruler" = { bg = "bg3" }
-"ui.virtual.whitespace" = "base"
 
 "ui.selection" = { bg = "highlight-dim" }
 "ui.selection.primary" = { bg = "highlight"}
@@ -57,9 +56,13 @@
 "warning" = "war"
 "error" = "err"
 "info" = "suc"
-"hint" = "yellow"
+"hint" = "blue"
 
 "diagnostic" = { bg = "bg-err", modifiers = ["italic"] }
+"diagnostic.hint" = { bg = "blue-bg", modifiers = ["italic"] }
+"diagnostic.info" = { bg = "bg-info", modifiers = ["italic"] }
+"diagnostic.warning" = { bg = "bg-war", modifiers = ["italic"] }
+"diagnostic.error" = { bg = "bg-err", modifiers = ["italic"] }
 
 
 [palette]
@@ -68,6 +71,8 @@ act2          = "#444444"
 base          = "#b2b2b2"
 base-dim      = "#585858"
 bg1           = "#262626"
+bg-info       = "#2b490c"
+bg-warning    = "#572c0e"
 bg-err        = "#2b0e0e"
 bg2           = "#1c1c1c"
 bg3           = "#121212"

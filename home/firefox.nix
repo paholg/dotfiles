@@ -20,7 +20,6 @@ in {
       cookie-autodelete
       decentraleyes
       greasemonkey
-      https-everywhere
       link-cleaner
       privacy-badger
       reddit-enhancement-suite

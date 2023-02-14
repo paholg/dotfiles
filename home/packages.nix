@@ -47,7 +47,7 @@
       haskell-language-server
       htop
       httpie
-      ion
+      # ion
       jq
       jwt-cli
       mdcat
@@ -71,6 +71,7 @@
       rust-analyzer
       rustup
       sd
+      shellcheck
       socat
       solargraph
       sshfs-fuse
@@ -81,6 +82,7 @@
       wally-cli
       wasm-bindgen-cli
       wget
+      yq-go
       zenith
       zip
       zsh

@@ -5,9 +5,15 @@
     enable = true;
     enableZshIntegration = true;
     settings = {
+      right_format = "$kubernetes$aws";
       git_branch.format = "[$symbol$branch]($style) ";
       hostname.format = "[$hostname]($style):";
       status.disabled = false;
+      aws = { disabled = false; };
+      kubernetes = {
+        disabled = false;
+        format = "[$symbol$context( ($namespace))]($style)";
+      };
       time = {
         disabled = false;
         format = "$time ";
