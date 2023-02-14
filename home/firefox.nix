@@ -9,23 +9,6 @@ in {
   programs.firefox = {
     enable = true;
 
-    # Commented to avoid error:
-    #
-    # error: Your configuration mentions firefox.enableAdobeFlash. All plugin related options have been removed, since Firefox from version 52 onwards no longer supports npapi plugins (see https://support.mozilla.org/en-US/kb/npapi-plugins).
-    #
-    extensions = with nur-no-pkgs.repos.rycee.firefox-addons; [
-      # augmented-steam
-      # tree-style-tab
-      bitwarden
-      cookie-autodelete
-      decentraleyes
-      greasemonkey
-      link-cleaner
-      privacy-badger
-      reddit-enhancement-suite
-      ublock-origin
-    ];
-
     profiles = {
       default = {
         isDefault = true;
@@ -48,6 +31,18 @@ in {
           "signon.rememberSignons" = false;
           "widget.content.gtk-theme-override" = "Adwaita:dark";
         };
+        extensions = with nur-no-pkgs.repos.rycee.firefox-addons; [
+          augmented-steam
+          tree-style-tab
+          bitwarden
+          cookie-autodelete
+          decentraleyes
+          greasemonkey
+          link-cleaner
+          privacy-badger
+          reddit-enhancement-suite
+          ublock-origin
+        ];
       };
     };
   };
