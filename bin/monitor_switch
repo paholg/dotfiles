@@ -1,9 +1,9 @@
 #!/usr/bin/env bash
 
-set -ex
+set -euxo pipefail
 
 fixkb &
 
-sh $HOME/dotfiles/`hostname`/screenlayout/$1.sh
+sh "$HOME/dotfiles/$(hostname)/screenlayout/$1.sh"
 
 background &

@@ -1,11 +1,11 @@
 #!/usr/bin/env bash
 
-set -e
+set -euo pipefail
 
-if [[ $1 == "off" ]]; then
+if [[ "$1" == "off" ]]; then
     xset s off
     xset -dpms
-elif [[ $1 == "now" ]]; then
+elif [[ "$1" == "now" ]]; then
     sleep 0.2
     xset dpms force off
 else

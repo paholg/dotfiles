@@ -33,6 +33,7 @@
       # clang
       curl
       difftastic
+      direnv
       diskus
       du-dust
       exa

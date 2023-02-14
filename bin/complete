@@ -5,4 +5,4 @@ set -euxo pipefail
 cd /mnt/storage/completed
 sudo chown -R paho .
 cleardirs
-imdb-rename --mkdir --template "$IMDB_RENAME_TEMPLATE" *
+imdb-rename --mkdir --template "$IMDB_RENAME_TEMPLATE" ./*

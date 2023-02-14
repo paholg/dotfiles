@@ -11,23 +11,20 @@
 set -euxo pipefail
 
 ensure_cargo_cmd() {
-    if ! cargo help $1 > /dev/null; then
+    if ! cargo help "$1" > /dev/null; then
         exit 1
     fi
 }
-ensure_cargo_cmd add
 ensure_cargo_cmd watch
 
 PLAYGROUND_DIR="/tmp/rust_playground"
 TIMESTAMP=$(date +"%Y-%m-%d-%H%M%S")
 PROJECT_DIR="${PLAYGROUND_DIR}/pg-${TIMESTAMP}"
 
-cargo new $PROJECT_DIR
-cd $PROJECT_DIR
+cargo new "$PROJECT_DIR"
+cd "$PROJECT_DIR"
 
-for CRATE in $@; do
-    cargo add $CRATE
-done
+cargo add "$@"
 
-alacritty -e $EDITOR "./src/main.rs" &
+alacritty -e "$EDITOR" "./src/main.rs" &
 cargo watch -s 'clear && cargo run -q'

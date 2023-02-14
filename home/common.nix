@@ -122,6 +122,11 @@
           name = "git-commit";
           rulers = [ 51 73 ];
         }
+        {
+          name = "nix";
+          language-server.command = "rnix-lsp";
+          auto-format = true;
+        }
       ];
       settings = {
         editor = {
