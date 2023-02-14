@@ -52,8 +52,10 @@
     go
     gopls
     jetbrains.idea-community
-    kubectl
+    k9s
     kops
+    kubectl
+    kubernetes-helm
     mercurial
     minikube
     nodejs

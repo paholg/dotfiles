@@ -24,9 +24,8 @@
       bottom
       broot
       cargo-audit
-      cargo-edit
+      cargo-deny
       cargo-expand
-      cargo-insta
       cargo-outdated
       cargo-update
       cargo-watch
@@ -47,7 +46,6 @@
       haskell-language-server
       htop
       httpie
-      # ion
       jq
       jwt-cli
       mdcat
@@ -82,6 +80,7 @@
       wally-cli
       wasm-bindgen-cli
       wget
+      xsv
       yq-go
       zenith
       zip
