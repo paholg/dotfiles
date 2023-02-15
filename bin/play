@@ -8,7 +8,13 @@
 #
 # Depends on `cargo-edit`, `cargo-watch`, and `alacritty`.
 
-set -euxo pipefail
+set -euo pipefail
+
+on_exit() {
+    echo "cd $PROJECT_DIR"
+}
+
+trap 'on_exit' SIGINT
 
 ensure_cargo_cmd() {
     if ! cargo help "$1" > /dev/null; then
