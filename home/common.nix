@@ -104,7 +104,7 @@
         co = "checkout";
         d = "diff";
         dc = "diff --cached";
-        fixup = "!git commit --amend --no-edit && git push -f";
+        fixup = "!git commit -a --amend --no-edit && git push -f";
         l = "log";
         rsw = "restore --staged --worktree";
         s = "status";
