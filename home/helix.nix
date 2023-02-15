@@ -61,6 +61,8 @@
       keys = {
         normal = {
           space = { "c" = "file_picker_in_current_buffer_directory"; };
+          A-g = ":lang gotmpl";
+          A-r = ":lsp-restart";
         };
       };
     };
