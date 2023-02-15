@@ -24,7 +24,9 @@ PROJECT_DIR="${PLAYGROUND_DIR}/pg-${TIMESTAMP}"
 cargo new "$PROJECT_DIR"
 cd "$PROJECT_DIR"
 
-cargo add "$@"
+if (( $# > 0 )); then
+    cargo add "$@"
+fi
 
 alacritty -e "$EDITOR" "./src/main.rs" &
 cargo watch -s 'clear && cargo run -q'
