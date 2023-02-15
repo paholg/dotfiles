@@ -1,7 +1,7 @@
 { ... }:
 
 {
-  imports = [ ./packages.nix ./starship.nix ];
+  imports = [ ./helix.nix ./packages.nix ./starship.nix ];
 
   home.stateVersion = "20.09";
 
@@ -104,46 +104,11 @@
         co = "checkout";
         d = "diff";
         dc = "diff --cached";
+        fixup = "!git commit --amend --no-edit && git push -f";
         l = "log";
         rsw = "restore --staged --worktree";
         s = "status";
         sw = "switch";
-      };
-    };
-
-    helix = {
-      enable = true;
-      languages = [
-        {
-          name = "rust";
-          rulers = [ 81 101 ];
-        }
-        {
-          name = "git-commit";
-          rulers = [ 51 73 ];
-        }
-        {
-          name = "nix";
-          language-server.command = "rnix-lsp";
-          auto-format = true;
-        }
-      ];
-      settings = {
-        editor = {
-          indent-guides.render = true;
-          file-picker = { hidden = false; };
-          lsp = { display-messages = true; };
-          rulers = [ 81 ];
-          soft-wrap.enable = true;
-          whitespace.render = "none";
-        };
-        theme = "paho-theme";
-
-        keys = {
-          normal = {
-            space = { "c" = "file_picker_in_current_buffer_directory"; };
-          };
-        };
       };
     };
 

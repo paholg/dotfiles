@@ -10,7 +10,8 @@
           torch
         ];
       python-with-my-packages = python3.withPackages my-python-packages;
-    in [
+    in
+    [
       angle-grinder
       arandr
       aws-rotate-key
@@ -75,6 +76,8 @@
       solargraph
       sshfs-fuse
       # swift
+      taplo-cli # toml language server
+      terraform-ls
       tokei
       unison
       vim

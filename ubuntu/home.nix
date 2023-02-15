@@ -58,7 +58,7 @@
     kubernetes-helm
     mercurial
     minikube
-    nodejs
+    # nodejs
     openapi-generator-cli
     openjdk8
     python39Packages.swagger-spec-validator
