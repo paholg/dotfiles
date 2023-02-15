@@ -85,6 +85,7 @@
       wasm-bindgen-cli
       wget
       xsv
+      yaml-language-server
       yq-go
       zenith
       zip
