@@ -4,34 +4,34 @@ set -euxo pipefail
 
 pushd "$HOME/dotfiles/" && ./up && popd
 
-if "$(command -v yay &> /dev/null)"; then
+if command -v yay &> /dev/null; then
     yay
-elif "$(command -v yum &> /dev/null)"; then
+elif command -v yum &> /dev/null; then
     sudo yum check-update
     sudo yum update
-elif "$(command -v nixos-rebuild &> /dev/null)"; then
+elif command -v nixos-rebuild &> /dev/null; then
     sudo nixos-rebuild switch --upgrade
-elif "$(command -v apt &> /dev/null)"; then
+elif command -v apt &> /dev/null; then
     sudo apt update
     sudo apt dist-upgrade
 fi
 
-if "$(command -v home-manager &> /dev/null)"; then
+if command -v home-manager &> /dev/null; then
     nix-channel --update
     home-manager switch
 fi
 
-if "$(command -v fwupdmgr &> /dev/null)"; then
-    if "$(fwupdmgr refresh)"; then
-        if "$(fwupdmgr get-updates)"; then
+if command -v fwupdmgr &> /dev/null; then
+    if fwupdmgr refresh; then
+        if fwupdmgr get-updates; then
             fwupdmgr update
         fi
     fi
 fi
 
-if "$(command -v rustup &> /dev/null)"; then
+if command -v rustup &> /dev/null; then
     rustup update
-    if "$(command -v nix-shell &> /dev/null)"; then
+    if command -v nix-shell &> /dev/null; then
         nix-shell -p openssl pkg-config --run "cargo install-update -a || true"
     else
         cargo install-update -a || true
