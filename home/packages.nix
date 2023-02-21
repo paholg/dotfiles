@@ -26,6 +26,7 @@
       broot
       cargo-audit
       cargo-deny
+      cargo-edit
       cargo-expand
       cargo-outdated
       cargo-update
