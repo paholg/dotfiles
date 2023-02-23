@@ -41,6 +41,9 @@
         # TODO: Switch to ra-multiplex once this issue is resolved:
         # https://github.com/helix-editor/helix/issues/2479
         # language-server.command = "ra-multiplex";
+        # config = {
+        #   rust-analyzer.files.watcher = "server";
+        # };
       }
       {
         name = "toml";
@@ -60,7 +63,11 @@
 
       keys = {
         normal = {
-          space = { "c" = "file_picker_in_current_buffer_directory"; };
+          space = {
+            f = "file_picker_in_current_directory";
+            F = "file_picker";
+            c = "file_picker_in_current_buffer_directory";
+          };
           A-g = ":lang gotmpl";
           A-r = ":lsp-restart";
         };
