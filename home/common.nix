@@ -170,7 +170,7 @@
         g = "git";
         gbt = "git bt | head -n10";
         gsw = ''
-          git switch $(git branch -v --sort=-committerdate | fzf | cut -c3- | cut -d " " -f1)'';
+          git switch $(git branch --sort=-committerdate | fzf | cut -c3- | cut -d " " -f1)'';
 
         hx-install = ''
           pushd ~/git/helix && \
