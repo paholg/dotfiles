@@ -71,7 +71,6 @@
     sqlx-cli
     tpm2-tss
     wineWowPackages.stable
-    yarn
     yubikey-manager
   ];
 }
