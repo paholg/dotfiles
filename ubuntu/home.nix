@@ -61,6 +61,7 @@
     # nodejs
     openapi-generator-cli
     openjdk8
+    podman
     python39Packages.swagger-spec-validator
     python39Packages.swagger-ui-bundle
     python310Packages.openapi-spec-validator
