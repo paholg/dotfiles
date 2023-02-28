@@ -1,68 +1,68 @@
-"attribute" = "#dc7759"
-"keyword" = { fg = "keyword", modifiers = ["bold"] }
-"namespace" = "func"
-"special" = "#7fdc59"
+"attribute"             = "#dc7759"
+"comment"               = { fg = "comment", bg = "comment-bg" }
+"constant.builtin"      = "const"
+"constructor"           = "var"
+"function"              = "var"
+"function.macro"        = { fg = "func" }
+"keyword"               = { fg = "keyword", modifiers = ["bold"] }
+"label"                 = "comment"
+"namespace"             = "func"
+"special"               = "#7fdc59"
+"string"                = "str"
+"type"                  = { fg = "type", modifiers = ["bold"] }
+"variable"              = "#c6b8ad"
+"variable.builtin"      = "var"
 "variable.other.member" = "#c6b8ad"
-"variable" = "#c6b8ad"
-"variable.parameter" = "#c6b8ad"
-"type" = { fg = "type", modifiers = ["bold"] }
-"constructor" = "var"
-"function" = "var"
-"function.macro" = { fg = "func" }
-"comment" = { fg = "comment", bg = "comment-bg" }
-"variable.builtin" = "var"
-"constant.builtin" = "const"
-"string" = "str"
-"label" = "comment"
+"variable.parameter"    = "#c6b8ad"
 
 "module" = "#d32c5d"
 
+"markup.bold"      = { fg = "yellow", modifiers = ["bold"] }
 "markup.heading.1" = { fg = "head1", bg = "head1-bg" }
 "markup.heading.2" = { fg = "head2", bg = "head2-bg" }
 "markup.heading.3" = { fg = "head3", bg = "head3-bg" }
 "markup.heading.4" = { fg = "head4", bg = "head4-bg" }
-"markup.list" = "red"
-"markup.bold" = { fg = "yellow", modifiers = ["bold"] }
-"markup.italic" = { fg = "magenta", modifiers = ["italic"] }
-"markup.link.url" = { fg = "yellow", modifiers = ["underlined"] }
+"markup.italic"    = { fg = "magenta", modifiers = ["italic"] }
 "markup.link.text" = "comment"
-"markup.quote" = "str"
-"markup.raw" = { fg = "cblk-ln", bg = "cblk-ln-bg" }
+"markup.link.url"  = { fg = "yellow", modifiers = ["underlined"] }
+"markup.list"      = "red"
+"markup.quote"     = "str"
+"markup.raw"       = { fg = "cblk-ln", bg = "cblk-ln-bg" }
 
-"diff.plus" = "#59dcb7"
 "diff.delta" = "#dc7759"
 "diff.minus" = "#dc597f"
+"diff.plus"  = "#59dcb7"
 
-"ui.background" = { bg = "bg2" }
-"ui.linenr" = { fg = "lnum", bg = "bg3" }
+"ui.background"      = { bg = "bg2" }
+"ui.help"            = { bg = "#232d38", fg = "#e5ded6" }
+"ui.linenr"          = { fg = "lnum", bg = "bg3" }
 "ui.linenr.selected" = { fg = "base", bg = "highlight" }
-"ui.statusline" = { fg = "base", bg = "act1" }
-"ui.popup" = { bg = "bg3" }
-"ui.window" = { bg = "bg3" }
-"ui.help" = { bg = "#232d38", fg = "#e5ded6" }
+"ui.popup"           = { bg = "bg3" }
+"ui.statusline"      = { fg = "base", bg = "act1" }
+"ui.window"          = { bg = "bg3" }
 
-"ui.text" = { fg = "base" }
-"ui.text.focus" = { fg = "#e5ded6", modifiers= ["bold"] }
-"ui.virtual" = "#627d9d"
+"ui.text"          = { fg = "base" }
+"ui.text.focus"    = { fg = "#e5ded6", modifiers = ["bold"] }
+"ui.virtual"       = "#627d9d"
 "ui.virtual.ruler" = { bg = "bg3" }
 
-"ui.selection" = { bg = "highlight-dim" }
-"ui.selection.primary" = { bg = "highlight"}
-"ui.cursor.match" = { fg = "mat", bg = "bg4" }
-"ui.cursor" = { fg = "cursor", bg = "bg2", modifiers = ["reversed"] }
-"ui.cursor.insert" = { fg = "base-dim", modifiers = ["reversed"] }
-"ui.menu.selected" = { fg = "#e5ded6", bg = "#313f4e" }
+"ui.cursor"            = { fg = "cursor", bg = "bg2", modifiers = ["reversed"] }
+"ui.cursor.insert"     = { fg = "base-dim", modifiers = ["reversed"] }
+"ui.cursor.match"      = { fg = "mat", bg = "bg4" }
+"ui.menu.selected"     = { fg = "#e5ded6", bg = "#313f4e" }
+"ui.selection"         = { bg = "highlight-dim" }
+"ui.selection.primary" = { bg = "highlight" }
 
+"error"   = "err"
+"hint"    = "blue"
+"info"    = "suc"
 "warning" = "war"
-"error" = "err"
-"info" = "suc"
-"hint" = "blue"
 
-"diagnostic" = { bg = "bg-err", modifiers = ["italic"] }
-"diagnostic.hint" = { bg = "blue-bg", modifiers = ["italic"] }
-"diagnostic.info" = { bg = "bg-info", modifiers = ["italic"] }
+"diagnostic"         = { bg = "bg-err", modifiers = ["italic"] }
+"diagnostic.error"   = { bg = "bg-err", modifiers = ["italic"] }
+"diagnostic.hint"    = { bg = "blue-bg", modifiers = ["italic"] }
+"diagnostic.info"    = { bg = "bg-info", modifiers = ["italic"] }
 "diagnostic.warning" = { bg = "bg-war", modifiers = ["italic"] }
-"diagnostic.error" = { bg = "bg-err", modifiers = ["italic"] }
 
 
 [palette]
@@ -70,24 +70,24 @@ act1          = "#121212"
 act2          = "#444444"
 base          = "#b2b2b2"
 base-dim      = "#585858"
-bg1           = "#262626"
+bg-alt        = "#353535"
+bg-err        = "#2b0e0e"
 bg-info       = "#2b490c"
 bg-warning    = "#572c0e"
-bg-err        = "#2b0e0e"
+bg1           = "#262626"
 bg2           = "#1c1c1c"
 bg3           = "#121212"
 bg4           = "#080808"
-bg-alt        = "#353535"
 border        = "#111111"
 cblk          = "#b2b2b2"
 cblk-bg       = "#262626"
 cblk-ln       = "#af5faf"
 cblk-ln-bg    = "#333333"
-cursor        = "#d0d0d0"
-const         = "#d75fd7"
 comment       = "#008787"
 comment-bg    = "#262626"
 comp          = "#d75fd7"
+const         = "#d75fd7"
+cursor        = "#d0d0d0"
 err           = "#e0211d"
 func          = "#d75fd7"
 head1         = "#268bd2"
@@ -107,24 +107,24 @@ meta          = "#af875f"
 str           = "#2aa198"
 suc           = "#86dc2f"
 ttip          = "#888888"
-ttip-sl       = "#333333"
 ttip-bg       = "#444444"
+ttip-sl       = "#333333"
 type          = "#df005f"
 var           = "#8787d7"
 war           = "#dc752f"
 # colors
-aqua          = "#2aa198"
-aqua-bg       = "#262626"
-green         = "#67b11d"
-green-bg      = "#262626"
-green-bg-s    = "#262626"
-cyan          = "#00ffff"
-red           = "#d70000"
-red-bg        = "#262626"
-red-bg-s      = "#262626"
-blue          = "#268bd2"
-blue-bg       = "#262626"
-blue-bg-s     = "#262626"
-magenta       = "#af00df"
-yellow        = "#875f00"
-yellow-bg     = "#262626"
+aqua       = "#2aa198"
+aqua-bg    = "#262626"
+blue       = "#268bd2"
+blue-bg    = "#262626"
+blue-bg-s  = "#262626"
+cyan       = "#00ffff"
+green      = "#67b11d"
+green-bg   = "#262626"
+green-bg-s = "#262626"
+magenta    = "#af00df"
+red        = "#d70000"
+red-bg     = "#262626"
+red-bg-s   = "#262626"
+yellow     = "#875f00"
+yellow-bg  = "#262626"
