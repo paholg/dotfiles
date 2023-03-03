@@ -39,6 +39,10 @@
       contents.user.email = "paho.lurie-gregg@beyondidentity.com";
     }];
   };
+  programs.zsh.shellAliases = {
+    docker = "podman";
+    # docker-compose = "podman-compose";
+  };
 
   programs.ssh.matchBlocks = { };
 
@@ -46,8 +50,10 @@
 
   home.packages = with pkgs; [
     awscli2
-    docker
-    docker-compose
+    argo
+    cmake
+    # docker
+    # docker-compose
     fpm
     go
     gopls
@@ -61,7 +67,8 @@
     # nodejs
     openapi-generator-cli
     openjdk8
-    podman
+    # podman
+    # podman-compose
     python39Packages.swagger-spec-validator
     python39Packages.swagger-ui-bundle
     python310Packages.openapi-spec-validator
