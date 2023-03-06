@@ -58,6 +58,14 @@
       done
     '';
 
+    ".taplo.toml".text = ''
+      [formatting]
+      align_comments = false
+      array_auto_collapse = false
+      array_auto_expand = false
+      reorder_keys = false
+    '';
+
     ".zprofile".text = ''
       . ~/.profile
     '';
