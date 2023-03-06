@@ -61,7 +61,6 @@
       nodePackages.bash-language-server
       nodePackages.typescript-language-server
       openssl
-      outils # sha256, etc.
       pciutils # lspci, etc.
       perl
       # pkg-config

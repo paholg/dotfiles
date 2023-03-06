@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-set -euo pipefail
+set -euxo pipefail
 
 function check_continue {
     read -rp "$1 (y/N) " yn
@@ -31,8 +31,8 @@ if test -f "$(hostname)/home.nix"; then
 
     mkdir -p "$HOME/.config/nixpkgs"
     ln -sf "$HOME/dotfiles/$(hostname)/home.nix" "$HOME/.config/nixpkgs/home.nix"
-
-    nix-channel --add https://github.com/rycee/home-manager/archive/master.tar.gz home-manager
+    
+    nix-channel --add https://github.com/nix-community/home-manager/archive/master.tar.gz home-manager
     nix-channel --update
 
     echo "Installing. You may need to log out first on NixOs, or add a thing elsewhere."

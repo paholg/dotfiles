@@ -54,9 +54,6 @@
       editor = {
         indent-guides.render = true;
         file-picker = { hidden = false; };
-        jump-mode = {
-          dim-during-jump = false;
-        };
         lsp = {
           display-messages = true;
           display-inlay-hints = true;

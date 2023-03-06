@@ -1,0 +1,8 @@
+# Ensure these paths are set first
+export PATH=$HOME/bin:$HOME/dotfiles/bin:$HOME/.cargo/bin:$HOME/.local/bin:$PATH
+
+export NVM_DIR="$HOME/.nvm"
+
+export PATH=$HOME/.nvm/versions/node/v16.19.1/bin:$PATH
+
+# [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
