@@ -97,6 +97,7 @@
         init.defaultBranch = "main";
         credential.helper = "store";
       };
+      lfs.enable = true;
       aliases = {
         b = "branch";
         bt = "branch -v --sort=-committerdate";
@@ -154,9 +155,10 @@
         share = true;
       };
       shellAliases = {
-        ccheck = ''cargo check --color always 2>&1 "$*" | bat -p'';
-        ctest = ''cargo test --color always 2>&1 "$*" | bat -p'';
-        cwatch = ''cargo watch -s "cargo check --color always 2>&1 | bat -p"'';
+        cb = ''cargo build --color always 2>&1 | less -R'';
+        cc = ''cargo check --color always 2>&1 | less -R'';
+        ct = ''cargo test --color always 2>&1 | less -R'';
+        cw = ''cargo watch -s "cargo check --colow always 2>&1 | less -R"'';
 
         hx = "CARGO_TARGET_DIR=~/.cargo/cache2 hx";
 

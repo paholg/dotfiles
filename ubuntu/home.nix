@@ -30,7 +30,7 @@
     userEmail = "paho@paholg.com";
     signing = {
       gpgPath = "/opt/beyond-identity/bin/gpg-bi";
-      key = "5F78989E28A4FC0D7D507176AE9E04831E891B04";
+      key = "8E68DC7E5087AC54984194F2C08FCCC14ACBB02B";
       signByDefault = true;
     };
 
@@ -44,13 +44,27 @@
     # docker-compose = "podman-compose";
   };
 
-  programs.ssh.matchBlocks = { };
+  programs.ssh.matchBlocks = {
+    box = {
+      hostname = "10.0.0.4";
+      user = "paho";
+    };
+
+    home = {
+      hostname = "home.paholg.com";
+      user = "paho";
+    };
+  };
 
   programs.zsh.shellAliases = { };
+
+  # compositing for zoom
+  services.picom.enable = true;
 
   home.packages = with pkgs; [
     awscli2
     argo
+    cloudsmith-cli
     cmake
     # docker
     # docker-compose
