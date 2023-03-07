@@ -30,7 +30,7 @@
     userEmail = "paho@paholg.com";
     signing = {
       gpgPath = "/opt/beyond-identity/bin/gpg-bi";
-      key = "8E68DC7E5087AC54984194F2C08FCCC14ACBB02B";
+      key = "1DAFB2E1FCF44BB958273C9A778DAE049683100E";
       signByDefault = true;
     };
 
