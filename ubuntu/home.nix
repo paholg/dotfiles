@@ -39,10 +39,7 @@
       contents.user.email = "paho.lurie-gregg@beyondidentity.com";
     }];
   };
-  programs.zsh.shellAliases = {
-    docker = "podman";
-    # docker-compose = "podman-compose";
-  };
+  programs.zsh.shellAliases = { };
 
   programs.ssh.matchBlocks = {
     box = {
