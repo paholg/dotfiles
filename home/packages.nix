@@ -24,6 +24,7 @@
       bitwarden-cli
       bottom
       broot
+      cachix
       cargo-audit
       cargo-deny
       cargo-edit
