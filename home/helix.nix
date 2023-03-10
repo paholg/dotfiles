@@ -71,6 +71,11 @@
             F = "file_picker";
             c = "file_picker_in_current_buffer_directory";
           };
+          # Swap a and A.
+          A = "append_mode";
+          a = "insert_at_line_end";
+
+          # Custom bindings
           A-g = ":lang gotmpl";
           A-r = ":lsp-restart";
           A-h = ":toggle-option lsp.display-inlay-hints";

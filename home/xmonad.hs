@@ -122,6 +122,25 @@ myManageHook = composeAll . concat $
     full_floats = []
     full_floats_by_title = []
 
+-- Just zoom things
+-- Taken from https://www.peterstuart.org/posts/2021-09-06-xmonad-zoom/
+manageZoomHook =
+  composeAll $
+    [ (className =? zoomClassName) <&&> shouldFloat <$> title --> doFloat,
+      (className =? zoomClassName) <&&> shouldSink <$> title --> doSink
+    ]
+  where
+    zoomClassName = "zoom"
+    tileTitles =
+      [ "Zoom - Free Account", -- main window
+        "Zoom - Licensed Account", -- main window
+        "Zoom", -- meeting window on creation
+        "Zoom Meeting" -- meeting window shortly after creation
+      ]
+    shouldFloat title = title `notElem` tileTitles
+    shouldSink title = title `elem` tileTitles
+    doSink = (ask >>= doF . W.sink) <+> doF W.swapDown
+
 ------------------------------------------------------------
 -- scratch pads
 scratch_pads = [ NS "terminal" spawnTerm findTerm manageTerm,
@@ -244,8 +263,11 @@ main = do
   xmonad $ ewmh $ withUrgencyHook NoUrgencyHook def {
     workspaces = my_workspaces,
     startupHook = startup,
-    manageHook =  manageDocks <+> myManageHook <+> manageHook def
-                  <+> namedScratchpadManageHook scratch_pads,
+    manageHook = manageDocks
+      <+> myManageHook
+      <+> manageZoomHook
+      <+> manageHook def
+      <+> namedScratchpadManageHook scratch_pads,
     handleEventHook = docksEventHook <+> handleEventHook def,
     layoutHook = layout,
     logHook = wsLogHook my_statusbar,
