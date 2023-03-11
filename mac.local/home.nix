@@ -1,7 +1,11 @@
 { pkgs, lib, ... }:
 
 {
-  imports = [ ../home/common.nix ../home/packages-gui.nix ];
+  imports = [
+    ../home/common.nix
+    ../home/packages-gui.nix
+    ../home/packages-bi.nix
+  ];
 
   home = {
     username = "paho";

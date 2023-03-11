@@ -6,6 +6,7 @@
     ../home/common-linux.nix
     ../home/gui.nix
     ../home/firefox.nix
+    ../home/packages-bi.nix
     ../home/packages-gui.nix
     ../home/packages-gui-linux.nix
   ];
@@ -66,6 +67,7 @@
     # docker
     # docker-compose
     fpm
+    gnome.seahorse
     go
     gopls
     jetbrains.idea-community
