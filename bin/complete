@@ -1,8 +1,12 @@
 #!/usr/bin/env bash
 
-set -euxo pipefail
+set -euo pipefail
 
 cd /mnt/storage/completed
 sudo chown -R paho .
 cleardirs
-imdb-rename --mkdir --template "$IMDB_RENAME_TEMPLATE" ./*
+
+for f in $(fd -tf -d1); do
+  echo "$f:"
+  imdb-rename --mkdir --template "$IMDB_RENAME_TEMPLATE" "$f" || true
+done
