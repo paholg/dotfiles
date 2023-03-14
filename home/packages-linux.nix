@@ -8,6 +8,7 @@
     jc
     kcov
     lshw
+    outils # sha256, etc.
     psmisc # killall, fuser, etc.
     sparse
     strace

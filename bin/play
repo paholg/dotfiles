@@ -34,5 +34,5 @@ if (( $# > 0 )); then
     cargo add "$@"
 fi
 
-alacritty -e "$EDITOR" "./src/main.rs" &
+alacritty -e "$EDITOR" "./src/main.rs" 2> /dev/null &
 cargo watch -s 'clear && cargo run -q'

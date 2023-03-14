@@ -19,6 +19,9 @@
 
   home.file = {
     ".cargo/config.toml".text = ''
+      [registries.crates-io]
+      protocol = "sparse"
+
       [target.x86_64-unknown-linux-gnu]
       linker = "clang"
       rustflags = ["-C", "link-arg=-fuse-ld=mold"]
@@ -29,6 +32,9 @@
 
     ".config/nix/nix.conf".text = ''
       experimental-features = nix-command flakes
+
+      substituters = https://cache.nixos.org https://nix-community.cachix.org
+      trusted-public-keys = cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY= nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs=
     '';
 
     ".profile".text = ''
@@ -56,6 +62,14 @@
       for dir in $(echo $path_dirs); do
         export PATH=$dir:$PATH
       done
+    '';
+
+    ".taplo.toml".text = ''
+      [formatting]
+      align_comments = false
+      array_auto_collapse = false
+      array_auto_expand = false
+      reorder_keys = false
     '';
 
     ".zprofile".text = ''
@@ -97,6 +111,7 @@
         init.defaultBranch = "main";
         credential.helper = "store";
       };
+      lfs.enable = true;
       aliases = {
         b = "branch";
         bt = "branch -v --sort=-committerdate";
@@ -154,9 +169,10 @@
         share = true;
       };
       shellAliases = {
-        ccheck = ''cargo check --color always 2>&1 "$*" | bat -p'';
-        ctest = ''cargo test --color always 2>&1 "$*" | bat -p'';
-        cwatch = ''cargo watch -s "cargo check --color always 2>&1 | bat -p"'';
+        cb = ''cargo build --color always 2>&1 | less -R'';
+        cc = ''cargo check --color always 2>&1 | less -R'';
+        ct = ''cargo test --color always 2>&1 | less -R'';
+        cw = ''cargo watch -s "cargo check --colow always 2>&1 | less -R"'';
 
         hx = "CARGO_TARGET_DIR=~/.cargo/cache2 hx";
 

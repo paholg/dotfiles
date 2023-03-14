@@ -24,6 +24,7 @@
       bitwarden-cli
       bottom
       broot
+      cachix
       cargo-audit
       cargo-deny
       cargo-edit
@@ -54,6 +55,7 @@
       mdcat
       mold
       neofetch
+      nil
       niv
       nixfmt
       nmap

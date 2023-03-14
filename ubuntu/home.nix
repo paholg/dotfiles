@@ -6,6 +6,7 @@
     ../home/common-linux.nix
     ../home/gui.nix
     ../home/firefox.nix
+    ../home/packages-bi.nix
     ../home/packages-gui.nix
     ../home/packages-gui-linux.nix
   ];
@@ -30,7 +31,7 @@
     userEmail = "paho@paholg.com";
     signing = {
       gpgPath = "/opt/beyond-identity/bin/gpg-bi";
-      key = "5F78989E28A4FC0D7D507176AE9E04831E891B04";
+      key = "1DAFB2E1FCF44BB958273C9A778DAE049683100E";
       signByDefault = true;
     };
 
@@ -39,16 +40,34 @@
       contents.user.email = "paho.lurie-gregg@beyondidentity.com";
     }];
   };
+  programs.zsh.shellAliases = { };
 
-  programs.ssh.matchBlocks = { };
+  programs.ssh.matchBlocks = {
+    box = {
+      hostname = "10.0.0.4";
+      user = "paho";
+    };
+
+    home = {
+      hostname = "home.paholg.com";
+      user = "paho";
+    };
+  };
 
   programs.zsh.shellAliases = { };
 
+  # compositing for zoom
+  services.picom.enable = true;
+
   home.packages = with pkgs; [
     awscli2
-    docker
-    docker-compose
+    argo
+    cloudsmith-cli
+    cmake
+    # docker
+    # docker-compose
     fpm
+    gnome.seahorse
     go
     gopls
     jetbrains.idea-community
@@ -61,6 +80,8 @@
     # nodejs
     openapi-generator-cli
     openjdk8
+    # podman
+    # podman-compose
     python39Packages.swagger-spec-validator
     python39Packages.swagger-ui-bundle
     python310Packages.openapi-spec-validator
@@ -71,7 +92,6 @@
     sqlx-cli
     tpm2-tss
     wineWowPackages.stable
-    yarn
     yubikey-manager
   ];
 }

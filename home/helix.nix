@@ -41,9 +41,9 @@
         # TODO: Switch to ra-multiplex once this issue is resolved:
         # https://github.com/helix-editor/helix/issues/2479
         # language-server.command = "ra-multiplex";
-        # config = {
-        #   rust-analyzer.files.watcher = "server";
-        # };
+        config = {
+          # files.watcher = "server";
+        };
       }
       {
         name = "toml";
@@ -54,7 +54,10 @@
       editor = {
         indent-guides.render = true;
         file-picker = { hidden = false; };
-        lsp = { display-messages = true; };
+        lsp = {
+          display-messages = true;
+          display-inlay-hints = true;
+        };
         rulers = [ 81 ];
         soft-wrap.enable = true;
         whitespace.render = "none";
@@ -68,8 +71,14 @@
             F = "file_picker";
             c = "file_picker_in_current_buffer_directory";
           };
+          # Swap a and A.
+          A = "append_mode";
+          a = "insert_at_line_end";
+
+          # Custom bindings
           A-g = ":lang gotmpl";
           A-r = ":lsp-restart";
+          A-h = ":toggle-option lsp.display-inlay-hints";
         };
       };
     };
