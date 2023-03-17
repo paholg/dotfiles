@@ -15,6 +15,7 @@
       angle-grinder
       arandr
       aws-rotate-key
+      bacon
       bat
       bat-extras.batgrep
       bat-extras.batman
@@ -71,6 +72,7 @@
       ripgrep
       rnix-lsp
       ruby
+      rufo
       rust-analyzer
       rustup
       sd

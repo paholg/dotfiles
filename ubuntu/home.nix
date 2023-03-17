@@ -75,6 +75,7 @@
     kops
     kubectl
     kubernetes-helm
+    lldb
     mercurial
     minikube
     # nodejs
@@ -91,6 +92,7 @@
     sqlitebrowser
     sqlx-cli
     tpm2-tss
+    valgrind
     wineWowPackages.stable
     yubikey-manager
   ];
