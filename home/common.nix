@@ -195,6 +195,8 @@
 
         ipinfo = "curl ipinfo.io 2> /dev/null | jq .";
 
+        own = "fd --no-ignore-vcs -Ho root | xargs -d'\n' sudo chown -h paho:paho";
+
         sudop = "sudo env PATH=$PATH";
 
         t = "tmux attach";
