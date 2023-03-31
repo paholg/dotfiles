@@ -91,6 +91,7 @@
     remmina
     sqlitebrowser
     sqlx-cli
+    swift
     tpm2-tss
     valgrind
     wineWowPackages.stable

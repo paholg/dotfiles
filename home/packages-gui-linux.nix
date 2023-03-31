@@ -4,8 +4,9 @@
   home.packages = with pkgs; [
     adwaita-qt
     arandr
-    chromium
+    blender
     brightnessctl
+    chromium
     discord
     dzen2
     gimp
