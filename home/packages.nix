@@ -30,6 +30,7 @@
       cargo-deny
       cargo-edit
       cargo-expand
+      cargo-generate
       cargo-outdated
       cargo-update
       cargo-watch
@@ -52,6 +53,7 @@
       httpie
       jq
       jwt-cli
+      lld
       mdcat
       mold
       neofetch
@@ -70,9 +72,10 @@
       # python310Packages.python-lsp-server
       ripgrep
       rnix-lsp
+      rnr # regex rename
       ruby
       rufo
-      rust-analyzer
+      # rust-analyzer
       rustup
       sd
       shellcheck

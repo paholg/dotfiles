@@ -55,8 +55,7 @@
   };
 
   users.users.paho.openssh.authorizedKeys.keys = [
-    "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIHKrH/6MunuWSo4l+YKk1NQUyVi37rBwJUxG71iOlTmP paho@t14s"
     "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIGCqUokxT7ofD/zeVcBZGuZLBZm6ZeEggi48Xr8gE0XU JuiceSSH"
-    "ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBA1eOAXJN/EsMCZu2cd25JTMGnrjCO40fYxNRDucqzbV2jRcoQZ1LUJvSDEFghLPW6huhro9CYZ1R9Iq/gk0cmI= paho@u5d0ee6e36ad65a.ant.amazon.com"
+    "ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBIh01cLJMxFWbyny+uH/nM2j0Mkl3Gar95/6/08fb+J+aFlYnT2Wu6zthZyQ00kblmszIwEgtOOJEfyJOCaPLrs= paho@ubuntu"
   ];
 }

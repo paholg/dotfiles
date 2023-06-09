@@ -4,6 +4,7 @@
   home.packages = with pkgs; [
     adwaita-qt
     arandr
+    audacity
     blender
     brightnessctl
     chromium
@@ -13,7 +14,7 @@
     glxinfo
     gnome.eog
     libnotify
-    libreoffice
+    # libreoffice
     lxappearance
     lxqt.lxqt-policykit
     # mangohud

@@ -31,7 +31,7 @@
     userEmail = "paho@paholg.com";
     signing = {
       gpgPath = "/opt/beyond-identity/bin/gpg-bi";
-      key = "6182B1B3D4E3BD0D566250192C05948BD707BC28";
+      key = "60132ED9EF0C8ACEB33EB5FBF1174B302D9FD518";
       signByDefault = true;
     };
 
@@ -91,7 +91,7 @@
     remmina
     sqlitebrowser
     sqlx-cli
-    swift
+    # swift
     tpm2-tss
     valgrind
     wineWowPackages.stable
