@@ -96,6 +96,8 @@
   xdg.configFile."nixpkgs/config.nix".source = ./nixpkgs-config.nix;
 
   programs = {
+    atuin.enable = true;
+    direnv.enable = true;
     git = {
       enable = true;
       userName = "Paho Lurie-Gregg";
@@ -130,12 +132,6 @@
     home-manager = {
       enable = true;
       path = "...";
-    };
-
-    mcfly = {
-      enable = true;
-      enableZshIntegration = true;
-      fuzzySearchFactor = 3;
     };
 
     nix-index = {
@@ -198,6 +194,8 @@
           popd'';
 
         ipinfo = "curl ipinfo.io 2> /dev/null | jq .";
+
+        own = "fd --no-ignore-vcs -Ho root | xargs -d'\n' sudo chown -h paho:paho";
 
         sudop = "sudo env PATH=$PATH";
 

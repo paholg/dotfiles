@@ -31,7 +31,7 @@
     userEmail = "paho@paholg.com";
     signing = {
       gpgPath = "/opt/beyond-identity/bin/gpg-bi";
-      key = "1DAFB2E1FCF44BB958273C9A778DAE049683100E";
+      key = "60132ED9EF0C8ACEB33EB5FBF1174B302D9FD518";
       signByDefault = true;
     };
 
@@ -75,6 +75,7 @@
     kops
     kubectl
     kubernetes-helm
+    lldb
     mercurial
     minikube
     # nodejs
@@ -90,7 +91,9 @@
     remmina
     sqlitebrowser
     sqlx-cli
+    # swift
     tpm2-tss
+    valgrind
     wineWowPackages.stable
     yubikey-manager
   ];

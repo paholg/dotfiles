@@ -15,6 +15,7 @@
       angle-grinder
       arandr
       aws-rotate-key
+      bacon
       bat
       bat-extras.batgrep
       bat-extras.batman
@@ -29,6 +30,7 @@
       cargo-deny
       cargo-edit
       cargo-expand
+      cargo-generate
       cargo-outdated
       cargo-update
       cargo-watch
@@ -36,7 +38,6 @@
       # clang
       curl
       difftastic
-      direnv
       diskus
       du-dust
       exa
@@ -52,6 +53,7 @@
       httpie
       jq
       jwt-cli
+      lld
       mdcat
       mold
       neofetch
@@ -70,8 +72,10 @@
       # python310Packages.python-lsp-server
       ripgrep
       rnix-lsp
+      rnr # regex rename
       ruby
-      rust-analyzer
+      rufo
+      # rust-analyzer
       rustup
       sd
       shellcheck

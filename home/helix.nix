@@ -36,6 +36,14 @@
         auto-format = true;
       }
       {
+        name = "python";
+        auto-format = true;
+        formatter = {
+          command = "black";
+          args = [ "-" "--quiet" "--line-length=79" ];
+        };
+      }
+      {
         name = "rust";
         rulers = [ 81 101 ];
         # TODO: Switch to ra-multiplex once this issue is resolved:
@@ -50,6 +58,7 @@
         auto-format = true;
       }
     ];
+
     settings = {
       editor = {
         indent-guides.render = true;
