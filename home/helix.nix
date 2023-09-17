@@ -25,39 +25,41 @@
 
   programs.helix = {
     enable = true;
-    languages = [
-      {
-        name = "git-commit";
-        rulers = [ 51 73 ];
-      }
-      {
-        name = "nix";
-        language-server.command = "rnix-lsp";
-        auto-format = true;
-      }
-      {
-        name = "python";
-        auto-format = true;
-        formatter = {
-          command = "black";
-          args = [ "-" "--quiet" "--line-length=79" ];
-        };
-      }
-      {
-        name = "rust";
-        rulers = [ 81 101 ];
-        # TODO: Switch to ra-multiplex once this issue is resolved:
-        # https://github.com/helix-editor/helix/issues/2479
-        # language-server.command = "ra-multiplex";
-        config = {
-          # files.watcher = "server";
-        };
-      }
-      {
-        name = "toml";
-        auto-format = true;
-      }
-    ];
+    languages = {
+      language = [
+        {
+          name = "git-commit";
+          rulers = [ 51 73 ];
+        }
+        {
+          name = "nix";
+          language-server.command = "rnix-lsp";
+          auto-format = true;
+        }
+        {
+          name = "python";
+          auto-format = true;
+          formatter = {
+            command = "black";
+            args = [ "-" "--quiet" "--line-length=79" ];
+          };
+        }
+        {
+          name = "rust";
+          rulers = [ 81 101 ];
+          # TODO: Switch to ra-multiplex once this issue is resolved:
+          # https://github.com/helix-editor/helix/issues/2479
+          # language-server.command = "ra-multiplex";
+          config = {
+            # files.watcher = "server";
+          };
+        }
+        {
+          name = "toml";
+          auto-format = true;
+        }
+      ];
+    };
 
     settings = {
       editor = {

@@ -8,6 +8,7 @@
       just
       omnisharp-roslyn # c# lsp
       redis
+      swagger-cli
       # sourcekit-lsp # swift lsp
     ];
 }

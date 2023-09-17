@@ -31,7 +31,7 @@
     userEmail = "paho@paholg.com";
     signing = {
       gpgPath = "/opt/beyond-identity/bin/gpg-bi";
-      key = "60132ED9EF0C8ACEB33EB5FBF1174B302D9FD518";
+      key = "054F308A6202814D4F1629C317878DA9DD6CEA7C";
       signByDefault = true;
     };
 
@@ -83,8 +83,8 @@
     openjdk8
     # podman
     # podman-compose
-    python39Packages.swagger-spec-validator
-    python39Packages.swagger-ui-bundle
+    # python39Packages.swagger-spec-validator
+    # python39Packages.swagger-ui-bundle
     python310Packages.openapi-spec-validator
     qemu_full
     redoc-cli

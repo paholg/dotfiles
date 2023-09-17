@@ -81,8 +81,9 @@
       shellcheck
       socat
       solargraph
+      sourcekit-lsp # swift language server
       sshfs-fuse
-      # swift
+      swift
       taplo-cli # toml language server
       terraform-ls
       tokei
