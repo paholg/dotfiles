@@ -60,4 +60,6 @@
     isNormalUser = true;
     extraGroups = [ "networkmanager" "wheel" ];
   };
+
+  programs.zsh.enable = true;
 }
