@@ -172,7 +172,7 @@
 
         hx = "CARGO_TARGET_DIR=~/.cargo/cache2 hx";
 
-        ls = "exa";
+        ls = "eza";
         la = "ls -la";
         ll = "ls -l";
 

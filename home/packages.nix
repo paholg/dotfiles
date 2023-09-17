@@ -40,7 +40,7 @@
       difftastic
       diskus
       du-dust
-      exa
+      eza
       fd
       feh
       fzf
