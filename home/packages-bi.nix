@@ -5,6 +5,7 @@
     [
       cargo-insta
       fpm
+      glab # GitLab CLI
       just
       omnisharp-roslyn # c# lsp
       redis
