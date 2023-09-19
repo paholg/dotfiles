@@ -32,7 +32,7 @@ fi
 if command -v rustup &> /dev/null; then
     rustup update
     if command -v nix-shell &> /dev/null; then
-        nix-shell -p openssl pkg-config --run "cargo install-update -a || true"
+        nix-shell -p openssl pkg-config udev --run "cargo install-update -a || true"
     else
         cargo install-update -a || true
     fi
