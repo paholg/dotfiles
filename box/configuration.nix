@@ -1,10 +1,9 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
+{ config
+, lib
+, pkgs
+, ...
 }: {
-  imports = [../nix/common.nix ./plex.nix ./jellyfin.nix];
+  imports = [ ../nix/common.nix ./plex.nix ./jellyfin.nix ];
 
   swapDevices = [
     {
@@ -24,16 +23,16 @@
 
   networking.hostName = "box";
 
-  environment.systemPackages = with pkgs; [docker-compose];
+  environment.systemPackages = with pkgs; [ docker-compose ];
 
   virtualisation.docker.enable = true;
-  users.users.paho.extraGroups = ["docker"];
-  networking.firewall.allowedTCPPorts = [9091];
+  users.users.paho.extraGroups = [ "docker" ];
+  networking.firewall.allowedTCPPorts = [ 9091 ];
   systemd.services.transmission = {
     description = "Run transmission inside docker with openvpn";
-    wantedBy = ["multi-user.target"];
-    after = ["docker.service"];
-    requires = ["docker.service"];
+    wantedBy = [ "multi-user.target" ];
+    after = [ "docker.service" ];
+    requires = [ "docker.service" ];
     serviceConfig = {
       User = "paho";
       Type = "oneshot";
@@ -54,8 +53,8 @@
   services.openssh = {
     enable = true;
     settings = {
-      passwordAuthentication = false;
-      permitRootLogin = "no";
+      PasswordAuthentication = false;
+      PermitRootLogin = "no";
     };
   };
 
