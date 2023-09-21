@@ -27,6 +27,10 @@
       rustflags = ["-C", "link-arg=-fuse-ld=${lib.getExe' pkgs.mold "mold"}"]
     '';
 
+    ".config/inlyne/inlyne.toml".text = ''
+      theme = "Dark"
+    '';
+
     ".config/helix/themes/paho-theme.toml".text =
       builtins.readFile ./paho-theme.toml;
 

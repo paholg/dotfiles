@@ -2,7 +2,9 @@
   lib,
   pkgs,
   ...
-}: {
+}: let
+  ra_multiplex = "${lib.getExe' pkgs.ra-multiplex "ra-multiplex"}";
+in {
   # Configure ra-multiplex for persistent rust-analyzer goodness!
   home.file = {
     ".config/ra-multiplex/config.toml".text = ''
@@ -21,7 +23,7 @@
     };
     Install.WantedBy = ["default.target"];
     Service = {
-      ExecStart = "/bin/bash -c 'PATH=/home/paho/.cargo/bin:/home/paho/.nix-profile/bin ra-multiplex-server'";
+      ExecStart = "/bin/bash -lc 'CARGO_TARGET_DIR=/home/paho/.cargo/cache2 ${ra_multiplex} server'";
     };
   };
 
@@ -48,12 +50,7 @@
         {
           name = "rust";
           rulers = [81 101];
-          # TODO: Switch to ra-multiplex once this issue is resolved:
-          # https://github.com/helix-editor/helix/issues/2479
-          # language-server.command = "ra-multiplex";
-          # config = {
-          #   files.watcher = "server";
-          # };
+          language-servers = ["ra-multiplex"];
         }
         {
           name = "toml";
@@ -64,6 +61,10 @@
       language-server = {
         nil = {
           config.nil.formatting.command = ["${lib.getExe pkgs.alejandra}"];
+        };
+        ra-multiplex = {
+          command = ra_multiplex;
+          args = ["client"];
         };
       };
     };
