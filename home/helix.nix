@@ -3,12 +3,16 @@
   pkgs,
   ...
 }: let
-  ra_multiplex = "${lib.getExe' pkgs.ra-multiplex "ra-multiplex"}";
+  # TODO: Change when this PR is committed and released:
+  # https://github.com/pr2502/ra-multiplex/pull/40
+  # ra_multiplex = "${lib.getExe' pkgs.ra-multiplex "ra-multiplex"}";
+  ra_multiplex = "/home/paho/.cargo/bin/ra-multiplex";
 in {
   # Configure ra-multiplex for persistent rust-analyzer goodness!
   home.file = {
     ".config/ra-multiplex/config.toml".text = ''
       instance_timeout = false
+      min_available_memory = "4 GiB"
       gc_interval = 10
       listen = ["127.0.0.1", 27631]
       connect = ["127.0.0.1", 27631]
