@@ -23,7 +23,9 @@
   home.file = {
     ".cargo/config.toml".text = ''
       [target.x86_64-unknown-linux-gnu]
-      linker = "${lib.getExe pkgs.clang}"
+      # On ubuntu at least, this causes a runtime failure to find libssl.so.3
+      # linker = "${lib.getExe pkgs.clang}"
+      linker = "clang"
       rustflags = ["-C", "link-arg=-fuse-ld=${lib.getExe' pkgs.mold "mold"}"]
     '';
 

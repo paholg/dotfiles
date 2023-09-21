@@ -40,6 +40,10 @@ in {
           rulers = [51 73];
         }
         {
+          name = "json";
+          auto-format = false;
+        }
+        {
           name = "nix";
           auto-format = true;
         }
