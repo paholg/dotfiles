@@ -1,7 +1,5 @@
-{ pkgs, ... }:
-
-{
-  imports = [ ./packages-gui.nix ];
+{pkgs, ...}: {
+  imports = [./packages-gui.nix];
 
   nixpkgs.config.allowUnfree = true;
 

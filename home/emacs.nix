@@ -1,16 +1,17 @@
-{ pkgs, sources, ... }:
-
-let
-  nur-no-pkgs = import (builtins.fetchTarball
-    "https://github.com/nix-community/NUR/archive/master.tar.gz") { };
-
+{
+  pkgs,
+  sources,
+  ...
+}: let
+  nur-no-pkgs =
+    import (builtins.fetchTarball
+      "https://github.com/nix-community/NUR/archive/master.tar.gz") {};
 in {
-  imports = [ nur-no-pkgs.repos.rycee.hmModules.emacs-init ];
+  imports = [nur-no-pkgs.repos.rycee.hmModules.emacs-init];
 
   nixpkgs.overlays = [
     (import (builtins.fetchTarball {
-      url =
-        "https://github.com/nix-community/emacs-overlay/archive/master.tar.gz";
+      url = "https://github.com/nix-community/emacs-overlay/archive/master.tar.gz";
     }))
   ];
 
@@ -22,22 +23,22 @@ in {
     recommendedGcSettings = true;
     earlyInit = "(setq package-enable-at-startup t)";
 
-    prelude = (builtins.readFile ./emacs_prelude.el);
-    postlude = (builtins.readFile ./emacs_postlude.el);
+    prelude = builtins.readFile ./emacs_prelude.el;
+    postlude = builtins.readFile ./emacs_postlude.el;
 
     usePackage = {
-      cargo = { enable = true; };
+      cargo = {enable = true;};
 
       company = {
         enable = true;
-        diminish = [ "company-mode" ];
-        bind = { "C-<tab>" = "company-complete"; };
-        hook = [ "(after-init . global-company-mode)" ];
+        diminish = ["company-mode"];
+        bind = {"C-<tab>" = "company-complete";};
+        hook = ["(after-init . global-company-mode)"];
       };
 
-      csharp-mode = { enable = true; };
+      csharp-mode = {enable = true;};
 
-      csv-mode = { enable = true; };
+      csv-mode = {enable = true;};
 
       # conf-unix-mode = {
       #   enable = true;
@@ -58,7 +59,7 @@ in {
         config = "(default-text-scale-mode 1)";
       };
 
-      dockerfile-mode = { enable = true; };
+      dockerfile-mode = {enable = true;};
 
       eldoc = {
         enable = true;
@@ -72,14 +73,14 @@ in {
         # interpreter = [
         #   "ruby"
         # ];
-        mode = [ ''"\\.rb\\'"'' ];
+        mode = [''"\\.rb\\'"''];
       };
 
-      f = { enable = true; };
+      f = {enable = true;};
 
       flycheck = {
         enable = true;
-        diminish = [ "flycheck-mode" ];
+        diminish = ["flycheck-mode"];
         config = "(global-flycheck-mode)";
       };
 
@@ -91,11 +92,11 @@ in {
         '';
       };
 
-      gnuplot = { enable = true; };
+      gnuplot = {enable = true;};
 
-      go-mode = { enable = true; };
+      go-mode = {enable = true;};
 
-      haskell-mode = { enable = true; };
+      haskell-mode = {enable = true;};
 
       helm = {
         enable = true;
@@ -113,33 +114,33 @@ in {
 
       helm-descbinds = {
         enable = true;
-        bind = { "C-h b" = "helm-descbinds"; };
+        bind = {"C-h b" = "helm-descbinds";};
       };
 
       helm-lsp = {
         enable = true;
-        command = [ "helm-lsp-workspace-symbol" ];
+        command = ["helm-lsp-workspace-symbol"];
       };
 
       helm-projectile = {
         enable = true;
-        diminish = [ "projectile-mode" ];
+        diminish = ["projectile-mode"];
         config = "(helm-projectile-on)";
       };
 
-      helm-rg = { enable = true; };
+      helm-rg = {enable = true;};
 
-      helm-swoop = { enable = true; };
+      helm-swoop = {enable = true;};
 
       # highlight-parentheses = {
       #   enable = true;
       # };
 
-      jsonnet-mode = { enable = true; };
+      jsonnet-mode = {enable = true;};
 
       json-mode = {
         enable = true;
-        mode = [ ''"\\.json\\'"'' ];
+        mode = [''"\\.json\\'"''];
       };
 
       # Auctex fails to install every update because the nixos version lags the
@@ -155,12 +156,12 @@ in {
         config = "(global-linum-mode)";
       };
 
-      lsp-java = { enable = true; };
+      lsp-java = {enable = true;};
 
       lsp-mode = {
         enable = true;
-        command = [ "lsp" ];
-        hook = [ "(prog-mode . lsp)" ];
+        command = ["lsp"];
+        hook = ["(prog-mode . lsp)"];
         config = ''
           (define-key lsp-mode-map (kbd "C-o") lsp-command-map)
           (setq
@@ -184,7 +185,7 @@ in {
 
       lsp-sourcekit = {
         enable = true;
-        after = [ "lsp-mode" ];
+        after = ["lsp-mode"];
         init = ''
           (setq lsp-sourcekit-executable (executable-find "sourcekit-lsp"))
         '';
@@ -192,9 +193,8 @@ in {
 
       lsp-ui = {
         enable = true;
-        command = [ "lsp-ui-mode" ];
-        hook =
-          [ "(lsp-mode . lsp-ui-mode)" "(lsp-ui-mode . lsp-ui-peek-mode)" ];
+        command = ["lsp-ui-mode"];
+        hook = ["(lsp-mode . lsp-ui-mode)" "(lsp-ui-mode . lsp-ui-peek-mode)"];
         bind = {
           "C-i" = "lsp-ui-doc-glance";
           "M-/" = "lsp-ui-peek-find-references";
@@ -207,24 +207,24 @@ in {
           )'';
       };
 
-      lua-mode = { enable = true; };
+      lua-mode = {enable = true;};
 
       markdown-mode = {
         enable = true;
-        mode = [ ''"\\.mdwn\\'"'' ''"\\.markdown\\'"'' ''"\\.md\\'"'' ];
+        mode = [''"\\.mdwn\\'"'' ''"\\.markdown\\'"'' ''"\\.md\\'"''];
       };
 
-      mustache-mode = { enable = true; };
+      mustache-mode = {enable = true;};
 
       nix-mode = {
         enable = true;
-        mode = [ ''"\\.nix\\'"'' ];
-        bind = { "C-c C-f" = "nix-format-buffer"; };
+        mode = [''"\\.nix\\'"''];
+        bind = {"C-c C-f" = "nix-format-buffer";};
       };
 
       projectile = {
         enable = true;
-        bindKeyMap = { "C-c p" = "projectile-command-map"; };
+        bindKeyMap = {"C-c p" = "projectile-command-map";};
         config = ''
           (projectile-mode)
           (setq projectile-indexing-method 'alien
@@ -234,14 +234,14 @@ in {
 
       ripgrep = {
         enable = true;
-        command = [ "ripgrep-regexp" ];
+        command = ["ripgrep-regexp"];
       };
 
       rust-mode = {
         enable = true;
-        mode = [ ''"\\.rs\\'"'' ];
-        bind = { "C-c C-c" = "rust-test"; };
-        hook = [ "( rust-mode . lsp-rust-analyzer-inlay-hints-mode )" ];
+        mode = [''"\\.rs\\'"''];
+        bind = {"C-c C-c" = "rust-test";};
+        hook = ["( rust-mode . lsp-rust-analyzer-inlay-hints-mode )"];
         config = ''
           (setq
             lsp-rust-server 'rust-analyzer
@@ -255,11 +255,11 @@ in {
         '';
       };
 
-      sqlformat = { enable = true; };
+      sqlformat = {enable = true;};
 
       swift-mode = {
         enable = true;
-        hook = [ "(swift-mode . (lambda () (lsp)))" ];
+        hook = ["(swift-mode . (lambda () (lsp)))"];
       };
 
       # Temporarily disabled due to issues.
@@ -271,13 +271,13 @@ in {
       #   '';
       # };
 
-      toml-mode = { enable = true; };
+      toml-mode = {enable = true;};
 
-      typescript-mode = { enable = true; };
+      typescript-mode = {enable = true;};
 
-      tramp = { enable = true; };
+      tramp = {enable = true;};
 
-      yaml-mode = { enable = true; };
+      yaml-mode = {enable = true;};
     };
   };
 }

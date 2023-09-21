@@ -1,9 +1,7 @@
-{ pkgs, ... }:
+{pkgs, ...}: {
+  services.jellyfin = {enable = true;};
 
-{
-  services.jellyfin = { enable = true; };
-
-  networking.firewall.allowedTCPPorts = [ 80 443 ];
+  networking.firewall.allowedTCPPorts = [80 443];
 
   services.nginx = {
     enable = true;
@@ -15,7 +13,7 @@
     virtualHosts."home.paholg.com" = {
       addSSL = true;
       enableACME = true;
-      locations."/" = { proxyPass = "http://localhost:8096"; };
+      locations."/" = {proxyPass = "http://localhost:8096";};
     };
   };
 

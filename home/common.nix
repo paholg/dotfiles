@@ -1,7 +1,5 @@
-{ ... }:
-
-{
-  imports = [ ./helix.nix ./packages.nix ./starship.nix ];
+{...}: {
+  imports = [./helix.nix ./packages.nix ./starship.nix];
 
   home.stateVersion = "20.09";
 
@@ -17,7 +15,7 @@
     };
   };
 
-      home.file = {
+  home.file = {
     ".cargo/config.toml".text = ''
       [registries.crates-io]
       protocol = "sparse"
@@ -103,7 +101,7 @@
       userName = "Paho Lurie-Gregg";
       delta = {
         enable = true;
-        options = { line-numbers = true; };
+        options = {line-numbers = true;};
       };
       extraConfig = {
         diff.external = "difft";
@@ -139,7 +137,7 @@
       enableZshIntegration = true;
     };
 
-    ssh = { enable = true; };
+    ssh = {enable = true;};
 
     tmux = {
       enable = true;
@@ -200,7 +198,7 @@
 
         t = "tmux attach";
       };
-      initExtra = (builtins.readFile ./zsh_extra.sh);
+      initExtra = builtins.readFile ./zsh_extra.sh;
     };
   };
 }

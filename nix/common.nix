@@ -1,12 +1,10 @@
-{ pkgs, ... }:
-
-{
-  imports = [ /etc/nixos/hardware-configuration.nix ];
+{pkgs, ...}: {
+  imports = [/etc/nixos/hardware-configuration.nix];
 
   system.stateVersion = "20.03";
   system.autoUpgrade.enable = true;
   boot = {
-    kernelParams = [ "consoleblank=30" ];
+    kernelParams = ["consoleblank=30"];
 
     loader = {
       systemd-boot.enable = true;
@@ -21,7 +19,7 @@
     options = "--delete-older-than 30d";
   };
 
-  environment = { pathsToLink = [ "/share/zsh" ]; };
+  environment = {pathsToLink = ["/share/zsh"];};
 
   networking.networkmanager.enable = true;
   networking.useDHCP = false;
@@ -49,7 +47,7 @@
     ];
     earlySetup = true;
     font = "ter-i32b";
-    packages = [ pkgs.terminus_font ];
+    packages = [pkgs.terminus_font];
     keyMap = "us";
   };
   time.timeZone = "America/Los_Angeles";
@@ -58,7 +56,7 @@
   users.users.paho = {
     shell = pkgs.zsh;
     isNormalUser = true;
-    extraGroups = [ "networkmanager" "wheel" ];
+    extraGroups = ["networkmanager" "wheel"];
   };
 
   programs.zsh.enable = true;

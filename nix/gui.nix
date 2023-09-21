@@ -1,6 +1,8 @@
-{ config, pkgs, ... }:
-
 {
+  config,
+  pkgs,
+  ...
+}: {
   hardware = {
     bluetooth.enable = true;
 
@@ -15,13 +17,13 @@
   sound.enable = true;
 
   environment.sessionVariables = {
-    GTK_DATA_PREFIX = [ "${config.system.path}" ];
+    GTK_DATA_PREFIX = ["${config.system.path}"];
   };
 
   services = {
     fwupd.enable = true;
 
-    gnome = { gnome-keyring.enable = true; };
+    gnome = {gnome-keyring.enable = true;};
 
     physlock = {
       allowAnyUser = true;
@@ -57,8 +59,7 @@
         enable = true;
         enableNotifier = true;
         locker = "${config.security.wrapperDir}/physlock";
-        notifier =
-          ''${pkgs.libnotify}/bin/notify-send "Locking in 10 seconds"'';
+        notifier = ''${pkgs.libnotify}/bin/notify-send "Locking in 10 seconds"'';
         time = 10;
       };
     };
@@ -72,4 +73,3 @@
     style = "adwaita-dark";
   };
 }
-

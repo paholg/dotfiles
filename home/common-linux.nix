@@ -1,7 +1,5 @@
-{ ... }:
-
-{
-  imports = [ ./packages-linux.nix ];
+{...}: {
+  imports = [./packages-linux.nix];
 
   services = {
     gpg-agent = {

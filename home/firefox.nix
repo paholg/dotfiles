@@ -1,10 +1,13 @@
-{ config, pkgs, lib, ... }:
-
-let
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}: let
   nur-no-pkgs = import (builtins.fetchTarball
     "https://github.com/nix-community/NUR/archive/master.tar.gz") {
-      inherit pkgs;
-    };
+    inherit pkgs;
+  };
 in {
   programs.firefox = {
     enable = true;

@@ -1,6 +1,4 @@
-{ pkgs, ... }:
-
-{
+{pkgs, ...}: {
   imports = [
     ../home/common.nix
     ../home/common-linux.nix
@@ -22,8 +20,7 @@
       CARGO_REGISTRY_AUTH_URL = "$(cat $HOME/.git-credentials)";
       GONOSUMDB = "go.beyondidentity.com/*";
       GOPROXY = "$(cat $HOME/.goproxy)";
-      DATABASE_URL =
-        "postgresql://postgres:beyondidentity@dockerhost:5435/postgres?sslmode=disable";
+      DATABASE_URL = "postgresql://postgres:beyondidentity@dockerhost:5435/postgres?sslmode=disable";
     };
   };
 
@@ -35,12 +32,14 @@
       signByDefault = true;
     };
 
-    includes = [{
-      condition = "gitdir:~/bi/";
-      contents.user.email = "paho.lurie-gregg@beyondidentity.com";
-    }];
+    includes = [
+      {
+        condition = "gitdir:~/bi/";
+        contents.user.email = "paho.lurie-gregg@beyondidentity.com";
+      }
+    ];
   };
-  programs.zsh.shellAliases = { };
+  programs.zsh.shellAliases = {};
 
   programs.ssh.matchBlocks = {
     box = {
@@ -54,7 +53,7 @@
     };
   };
 
-  programs.zsh.shellAliases = { };
+  programs.zsh.shellAliases = {};
 
   # compositing for zoom
   services.picom.enable = true;

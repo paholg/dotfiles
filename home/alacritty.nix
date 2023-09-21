@@ -4,7 +4,7 @@
     settings = {
       shell = {
         program = "zsh";
-        args = [ "--login" ];
+        args = ["--login"];
       };
 
       scrolling = {

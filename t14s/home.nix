@@ -1,6 +1,4 @@
-{ pkgs, ... }:
-
-{
+{pkgs, ...}: {
   imports = [
     ../home/common.nix
     ../home/common-linux.nix
@@ -14,7 +12,7 @@
     username = "paho";
     homeDirectory = "/home/paho";
 
-    keyboard.options = [ "caps:backspace" ];
+    keyboard.options = ["caps:backspace"];
   };
 
   programs.git.userEmail = "paho@paholg.com";
@@ -31,5 +29,5 @@
     };
   };
 
-  home.packages = with pkgs; [ glibc vulkan-tools yubikey-manager ];
+  home.packages = with pkgs; [glibc vulkan-tools yubikey-manager];
 }

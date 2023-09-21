@@ -1,15 +1,18 @@
-{ config, lib, pkgs, ... }:
-
 {
-  imports = [ ../nix/common.nix ../nix/gui.nix ];
+  config,
+  lib,
+  pkgs,
+  ...
+}: {
+  imports = [../nix/common.nix ../nix/gui.nix];
 
   hardware.cpu.amd.updateMicrocode =
     lib.mkDefault config.hardware.enableRedistributableFirmware;
 
   hardware.enableAllFirmware = true;
   boot = {
-    kernelParams = [ "iommu=pt" ];
-    initrd.kernelModules = [ "amdgpu" ];
+    kernelParams = ["iommu=pt"];
+    initrd.kernelModules = ["amdgpu"];
   };
 
   networking = {
@@ -22,7 +25,7 @@
   boot.kernelPackages = pkgs.linuxPackages_latest;
   services.xserver = {
     enable = true;
-    videoDrivers = [ "amdgpu" ];
+    videoDrivers = ["amdgpu"];
   };
   hardware = {
     enableRedistributableFirmware = true;
@@ -31,13 +34,13 @@
       # Enable Vulkan
       driSupport = true;
       driSupport32Bit = true;
-      extraPackages32 = with pkgs.pkgsi686Linux; [ libva ];
+      extraPackages32 = with pkgs.pkgsi686Linux; [libva];
     };
     pulseaudio.support32Bit = true;
     steam-hardware.enable = true;
   };
-  environment.systemPackages = with pkgs; [ steam ];
+  environment.systemPackages = with pkgs; [steam];
 
-  users.users.paho.extraGroups = [ "docker" ];
+  users.users.paho.extraGroups = ["docker"];
   virtualisation.docker.enable = true;
 }
