@@ -186,7 +186,6 @@
 
         hx-install = ''
           pushd ~/git/helix && \
-          git pull && \
           nix develop -c "cargo install --path helix-term" && \
           hx --grammar fetch && \
           hx --grammar build && \

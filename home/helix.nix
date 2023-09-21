@@ -33,7 +33,6 @@
         }
         {
           name = "nix";
-          language-server.command = "rnix-lsp";
           auto-format = true;
         }
         {
@@ -50,9 +49,9 @@
           # TODO: Switch to ra-multiplex once this issue is resolved:
           # https://github.com/helix-editor/helix/issues/2479
           # language-server.command = "ra-multiplex";
-          config = {
-            # files.watcher = "server";
-          };
+          # config = {
+          #   files.watcher = "server";
+          # };
         }
         {
           name = "toml";

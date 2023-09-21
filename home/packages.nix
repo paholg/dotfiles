@@ -55,10 +55,11 @@
       jq
       jwt-cli
       lld
+      marksman # markdown lsp
       mdcat
       mold
       neofetch
-      nil
+      nil # nix language server
       niv
       nixfmt
       nmap
@@ -72,7 +73,6 @@
       # python-with-my-packages
       # python310Packages.python-lsp-server
       ripgrep
-      rnix-lsp
       rnr # regex rename
       ruby
       rufo
@@ -90,6 +90,7 @@
       tokei
       unison
       vim
+      vscode-langservers-extracted # css, html, json, markdown, eslint
       wally-cli
       wasm-bindgen-cli
       wget
