@@ -17,7 +17,7 @@
     };
   };
 
-  home.file = {
+      home.file = {
     ".cargo/config.toml".text = ''
       [registries.crates-io]
       protocol = "sparse"

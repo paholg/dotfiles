@@ -1,6 +1,8 @@
-{ ... }:
-
 {
+  lib,
+  pkgs,
+  ...
+}: {
   # Configure ra-multiplex for persistent rust-analyzer goodness!
   home.file = {
     ".config/ra-multiplex/config.toml".text = ''
@@ -15,9 +17,9 @@
   systemd.user.services.ra-multiplex = {
     Unit = {
       Description = "Rust Analyzer multiplex server";
-      Documentation = [ "https://github.com/pr2502/ra-multiplex" ];
+      Documentation = ["https://github.com/pr2502/ra-multiplex"];
     };
-    Install.WantedBy = [ "default.target" ];
+    Install.WantedBy = ["default.target"];
     Service = {
       ExecStart = "/bin/bash -c 'PATH=/home/paho/.cargo/bin:/home/paho/.nix-profile/bin ra-multiplex-server'";
     };
@@ -29,7 +31,7 @@
       language = [
         {
           name = "git-commit";
-          rulers = [ 51 73 ];
+          rulers = [51 73];
         }
         {
           name = "nix";
@@ -40,12 +42,12 @@
           auto-format = true;
           formatter = {
             command = "black";
-            args = [ "-" "--quiet" "--line-length=79" ];
+            args = ["-" "--quiet" "--line-length=79"];
           };
         }
         {
           name = "rust";
-          rulers = [ 81 101 ];
+          rulers = [81 101];
           # TODO: Switch to ra-multiplex once this issue is resolved:
           # https://github.com/helix-editor/helix/issues/2479
           # language-server.command = "ra-multiplex";
@@ -58,17 +60,23 @@
           auto-format = true;
         }
       ];
+
+      language-server = {
+        nil = {
+          config.nil.formatting.command = ["${lib.getExe pkgs.alejandra}"];
+        };
+      };
     };
 
     settings = {
       editor = {
         indent-guides.render = true;
-        file-picker = { hidden = false; };
+        file-picker = {hidden = false;};
         lsp = {
           display-messages = true;
           display-inlay-hints = true;
         };
-        rulers = [ 81 ];
+        rulers = [81];
         soft-wrap.enable = true;
         whitespace.render = "none";
       };

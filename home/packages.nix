@@ -12,6 +12,7 @@
       python-with-my-packages = python3.withPackages my-python-packages;
     in
     [
+      alejandra # nix formatter
       angle-grinder
       arandr
       aws-rotate-key
@@ -61,7 +62,6 @@
       neofetch
       nil # nix language server
       niv
-      nixfmt
       nmap
       nodePackages.bash-language-server
       nodePackages.typescript-language-server
