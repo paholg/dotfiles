@@ -20,6 +20,7 @@
     cargo-edit
     cargo-expand
     cargo-generate
+    cargo-machete
     cargo-outdated
     cargo-update
     cargo-watch
