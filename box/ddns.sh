@@ -32,4 +32,4 @@ curl -D- -X PUT -H "Content-Type: application/json" \
              \"rrset_type\": \"A\",
              \"rrset_ttl\": 1200,
              \"rrset_values\": [\"$EXT_IP\"]}" \
-        $CURRENT_ZONE_HREF/$SUBDOMAIN/A
+        "$CURRENT_ZONE_HREF/$SUBDOMAIN/A"

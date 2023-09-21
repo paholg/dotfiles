@@ -40,7 +40,6 @@
     };
   };
 
-  # TODO: Switch to ddclient once > 3.9.1
   services.cron = {
     enable = true;
     systemCronJobs = [
@@ -50,8 +49,10 @@
 
   services.openssh = {
     enable = true;
-    passwordAuthentication = false;
-    permitRootLogin = "no";
+    settings = {
+      passwordAuthentication = false;
+      permitRootLogin = "no";
+    };
   };
 
   users.users.paho.openssh.authorizedKeys.keys = [
