@@ -27,10 +27,10 @@ else
 fi
 
 if test -f "$(hostname)/home.nix"; then
-    check_continue "Replace $HOME/.config/nixpkgs/home.nix?"
+    check_continue "Replace $HOME/.config/home-manager/home.nix?"
 
-    mkdir -p "$HOME/.config/nixpkgs"
-    ln -sf "$HOME/dotfiles/$(hostname)/home.nix" "$HOME/.config/nixpkgs/home.nix"
+    mkdir -p "$HOME/.config/home-manager"
+    ln -sf "$HOME/dotfiles/$(hostname)/home.nix" "$HOME/.config/home-manager/home.nix"
     
     nix-channel --add https://github.com/nix-community/home-manager/archive/master.tar.gz home-manager
     nix-channel --update
@@ -39,7 +39,8 @@ if test -f "$(hostname)/home.nix"; then
     echo "See https://github.com/rycee/home-manager#installation"
 
     # For non-NixOs
-    export NIX_PATH=$HOME/.nix-defexpr/channels:/nix/var/nix/profiles/per-user/root/channels${NIX_PATH:+:$NIX_PATH}
+    # DO I STILL NEED THIS???
+    # export NIX_PATH=$HOME/.nix-defexpr/channels:/nix/var/nix/profiles/per-user/root/channels${NIX_PATH:+:$NIX_PATH}
 
     nix-shell '<home-manager>' -A install
 fi
