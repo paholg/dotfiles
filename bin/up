@@ -46,5 +46,7 @@ if command -v imdb-rename; then
     imdb-rename --update-data
 fi
 
-fixkb
+if [[ -v DISPLAY ]]; then
+    fixkb
+fi
 
