@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+echo "Make sure to create `dotfiles/box/API_KEY` with Gandi api key, for ddns"
+
+echo "Make sure to create `dotfiles/box/torrent/secret` with:"
+echo "OPENVPN_USERNAME"
+echo "OPENVPN_PASSWORD"
+echo "RSS_URL"
+
+
+echo "Thank you!"
