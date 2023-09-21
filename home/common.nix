@@ -1,4 +1,8 @@
-{...}: {
+{
+  lib,
+  pkgs,
+  ...
+}: {
   imports = [./helix.nix ./packages.nix ./starship.nix];
 
   home.stateVersion = "20.09";
@@ -11,18 +15,16 @@
       RUST_NEW_ERROR_FORMAT = "true";
       CARGO_HOME = "$HOME/.cargo";
       MANPAGER = "sh -c 'col -bx | bat -l man -p'";
+      MANROFFOPT = "-c";
       CARGO_TARGET_DIR = "$HOME/.cargo/cache";
     };
   };
 
   home.file = {
     ".cargo/config.toml".text = ''
-      [registries.crates-io]
-      protocol = "sparse"
-
       [target.x86_64-unknown-linux-gnu]
-      linker = "clang"
-      rustflags = ["-C", "link-arg=-fuse-ld=mold"]
+      linker = "${lib.getExe pkgs.clang}"
+      rustflags = ["-C", "link-arg=-fuse-ld=${lib.getExe' pkgs.mold "mold"}"]
     '';
 
     ".config/helix/themes/paho-theme.toml".text =

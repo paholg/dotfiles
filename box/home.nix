@@ -14,7 +14,5 @@
 
   programs.git.userEmail = "paho@paholg.com";
 
-  home.packages = with pkgs; [clang python3];
-
   programs.zsh.enable = true;
 }

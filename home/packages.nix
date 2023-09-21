@@ -1,13 +1,5 @@
 {pkgs, ...}: {
-  home.packages = with pkgs; let
-    my-python-packages = python-packages:
-      with python-packages; [
-        numpy
-        black
-        torch
-      ];
-    python-with-my-packages = python3.withPackages my-python-packages;
-  in [
+  home.packages = with pkgs; [
     alejandra # nix formatter
     angle-grinder
     arandr
@@ -32,7 +24,6 @@
     cargo-update
     cargo-watch
     choose
-    # clang
     curl
     difftastic
     diskus
@@ -54,7 +45,6 @@
     lld
     marksman # markdown lsp
     mdcat
-    mold
     neofetch
     nil # nix language server
     niv
