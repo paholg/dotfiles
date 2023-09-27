@@ -1,7 +1,6 @@
 {
   lib,
   pkgs,
-  inputs,
   ...
 }: let
   # TODO: Change when this PR is committed and released:

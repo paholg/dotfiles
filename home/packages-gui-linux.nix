@@ -18,6 +18,7 @@
     # mangohud
     okular
     pavucontrol
+    rustybar
     scrot
     signal-desktop
     slack

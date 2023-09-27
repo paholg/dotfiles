@@ -23,7 +23,6 @@
     cargo-generate
     cargo-machete
     cargo-outdated
-    cargo-update
     cargo-watch
     choose
     curl
@@ -61,6 +60,7 @@
     pgcli
     # python-with-my-packages
     # python310Packages.python-lsp-server
+    ra-multiplex
     ripgrep
     rnr # regex rename
     ruby
