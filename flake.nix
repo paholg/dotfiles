@@ -10,8 +10,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     snippets-ls = {
-      # FIXME
-      url = "/home/paho/git/snippets-ls";
+      url = "github:perlinm/snippets-ls";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     helix = {
