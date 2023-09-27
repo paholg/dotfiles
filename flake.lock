@@ -248,14 +248,17 @@
         ]
       },
       "locked": {
-        "lastModified": 1695779539,
-        "narHash": "sha256-zUqWbK60wvRwVlY8M1FthaeDPhWsWN0iH4GGG3z/oPQ=",
-        "type": "git",
-        "url": "file:///home/paho/git/snippets-ls"
+        "lastModified": 1695838878,
+        "narHash": "sha256-4SAV9Id56owaC97kdA8sNZM/pG0revfDw8sLSPjDVJM=",
+        "owner": "perlinm",
+        "repo": "snippets-ls",
+        "rev": "c62248f46327feaeffc0844642ddb5d69750eaf5",
+        "type": "github"
       },
       "original": {
-        "type": "git",
-        "url": "file:///home/paho/git/snippets-ls"
+        "owner": "perlinm",
+        "repo": "snippets-ls",
+        "type": "github"
       }
     },
     "systems": {

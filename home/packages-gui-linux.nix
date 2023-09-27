@@ -6,7 +6,7 @@
     blender
     brightnessctl
     chromium
-    discord
+    unfree.discord
     dzen2
     gimp
     glxinfo
@@ -21,7 +21,7 @@
     rustybar
     scrot
     signal-desktop
-    slack
+    unfree.slack
     vlc
     xclip
     xdotool

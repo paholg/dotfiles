@@ -39,6 +39,10 @@
       linux = "x86_64-linux";
 
       pkgs_overlay = final: prev: {
+        unfree = import nixpkgs {
+          system = prev.system;
+          config.allowUnfree = true;
+        };
         helix = helix.packages.${prev.system}.default;
         ra-multiplex = ra-multiplex.defaultPackage.${prev.system};
         snippets-ls = snippets-ls.packages.${prev.system}.snippets-ls;
@@ -52,7 +56,6 @@
             {
               overlays = [pkgs_overlay];
               system = linux;
-              config.allowUnfree = true;
             };
           modules = [
             ./hosts/ubuntu/home.nix
