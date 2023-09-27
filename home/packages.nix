@@ -10,7 +10,6 @@
     bat-extras.batman
     bat-extras.prettybat
     bind
-    # binutils
     bitwarden-cli
     bottom
     broot
@@ -58,18 +57,15 @@
     perl
     # pkg-config
     pgcli
-    # python-with-my-packages
-    # python310Packages.python-lsp-server
     ra-multiplex
     ripgrep
     rnr # regex rename
     ruby
     rufo
-    # rust-analyzer
     rustup
     sd
     shellcheck
-    snippets-ls
+    # snippets-ls
     socat
     solargraph
     sourcekit-lsp # swift language server

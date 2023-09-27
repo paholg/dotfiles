@@ -47,15 +47,15 @@
         snippets-ls = snippets-ls.packages.${prev.system}.snippets-ls;
         rustybar = rustybar.defaultPackage.${prev.system};
       };
+
+      pkgs = system: import nixpkgs {
+        overlays = [pkgs_overlay];
+        inherit system;
+      };
     in {
       homeConfigurations = {
         "paho@ubuntu" = home-manager.lib.homeManagerConfiguration {
-          pkgs =
-            import nixpkgs
-            {
-              overlays = [pkgs_overlay];
-              system = linux;
-            };
+          pkgs = pkgs linux;
           modules = [
             ./hosts/ubuntu/home.nix
             nur.nixosModules.nur
@@ -63,7 +63,7 @@
         };
 
         "paho@box" = home-manager.lib.homeManagerConfiguration {
-          pkgs = import nixpkgs {system = linux;};
+          pkgs = pkgs linux;
           modules = [./hosts/box/home.nix];
         };
       };

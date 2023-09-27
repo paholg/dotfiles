@@ -1,5 +1,5 @@
 {...}: {
-  imports = [../home/common.nix ../home/common-linux.nix];
+  imports = [../../home/common.nix ../../home/common-linux.nix];
 
   home = {
     username = "paho";
