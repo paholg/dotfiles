@@ -205,7 +205,6 @@ my_keys = [
   ("M-C-S-m",  spawn "monitor_switch ctrl-shift"),
   -- run programs
   ("M-t", spawn my_terminal),
-  ("M-a", spawn "emacsclient -c"),
   ("M-r", spawn "dmenu_run -i -nb black -sb grey -nf grey -sf black -fn '-misc-fixed-medium-r-normal--18-*-*-*-*-*-*-*'"),
   -- window manager stuff
   ("M-v", sendMessage ToggleStruts),

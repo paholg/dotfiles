@@ -181,9 +181,6 @@
         la = "ls -la";
         ll = "ls -l";
 
-        em = "emacsclient -c";
-        emt = "emacsclient -t";
-
         g = "git";
         gbt = "git bt | head -n10";
         gsw = ''
