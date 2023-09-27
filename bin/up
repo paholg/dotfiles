@@ -10,15 +10,19 @@ elif command -v yum &> /dev/null; then
     sudo yum check-update
     sudo yum update
 elif command -v nixos-rebuild &> /dev/null; then
-    sudo nixos-rebuild switch --upgrade
+    echo "FIGURE OUT FLAKES WITH NIXOS"
+    # sudo nixos-rebuild switch --upgrade
 elif command -v apt-get &> /dev/null; then
     sudo apt-get update
     sudo apt-get dist-upgrade
 fi
 
+if command -v nix &> /dev/null; then
+    pushd  "$HOME/dotfiles" && nix flake update && popd
+fi
+
 if command -v home-manager &> /dev/null; then
-    nix-channel --update
-    home-manager switch
+    home-manager --flake "$HOME/dotfiles" switch
 fi
 
 if command -v fwupdmgr &> /dev/null; then
@@ -38,8 +42,8 @@ if command -v rustup &> /dev/null; then
     fi
 fi
 
-if test -f "$HOME/dotfiles/$(hostname)/up"; then
-    "$HOME/dotfiles/$(hostname)/up"
+if test -f "$HOME/dotfiles/hosts/$(hostname)/up"; then
+    "$HOME/dotfiles/hosts/$(hostname)/up"
 fi
 
 if command -v imdb-rename; then

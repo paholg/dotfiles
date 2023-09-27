@@ -137,7 +137,6 @@
 
     home-manager = {
       enable = true;
-      path = "...";
     };
 
     nix-index = {
@@ -204,6 +203,7 @@
 
         sudop = "sudo env PATH=$PATH";
 
+        sw = "home-manager --flake $HOME/dotfiles switch";
         t = "tmux attach";
       };
       initExtra = builtins.readFile ./zsh_extra.sh;

@@ -9,8 +9,8 @@ bindkey "^[[1;5D" backward-word
 
 # ------------------------------------------------------------------------------
 # Load host-specific settings
-if [ -f $HOME/dotfiles/`hostname`/zshrc ]; then
-    source $HOME/dotfiles/`hostname`/zshrc
+if [ -f "$HOME/dotfiles/hosts/$(hostname)/zshrc" ]; then
+    source "$HOME/dotfiles/hosts/$(hostname)/zshrc"
 fi
 
 # # ------------------------------------------------------------------------------
@@ -22,7 +22,7 @@ title_host() {
     else
         host=""
     fi
-    echo $host
+    echo "$host"
 }
 
 xterm_title_precmd() {

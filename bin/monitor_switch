@@ -4,6 +4,6 @@ set -euxo pipefail
 
 fixkb &
 
-sh "$HOME/dotfiles/$(hostname)/screenlayout/$1.sh"
+sh "$HOME/dotfiles/hosts/$(hostname)/screenlayout/$1.sh"
 
 background &

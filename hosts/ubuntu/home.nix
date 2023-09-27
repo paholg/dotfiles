@@ -1,12 +1,12 @@
 {pkgs, ...}: {
   imports = [
-    ../home/common.nix
-    ../home/common-linux.nix
-    ../home/gui.nix
-    ../home/firefox.nix
-    ../home/packages-bi.nix
-    ../home/packages-gui.nix
-    ../home/packages-gui-linux.nix
+    ../../home/common.nix
+    ../../home/common-linux.nix
+    ../../home/gui.nix
+    ../../home/firefox.nix
+    ../../home/packages-bi.nix
+    ../../home/packages-gui.nix
+    ../../home/packages-gui-linux.nix
   ];
 
   home = {

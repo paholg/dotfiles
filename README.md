@@ -13,7 +13,7 @@ only configuration here is for that and for NixOS.
 
 # Instructions
 
-Create a directory with `hostname` as its name, including `home.nix` for home-manager and/or
-`configuration.nix` for NixOs.
+Create a directory with `hosts/HOSTNAME` as its name, including `home.nix` for home-manager and/or
+`configuration.nix` for NixOs. Also add an entry to `flake.nix`.
 
 Then, run `./install.sh`.

@@ -11,10 +11,10 @@ function check_continue {
 check_continue "Replace .git/hooks/pre-commit?"
 ln -sf ../../pre-commit .git/hooks/pre-commit
 
-if test -f "$(hostname)/configuration.nix"; then
+if test -f "hosts/$(hostname)/configuration.nix"; then
     check_continue "Replace /etc/nixos/configuration.nix?"
 
-    sudo ln -sf "$HOME/dotfiles/$(hostname)/configuration.nix /etc/nixos/configuration.nix"
+    sudo ln -sf "$HOME/dotfiles/hosts/$(hostname)/configuration.nix /etc/nixos/configuration.nix"
 
     check_continue "Switch to NixOs unstable?"
     sudo nix-channel --add https://nixos.org/channels/nixos-unstable nixos
@@ -26,11 +26,11 @@ else
     nix-channel --add https://nixos.org/channels/nixpkgs-unstable nixpkgs
 fi
 
-if test -f "$(hostname)/home.nix"; then
+if test -f "hosts/$(hostname)/home.nix"; then
     check_continue "Replace $HOME/.config/home-manager/home.nix?"
 
     mkdir -p "$HOME/.config/home-manager"
-    ln -sf "$HOME/dotfiles/$(hostname)/home.nix" "$HOME/.config/home-manager/home.nix"
+    ln -sf "$HOME/dotfiles/hosts/$(hostname)/home.nix" "$HOME/.config/home-manager/home.nix"
     
     nix-channel --add https://github.com/nix-community/home-manager/archive/master.tar.gz home-manager
     nix-channel --update
@@ -45,8 +45,8 @@ if test -f "$(hostname)/home.nix"; then
     nix-shell '<home-manager>' -A install
 fi
 
-if test -f "$(hostname)/install"; then
+if test -f "hosts/$(hostname)/install"; then
     echo "Running hostname-specific install"
 
-    . "$(hostname)/install"
+    . "hosts/$(hostname)/install"
 fi

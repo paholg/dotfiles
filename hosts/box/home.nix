@@ -1,4 +1,4 @@
-{pkgs, ...}: {
+{...}: {
   imports = [../home/common.nix ../home/common-linux.nix];
 
   home = {
