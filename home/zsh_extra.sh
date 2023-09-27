@@ -26,11 +26,11 @@ title_host() {
 }
 
 xterm_title_precmd() {
-	  print -Pn -- "\e]2;$(title_host)%~\a"
+    print -Pn -- "\e]2;$(title_host)%~\a"
 }
 
 xterm_title_preexec() {
-	print -Pn -- "\e]2;$(title_host)" && print -n -- "${(q)1}" && print -Pn -- ' (%~)\a'
+  print -Pn -- "\e]2;$(title_host)" && print -n -- "${(q)1}" && print -Pn -- ' (%~)\a'
 }
 
 precmd_functions+=(xterm_title_precmd)
