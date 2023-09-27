@@ -18,7 +18,7 @@ elif command -v apt-get &> /dev/null; then
 fi
 
 if command -v nix &> /dev/null; then
-    pushd  "$HOME/dotfiles" && nix flake update && popd
+    nix flake update "#HOME/dotfiles"
 fi
 
 if command -v home-manager &> /dev/null; then

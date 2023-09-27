@@ -16,32 +16,40 @@
       url = "github:paholg/helix/temp";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    # ra-multiplex = {
+    #   url = "github:paholg/ra-multiplex/min_available_memory";
+    #   inputs.nixpkgs.follows = "nixpkgs";
+    # };
   };
 
   outputs = inputs:
     with inputs; let
       linux = "x86_64-linux";
 
-      custom_packages = [
-        snippets-ls.packages.${linux}.snippets-ls
-        helix.packages.${linux}.default
-      ];
+      pkgs_overlay = final: prev: {
+        helix = helix.packages.${prev.system}.default;
+        # ra-multiplex = ra-multiplex.packages.${prev.system}.default;
+        snippets-ls = snippets-ls.packages.${prev.system}.snippets-ls;
+      };
     in {
       homeConfigurations = {
         "paho@ubuntu" = home-manager.lib.homeManagerConfiguration {
           pkgs =
             import nixpkgs
             {
+              overlays = [pkgs_overlay];
               system = linux;
               config.allowUnfree = true;
             };
           modules = [
             ./hosts/ubuntu/home.nix
             nur.nixosModules.nur
-            {
-              home.packages = custom_packages;
-            }
           ];
+        };
+
+        "paho@box" = home-manager.lib.homeManagerConfiguration {
+          pkgs = import nixpkgs {system = linux;};
+          modules = [./hosts/box/home.nix];
         };
       };
     };

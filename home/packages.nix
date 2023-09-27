@@ -69,6 +69,7 @@
     rustup
     sd
     shellcheck
+    snippets-ls
     socat
     solargraph
     sourcekit-lsp # swift language server
