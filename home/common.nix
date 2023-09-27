@@ -21,20 +21,19 @@
   };
 
   home.file = {
-    ".cargo/config.toml".text = ''
-      [target.x86_64-unknown-linux-gnu]
-      # On ubuntu at least, this causes a runtime failure to find libssl.so.3
-      # linker = "${lib.getExe pkgs.clang}"
-      linker = "clang"
-      rustflags = ["-C", "link-arg=-fuse-ld=${lib.getExe' pkgs.mold "mold"}"]
-    '';
-
+    ".cargo/config.toml".source = (pkgs.formats.toml {}).generate "" {
+      target.x86_64-unknown-linux-gnu = {
+        # On ubuntu at least, this causes a runtime failure to find libssl.so.3
+        # linker = "${lib.getExe pkgs.clang}";
+        linker = "clang";
+        rustflags = ["-C" "link-arg=-fuse-ld=${lib.getExe' pkgs.mold "mold"}"];
+      };
+    };
     ".config/inlyne/inlyne.toml".text = ''
       theme = "Dark"
     '';
 
-    ".config/helix/themes/paho-theme.toml".text =
-      builtins.readFile ./paho-theme.toml;
+    ".config/helix/themes/paho-theme.toml".source = ./paho-theme.toml;
 
     ".config/nix/nix.conf".text = ''
       experimental-features = nix-command flakes
@@ -70,13 +69,14 @@
       done
     '';
 
-    ".taplo.toml".text = ''
-      [formatting]
-      align_comments = false
-      array_auto_collapse = false
-      array_auto_expand = false
-      reorder_keys = false
-    '';
+    ".taplo.toml".source = (pkgs.formats.toml {}).generate "" {
+      formatting = {
+        align_comments = false;
+        array_auto_collapse = false;
+        array_auto_expand = false;
+        reorder_keys = false;
+      };
+    };
 
     ".zprofile".text = ''
       . ~/.profile
@@ -97,9 +97,6 @@
     html.enable = true;
     json.enable = true;
   };
-
-  nixpkgs.config = import ./nixpkgs-config.nix;
-  xdg.configFile."nixpkgs/config.nix".source = ./nixpkgs-config.nix;
 
   programs = {
     atuin.enable = true;

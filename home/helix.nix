@@ -1,6 +1,7 @@
 {
   lib,
   pkgs,
+  inputs,
   ...
 }: let
   # TODO: Change when this PR is committed and released:
@@ -10,14 +11,14 @@
 in {
   # Configure ra-multiplex for persistent rust-analyzer goodness!
   home.file = {
-    ".config/ra-multiplex/config.toml".text = ''
-      instance_timeout = false
-      min_available_memory = "4 GiB"
-      gc_interval = 10
-      listen = ["127.0.0.1", 27631]
-      connect = ["127.0.0.1", 27631]
-      log_filters = "info"
-    '';
+    ".config/ra-multiplex/config.toml".source = (pkgs.formats.toml {}).generate "" {
+      instance_timeout = false;
+      min_available_memory = "4 GiB";
+      gc_interval = 10;
+      listen = ["127.0.0.1" 27631];
+      connect = ["127.0.0.1" 27631];
+      log_filters = "info";
+    };
   };
 
   systemd.user.services.ra-multiplex = {
