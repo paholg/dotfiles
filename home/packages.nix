@@ -14,6 +14,7 @@
     bitwarden-cli
     bottom
     broot
+    bundix # generate nix expressions for bundler
     cachix
     cargo-audit
     cargo-deny
@@ -41,6 +42,7 @@
     haskell-language-server
     htop
     httpie
+    hyperfine
     jq
     jwt-cli
     lld
