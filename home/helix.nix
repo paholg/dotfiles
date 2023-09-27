@@ -3,10 +3,7 @@
   pkgs,
   ...
 }: let
-  # TODO: Change when this PR is committed and released:
-  # https://github.com/pr2502/ra-multiplex/pull/40
-  # ra_multiplex = "${lib.getExe' pkgs.ra-multiplex "ra-multiplex"}";
-  ra_multiplex = "/home/paho/.cargo/bin/ra-multiplex";
+  ra_multiplex = "${lib.getExe' pkgs.ra-multiplex "ra-multiplex"}";
 in {
   # Configure ra-multiplex for persistent rust-analyzer goodness!
   home.file = {
