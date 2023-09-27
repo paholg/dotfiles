@@ -22,8 +22,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     ra-multiplex = {
-      # FIXME
-      url = "/home/paho/git/ra-multiplex";
+      url = "github:paholg/ra-multiplex/temp";
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.naersk.follows = "naersk";
     };

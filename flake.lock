@@ -146,11 +146,11 @@
     },
     "nur": {
       "locked": {
-        "lastModified": 1695806115,
-        "narHash": "sha256-4s70nFEyeuvXo2iQ2uqwkIvc+Dea14IuMPZRtf/l4hM=",
+        "lastModified": 1695847646,
+        "narHash": "sha256-oBcN/xmzxoI50OIB8ozEK1b2DDct5tTEoc9zVlEj1r0=",
         "owner": "nix-community",
         "repo": "NUR",
-        "rev": "da190bb46c8e951e5699600cf054981d4b477c83",
+        "rev": "866d8cbd355a33f20af62d0358772a171e606ef5",
         "type": "github"
       },
       "original": {
@@ -170,14 +170,18 @@
         "utils": "utils"
       },
       "locked": {
-        "lastModified": 1695313591,
-        "narHash": "sha256-qMxVr8Xl0IpEZYtmN7FFmQLturpYYifgmVOdtKrOirg=",
-        "type": "git",
-        "url": "file:///home/paho/git/ra-multiplex"
+        "lastModified": 1695846623,
+        "narHash": "sha256-xNRhIYnrisCXDaKJVBH3UlEXiDHExID0AjA34jEd8nI=",
+        "owner": "paholg",
+        "repo": "ra-multiplex",
+        "rev": "036aadc5e15c445e2ed7ff7a661b07bf48ff57ab",
+        "type": "github"
       },
       "original": {
-        "type": "git",
-        "url": "file:///home/paho/git/ra-multiplex"
+        "owner": "paholg",
+        "ref": "temp",
+        "repo": "ra-multiplex",
+        "type": "github"
       }
     },
     "root": {
