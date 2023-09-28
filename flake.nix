@@ -9,10 +9,6 @@
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    snippets-ls = {
-      url = "github:perlinm/snippets-ls";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
     helix = {
       url = "github:paholg/helix/temp";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -48,10 +44,11 @@
         rustybar = rustybar.defaultPackage.${prev.system};
       };
 
-      pkgs = system: import nixpkgs {
-        overlays = [pkgs_overlay];
-        inherit system;
-      };
+      pkgs = system:
+        import nixpkgs {
+          overlays = [pkgs_overlay];
+          inherit system;
+        };
     in {
       homeConfigurations = {
         "paho@ubuntu" = home-manager.lib.homeManagerConfiguration {

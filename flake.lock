@@ -192,8 +192,7 @@
         "nixpkgs": "nixpkgs",
         "nur": "nur",
         "ra-multiplex": "ra-multiplex",
-        "rustybar": "rustybar",
-        "snippets-ls": "snippets-ls"
+        "rustybar": "rustybar"
       }
     },
     "rust-overlay": {
@@ -242,26 +241,6 @@
       "original": {
         "owner": "paholg",
         "repo": "rustybar",
-        "type": "github"
-      }
-    },
-    "snippets-ls": {
-      "inputs": {
-        "nixpkgs": [
-          "nixpkgs"
-        ]
-      },
-      "locked": {
-        "lastModified": 1695838878,
-        "narHash": "sha256-4SAV9Id56owaC97kdA8sNZM/pG0revfDw8sLSPjDVJM=",
-        "owner": "perlinm",
-        "repo": "snippets-ls",
-        "rev": "c62248f46327feaeffc0844642ddb5d69750eaf5",
-        "type": "github"
-      },
-      "original": {
-        "owner": "perlinm",
-        "repo": "snippets-ls",
         "type": "github"
       }
     },
