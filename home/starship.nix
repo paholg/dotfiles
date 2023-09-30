@@ -12,6 +12,10 @@
         disabled = false;
         format = "[$symbol$context( ($namespace))]($style)";
       };
+      nix_shell = {
+        heuristic = true;
+        unknown_msg = "unknown";
+      };
       time = {
         disabled = false;
         format = "$time ";
