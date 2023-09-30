@@ -76,6 +76,7 @@ in {
 
     settings = {
       editor = {
+        bufferline = "multiple";
         indent-guides.render = true;
         file-picker = {hidden = false;};
         lsp = {
