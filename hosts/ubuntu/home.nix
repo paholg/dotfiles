@@ -39,7 +39,9 @@
       }
     ];
   };
-  programs.zsh.shellAliases = {};
+  programs.zsh.shellAliases = {
+    vpn = "'/opt/awsvpnclient/AWS VPN Client'";
+  };
 
   programs.ssh.matchBlocks = {
     box = {
