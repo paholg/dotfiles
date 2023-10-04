@@ -1,4 +1,6 @@
-{pkgs, ...}: {
+{pkgs, ...}: let
+  database_url = "postgresql://postgres:beyondidentity@dockerhost:5435/postgres?sslmode=disable";
+in {
   imports = [
     ../../home/common.nix
     ../../home/common-linux.nix
@@ -20,7 +22,7 @@
       CARGO_REGISTRY_AUTH_URL = "$(cat $HOME/.git-credentials)";
       GONOSUMDB = "go.beyondidentity.com/*";
       GOPROXY = "$(cat $HOME/.goproxy)";
-      DATABASE_URL = "postgresql://postgres:beyondidentity@dockerhost:5435/postgres?sslmode=disable";
+      DATABASE_URL = database_url;
     };
   };
 
@@ -39,9 +41,6 @@
       }
     ];
   };
-  programs.zsh.shellAliases = {
-    vpn = "'/opt/awsvpnclient/AWS VPN Client'";
-  };
 
   programs.ssh.matchBlocks = {
     box = {
@@ -55,10 +54,16 @@
     };
   };
 
-  programs.zsh.shellAliases = {};
+  programs.zsh.shellAliases = {
+    vpn = "'/opt/awsvpnclient/AWS VPN Client'";
+  };
 
   # compositing for zoom
   services.picom.enable = true;
+
+  systemd.user.sessionVariables = {
+    DATABASE_URL = database_url;
+  };
 
   home.packages = with pkgs; [
     awscli2
