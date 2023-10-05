@@ -1,5 +1,5 @@
 {pkgs, ...}: {
-  imports = [../nix/common.nix ./plex.nix ./jellyfin.nix];
+  imports = [../../nix/common.nix ./plex.nix ./jellyfin.nix];
 
   swapDevices = [
     {
