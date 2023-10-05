@@ -57,7 +57,7 @@
       path_dirs="
         $HOME/.cargo/bin
         $HOME/dotfiles/bin
-        $HOME/bin
+        $HOME/dotfiles/hosts/$(hostname)/bin
         $HOME/go/bin
       "
 

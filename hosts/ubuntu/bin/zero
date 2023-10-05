@@ -1,0 +1,50 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+cd "$ZEROPW"
+
+if [[ $1 == "pull" ]]; then
+    aws ecr get-login-password --profile dev-admin --region us-west-2 \
+    | docker login --username AWS --password-stdin 273119442198.dkr.ecr.us-west-2.amazonaws.com
+
+    go mod vendor
+    docker-compose pull
+elif [[ $1 == "v1" ]]; then
+    docker-compose up -d tenant-orchestration console-redis jaeger
+elif [[ $1 == "v0" ]]; then
+    docker-compose up -d adminlib device-gateway supportlib migrated
+elif [[ $1 == "console" ]]; then
+    cd "clients/web"
+    yarn install
+    yarn workspace console next dev -p 8092
+elif [[ $1 == "env" ]]; then
+    eval "$(./zeroenv.sh env)"
+elif [[ $1 == "linux-local" ]]; then
+    cd "clients/cli/linux"
+    branch=$(git rev-parse --abbrev-ref HEAD)
+    if [[ $branch == "master" ]]; then
+        echo "On master! Can't build devel!"
+        exit 1
+    fi
+
+    eval "$("$ZEROPW/zeroenv.sh" env)"
+    export ZEROENV_GDC_URL=httpL//dockerhost:8008/device
+    export ZEROENV_DEVICE_GATEWAY_URL=http://dockerhost:8008
+    export ZEROENV_UNATTESTED_EVENT_URL=http://dockerhost:8008/logs/v1/log
+
+    cargo build --release
+
+    ps aux | rg -i beyond-identity.devel | choose 1 | xargs kill || true
+    sudo cp ~/.cargo/cache/release/beyond-identity /opt/beyond-identity.devel/bin/byndid.devel
+    beyond-identity.devel credentials
+elif [[ $1 == "k8s" ]]; then
+    branch="$2"
+    namespace="zpw-devel-${branch}"
+    kubectl config set-context devel --namespace "$namespace"
+    kubectl config use-context devel
+elif [[ $1 == "rolling" ]]; then
+    kubectl config use-context rolling-eks
+else
+    docker-compose "$@"
+fi
