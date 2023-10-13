@@ -13,6 +13,9 @@
     ];
   };
 
+  # Can't allow NetworkManager to manage container interfaces.
+  networking.networkmanager.unmanaged = ["interface-name:ve-*"];
+
   containers.vpn = {
     autoStart = true;
     enableTun = true;
