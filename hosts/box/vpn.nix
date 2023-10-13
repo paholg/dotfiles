@@ -1,6 +1,6 @@
 {...}: let
   hostIp = "10.233.1.1";
-  containerIp = "10.233.1.2";
+  vpnIp = "10.233.1.2";
   transmissionPort = 9091;
 in {
   networking.nat = {
@@ -9,12 +9,12 @@ in {
     internalInterfaces = ["ve-+"];
     forwardPorts = [
       {
-        destination = "${containerIp}:${builtins.toString transmissionPort}";
+        destination = "${vpnIp}:${builtins.toString transmissionPort}";
         proto = "tcp";
         sourcePort = transmissionPort;
       }
     ];
-    # extraCommands = ''iptables -t nat -A nixos-nat-post -p tcp -d ${containerIp} --dport ${builtins.toString transmissionPort} -j SNAT --to-source ${hostIp}'';
+    # extraCommands = ''iptables -t nat -A nixos-nat-post -p tcp -d ${vpnIp} --dport ${builtins.toString transmissionPort} -j SNAT --to-source ${hostIp}'';
   };
 
   # Can't allow NetworkManager to manage container interfaces.
@@ -27,12 +27,12 @@ in {
     enableTun = true;
     privateNetwork = true;
     hostAddress = hostIp;
-    localAddress = containerIp;
+    localAddress = vpnIp;
     forwardPorts = [
       {
-        protocol = "tcp";
         hostPort = transmissionPort;
         containerPort = transmissionPort;
+        protocol = "tcp";
       }
     ];
 
