@@ -1,5 +1,5 @@
-{pkgs, ...}: {
-  imports = [../../nix/common.nix ./plex.nix ./jellyfin.nix];
+{...}: {
+  imports = [../../nix/common.nix ./media.nix ./vpn.nix];
 
   swapDevices = [
     {
@@ -19,25 +19,9 @@
 
   networking.hostName = "box";
 
-  environment.systemPackages = with pkgs; [docker-compose];
-
-  virtualisation.docker.enable = true;
-  users.users.paho.extraGroups = ["docker"];
   networking.firewall.allowedTCPPorts = [9091];
-  systemd.services.transmission = {
-    description = "Run transmission inside docker with openvpn";
-    wantedBy = ["multi-user.target"];
-    after = ["docker.service"];
-    requires = ["docker.service"];
-    serviceConfig = {
-      User = "paho";
-      Type = "oneshot";
-      RemainAfterExit = true;
-      WorkingDirectory = /home/paho/dotfiles/box/torrent;
-      ExecStart = "${pkgs.docker-compose}/bin/docker-compose up -d --remove-orphans";
-      ExecStop = "${pkgs.docker-compose}/bin/docker-compose stop";
-    };
-  };
+
+  users.users.paho.extraGroups = ["media"];
 
   services.cron = {
     enable = true;
