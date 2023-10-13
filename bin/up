@@ -41,10 +41,6 @@ if test -f "$HOME/dotfiles/hosts/$(hostname)/up"; then
     "$HOME/dotfiles/hosts/$(hostname)/up"
 fi
 
-if command -v imdb-rename; then
-    imdb-rename --update-data
-fi
-
 if [[ -v DISPLAY ]]; then
     fixkb
 fi
