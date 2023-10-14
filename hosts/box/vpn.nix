@@ -1,47 +1,34 @@
 {...}: let
   hostIp = "10.233.1.1";
-  vpnIp = "10.233.1.2";
+  containerIp = "10.233.1.2";
   transmissionPort = 9091;
 in {
   networking.nat = {
     enable = true;
     externalInterface = "eno1";
     internalInterfaces = ["ve-+"];
-    forwardPorts = [
-      {
-        destination = "${vpnIp}:${builtins.toString transmissionPort}";
-        proto = "tcp";
-        sourcePort = transmissionPort;
-      }
-    ];
-    # extraCommands = ''iptables -t nat -A nixos-nat-post -p tcp -d ${vpnIp} --dport ${builtins.toString transmissionPort} -j SNAT --to-source ${hostIp}'';
   };
 
   # Can't allow NetworkManager to manage container interfaces.
   networking.networkmanager.unmanaged = ["interface-name:ve-*"];
 
-  networking.firewall.allowedTCPPorts = [9091];
+  networking.firewall.allowedTCPPorts = [transmissionPort];
 
   containers.vpn = {
     autoStart = true;
     enableTun = true;
     privateNetwork = true;
     hostAddress = hostIp;
-    localAddress = vpnIp;
-    forwardPorts = [
-      {
-        hostPort = transmissionPort;
-        containerPort = transmissionPort;
-        protocol = "tcp";
-      }
-    ];
+    localAddress = containerIp;
 
     bindMounts = {
-      "/downloads" = {
+      # Note: The container paths must match the host, as paths are provided
+      # from transmission to Sonarr, etc.
+      "/mnt/storage/downloads" = {
         hostPath = "/mnt/storage/downloads";
         isReadOnly = false;
       };
-      "/completed" = {
+      "/mnt/storage/completed" = {
         hostPath = "/mnt/storage/completed";
         isReadOnly = false;
       };
@@ -52,7 +39,11 @@ in {
     };
 
     config = {lib, ...}: {
-      users.groups.media = {};
+      system.stateVersion = "20.03";
+
+      users.groups.media = {gid = 1100;};
+
+      networking.firewall.allowedTCPPorts = [transmissionPort];
 
       services.openvpn.servers.pia = {
         authUserPass = {
@@ -68,8 +59,8 @@ in {
         group = "media";
         openFirewall = true;
         settings = {
-          download-dir = "/completed";
-          incomplete-dir = "/downloads";
+          download-dir = "/mnt/storage/completed";
+          incomplete-dir = "/mnt/storage/downloads";
           incomplete-dir-enabled = true;
           rpc-bind-address = "0.0.0.0";
           rpc-whitelist-enabled = false;

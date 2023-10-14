@@ -19,8 +19,6 @@
 
   networking.hostName = "box";
 
-  users.users.paho.extraGroups = ["media"];
-
   services.cron = {
     enable = true;
     systemCronJobs = [
