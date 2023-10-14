@@ -9,6 +9,4 @@
   };
 
   programs.git.userEmail = "paho@paholg.com";
-
-  programs.zsh.enable = true;
 }

@@ -2,6 +2,7 @@
   programs.starship = {
     enable = true;
     enableZshIntegration = true;
+    enableFishIntegration = true;
     settings = {
       right_format = "$kubernetes$aws";
       git_branch.format = "[$symbol$branch]($style) ";
