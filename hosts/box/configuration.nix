@@ -19,10 +19,6 @@
 
   networking.hostName = "box";
 
-  networking.firewall.allowedTCPPorts = [9091];
-
-  users.users.paho.extraGroups = ["media"];
-
   services.cron = {
     enable = true;
     systemCronJobs = [
