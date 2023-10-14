@@ -2,7 +2,35 @@
   lib,
   pkgs,
   ...
-}: {
+}: let
+  shellAliases = {
+    cb = ''cargo build --color always 2>&1 | less -R'';
+    cc = ''cargo check --color always 2>&1 | less -R'';
+    ct = ''cargo test --color always 2>&1 | less -R'';
+    cw = ''cargo watch -s "cargo check --colow always 2>&1 | less -R"'';
+
+    e = ''function _e() { z "$@"; alacritty -e "hx" & disown }; _e'';
+    hx = "CARGO_TARGET_DIR=~/.cargo/cache2 hx";
+
+    ls = "eza";
+    la = "ls -la";
+    ll = "ls -l";
+
+    g = "git";
+    gbt = "git bt | head -n10";
+    gsw = ''
+      git switch $(git branch --sort=-committerdate | fzf | cut -c3- | cut -d " " -f1)'';
+
+    ipinfo = "curl ipinfo.io 2> /dev/null | jq .";
+
+    own = "fd --no-ignore-vcs -Ho root | xargs -d'\n' sudo chown -h paho:paho";
+
+    sudop = "sudo env PATH=$PATH";
+
+    sw = "home-manager --flake $HOME/dotfiles switch";
+    t = "tmux attach";
+  };
+in {
   imports = [./helix.nix ./packages.nix ./starship.nix];
 
   home.stateVersion = "20.09";
@@ -96,8 +124,24 @@
   };
 
   programs = {
-    atuin.enable = true;
-    direnv.enable = true;
+    atuin = {
+      enable = true;
+      enableZshIntegration = true;
+      enableFishIntegration = true;
+    };
+
+    direnv = {
+      enable = true;
+      enableZshIntegration = true;
+      # enableFishIntegration = true;
+    };
+
+    fzf = {
+      enable = true;
+      # enableZshIntegration = true;
+      # enableFishIntegration = true;
+    };
+
     git = {
       enable = true;
       userName = "Paho Lurie-Gregg";
@@ -136,6 +180,7 @@
     nix-index = {
       enable = true;
       enableZshIntegration = true;
+      enableFishIntegration = true;
     };
 
     ssh = {enable = true;};
@@ -149,6 +194,17 @@
     zoxide = {
       enable = true;
       enableZshIntegration = true;
+      enableFishIntegration = true;
+    };
+
+    nushell = {
+      enable = true;
+      inherit shellAliases;
+    };
+
+    fish = {
+      enable = true;
+      inherit shellAliases;
     };
 
     zsh = {
@@ -163,41 +219,7 @@
         size = 100000;
         share = true;
       };
-      shellAliases = {
-        cb = ''cargo build --color always 2>&1 | less -R'';
-        cc = ''cargo check --color always 2>&1 | less -R'';
-        ct = ''cargo test --color always 2>&1 | less -R'';
-        cw = ''cargo watch -s "cargo check --colow always 2>&1 | less -R"'';
-
-        e = ''function _e() { z "$@"; alacritty -e "hx" & disown }; _e'';
-        hx = "CARGO_TARGET_DIR=~/.cargo/cache2 hx";
-
-        ls = "eza";
-        la = "ls -la";
-        ll = "ls -l";
-
-        g = "git";
-        gbt = "git bt | head -n10";
-        gsw = ''
-          git switch $(git branch --sort=-committerdate | fzf | cut -c3- | cut -d " " -f1)'';
-
-        hx-install = ''
-          pushd ~/git/helix && \
-          nix develop -c "cargo install --path helix-term" && \
-          hx --grammar fetch && \
-          hx --grammar build && \
-          ln -s $PWD/runtime ~/.config/helix/runtime; \
-          popd'';
-
-        ipinfo = "curl ipinfo.io 2> /dev/null | jq .";
-
-        own = "fd --no-ignore-vcs -Ho root | xargs -d'\n' sudo chown -h paho:paho";
-
-        sudop = "sudo env PATH=$PATH";
-
-        sw = "home-manager --flake $HOME/dotfiles switch";
-        t = "tmux attach";
-      };
+      inherit shellAliases;
       initExtra = builtins.readFile ./zsh_extra.sh;
     };
   };

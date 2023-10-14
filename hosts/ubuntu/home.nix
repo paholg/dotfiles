@@ -1,5 +1,8 @@
 {pkgs, ...}: let
   database_url = "postgresql://postgres:beyondidentity@dockerhost:5435/postgres?sslmode=disable";
+  shellAliases = {
+    vpn = "'/opt/awsvpnclient/AWS VPN Client'";
+  };
 in {
   imports = [
     ../../home/common.nix
@@ -54,9 +57,8 @@ in {
     };
   };
 
-  programs.zsh.shellAliases = {
-    vpn = "'/opt/awsvpnclient/AWS VPN Client'";
-  };
+  programs.fish.shellAliases = shellAliases;
+  programs.zsh.shellAliases = shellAliases;
 
   # compositing for zoom
   services.picom.enable = true;

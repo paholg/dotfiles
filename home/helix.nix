@@ -55,7 +55,7 @@ in {
         {
           name = "rust";
           rulers = [81 101];
-          language-servers = ["ra-multiplex"];
+          # language-servers = ["ra-multiplex"];
         }
         {
           name = "toml";
