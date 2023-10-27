@@ -64,6 +64,7 @@ in {
           incomplete-dir-enabled = true;
           rpc-bind-address = "0.0.0.0";
           rpc-whitelist-enabled = false;
+          download-queue-enabled = false;
         };
       };
 
