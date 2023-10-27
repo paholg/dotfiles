@@ -17,16 +17,16 @@ in {
     };
   };
 
-  systemd.user.services.ra-multiplex = {
-    Unit = {
-      Description = "Rust Analyzer multiplex server";
-      Documentation = ["https://github.com/pr2502/ra-multiplex"];
-    };
-    Install.WantedBy = ["default.target"];
-    Service = {
-      ExecStart = "/bin/bash -lc 'CARGO_TARGET_DIR=/home/paho/.cargo/cache2 ${ra_multiplex} server'";
-    };
-  };
+  # systemd.user.services.ra-multiplex = {
+  #   Unit = {
+  #     Description = "Rust Analyzer multiplex server";
+  #     Documentation = ["https://github.com/pr2502/ra-multiplex"];
+  #   };
+  #   Install.WantedBy = ["default.target"];
+  #   Service = {
+  #     ExecStart = "/bin/bash -lc 'CARGO_TARGET_DIR=/home/paho/.cargo/cache2 ${ra_multiplex} server'";
+  #   };
+  # };
 
   programs.helix = {
     enable = true;

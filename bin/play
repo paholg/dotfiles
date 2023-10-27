@@ -35,4 +35,4 @@ if (( $# > 0 )); then
 fi
 
 alacritty -e "$EDITOR" "./src/main.rs" 2> /dev/null &
-cargo watch -s 'clear && cargo run -q'
+bacon -j run

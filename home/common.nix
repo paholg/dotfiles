@@ -65,6 +65,7 @@ in {
 
     ".config/nix/nix.conf".text = ''
       experimental-features = nix-command flakes
+      max-jobs = auto
     '';
 
     ".profile".text = ''
