@@ -30,7 +30,8 @@
     sudop = "sudo env PATH=$PATH";
 
     sw = "home-manager --flake $HOME/dotfiles switch";
-    swn = "nixos-rebuild --flake $HOME/dotfiles switch";
+    # TODO: Make pure.
+    swn = "sudo nixos-rebuild --flake $HOME/dotfiles switch --impure";
     t = "tmux attach";
   };
 in {
