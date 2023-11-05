@@ -9,6 +9,8 @@
     ct = ''cargo test --color always 2>&1 | less -R'';
     cw = ''cargo watch -s "cargo check --colow always 2>&1 | less -R"'';
 
+    check_sync = ''watch grep -e Dirty: -e Writeback: /proc/meminfo'';
+
     e = ''function _e() { z "$@"; alacritty -e "hx" & disown }; _e'';
     hx = "CARGO_TARGET_DIR=~/.cargo/cache2 hx";
 
