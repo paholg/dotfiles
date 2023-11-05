@@ -26,8 +26,8 @@
 
   environment = {pathsToLink = ["/share/zsh"];};
 
-  networking.networkmanager.enable = true;
-  networking.useDHCP = false;
+  # networking.networkmanager.enable = true;
+  # networking.useDHCP = false;
 
   i18n.defaultLocale = "en_US.UTF-8";
   console = {
