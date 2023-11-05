@@ -1,4 +1,4 @@
-{...}: {
+{pkgs, ...}: {
   networking.firewall.allowedTCPPorts = [80 443];
 
   users.groups.media = {
@@ -43,6 +43,7 @@
 
     plex = {
       enable = true;
+      package = pkgs.unfree.plex;
       openFirewall = true;
       dataDir = "/mnt/storage/plex";
       group = "media";
