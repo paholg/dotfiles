@@ -8,6 +8,7 @@ in {
     ../../home/common.nix
     ../../home/common-linux.nix
     ../../home/gui.nix
+    ../../home/xmonad.nix
     ../../home/firefox.nix
     ../../home/packages-bi.nix
     ../../home/packages-gui.nix

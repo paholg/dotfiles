@@ -63,6 +63,28 @@
           pkgs = pkgs linux;
           modules = [./hosts/box/home.nix];
         };
+
+        "paho@fractal" = home-manager.lib.homeManagerConfiguration {
+          pkgs = pkgs linux;
+          modules = [
+            ./hosts/fractal/home.nix
+            nur.nixosModules.nur
+          ];
+        };
+      };
+
+      nixosConfigurations = {
+        box = nixpkgs.lib.nixosSystem {
+          pkgs = pkgs linux;
+          system = linux;
+          modules = [./hosts/box/configuration.nix];
+        };
+
+        fractal = nixpkgs.lib.nixosSystem {
+          pkgs = pkgs linux;
+          system = linux;
+          modules = [./hosts/box/configuration.nix];
+        };
       };
     };
 }
