@@ -1,8 +1,4 @@
 {...}: {
-  imports = [./packages-gui.nix];
-
-  nixpkgs.config.allowUnfree = true;
-
   services = {
     redshift = {
       enable = true;

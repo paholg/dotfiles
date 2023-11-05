@@ -28,6 +28,7 @@
     sudop = "sudo env PATH=$PATH";
 
     sw = "home-manager --flake $HOME/dotfiles switch";
+    swn = "nixos-rebuild --flake $HOME/dotfiles switch";
     t = "tmux attach";
   };
 in {
@@ -36,6 +37,13 @@ in {
   home.stateVersion = "20.09";
 
   fonts.fontconfig.enable = true;
+
+  nix = {
+    package = pkgs.nix;
+    settings.auto-optimise-store = true;
+    settings.experimental-features = ["nix-command" "flakes"];
+    settings.max-jobs = "auto";
+  };
 
   home = {
     sessionVariables = {
@@ -62,11 +70,6 @@ in {
     '';
 
     ".config/helix/themes/paho-theme.toml".source = ./paho-theme.toml;
-
-    ".config/nix/nix.conf".text = ''
-      experimental-features = nix-command flakes
-      max-jobs = auto
-    '';
 
     ".profile".text = ''
       # For non-NixOs, single-user:

@@ -1,8 +1,0 @@
-#!/usr/bin/env bash
-
-set -euo pipefail
-
-nixfmt -c "$(git diff --name-only --cached -- *.nix)"
-
-# Check extensionless files for bash/sh shebangs:
-fd --type f "^[^.]+$" | xargs rg -l "#!/[/a-z ]+(bash|sh)" | xargs shellcheck -Calways

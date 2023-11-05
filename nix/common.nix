@@ -2,7 +2,6 @@
   imports = [/etc/nixos/hardware-configuration.nix];
 
   system.stateVersion = "20.03";
-  system.autoUpgrade.enable = true;
   boot = {
     kernelParams = ["consoleblank=30"];
 
@@ -12,7 +11,13 @@
     };
   };
 
-  nix.settings.auto-optimise-store = true;
+  nix = {
+    package = pkgs.nix;
+    settings.auto-optimise-store = true;
+    settings.experimental-features = ["nix-command" "flakes"];
+    settings.max-jobs = "auto";
+  };
+
   nix.gc = {
     automatic = true;
     dates = "weekly";
@@ -51,7 +56,6 @@
     keyMap = "us";
   };
   time.timeZone = "America/Los_Angeles";
-  nixpkgs.config.allowUnfree = true;
 
   users.users.paho = {
     shell = pkgs.zsh;
