@@ -76,6 +76,8 @@ in {
 
     settings = {
       editor = {
+        auto-info = false;
+        auto-pairs = false;
         bufferline = "multiple";
         indent-guides.render = true;
         file-picker = {hidden = false;};
@@ -96,9 +98,6 @@ in {
             F = "file_picker";
             c = "file_picker_in_current_buffer_directory";
           };
-          # Swap a and A.
-          A = "append_mode";
-          a = "insert_at_line_end";
 
           # Custom bindings
           A-g = ":lang gotmpl";
