@@ -1,5 +1,11 @@
 {...}: {
-  imports = [../../nix/common.nix ../../nix/ssh.nix ./media.nix ./vpn.nix];
+  imports = [
+    ../../nix/common.nix
+    ../../nix/ssh.nix
+    ./media.nix
+    ./vpn.nix
+    ./wireguard.nix
+  ];
 
   swapDevices = [
     {

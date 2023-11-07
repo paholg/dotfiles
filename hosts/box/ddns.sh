@@ -5,7 +5,7 @@ set -euo pipefail
 # This script gets the external IP of your systems then connects to the Gandi
 # LiveDNS API and updates your dns record with the IP.
 
-API_KEY=$(cat /home/paho/dotfiles/box/API_KEY)
+API_KEY=$(cat /home/paho/secrets/gandi_api_key)
 
 SUBDOMAIN="home"
 DOMAIN="paholg.com"

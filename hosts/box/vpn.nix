@@ -48,8 +48,8 @@ in {
       services.openvpn.servers.pia = {
         authUserPass = {
           # NOTE: These end up world-readable. Not secure!
-          username = builtins.readFile /home/paho/dotfiles/hosts/box/PIA_USERNAME;
-          password = builtins.readFile /home/paho/dotfiles/hosts/box/PIA_PASSWORD;
+          username = builtins.readFile /home/paho/secrets/pia_username;
+          password = builtins.readFile /home/paho/secrets/pia_password;
         };
         config = "config /ca_vancouver.ovpn";
       };
