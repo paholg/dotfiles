@@ -2,9 +2,10 @@
 
 set -euo pipefail
 
-echo "Make sure to create the following files in dotfiles/hosts/box:"
-echo "API_KEY - for Gandi for ddns"
-echo "PIA_USERNAME"
-echo "PIA_PASSWORD"
+echo "Make sure to create the following files in ~/secrets:"
+echo "gandi_api_key"
+echo "pia_username"
+echo "pia_password"
+echo "wireguard.key"
 echo ""
 echo "Thank you!"
