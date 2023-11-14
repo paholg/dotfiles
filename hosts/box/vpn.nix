@@ -61,6 +61,7 @@ in {
               type filter hook output priority -100;
 
               oifname "tun0" accept
+              ip daddr ${hostIp} accept
 
               skgid ${toString media_gid} drop
             }
