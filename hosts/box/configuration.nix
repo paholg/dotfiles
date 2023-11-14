@@ -4,7 +4,7 @@
     ../../nix/ssh.nix
     ./media.nix
     ./vpn.nix
-    ./wireguard.nix
+    # ./wireguard.nix
   ];
 
   swapDevices = [

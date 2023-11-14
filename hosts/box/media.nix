@@ -50,19 +50,19 @@
     };
 
     prowlarr = {
-      enable = true;
+      enable = false;
       openFirewall = true;
     };
 
     radarr = {
-      enable = true;
+      enable = false;
       openFirewall = true;
       dataDir = "/mnt/storage/radarr";
       group = "media";
     };
 
     sonarr = {
-      enable = true;
+      enable = false;
       openFirewall = true;
       dataDir = "/mnt/storage/sonarr";
       group = "media";
