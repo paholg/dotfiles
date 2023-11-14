@@ -13,11 +13,11 @@ def run(cmd)
 end
   
 cmds = [
-  "systemctl start openvpn-pia",
+  "systemctl stop openvpn-pia",
   curl,
   su(curl),
 
-  "systemctl stop openvpn-pia",
+  "systemctl start openvpn-pia",
   curl,
   su(curl),
   "nft list ruleset",
