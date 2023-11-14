@@ -47,10 +47,10 @@ in {
         {
           name = "python";
           auto-format = true;
-          formatter = {
-            command = "black";
-            args = ["-" "--quiet" "--line-length=79"];
-          };
+          # formatter = {
+          #   command = "black";
+          #   args = ["-" "--quiet" "--line-length=79"];
+          # };
         }
         {
           name = "rust";

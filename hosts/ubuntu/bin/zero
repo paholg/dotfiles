@@ -10,10 +10,18 @@ if [[ $1 == "pull" ]]; then
 
     go mod vendor
     docker-compose pull
-elif [[ $1 == "v1" ]]; then
-    docker-compose up -d tenant-orchestration console-redis jaeger
 elif [[ $1 == "v0" ]]; then
     docker-compose up -d adminlib device-gateway supportlib migrated
+elif [[ $1 == "v1" ]]; then
+    docker-compose up -d \
+        tenant-orchestration \
+        console-redis \
+        jaeger \
+        ingest \
+        certificate-authority \
+        registration-authority \
+        global-device-config \
+        dataexport_public
 elif [[ $1 == "console" ]]; then
     cd "clients/web"
     yarn install

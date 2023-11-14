@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+
+set -euxo pipefail
+
+short_code="$1"
+
+old_id=$(beyond-identity credentials -f json | jq -r ".[].id")
+beyond-identity credential delete "$old_id"
+
+id=$(beyond-identity credential import -c "$short_code")
+beyond-identity pgp create --fingerprint "$id" "Paho Lurie-Gregg" "paho.lurie-gregg@beyondidentity.com"
+beyond-identity pgp list

@@ -17,6 +17,7 @@
     cachix
     cargo-audit
     cargo-deny
+    cargo-duplicates
     cargo-edit
     cargo-expand
     cargo-generate
