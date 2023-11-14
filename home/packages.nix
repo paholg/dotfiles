@@ -47,6 +47,7 @@
     lld
     marksman # markdown lsp
     mdcat
+    mosh
     neofetch
     nil # nix language server
     niv
