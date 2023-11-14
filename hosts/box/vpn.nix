@@ -69,7 +69,7 @@ in {
       };
 
       # Override for this issue:
-      # https://github.com/NixOs/issues/258793
+      # https://github.com/nixpkgs/NixOs/issues/258793
       systemd.services.transmission.serviceConfig = {
         RootDirectoryStartOnly = lib.mkForce false;
         RootDirectory = lib.mkForce "";
