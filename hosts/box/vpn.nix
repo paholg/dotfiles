@@ -2,6 +2,7 @@
   hostIp = "10.233.1.1";
   containerIp = "10.233.1.2";
   transmissionPort = 9091;
+  media_gid = 1100;
 in {
   networking.nat = {
     enable = true;
@@ -36,14 +37,36 @@ in {
         hostPath = "/home/paho/dotfiles/hosts/box/ca_vancouver.ovpn";
         isReadOnly = true;
       };
+      # Fixes issues with DNS in the container.
+      "/etc/resolv.conf" = {
+        hostPath = "/etc/resolv.conf";
+        isReadOnly = true;
+      };
     };
 
     config = {lib, ...}: {
       system.stateVersion = "20.03";
 
-      users.groups.media = {gid = 1100;};
+      users.groups.media = {gid = media_gid;};
 
       networking.firewall.allowedTCPPorts = [transmissionPort];
+
+      networking.nftables = {
+        enable = true;
+        tables.media_block = {
+          enable = true;
+          family = "inet";
+          content = ''
+            chain output {
+              type filter hook output priority -100;
+
+              oifname "tun0" accept
+
+              skgid ${toString media_gid} drop
+            }
+          '';
+        };
+      };
 
       services.openvpn.servers.pia = {
         authUserPass = {
