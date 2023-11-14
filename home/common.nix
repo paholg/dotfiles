@@ -18,8 +18,6 @@
     la = "ls -la";
     ll = "ls -l";
 
-    mosh = "mosh -p 60000";
-
     g = "git";
     gbt = "git bt | head -n10";
     gsw = ''
