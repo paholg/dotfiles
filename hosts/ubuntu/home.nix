@@ -27,7 +27,8 @@ in {
       GONOSUMDB = "go.beyondidentity.com/*";
       GOPROXY = "$(cat $HOME/.goproxy)";
       DATABASE_URL = database_url;
-      CREDENTIALS_SECRET_KEY_PATH="$ZEROPW/services/mdm-go/local-secret-key/secret.key";
+      CREDENTIALS_SECRET_KEY_PATH = "$ZEROPW/services/mdm-go/local-secret-key/secret.key";
+    };
   };
 
   programs.git = {

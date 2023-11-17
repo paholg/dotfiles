@@ -56,12 +56,17 @@
           modules = [
             ./hosts/ubuntu/home.nix
             nur.nixosModules.nur
+            ({lib, ...}: {
+              nix.registry = lib.mapAttrs (_: flake: {inherit flake;}) inputs;
+            })
           ];
         };
 
         "paho@box" = home-manager.lib.homeManagerConfiguration {
           pkgs = pkgs linux;
-          modules = [./hosts/box/home.nix];
+          modules = [
+            ./hosts/box/home.nix
+          ];
         };
 
         "paho@fractal" = home-manager.lib.homeManagerConfiguration {
@@ -77,13 +82,23 @@
         box = nixpkgs.lib.nixosSystem {
           pkgs = pkgs linux;
           system = linux;
-          modules = [./hosts/box/configuration.nix];
+          modules = [
+            ./hosts/box/configuration.nix
+            ({lib, ...}: {
+              nix.registry = lib.mapAttrs (_: flake: {inherit flake;}) inputs;
+            })
+          ];
         };
 
         fractal = nixpkgs.lib.nixosSystem {
           pkgs = pkgs linux;
           system = linux;
-          modules = [./hosts/box/configuration.nix];
+          modules = [
+            ./hosts/box/configuration.nix
+            ({lib, ...}: {
+              nix.registry = lib.mapAttrs (_: flake: {inherit flake;}) inputs;
+            })
+          ];
         };
       };
     };
