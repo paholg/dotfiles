@@ -42,8 +42,10 @@
     htop
     httpie
     hyperfine
+    iredis
     jq
     jwt-cli
+    litecli
     lld
     marksman # markdown lsp
     mdcat

@@ -37,7 +37,7 @@ elif [[ $1 == "linux-local" ]]; then
     fi
 
     eval "$("$ZEROPW/zeroenv.sh" env)"
-    export ZEROENV_GDC_URL=httpL//dockerhost:8008/device
+    export ZEROENV_GDC_URL=http://dockerhost:8008/device
     export ZEROENV_DEVICE_GATEWAY_URL=http://dockerhost:8008
     export ZEROENV_UNATTESTED_EVENT_URL=http://dockerhost:8008/logs/v1/log
 

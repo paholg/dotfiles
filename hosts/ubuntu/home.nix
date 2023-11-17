@@ -27,14 +27,14 @@ in {
       GONOSUMDB = "go.beyondidentity.com/*";
       GOPROXY = "$(cat $HOME/.goproxy)";
       DATABASE_URL = database_url;
-    };
+      CREDENTIALS_SECRET_KEY_PATH="$ZEROPW/services/mdm-go/local-secret-key/secret.key";
   };
 
   programs.git = {
     userEmail = "paho@paholg.com";
     signing = {
       gpgPath = "/opt/beyond-identity/bin/gpg-bi";
-      key = "58CF75C8F590D7571778B04106766AECFE523A3B";
+      key = "67D6EBC88CB058D464CD4F78046380E0B8566EE7";
       signByDefault = true;
     };
 
