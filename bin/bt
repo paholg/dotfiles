@@ -1,9 +1,11 @@
 #!/usr/bin/env bash
 # shellcheck disable=SC2034 # Variables appear unused but act as arguments
+
 set -euo pipefail
 
 mx3="C4:0C:13:1D:76:38"
 bone="C0:86:B3:37:C6:82"
+audioengine="00:22:D9:00:1A:6A"
 
 if [[ $1 == "off" ]]; then
     bluetoothctl power off
