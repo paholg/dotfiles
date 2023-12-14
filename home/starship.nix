@@ -10,7 +10,7 @@
       status.disabled = false;
       aws = {disabled = false;};
       kubernetes = {
-        disabled = false;
+        disabled = true;
         format = "[$symbol$context( ($namespace))]($style)";
       };
       nix_shell = {

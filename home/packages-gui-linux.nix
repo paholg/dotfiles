@@ -7,10 +7,12 @@
     brightnessctl
     chromium
     unfree.discord
+    dolphin
     dzen2
     gimp
     glxinfo
     gnome.eog
+    krita-beta
     libnotify
     # libreoffice
     lxappearance

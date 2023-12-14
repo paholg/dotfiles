@@ -20,6 +20,7 @@
     cargo-duplicates
     cargo-edit
     cargo-expand
+    cargo-flamegraph
     cargo-generate
     cargo-machete
     cargo-outdated
