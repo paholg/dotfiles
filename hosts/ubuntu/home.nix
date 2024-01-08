@@ -97,7 +97,7 @@ in {
     # python39Packages.swagger-ui-bundle
     python310Packages.openapi-spec-validator
     qemu_full
-    redoc-cli
+    # redoc-cli
     remmina
     sqlitebrowser
     sqlx-cli
