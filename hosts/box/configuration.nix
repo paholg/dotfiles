@@ -28,7 +28,7 @@
   services.cron = {
     enable = true;
     systemCronJobs = [
-      "* * * * * paho . /etc/profile; /home/paho/dotfiles/box/ddns.sh &> /tmp/cron.log"
+      "* * * * * paho . /etc/profile; /home/paho/dotfiles/hosts/box/ddns.sh &> /tmp/cron.log"
     ];
   };
 }
