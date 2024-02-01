@@ -10,7 +10,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     helix = {
-      url = "github:paholg/helix/temp";
+      url = "github:paholg/helix/file-picker-navigation";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     naersk = {

@@ -39,8 +39,6 @@
       # Base16 Spacemacs 256 - alacritty color config Nasser Alshammari
       # (https://github.com/nashamri/spacemacs-theme)
       colors = {
-        background_opacity = 1.0;
-
         primary = {
           background = "0x1f2022";
           foreground = "0xa3a3a3";

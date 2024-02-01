@@ -41,6 +41,10 @@ in {
           auto-format = false;
         }
         {
+          name = "nickel";
+          auto-format = true;
+        }
+        {
           name = "nix";
           auto-format = true;
         }

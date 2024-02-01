@@ -23,6 +23,7 @@
     cargo-flamegraph
     cargo-generate
     cargo-machete
+    cargo-nextest
     cargo-outdated
     cargo-watch
     choose
@@ -52,8 +53,10 @@
     mdcat
     mosh
     neofetch
+    nickel
     nil # nix language server
     niv
+    nls # nickel language server
     nmap
     nodePackages.bash-language-server
     nodePackages.typescript-language-server
