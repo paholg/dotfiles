@@ -1,11 +1,12 @@
-{...}: {
+{pkgs, ...}: {
   imports = [
     ../../home/common.nix
     ../../home/common-linux.nix
     ../../home/gui.nix
-    ../../home/firefox.nix
+    # ../../home/firefox.nix
     ../../home/packages-gui.nix
-    ../../home/packages-bui-linux.nix
+    ../../home/packages-gui-linux.nix
+    ./hyprland.nix
   ];
 
   home = {
@@ -14,4 +15,8 @@
   };
 
   programs.git.userEmail = "paho@paholg.com";
+
+  home.packages = with pkgs; [
+    firefox
+  ];
 }

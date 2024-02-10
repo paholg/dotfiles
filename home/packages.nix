@@ -44,7 +44,7 @@
     htop
     httpie
     hyperfine
-    iredis
+    # iredis
     jq
     jwt-cli
     litecli

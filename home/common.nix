@@ -41,12 +41,12 @@ in {
 
   fonts.fontconfig.enable = true;
 
-  nix = {
-    package = pkgs.nix;
-    settings.auto-optimise-store = true;
-    settings.experimental-features = ["nix-command" "flakes"];
-    settings.max-jobs = "auto";
-  };
+  # nix = {
+  #   package = pkgs.nix;
+  #   settings.auto-optimise-store = true;
+  #   settings.experimental-features = ["nix-command" "flakes"];
+  #   settings.max-jobs = "auto";
+  # };
 
   home = {
     sessionVariables = {
@@ -135,6 +135,7 @@ in {
       enable = true;
       enableZshIntegration = true;
       enableFishIntegration = true;
+      flags = ["--disable-up-arrow"];
     };
 
     direnv = {
@@ -182,12 +183,6 @@ in {
 
     home-manager = {
       enable = true;
-    };
-
-    nix-index = {
-      enable = true;
-      enableZshIntegration = true;
-      enableFishIntegration = true;
     };
 
     ssh = {enable = true;};
