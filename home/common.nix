@@ -25,6 +25,9 @@
 
     ipinfo = "curl ipinfo.io 2> /dev/null | jq .";
 
+    ns = "nix search nixpkgs";
+    nshell = "nix shell nixpkgs#";
+
     own = "fd --no-ignore-vcs -Ho root | xargs -d'\n' sudo chown -h paho:paho";
 
     sudop = "sudo env PATH=$PATH";
