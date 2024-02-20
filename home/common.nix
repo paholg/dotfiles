@@ -11,7 +11,6 @@
 
     check_sync = ''watch grep -e Dirty: -e Writeback: /proc/meminfo'';
 
-    e = ''function _e() { z "$@"; alacritty -e "hx" & disown }; _e'';
     hx = "CARGO_TARGET_DIR=~/.cargo/cache2 hx";
 
     ls = "eza";
@@ -26,7 +25,6 @@
     ipinfo = "curl ipinfo.io 2> /dev/null | jq .";
 
     ns = "nix search nixpkgs";
-    nshell = "nix shell nixpkgs#";
 
     own = "fd --no-ignore-vcs -Ho root | xargs -d'\n' sudo chown -h paho:paho";
 

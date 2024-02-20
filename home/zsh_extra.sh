@@ -13,7 +13,7 @@ if [ -f "$HOME/dotfiles/hosts/$(hostname)/zshrc" ]; then
     source "$HOME/dotfiles/hosts/$(hostname)/zshrc"
 fi
 
-# # ------------------------------------------------------------------------------
+# ------------------------------------------------------------------------------
 # Set title
 # See ArchWiki: https://wiki.archlinux.org/title/zsh#xterm_title
 title_host() {
@@ -35,3 +35,14 @@ xterm_title_preexec() {
 
 precmd_functions+=(xterm_title_precmd)
 preexec_functions+=(xterm_title_preexec)
+
+# ------------------------------------------------------------------------------
+# Functions
+nshell() {
+    nix shell "nixpkgs#$*"
+}
+
+e() {
+    z "$@"
+    alacritty -e zsh -c "hx; zsh"  & disown
+}

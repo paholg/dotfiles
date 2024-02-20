@@ -38,7 +38,6 @@
         "workspace 2 silent, class:(firefox)"
         "workspace 9 silent, title:(Wine System Tray)"
         # "fullscreen, class:^(steam_app)(.*)$"
-        "noborder, onworkspace:1"
       ];
 
       bindm = [
@@ -107,6 +106,20 @@
     configDir = ./eww;
   };
 
+  programs.mangohud = {
+    enable = true;
+    enableSessionWide = true;
+    settings = {
+      toggle_hud = "Super_L+slash";
+
+      fps_limit = 0;
+    };
+  };
+  home.sessionVariables = {
+    # Hide mangohud by default
+    MANGOHUD_CONFIG = "no_display";
+  };
+
   # Notification daemon.
   services.mako = {
     enable = true;
@@ -125,7 +138,6 @@
 
   home.packages = with pkgs; [
     anyrun # App launcher
-    mangohud # GPU perforance overlay
     qt5.qtwayland # Qt wayland support (recommended by hyprland)
     qt6.qtwayland # Qt wayland support (recommended by hyprland)
     tofi # App launcher

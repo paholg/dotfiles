@@ -66,8 +66,17 @@
     dedicatedServer.openFirewall = true;
     gamescopeSession = {
       enable = true;
-      env = {SDL_VIDEODRIVER = "x11";}; # Games allegedly prefer X11
-      args = ["-W 3840" "-H 2160" "-e"];
+      env = {
+        # Games allegedly prefer X11
+        SDL_VIDEODRIVER = "x11";
+      };
+      args = [
+        "-W 3840"
+        "-H 2160"
+        "-e"
+        # Maybe help with mouse issues?
+        "--force-grab-cursor"
+      ];
     };
   };
 
