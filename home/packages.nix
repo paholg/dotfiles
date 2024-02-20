@@ -44,7 +44,7 @@
     htop
     httpie
     hyperfine
-    iredis
+    # iredis
     jq
     jwt-cli
     litecli
@@ -65,6 +65,7 @@
     perl
     # pkg-config
     pgcli
+    pgformatter
     ra-multiplex
     ripgrep
     rnr # regex rename

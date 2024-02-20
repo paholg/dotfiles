@@ -80,13 +80,13 @@ in {
     gnome.seahorse
     go
     gopls
-    jetbrains.idea-community
+    # jetbrains.idea-community
     k9s
     kops
     kubectl
     kubernetes-helm
     lldb
-    mercurial
+    # mercurial
     minikube
     # nodejs
     openapi-generator-cli
@@ -96,7 +96,7 @@ in {
     # python39Packages.swagger-spec-validator
     # python39Packages.swagger-ui-bundle
     python310Packages.openapi-spec-validator
-    qemu_full
+    # qemu_full
     # redoc-cli
     remmina
     sqlitebrowser

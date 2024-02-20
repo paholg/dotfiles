@@ -204,15 +204,15 @@ in {
       enableFishIntegration = true;
     };
 
-    nushell = {
-      enable = true;
-      inherit shellAliases;
-    };
+    # nushell = {
+    #   enable = true;
+    #   inherit shellAliases;
+    # };
 
-    fish = {
-      enable = true;
-      inherit shellAliases;
-    };
+    # fish = {
+    #   enable = true;
+    #   inherit shellAliases;
+    # };
 
     zsh = {
       enable = true;
