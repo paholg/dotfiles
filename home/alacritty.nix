@@ -2,6 +2,14 @@
   programs.alacritty = {
     enable = true;
     settings = {
+      keyboard.bindings = [
+        {
+          key = "N";
+          mods = "Control";
+          action = "CreateNewWindow";
+        }
+      ];
+
       shell = {
         program = "zsh";
         args = ["--login"];

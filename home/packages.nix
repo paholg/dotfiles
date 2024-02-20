@@ -15,7 +15,6 @@
     broot
     bundix # generate nix expressions for bundler
     cachix
-    cargo-audit
     cargo-deny
     cargo-duplicates
     cargo-edit

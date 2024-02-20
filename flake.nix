@@ -5,6 +5,10 @@
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
     nur.url = "github:nix-community/NUR";
+    anyrun = {
+      url = "github:Kirottu/anyrun";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -40,7 +44,8 @@
           system = prev.system;
           config.allowUnfree = true;
         };
-        helix = helix.packages.${prev.system}.default;
+        anyrun = anyrun.packages.${prev.system}.anyrun;
+        # helix = helix.packages.${prev.system}.default;
         ra-multiplex = ra-multiplex.defaultPackage.${prev.system};
         snippets-ls = snippets-ls.packages.${prev.system}.snippets-ls;
         rustybar = rustybar.defaultPackage.${prev.system};
@@ -50,6 +55,8 @@
         import nixpkgs {
           overlays = [pkgs_overlay];
           inherit system;
+          # FIXME
+          config.allowUnfree = true;
         };
     in {
       homeConfigurations = {
@@ -71,13 +78,13 @@
           ];
         };
 
-        "paho@fractal" = home-manager.lib.homeManagerConfiguration {
-          pkgs = pkgs linux;
-          modules = [
-            ./hosts/fractal/home.nix
-            nur.nixosModules.nur
-          ];
-        };
+        # "paho@fractal" = home-manager.lib.homeManagerConfiguration {
+        #   pkgs = pkgs linux;
+        #   modules = [
+        #     ./hosts/fractal/home.nix
+        #     nur.nixosModules.nur
+        #   ];
+        # };
       };
 
       nixosConfigurations = {
@@ -96,7 +103,14 @@
           pkgs = pkgs linux;
           system = linux;
           modules = [
-            ./hosts/box/configuration.nix
+            ./hosts/fractal/configuration.nix
+            home-manager.nixosModules.home-manager
+            # nur.nixosModules.nur
+            {
+              home-manager.useGlobalPkgs = true;
+              home-manager.useUserPackages = true;
+              home-manager.users.paho = import ./hosts/fractal/home.nix;
+            }
             ({lib, ...}: {
               nix.registry = lib.mapAttrs (_: flake: {inherit flake;}) inputs;
             })

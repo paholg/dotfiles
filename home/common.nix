@@ -11,7 +11,6 @@
 
     check_sync = ''watch grep -e Dirty: -e Writeback: /proc/meminfo'';
 
-    e = ''function _e() { z "$@"; alacritty -e "hx" & disown }; _e'';
     hx = "CARGO_TARGET_DIR=~/.cargo/cache2 hx";
 
     ls = "eza";
@@ -24,6 +23,8 @@
       git switch $(git branch --sort=-committerdate | fzf | cut -c3- | cut -d " " -f1)'';
 
     ipinfo = "curl ipinfo.io 2> /dev/null | jq .";
+
+    ns = "nix search nixpkgs";
 
     own = "fd --no-ignore-vcs -Ho root | xargs -d'\n' sudo chown -h paho:paho";
 
@@ -41,12 +42,12 @@ in {
 
   fonts.fontconfig.enable = true;
 
-  nix = {
-    package = pkgs.nix;
-    settings.auto-optimise-store = true;
-    settings.experimental-features = ["nix-command" "flakes"];
-    settings.max-jobs = "auto";
-  };
+  # nix = {
+  #   package = pkgs.nix;
+  #   settings.auto-optimise-store = true;
+  #   settings.experimental-features = ["nix-command" "flakes"];
+  #   settings.max-jobs = "auto";
+  # };
 
   home = {
     sessionVariables = {
@@ -135,6 +136,7 @@ in {
       enable = true;
       enableZshIntegration = true;
       enableFishIntegration = true;
+      flags = ["--disable-up-arrow"];
     };
 
     direnv = {
@@ -182,12 +184,6 @@ in {
 
     home-manager = {
       enable = true;
-    };
-
-    nix-index = {
-      enable = true;
-      enableZshIntegration = true;
-      enableFishIntegration = true;
     };
 
     ssh = {enable = true;};
