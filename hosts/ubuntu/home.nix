@@ -15,6 +15,13 @@ in {
     ../../home/packages-gui-linux.nix
   ];
 
+  nix = {
+    package = pkgs.nix;
+    settings.auto-optimise-store = true;
+    settings.experimental-features = ["nix-command" "flakes"];
+    settings.max-jobs = "auto";
+  };
+
   home = {
     username = "paho";
     homeDirectory = "/home/paho";
@@ -33,16 +40,16 @@ in {
 
   programs.git = {
     userEmail = "paho@paholg.com";
-    signing = {
-      gpgPath = "/opt/beyond-identity/bin/gpg-bi";
-      key = "DC50592397AF3F8EEAD25A8522EF27F29CB66537";
-      signByDefault = true;
-    };
-
     includes = [
       {
         condition = "gitdir:~/bi/";
-        contents.user.email = "paho.lurie-gregg@beyondidentity.com";
+        contents = {
+          commit.gpgSign = true;
+          gpg.program = "/opt/beyond-identity/bin/gpg-bi";
+
+          user.email = "paho.lurie-gregg@beyondidentity.com";
+          user.signingKey = "DC50592397AF3F8EEAD25A8522EF27F29CB66537";
+        };
       }
     ];
   };
