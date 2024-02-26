@@ -1,4 +1,17 @@
-{pkgs, ...}: {
+{pkgs, ...}: let
+  set_sink = name: "list_sinks | jq '.\"${name}\"' | xargs wpctl set-default";
+
+  couch_mode = [
+    "hyprctl keyword monitor DP-3, disable"
+    "hyprctl keyword monitor HDMI-A-1, 3840x2160@120, 0x0, 2"
+    "${set_sink "HDA ATI HDMI"}"
+  ];
+  desk_mode = [
+    "hyprctl keyword monitor HDMI-A-1, disable"
+    "hyprctl keyword monitor DP-3, 3840x2160@144, 0x0, 1"
+    "${set_sink "Audioengine HD3"}"
+  ];
+in {
   wayland.windowManager.hyprland = {
     enable = true;
     settings = {
@@ -22,22 +35,32 @@
         repeat_rate = 50;
       };
 
-      exec-once = [
-        "waybar"
-        "firefox"
-        "steam"
-      ];
+      exec-once =
+        [
+          "waybar"
+          "firefox"
+          "steam"
+        ]
+        ++ desk_mode;
 
       misc = {
         mouse_move_enables_dpms = true;
         key_press_enables_dpms = true;
       };
 
+      monitor = [
+        # Keep from tv turning on to be auto-detected maybe?
+        "HDMI-A-1, disabled"
+        # "DP-3, disabled"
+      ];
+
       windowrulev2 = [
         "workspace 1 silent, class:(steam)"
         "workspace 2 silent, class:(firefox)"
+        "workspace 3 silent, class:(discord)"
+        "workspace 3 silent, class:(steam) title:(Friends List.*)"
         "workspace 9 silent, title:(Wine System Tray)"
-        # "fullscreen, class:^(steam_app)(.*)$"
+        "noborder, onworkspace:1"
       ];
 
       bindm = [
@@ -45,9 +68,7 @@
         "SUPER, mouse:273, resizewindow"
       ];
 
-      bind = let
-        set_sink = name: "list_sinks | jq '.\"${name}\"' | xargs wpctl set-default";
-      in
+      bind =
         [
           "SUPER, F, exec, firefox"
           "SUPER, T, exec, alacritty"
@@ -73,21 +94,10 @@
         ]) [1 2 3 4 5 6 7 8 9]
         ++ (
           let
-            couch = bind: [
-              "${bind}, exec, hyprctl keyword monitor DP-3, disable"
-              "${bind}, exec, hyprctl keyword monitor HDMI-A-1, 3840x2160@120, 0x0, 2"
-              "${bind}, exec, ${set_sink "HDA ATI HDMI"}"
-            ];
-            desk = bind: [
-              "${bind}, exec, hyprctl keyword monitor HDMI-A-1, disable"
-              "${bind}, exec, hyprctl keyword monitor DP-3, 3840x2160@144, 0x0, 1"
-              "${bind}, exec, ${set_sink "Audioengine HD3"}"
-            ];
+            switch = bind:
+              map (cmd: "${bind}, exec, ${cmd}");
           in
-            # Couch mode
-            (let bind = "SUPER, M"; in (couch bind))
-            # Desk mode
-            ++ (let bind = "SUPER SHIFT, M"; in (desk bind))
+            switch "SUPER, M" couch_mode ++ switch "SUPER SHIFT, M" desk_mode
         );
     };
   };
