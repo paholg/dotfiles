@@ -87,6 +87,7 @@ in {
         indent-guides.render = true;
         file-picker = {hidden = false;};
         lsp = {
+          auto-signature-help = false;
           display-messages = true;
           display-inlay-hints = true;
         };

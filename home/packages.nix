@@ -51,10 +51,12 @@
     marksman # markdown lsp
     mdcat
     mosh
+    ncdu # interactive disk-usage
     neofetch
     nickel
     nil # nix language server
     niv
+    nixpkgs-fmt
     nls # nickel language server
     nmap
     nodePackages.bash-language-server
