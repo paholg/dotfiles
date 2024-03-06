@@ -3,6 +3,14 @@
   shellAliases = {
     vpn = "'/opt/awsvpnclient/AWS VPN Client'";
   };
+
+  bi_git = {
+    commit.gpgSign = true;
+    gpg.program = "/opt/beyond-identity/bin/gpg-bi";
+
+    user.email = "paho.lurie-gregg@beyondidentity.com";
+    user.signingKey = "DC50592397AF3F8EEAD25A8522EF27F29CB66537";
+  };
 in {
   imports = [
     ../../home/common.nix
@@ -43,13 +51,11 @@ in {
     includes = [
       {
         condition = "gitdir:~/bi/";
-        contents = {
-          commit.gpgSign = true;
-          gpg.program = "/opt/beyond-identity/bin/gpg-bi";
-
-          user.email = "paho.lurie-gregg@beyondidentity.com";
-          user.signingKey = "DC50592397AF3F8EEAD25A8522EF27F29CB66537";
-        };
+        contents = bi_git;
+      }
+      {
+        condition = "gitdir:~/go/src/gitlab.com/zeropw";
+        contents = bi_git;
       }
     ];
   };
