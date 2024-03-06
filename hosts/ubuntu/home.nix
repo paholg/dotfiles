@@ -54,7 +54,7 @@ in {
         contents = bi_git;
       }
       {
-        condition = "gitdir:~/go/src/gitlab.com/zeropw";
+        condition = "gitdir:~/go/src/gitlab.com/zeropw/";
         contents = bi_git;
       }
     ];
