@@ -33,13 +33,14 @@
 "diff.minus" = "#dc597f"
 "diff.plus"  = "#59dcb7"
 
-"ui.background"      = { bg = "bg2" }
-"ui.help"            = { bg = "#232d38", fg = "#e5ded6" }
-"ui.linenr"          = { fg = "lnum", bg = "bg3" }
-"ui.linenr.selected" = { fg = "base", bg = "highlight" }
-"ui.popup"           = { bg = "bg3" }
-"ui.statusline"      = { fg = "base", bg = "act1" }
-"ui.window"          = { bg = "bg3" }
+"ui.background"        = { bg = "bg2" }
+"ui.bufferline.active" = { modifiers = ["reversed"] }
+"ui.help"              = { bg = "#232d38", fg = "#e5ded6" }
+"ui.linenr"            = { fg = "lnum", bg = "bg3" }
+"ui.linenr.selected"   = { fg = "base", bg = "highlight" }
+"ui.popup"             = { bg = "bg3" }
+"ui.statusline"        = { fg = "base", bg = "act1" }
+"ui.window"            = { bg = "bg3" }
 
 "ui.text"                     = { fg = "base" }
 "ui.text.focus"               = { fg = "#e5ded6", modifiers = ["bold"] }

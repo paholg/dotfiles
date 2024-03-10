@@ -124,6 +124,12 @@ in {
     json.enable = true;
   };
 
+  nix.gc = {
+    automatic = true;
+    frequency = "weekly";
+    options = "--delete-older-than 30d";
+  };
+
   programs = {
     atuin = {
       enable = true;
