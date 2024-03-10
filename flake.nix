@@ -5,6 +5,11 @@
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
     nur.url = "github:nix-community/NUR";
+    # For `command-not-found`:
+    flake-programs-sqlite = {
+      url = "github:wamserma/flake-programs-sqlite";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     anyrun = {
       url = "github:Kirottu/anyrun";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -14,9 +19,10 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     helix = {
-      url = "github:paholg/helix/temp";
+      url = "github:paholg/helix/file-picker-navigation";
+      # url = "github:paholg/helix/temp";
       # url = "github:helix-editor/helix/master";
-      # url = "github:paholg/helix/file-picker-navigation";
+
       inputs.nixpkgs.follows = "nixpkgs";
     };
     naersk = {
@@ -93,6 +99,8 @@
           system = linux;
           modules = [
             ./hosts/box/configuration.nix
+            # For `command-not-found`:
+            inputs.flake-programs-sqlite.nixosModules.programs-sqlite
             ({lib, ...}: {
               nix.registry = lib.mapAttrs (_: flake: {inherit flake;}) inputs;
             })
@@ -106,6 +114,9 @@
             ./hosts/fractal/configuration.nix
             home-manager.nixosModules.home-manager
             # nur.nixosModules.nur
+
+            # For `command-not-found`:
+            inputs.flake-programs-sqlite.nixosModules.programs-sqlite
             {
               home-manager.useGlobalPkgs = true;
               home-manager.useUserPackages = true;

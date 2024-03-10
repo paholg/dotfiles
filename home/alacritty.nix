@@ -11,7 +11,7 @@
       ];
 
       shell = {
-        program = "zsh";
+        program = "fish";
         args = ["--login"];
       };
 

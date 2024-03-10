@@ -16,6 +16,7 @@
     settings.auto-optimise-store = true;
     settings.experimental-features = ["nix-command" "flakes"];
     settings.max-jobs = "auto";
+    settings.trusted-users = ["paho"];
   };
 
   nix.gc = {

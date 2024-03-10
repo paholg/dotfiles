@@ -3,7 +3,6 @@
     cargo-insta
     fpm
     glab # GitLab CLI
-    just
     kubeconform
     omnisharp-roslyn # c# lsp
     redis

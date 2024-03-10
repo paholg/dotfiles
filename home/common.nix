@@ -11,7 +11,7 @@
 
     check_sync = ''watch grep -e Dirty: -e Writeback: /proc/meminfo'';
 
-    hx = "CARGO_TARGET_DIR=~/.cargo/cache2 hx";
+    hx = "env CARGO_TARGET_DIR=~/.cargo/cache2 ${lib.getExe' pkgs.helix "hx"}";
 
     ls = "eza";
     la = "ls -la";
@@ -56,9 +56,9 @@ in {
   home.file = {
     ".cargo/config.toml".source = (pkgs.formats.toml {}).generate "" {
       target.x86_64-unknown-linux-gnu = {
-        # On ubuntu at least, this causes a runtime failure to find libssl.so.3
-        # linker = "${lib.getExe pkgs.clang}";
-        linker = "clang";
+        # TODO: Need to swap or fix for ubuntu.
+        # linker = "clang";
+        linker = "${lib.getExe pkgs.clang}";
         rustflags = ["-C" "link-arg=-fuse-ld=${lib.getExe' pkgs.mold "mold"}"];
       };
     };
@@ -198,10 +198,15 @@ in {
     #   inherit shellAliases;
     # };
 
-    # fish = {
-    #   enable = true;
-    #   inherit shellAliases;
-    # };
+    fish = {
+      enable = true;
+      inherit shellAliases;
+
+      functions = {
+        # nshell = "";
+        # e = "";
+      };
+    };
 
     zsh = {
       enable = true;

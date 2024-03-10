@@ -45,6 +45,7 @@
     hyperfine
     # iredis
     jq
+    just
     jwt-cli
     litecli
     lld

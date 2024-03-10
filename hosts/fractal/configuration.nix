@@ -75,7 +75,7 @@
         "-H 2160"
         "-e"
         # Maybe help with mouse issues?
-        "--force-grab-cursor"
+        # "--force-grab-cursor"
       ];
     };
   };

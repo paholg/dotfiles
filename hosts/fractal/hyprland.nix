@@ -2,13 +2,21 @@
   set_sink = name: "list_sinks | jq '.\"${name}\"' | xargs wpctl set-default";
 
   couch_mode = [
+    "hyprctl keyword monitor DP-2, disable"
     "hyprctl keyword monitor DP-3, disable"
     "hyprctl keyword monitor HDMI-A-1, 3840x2160@120, 0x0, 2"
     "${set_sink "HDA ATI HDMI"}"
   ];
-  desk_mode = [
+  game_mode = [
     "hyprctl keyword monitor HDMI-A-1, disable"
     "hyprctl keyword monitor DP-3, 3840x2160@144, 0x0, 1"
+    "hyprctl keyword monitor DP-2, disable"
+    "${set_sink "HDA Intel PCH"}"
+  ];
+  work_mode = [
+    "hyprctl keyword monitor HDMI-A-1, disable"
+    "hyprctl keyword monitor DP-3, 3840x2160@144, 0x0, 1, transform,1"
+    "hyprctl keyword monitor DP-2, 3840x2160@60, 2160x0, 1, transform,3"
     "${set_sink "Audioengine HD3"}"
   ];
 in {
@@ -23,7 +31,7 @@ in {
         "col.active_border" = "rgba(00ffff80)";
         "col.inactive_border" = "rgba(00000000)";
 
-        resize_on_border = true;
+        # resize_on_border = true;
       };
 
       decoration = {
@@ -41,7 +49,7 @@ in {
           "firefox"
           "steam"
         ]
-        ++ desk_mode;
+        ++ game_mode;
 
       misc = {
         mouse_move_enables_dpms = true;
@@ -89,7 +97,7 @@ in {
         ++ builtins.concatMap (x: let
           ws = toString x;
         in [
-          "SUPER, ${ws}, workspace, ${ws}"
+          "SUPER, ${ws}, focusworkspaceoncurrentmonitor, ${ws}"
           "SUPER SHIFT, ${ws}, movetoworkspace, ${ws}"
         ]) [1 2 3 4 5 6 7 8 9]
         ++ (
@@ -97,7 +105,9 @@ in {
             switch = bind:
               map (cmd: "${bind}, exec, ${cmd}");
           in
-            switch "SUPER, M" couch_mode ++ switch "SUPER SHIFT, M" desk_mode
+            switch "SUPER, M" couch_mode
+            ++ switch "SUPER CONTROL, M" game_mode
+            ++ switch "SUPER SHIFT, M" work_mode
         );
     };
   };
