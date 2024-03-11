@@ -2,40 +2,7 @@
   lib,
   pkgs,
   ...
-}: let
-  shellAliases = {
-    cb = ''cargo build --color always 2>&1 | less -R'';
-    cc = ''cargo check --color always 2>&1 | less -R'';
-    ct = ''cargo test --color always 2>&1 | less -R'';
-    cw = ''cargo watch -s "cargo check --colow always 2>&1 | less -R"'';
-
-    check_sync = ''watch grep -e Dirty: -e Writeback: /proc/meminfo'';
-
-    hx = "env CARGO_TARGET_DIR=~/.cargo/cache2 ${lib.getExe' pkgs.helix "hx"}";
-
-    ls = "eza";
-    la = "ls -la";
-    ll = "ls -l";
-
-    g = "git";
-    gbt = "git bt | head -n10";
-    gsw = ''
-      git switch $(git branch --sort=-committerdate | fzf | cut -c3- | cut -d " " -f1)'';
-
-    ipinfo = "curl ipinfo.io 2> /dev/null | jq .";
-
-    ns = "nix search nixpkgs";
-
-    own = "fd --no-ignore-vcs -Ho root | xargs -d'\n' sudo chown -h paho:paho";
-
-    sudop = "sudo env PATH=$PATH";
-
-    sw = "home-manager --flake $HOME/dotfiles switch";
-    # TODO: Make pure.
-    swn = "sudo nixos-rebuild --flake $HOME/dotfiles switch --impure";
-    t = "tmux attach";
-  };
-in {
+}: {
   imports = [./helix.nix ./packages.nix ./starship.nix];
 
   home.stateVersion = "20.09";
@@ -50,6 +17,39 @@ in {
       MANPAGER = "sh -c 'col -bx | bat -l man -p'";
       MANROFFOPT = "-c";
       CARGO_TARGET_DIR = "$HOME/.cargo/cache";
+    };
+
+    shellAliases = {
+      cb = ''cargo build --color always 2>&1 | less -R'';
+      cc = ''cargo check --color always 2>&1 | less -R'';
+      ct = ''cargo test --color always 2>&1 | less -R'';
+      cw = ''cargo watch -s "cargo check --colow always 2>&1 | less -R"'';
+
+      check_sync = ''watch grep -e Dirty: -e Writeback: /proc/meminfo'';
+
+      hx = "env CARGO_TARGET_DIR=~/.cargo/cache2 ${lib.getExe' pkgs.helix "hx"}";
+
+      ls = "eza";
+      la = "ls -la";
+      ll = "ls -l";
+
+      g = "git";
+      gbt = "git bt | head -n10";
+      gsw = ''
+        git switch $(git branch --sort=-committerdate | fzf | cut -c3- | cut -d " " -f1)'';
+
+      ipinfo = "curl ipinfo.io 2> /dev/null | jq .";
+
+      ns = "nix search nixpkgs";
+
+      own = "fd --no-ignore-vcs -Ho root | xargs -d'\n' sudo chown -h paho:paho";
+
+      sudop = "sudo env PATH=$PATH";
+
+      sw = "home-manager --flake $HOME/dotfiles switch";
+      # TODO: Make pure.
+      swn = "sudo nixos-rebuild --flake $HOME/dotfiles switch --impure";
+      t = "tmux attach";
     };
   };
 
@@ -141,13 +141,21 @@ in {
     direnv = {
       enable = true;
       enableZshIntegration = true;
-      # enableFishIntegration = true;
+    };
+
+    fish = {
+      enable = true;
+
+      functions = {
+        # nshell = "";
+        # e = "";
+      };
     };
 
     fzf = {
       enable = true;
-      # enableZshIntegration = true;
-      # enableFishIntegration = true;
+      enableZshIntegration = true;
+      enableFishIntegration = true;
     };
 
     git = {
@@ -199,21 +207,6 @@ in {
       enableFishIntegration = true;
     };
 
-    # nushell = {
-    #   enable = true;
-    #   inherit shellAliases;
-    # };
-
-    fish = {
-      enable = true;
-      inherit shellAliases;
-
-      functions = {
-        # nshell = "";
-        # e = "";
-      };
-    };
-
     zsh = {
       enable = true;
       enableAutosuggestions = true;
@@ -226,7 +219,6 @@ in {
         size = 100000;
         share = true;
       };
-      inherit shellAliases;
       initExtra = builtins.readFile ./zsh_extra.sh;
     };
   };

@@ -59,7 +59,7 @@
   time.timeZone = "America/Los_Angeles";
 
   users.users.paho = {
-    shell = pkgs.zsh;
+    shell = pkgs.bash;
     isNormalUser = true;
     extraGroups = ["networkmanager" "wheel"];
   };

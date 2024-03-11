@@ -11,13 +11,11 @@
     "hyprctl keyword monitor HDMI-A-1, disable"
     "hyprctl keyword monitor DP-3, 3840x2160@144, 0x0, 1"
     "hyprctl keyword monitor DP-2, disable"
-    "${set_sink "HDA Intel PCH"}"
   ];
   work_mode = [
     "hyprctl keyword monitor HDMI-A-1, disable"
     "hyprctl keyword monitor DP-3, 3840x2160@144, 0x0, 1, transform,1"
     "hyprctl keyword monitor DP-2, 3840x2160@60, 2160x0, 1, transform,3"
-    "${set_sink "Audioengine HD3"}"
   ];
 in {
   wayland.windowManager.hyprland = {
