@@ -27,7 +27,7 @@
 
       check_sync = ''watch grep -e Dirty: -e Writeback: /proc/meminfo'';
 
-      hx = "env CARGO_TARGET_DIR=~/.cargo/cache2 ${lib.getExe' pkgs.helix "hx"}";
+      hx = "env CARGO_TARGET_DIR=$HOME/.cargo/cache2 ${lib.getExe' pkgs.helix "hx"}";
 
       ls = "eza";
       la = "ls -la";
@@ -68,33 +68,6 @@
 
     ".config/helix/themes/paho-theme.toml".source = ./paho-theme.toml;
 
-    ".profile".text = ''
-      # For non-NixOs, single-user:
-      if test -f $HOME/.nix-profile/etc/profile.d/nix.sh; then
-        . $HOME/.nix-profile/etc/profile.d/nix.sh
-      fi
-
-      # For non-NixOs, multi-user:
-      if test -f '/nix/var/nix/profiles/default/etc/profile.d/nix.sh'; then
-        . '/nix/var/nix/profiles/default/etc/profile.d/nix.sh'
-      fi
-
-      if `command -v rustc >/dev/null 2>&1`; then
-          export RUST_SRC_PATH="$(rustc --print sysroot)/lib/rustlib/src/rust/src"
-      fi
-
-      path_dirs="
-        $HOME/.cargo/bin
-        $HOME/dotfiles/bin
-        $HOME/dotfiles/hosts/$(hostname)/bin
-        $HOME/go/bin
-      "
-
-      for dir in $(echo $path_dirs); do
-        export PATH=$dir:$PATH
-      done
-    '';
-
     ".taplo.toml".source = (pkgs.formats.toml {}).generate "" {
       formatting = {
         align_comments = false;
@@ -103,10 +76,6 @@
         reorder_keys = false;
       };
     };
-
-    ".zprofile".text = ''
-      . ~/.profile
-    '';
 
     ".Xresources".text = ''
       Xft.dpi: 120
