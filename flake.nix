@@ -51,7 +51,7 @@
           config.allowUnfree = true;
         };
         anyrun = anyrun.packages.${prev.system}.anyrun;
-        # helix = helix.packages.${prev.system}.default;
+        helix = helix.packages.${prev.system}.default;
         ra-multiplex = ra-multiplex.defaultPackage.${prev.system};
         snippets-ls = snippets-ls.packages.${prev.system}.snippets-ls;
         rustybar = rustybar.defaultPackage.${prev.system};
