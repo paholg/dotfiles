@@ -1,49 +1,58 @@
 set shell := ["/usr/bin/env", "bash", "-euo", "pipefail", "-c"]
 
-up: up-git up-ubuntu up-yay up-yum up-rust up-host up-nix switch switch-hm
+# Update system
+up: up-git up-ubuntu up-yay up-yum up-rust up-host up-nix sw
 
-
+# Update the dotfiles git repo
 up-git:
-	@just _up git "git pull"
+	@just run git "git pull"
 
+# Update with apt
 up-ubuntu:
-	@just _up apt "sudo apt update && sudo apt dist-upgrade"
+	@just run apt "sudo apt update && sudo apt dist-upgrade"
 
+# Update on Arch with yay
 up-yay:
-	@just _up yay yay
+	@just run yay yay
 
+# Update with yum
 up-yum:
-	@just _up yum "sudo yum check-update && sudo yum update"
+	@just run yum "sudo yum check-update && sudo yum update"
 
+# Update rust
 up-rust:
-	@just _up rustup "rustup update"
+	@just run rustup "rustup update"
 
+# Run any host-specific updates
 up-host:
 	if test -f "hosts/$(hostname)/up"; then "hosts/$(hostname)/up"; fi
 
+# Update nix flake
 up-nix:
-	@just _up nix "nix flake update"
+	@just run nix "nix flake update"
 
+# Update firmware
 up-fw:
-	#!/usr/bin/env bash
-	if command -v fwupdmgr &> /dev/null; then
-	    if fwupdmgr refresh; then
-	        if fwupdmgr get-updates; then
-	            fwupdmgr update
-	        fi
-	    fi
-	fi
+	@just run fwupdmgr "if fwupdmgr refresh; then fwupdmgr get-updates && fwupdmgr update; fi"
 
+# Switch nixos and home-manager
+sw: switch-nix switch-hm
 
-_up bin cmd:
-	command -v {{bin}} && {{cmd}} || true
-
-switch: switch-nix switch-hm
-
+# Switch NixOs
 switch-nix:
 	# TODO: Make pure
-	@just _up nixos-rebuild "sudo nixos-rebuild --flake . switch --impure"
+	@just run nixos-rebuild "sudo nixos-rebuild --flake . switch --impure"
 
+# Switch home-manager
 switch-hm:
-	@just _up home-manager "home-manager --flake . switch"
+	@just run home-manager "home-manager --flake . switch"
 
+# Run `cmd` if `bin` exists
+[private]
+run bin cmd:
+	if command -v {{bin}}; then {{cmd}}; fi
+
+# Setup a new host
+install:
+	@just switch-nix
+	if test -f "hosts/$(hostname)/install"; then "hosts/$(hostname)/install"; fi

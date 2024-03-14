@@ -30,6 +30,7 @@ in {
 
   programs.helix = {
     enable = true;
+    package = pkgs.helix;
     languages = {
       language = [
         {

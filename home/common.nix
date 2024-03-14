@@ -27,6 +27,8 @@
 
       check_sync = ''watch grep -e Dirty: -e Writeback: /proc/meminfo'';
 
+      d = ''just -f $HOME/dotfiles/justfile'';
+
       hx = "env CARGO_TARGET_DIR=$HOME/.cargo/cache2 ${lib.getExe' pkgs.helix "hx"}";
 
       ls = "eza";
@@ -46,9 +48,6 @@
 
       sudop = "sudo env PATH=$PATH";
 
-      sw = "home-manager --flake $HOME/dotfiles switch";
-      # TODO: Make pure.
-      swn = "sudo nixos-rebuild --flake $HOME/dotfiles switch --impure";
       t = "tmux attach";
     };
   };
