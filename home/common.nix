@@ -21,7 +21,7 @@
 
     sessionPath = [
       "$HOME/dotfiles/bin"
-      "$HOME/dotfiles/$(hostname)/bin"
+      "$HOME/dotfiles/hosts/$(hostname)/bin"
     ];
 
     shellAliases = {
