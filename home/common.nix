@@ -19,6 +19,11 @@
       CARGO_TARGET_DIR = "$HOME/.cargo/cache";
     };
 
+    sessionPath = [
+      "$HOME/dotfiles/bin"
+      "$HOME/dotfiles/$(hostname)/bin"
+    ];
+
     shellAliases = {
       cb = ''cargo build --color always 2>&1 | less -R'';
       cc = ''cargo check --color always 2>&1 | less -R'';
