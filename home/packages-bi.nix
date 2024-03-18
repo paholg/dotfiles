@@ -3,6 +3,7 @@
     cargo-insta
     fpm
     glab # GitLab CLI
+    grpcurl
     kubeconform
     omnisharp-roslyn # c# lsp
     postgresql

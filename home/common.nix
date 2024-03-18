@@ -22,6 +22,8 @@
     sessionPath = [
       "$HOME/dotfiles/bin"
       "$HOME/dotfiles/hosts/$(hostname)/bin"
+      "$HOME/.cargo/bin"
+      "$HOME/go/bin"
     ];
 
     shellAliases = {
@@ -60,9 +62,8 @@
   home.file = {
     ".cargo/config.toml".source = (pkgs.formats.toml {}).generate "" {
       target.x86_64-unknown-linux-gnu = {
-        # TODO: Need to swap or fix for ubuntu.
-        # linker = "clang";
-        linker = "${lib.getExe pkgs.clang}";
+        linker = "clang";
+        # linker = "${lib.getExe pkgs.clang}";
         rustflags = ["-C" "link-arg=-fuse-ld=${lib.getExe' pkgs.mold "mold"}"];
       };
     };
