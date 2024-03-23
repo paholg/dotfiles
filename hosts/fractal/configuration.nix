@@ -69,13 +69,15 @@
       env = {
         # Games allegedly prefer X11
         SDL_VIDEODRIVER = "x11";
+        # Maybe fix audio stuttering?
+        PULSE_LATENCY_MSEC = "50";
       };
       args = [
         "-W 3840"
         "-H 2160"
         "-e"
         # Maybe help with mouse issues?
-        # "--force-grab-cursor"
+        "--force-grab-cursor"
       ];
     };
   };

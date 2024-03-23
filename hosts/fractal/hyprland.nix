@@ -45,7 +45,7 @@ in {
         [
           "waybar"
           "firefox"
-          "steam"
+          "steam-gamescope"
         ]
         ++ game_mode;
 

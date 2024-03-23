@@ -2,7 +2,9 @@
   lib,
   pkgs,
   ...
-}: {
+}: let
+  helix = lib.getExe' pkgs.helix "hx";
+in {
   imports = [./helix.nix ./packages.nix ./starship.nix];
 
   home.stateVersion = "20.09";
@@ -11,7 +13,7 @@
 
   home = {
     sessionVariables = {
-      EDITOR = "hx";
+      EDITOR = helix;
       RUST_NEW_ERROR_FORMAT = "true";
       CARGO_HOME = "$HOME/.cargo";
       MANPAGER = "sh -c 'col -bx | bat -l man -p'";
@@ -34,7 +36,7 @@
 
       d = ''just -f $HOME/dotfiles/justfile'';
 
-      hx = "env CARGO_TARGET_DIR=$HOME/.cargo/cache2 ${lib.getExe' pkgs.helix "hx"}";
+      hx = "env CARGO_TARGET_DIR=$HOME/.cargo/cache2 ${helix}";
 
       ls = "eza";
       la = "ls -la";
@@ -110,6 +112,8 @@
       enableFishIntegration = true;
       flags = ["--disable-up-arrow"];
     };
+
+    bash.enable = true;
 
     direnv = {
       enable = true;
