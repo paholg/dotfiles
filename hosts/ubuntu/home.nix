@@ -43,6 +43,9 @@ in {
       GOPROXY = "$(cat $HOME/.goproxy)";
       DATABASE_URL = database_url;
       CREDENTIALS_SECRET_KEY_PATH = "$ZEROPW/services/mdm-go/local-secret-key/secret.key";
+
+      # Get a login-popup error without this.
+      SSH_AUTH_SOCK = "$XDG_RUNTIME_DIR/gnupg/S.gpg-agent.ssh";
     };
   };
 
