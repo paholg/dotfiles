@@ -1,4 +1,8 @@
-{pkgs, ...}: let
+{
+  pkgs,
+  lib,
+  ...
+}: let
   database_url = "postgresql://postgres:beyondidentity@dockerhost:5435/postgres?sslmode=disable";
   shellAliases = {
     vpn = "'/opt/awsvpnclient/AWS VPN Client'";
@@ -21,6 +25,7 @@ in {
     ../../home/packages-bi.nix
     ../../home/packages-gui.nix
     ../../home/packages-gui-linux.nix
+    ../../home/display-switch.nix
   ];
 
   nix = {
@@ -46,6 +51,26 @@ in {
 
       # Get a login-popup error without this.
       SSH_AUTH_SOCK = "$XDG_RUNTIME_DIR/gnupg/S.gpg-agent.ssh";
+    };
+  };
+
+  home.file = {
+    ".config/display-switch/display-switch.ini".text = lib.generators.toINIWithGlobalSection {} {
+      globalSection = {
+        usb_device = "046d:c52b";
+      };
+      sections = {
+        monitor1 = {
+          monitor_id = "Gigabyte M32U";
+          on_usb_connect = "DisplayPort2";
+          on_usb_disconnect = "DisplayPort1";
+        };
+        monitor2 = {
+          monitor_id = "HP Z32";
+          on_usb_connect = "HDMI1";
+          on_usb_disconnect = "DisplayPort1";
+        };
+      };
     };
   };
 
