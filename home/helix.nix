@@ -82,7 +82,6 @@ in {
     settings = {
       editor = {
         true-color = true;
-        auto-info = false;
         auto-pairs = false;
         bufferline = "multiple";
         indent-guides.render = true;

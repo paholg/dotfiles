@@ -14,6 +14,10 @@
       url = "github:Kirottu/anyrun";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    display-switch = {
+      url = "github:paholg/display-switch/flake";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -51,6 +55,7 @@
           config.allowUnfree = true;
         };
         anyrun = anyrun.packages.${prev.system}.anyrun;
+        display-switch = display-switch.defaultPackage.${prev.system};
         helix = helix.packages.${prev.system}.default;
         ra-multiplex = ra-multiplex.defaultPackage.${prev.system};
         snippets-ls = snippets-ls.packages.${prev.system}.snippets-ls;

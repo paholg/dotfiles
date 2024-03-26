@@ -1,5 +1,6 @@
 {pkgs, ...}: let
-  set_sink = name: "list_sinks | jq '.\"${name}\"' | xargs wpctl set-default";
+  # TODO: get this bin dir in PATH for hyprland
+  set_sink = name: "$HOME/dotfiles/bin/list_sinks | jq '.\"${name}\"' | xargs wpctl set-default";
 
   couch_mode = [
     "hyprctl keyword monitor DP-2, disable"
@@ -39,6 +40,10 @@ in {
       input = {
         repeat_delay = 200;
         repeat_rate = 50;
+      };
+
+      dwindle = {
+        preserve_split = true;
       };
 
       exec-once =
@@ -91,6 +96,8 @@ in {
 
           "SUPER, H, exec, ${set_sink "HDA Intel PCH"}"
           "SUPER, S, exec, ${set_sink "Audioengine HD3"}"
+
+          "SUPER, J, layoutmsg, togglesplit"
         ]
         ++ builtins.concatMap (x: let
           ws = toString x;

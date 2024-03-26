@@ -1,7 +1,6 @@
 {pkgs, ...}: {
   imports = [/etc/nixos/hardware-configuration.nix];
 
-  system.stateVersion = "20.03";
   boot = {
     kernelParams = ["consoleblank=30"];
 

@@ -26,6 +26,7 @@
     cargo-outdated
     cargo-watch
     choose
+    clang
     curl
     difftastic
     diskus

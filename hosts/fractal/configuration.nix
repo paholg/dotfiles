@@ -1,12 +1,17 @@
 {pkgs, ...}: {
   imports = [../../nix/common.nix ../../nix/gui.nix ../../nix/ssh.nix];
 
+  system.stateVersion = "23.11";
+
   networking.hostName = "fractal";
 
   # TODO: Figure out if I can get xone working without zen kernel.
   boot.kernelPackages = pkgs.linuxPackages_zen;
   hardware.xone.enable = true;
   environment.systemPackages = [pkgs.linuxKernel.packages.linux_zen.xone];
+
+  # For display-switch
+  hardware.i2c.enable = true;
 
   networking.networkmanager.enable = false;
   networking.wireless = {
