@@ -94,7 +94,7 @@ in {
           "SUPER, Z, togglefloating"
           "SUPER, N, exec, sleep 1; hyprctl dispatch dpms off"
 
-          "SUPER, H, exec, ${set_sink "HDA Intel PCH"}"
+          "SUPER, H, exec, ${set_sink "KT USB Audio"}"
           "SUPER, S, exec, ${set_sink "Audioengine HD3"}"
 
           "SUPER, J, layoutmsg, togglesplit"
