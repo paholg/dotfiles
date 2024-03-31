@@ -1,6 +1,4 @@
 {pkgs, ...}: {
-  imports = [/etc/nixos/hardware-configuration.nix];
-
   boot = {
     kernelParams = ["consoleblank=30"];
 

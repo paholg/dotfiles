@@ -1,5 +1,10 @@
 {pkgs, ...}: {
-  imports = [../../nix/common.nix ../../nix/gui.nix ../../nix/ssh.nix];
+  imports = [
+    ./hardware-configuration.nix
+    ../../nix/common.nix
+    ../../nix/gui.nix
+    ../../nix/ssh.nix
+  ];
 
   system.stateVersion = "23.11";
 

@@ -114,7 +114,9 @@ in {
       flags = ["--disable-up-arrow"];
     };
 
-    bash.enable = true;
+    bash = {
+      enable = true;
+    };
 
     direnv = {
       enable = true;

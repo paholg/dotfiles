@@ -58,6 +58,7 @@
     nickel
     nil # nix language server
     niv
+    nix-output-monitor
     nixpkgs-fmt
     nls # nickel language server
     nmap

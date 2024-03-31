@@ -49,13 +49,12 @@ sw: switch-nix switch-hm
 # Switch NixOs
 [private]
 switch-nix:
-	# TODO: Make pure
-	@just run nixos-rebuild "sudo nixos-rebuild --flake . switch --impure"
+	@just run nixos-rebuild "sudo nixos-rebuild --flake . switch |& nom"
 
 # Switch home-manager
 [private]
 switch-hm:
-	@just run home-manager "home-manager --flake . switch"
+	@just run home-manager "home-manager --flake . switch |& nom"
 
 # Run `cmd` if `bin` exists
 [private]
