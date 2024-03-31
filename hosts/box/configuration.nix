@@ -1,11 +1,14 @@
 {...}: {
   imports = [
+    ./hardware-configuration.nix
     ../../nix/common.nix
     ../../nix/ssh.nix
     ./media.nix
     ./vpn.nix
     # ./wireguard.nix
   ];
+
+  system.stateVersion = "20.03";
 
   swapDevices = [
     {
