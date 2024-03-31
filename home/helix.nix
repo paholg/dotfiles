@@ -106,7 +106,6 @@ in {
           };
 
           # Custom bindings
-          A-g = ":lang gotmpl";
           # A-r = ":lsp-custom rust-analyzer/reloadWorkspace";
           A-h = ":toggle-option lsp.display-inlay-hints";
         };

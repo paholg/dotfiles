@@ -26,7 +26,6 @@
     cargo-outdated
     cargo-watch
     choose
-    clang
     curl
     difftastic
     diskus
@@ -41,6 +40,7 @@
     gitAndTools.hub
     gnuplot
     haskell-language-server
+    helm-ls
     htop
     httpie
     hyperfine
