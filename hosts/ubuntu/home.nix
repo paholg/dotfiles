@@ -88,18 +88,6 @@ in {
     ];
   };
 
-  programs.ssh.matchBlocks = {
-    box = {
-      hostname = "10.0.0.4";
-      user = "paho";
-    };
-
-    home = {
-      hostname = "home.paholg.com";
-      user = "paho";
-    };
-  };
-
   programs.fish.shellAliases = shellAliases;
   programs.zsh.shellAliases = shellAliases;
 

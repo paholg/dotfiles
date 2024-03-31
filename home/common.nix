@@ -182,7 +182,24 @@ in {
       enable = true;
     };
 
-    ssh = {enable = true;};
+    ssh = {
+      enable = true;
+
+      matchBlocks = {
+        box = {
+          hostname = "10.0.0.4";
+          user = "paho";
+        };
+        home = {
+          hostname = "home.paholg.com";
+          user = "paho";
+        };
+        fractal = {
+          hostname = "10.0.0.5";
+          user = "paho";
+        };
+      };
+    };
 
     tmux = {
       enable = true;
