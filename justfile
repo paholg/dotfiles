@@ -50,7 +50,7 @@ sw: switch-nix switch-hm
 [private]
 switch-nix:
 	# TODO: Make pure
-	@just run nixos-rebuild "nh os switch ."
+	@just run nixos-rebuild "nh os switch . -- --impure"
 
 # Switch home-manager
 [private]
