@@ -14,9 +14,9 @@ home-manager), so the only configuration here is for that and for NixOS.
 
 # Instructions
 
-Create a directory with `hosts/HOSTNAME` as its name, including `home.nix`
-for home-manager and/or `configuration.nix` for NixOs. Also add an entry to
-`flake.nix`.
-
-TODO: Revisit this, there's probably more to do.
-Then, run `nix shell nixpkgs#just -c just install`.
+1. Set HOSTNAME
+2. Create `home.nix` and/or `configuration.nix` in hosts/HOSTNAME.
+3. Add entry in flake.nix for HOSTNAME.
+4. Enable experimantal features for "nix-command" and "flakes".
+5. Run ./install.sh
+6. Run `just up` to verify and get any updates.

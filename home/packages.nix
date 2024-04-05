@@ -55,6 +55,7 @@
     mosh
     ncdu # interactive disk-usage
     neofetch
+    nh # nix helper
     nickel
     nil # nix language server
     niv

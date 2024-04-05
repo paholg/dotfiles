@@ -1,4 +1,5 @@
 {
+  config,
   lib,
   pkgs,
   ...
@@ -51,7 +52,7 @@ in {
 
       ipinfo = "curl ipinfo.io 2> /dev/null | jq .";
 
-      ns = "nix search nixpkgs";
+      ns = "nh search";
 
       own = "fd --no-ignore-vcs -Ho root | xargs -d'\n' sudo chown -h paho:paho";
 
@@ -134,6 +135,13 @@ in {
 
     fish = {
       enable = true;
+
+      # TODO: Temporary fix for fish completions.
+      # Remove once this is merged:
+      # https://github.com/nix-community/home-manager/pull/5199
+      interactiveShellInit = ''
+        set fish_complete_path "${config.home.path}/share/fish/vendor_completions.d" $fish_complete_path
+      '';
 
       functions = {
         # nshell = "";

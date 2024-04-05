@@ -50,19 +50,14 @@ sw: switch-nix switch-hm
 [private]
 switch-nix:
 	# TODO: Make pure
-	@just run nixos-rebuild "sudo -v && sudo nixos-rebuild --flake . switch --impure |& nom"
+	@just run nixos-rebuild "nh os switch ."
 
 # Switch home-manager
 [private]
 switch-hm:
-	@just run home-manager "home-manager --flake . switch |& nom"
+	@just run home-manager "nh home switch ."
 
 # Run `cmd` if `bin` exists
 [private]
 run bin cmd:
 	if command -v {{bin}}; then {{cmd}}; fi
-
-# Setup a new host
-install:
-	@just switch-nix
-	if test -f "hosts/$(hostname)/install"; then "hosts/$(hostname)/install"; fi
