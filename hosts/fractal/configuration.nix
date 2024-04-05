@@ -94,7 +94,7 @@
 
   services.printing = {
     enable = true;
-    drivers = [pkgs.samsung-unified-linux-driver];
+    drivers = [pkgs.unfree.samsung-unified-linux-driver];
   };
 
   services.getty.autologinUser = "paho";

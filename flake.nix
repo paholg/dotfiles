@@ -73,29 +73,31 @@
       registry = {lib, ...}: {
         nix.registry = lib.mapAttrs (_: flake: {inherit flake;}) inputs;
       };
+
       nixos = hosts:
-        builtins.listToAttrs (map (
-            host: {
-              name = host;
-              value = nixpkgs.lib.nixosSystem {
-                pkgs = pkgs linux;
-                system = linux;
-                modules = [
-                  ./hosts/${host}/configuration.nix
-                  home-manager.nixosModules.home-manager
-                  # For `command-not-found`:
-                  inputs.flake-programs-sqlite.nixosModules.programs-sqlite
-                  {
-                    home-manager.useGlobalPkgs = true;
-                    home-manager.useUserPackages = true;
-                    home-manager.users.paho = import ./hosts/${host}/home.nix;
-                  }
-                  registry
-                ];
-              };
-            }
-          )
-          hosts);
+        builtins.mapAttrs (host: config: let
+          username = config.username or "paho";
+          modules = config.modules or [];
+        in
+          nixpkgs.lib.nixosSystem {
+            pkgs = pkgs linux;
+            system = linux;
+            modules =
+              [
+                ./hosts/${host}/configuration.nix
+                home-manager.nixosModules.home-manager
+                # For `command-not-found`:
+                inputs.flake-programs-sqlite.nixosModules.programs-sqlite
+                {
+                  home-manager.useGlobalPkgs = true;
+                  home-manager.useUserPackages = true;
+                  home-manager.users."${username}" = import ./hosts/${host}/home.nix;
+                }
+                registry
+              ]
+              ++ modules;
+          })
+        hosts;
     in {
       homeConfigurations = {
         "paho@ubuntu" = home-manager.lib.homeManagerConfiguration {
@@ -108,6 +110,9 @@
         };
       };
 
-      nixosConfigurations = nixos ["box" "fractal"];
+      nixosConfigurations = nixos {
+        box = {};
+        fractal = {};
+      };
     };
 }
