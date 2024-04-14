@@ -45,6 +45,7 @@
   programs.git.userEmail = "paho@paholg.com";
 
   home.packages = with pkgs; [
+    clang
     firefox
   ];
 }

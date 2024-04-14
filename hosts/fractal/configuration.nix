@@ -88,6 +88,8 @@
         "-e"
         # Maybe help with mouse issues?
         "--force-grab-cursor"
+        "--mouse-sensitivity"
+        "3"
       ];
     };
   };
