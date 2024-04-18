@@ -8,6 +8,9 @@
     };
   };
 
+  # Enable all firmware regardless of license.
+  hardware.enableAllFirmware = true;
+
   nix = {
     package = pkgs.nix;
     settings.auto-optimise-store = true;
