@@ -2,20 +2,22 @@
   lib,
   pkgs,
   ...
-}: let
-  ra_multiplex = "${lib.getExe' pkgs.ra-multiplex "ra-multiplex"}";
-in {
+}:
+# let
+# ra_multiplex = "${lib.getExe' pkgs.ra-multiplex "ra-multiplex"}";
+# in
+{
   # Configure ra-multiplex for persistent rust-analyzer goodness!
-  home.file = {
-    ".config/ra-multiplex/config.toml".source = (pkgs.formats.toml {}).generate "" {
-      instance_timeout = false;
-      min_available_memory = "4 GiB";
-      gc_interval = 10;
-      listen = ["127.0.0.1" 27631];
-      connect = ["127.0.0.1" 27631];
-      log_filters = "info";
-    };
-  };
+  # home.file = {
+  #   ".config/ra-multiplex/config.toml".source = (pkgs.formats.toml {}).generate "" {
+  #     instance_timeout = false;
+  #     min_available_memory = "4 GiB";
+  #     gc_interval = 10;
+  #     listen = ["127.0.0.1" 27631];
+  #     connect = ["127.0.0.1" 27631];
+  #     log_filters = "info";
+  #   };
+  # };
 
   # systemd.user.services.ra-multiplex = {
   #   Unit = {
@@ -72,10 +74,10 @@ in {
         nil = {
           config.nil.formatting.command = ["${lib.getExe pkgs.alejandra}"];
         };
-        ra-multiplex = {
-          command = ra_multiplex;
-          args = ["client"];
-        };
+        # ra-multiplex = {
+        #   command = ra_multiplex;
+        #   args = ["client"];
+        # };
       };
     };
 

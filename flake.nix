@@ -24,7 +24,6 @@
     };
     helix = {
       url = "github:paholg/helix/file-picker-navigation";
-      # url = "github:paholg/helix/temp";
       # url = "github:helix-editor/helix/master";
 
       inputs.nixpkgs.follows = "nixpkgs";
@@ -33,11 +32,11 @@
       url = "github:nix-community/naersk";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    ra-multiplex = {
-      url = "github:paholg/ra-multiplex/temp";
-      inputs.nixpkgs.follows = "nixpkgs";
-      inputs.naersk.follows = "naersk";
-    };
+    # ra-multiplex = {
+    #   url = "github:paholg/ra-multiplex/temp";
+    #   inputs.nixpkgs.follows = "nixpkgs";
+    #   inputs.naersk.follows = "naersk";
+    # };
     rustybar = {
       url = "github:paholg/rustybar";
       inputs.nixpkgs.follows = "nixpkgs";
