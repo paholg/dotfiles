@@ -10,14 +10,18 @@
     # ../../home/firefox.nix
     ../../home/packages-gui.nix
     ../../home/packages-gui-linux.nix
-    ./hyprland.nix
     ../../home/display-switch.nix
+
+    ./hyprland.nix
   ];
 
   home = {
     username = "paho";
     homeDirectory = "/home/paho";
   };
+
+  # Requires system blueman service
+  services.blueman-applet.enable = true;
 
   home.file = {
     ".config/display-switch/display-switch.ini".text = lib.generators.toINIWithGlobalSection {} {

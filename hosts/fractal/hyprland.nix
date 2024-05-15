@@ -5,7 +5,7 @@
   couch_mode = [
     "hyprctl keyword monitor DP-2, disable"
     "hyprctl keyword monitor DP-3, disable"
-    "hyprctl keyword monitor HDMI-A-1, 3840x2160@120, 0x0, 2"
+    "hyprctl keyword monitor HDMI-A-1, 3840x2160@60, 0x0, 2"
     "${set_sink "HDA ATI HDMI"}"
   ];
   game_mode = [
@@ -21,6 +21,8 @@
 in {
   wayland.windowManager.hyprland = {
     enable = true;
+    xwayland.enable = true;
+    systemd.enable = true;
     settings = {
       general = {
         border_size = 6;
@@ -60,9 +62,8 @@ in {
       };
 
       monitor = [
-        # Keep from tv turning on to be auto-detected maybe?
+        # Keep from tv turning on to be auto-detected.
         "HDMI-A-1, disabled"
-        # "DP-3, disabled"
       ];
 
       windowrulev2 = [
@@ -162,7 +163,7 @@ in {
   };
 
   home.packages = with pkgs; [
-    anyrun # App launcher
+    # anyrun # App launcher
     qt5.qtwayland # Qt wayland support (recommended by hyprland)
     qt6.qtwayland # Qt wayland support (recommended by hyprland)
     tofi # App launcher

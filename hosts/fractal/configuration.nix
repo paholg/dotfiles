@@ -10,19 +10,18 @@
 
   networking.hostName = "fractal";
 
-  # TODO: Figure out if I can get xone working without zen kernel.
-  boot.kernelPackages = pkgs.linuxPackages_zen;
-  hardware.xone.enable = true;
-  environment.systemPackages = [pkgs.linuxKernel.packages.linux_zen.xone];
+  # Maybe disable xpadneo for better results?
+  # See: https://github.com/ValveSoftware/steam-for-linux/issues/9310#issuecomment-2098573826
+  hardware.xpadneo.enable = true;
+  hardware.bluetooth.enable = true;
+  hardware.bluetooth.powerOnBoot = true;
+  services.blueman.enable = true;
 
   # For display-switch
   hardware.i2c.enable = true;
 
   networking.networkmanager.enable = false;
-  networking.wireless = {
-    enable = true;
-    networks."A Link to the Past".psk = "011235813";
-  };
+  networking.wireless.enable = false;
 
   hardware.opengl = {
     enable = true;
@@ -85,18 +84,27 @@
       args = [
         "-W 3840"
         "-H 2160"
-        "-e"
-        # Maybe help with mouse issues?
-        "--force-grab-cursor"
-        "--mouse-sensitivity"
-        "3"
+        # # Maybe help with mouse issues?
+        # "--force-grab-cursor"
+        # "--mouse-sensitivity"
+        # "3"
+        # Maybe causes segfaults?
+        # "--mangoapp"
       ];
     };
   };
 
-  services.printing = {
-    enable = true;
-    drivers = [pkgs.unfree.samsung-unified-linux-driver];
+  services = {
+    # Network printer autodiscovery
+    # avahi = {
+    #   enable = true;
+    #   nssmdns4 = true;
+    #   openFirewall = true;
+    # };
+    printing = {
+      enable = true;
+      drivers = [pkgs.unfree.samsung-unified-linux-driver];
+    };
   };
 
   services.getty.autologinUser = "paho";
