@@ -6,22 +6,10 @@
 # While the original runs vim and cargo in tmux panes, this one opens your
 # $EDITOR in a separate alacritty terminal.
 #
-# Depends on `cargo-edit`, `cargo-watch`, and `alacritty`.
+# Depends on `alacritty` and `bacon`.
 
 set -euo pipefail
 
-on_exit() {
-    echo "cd $PROJECT_DIR"
-}
-
-trap 'on_exit' SIGINT
-
-ensure_cargo_cmd() {
-    if ! cargo help "$1" > /dev/null; then
-        exit 1
-    fi
-}
-ensure_cargo_cmd watch
 
 PLAYGROUND_DIR="/tmp/rust_playground"
 TIMESTAMP=$(date +"%Y-%m-%d-%H%M%S")
@@ -36,3 +24,5 @@ fi
 
 alacritty -e "$EDITOR" "./src/main.rs" 2> /dev/null &
 bacon -j run
+
+printf "\n\nTo continue working on this project:\ncd %s\n" "$PROJECT_DIR"
