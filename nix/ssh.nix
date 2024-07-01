@@ -4,6 +4,9 @@
     settings = {
       PasswordAuthentication = false;
       PermitRootLogin = "no";
+      # TODO: Fix for vulnerability https://thehackernews.com/2024/07/new-openssh-vulnerability-could-lead-to.html
+      # Remove when 9.8p1 is out
+      LoginGraceTime = 0;
     };
   };
 
