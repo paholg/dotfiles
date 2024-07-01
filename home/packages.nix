@@ -5,6 +5,7 @@
     arandr
     aws-rotate-key
     bacon
+    bash-language-server
     bat
     bat-extras.batgrep
     bat-extras.batman
@@ -63,7 +64,6 @@
     nixpkgs-fmt
     nls # nickel language server
     nmap
-    nodePackages.bash-language-server
     nodePackages.typescript-language-server
     openssl
     pciutils # lspci, etc.
