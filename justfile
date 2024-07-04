@@ -1,7 +1,20 @@
 set shell := ["/usr/bin/env", "bash", "-euo", "pipefail", "-c"]
 
+[private]
+default:
+	@just --list
+
 # Update system
-up: up-git up-ubuntu up-yay up-yum up-rust up-host up-nix sw
+up: \
+	up-git \
+	up-ubuntu \
+	up-yay \
+	up-yum \
+	up-rust \
+	up-host \
+	up-fw \
+	up-nix \
+	sw
 
 # Update the dotfiles git repo
 [private]

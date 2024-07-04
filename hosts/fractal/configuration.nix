@@ -26,10 +26,6 @@
   hardware.opengl = {
     enable = true;
 
-    # radv: open-source Vulkan driver from freedesktop
-    driSupport = true;
-    driSupport32Bit = true;
-
     # amdvlk: open-source Vulkan driver from AMD
     extraPackages = [pkgs.amdvlk];
     extraPackages32 = [pkgs.driversi686Linux.amdvlk];
