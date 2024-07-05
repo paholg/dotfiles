@@ -1,5 +1,5 @@
-{ ... }:
-{
+{...}: {
+  imports = [../../home];
   home.stateVersion = "20.09";
 
   custom.home = {
