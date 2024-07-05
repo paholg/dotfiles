@@ -16,7 +16,7 @@ in
         isDefault = true;
         settings = {
           "browser.display.background_color" = "#bdbdbd";
-          "browser.download.dir" = "$HOME/downloads";
+          "browser.download.dir" = "/home/paho/downloads";
           "browser.search.suggest.enabled" = false;
           "browser.startup.page" = 3;
           "browser.urlbar.placeholderName" = "Kagi";
@@ -30,6 +30,7 @@ in
           "media.videocontrols.picture-in-picture.enabled" = false;
           "network.IDN_show_punycode" = true;
           "network.allow-experiments" = false;
+          "services.sync.username" = "paho@paholg.com";
           "signon.rememberSignons" = false;
           "widget.content.gtk-theme-override" = "Adwaita:dark";
         };

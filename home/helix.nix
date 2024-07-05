@@ -99,7 +99,7 @@ in
       settings = {
         editor = {
           true-color = true;
-          auto-pairs = false;
+          # auto-pairs = false;
           bufferline = "multiple";
           indent-guides.render = true;
           file-picker = {
