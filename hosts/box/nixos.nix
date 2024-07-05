@@ -1,32 +1,85 @@
-{...}: {
+{ lib, pkgs, ... }:
+let
+  ips = {
+    host = "10.233.1.1";
+    container = "10.233.1.2";
+  };
+  ports = {
+    transmission = 9091;
+    prowlarr = 9696;
+    radarr = 7878;
+    sonarr = 8989;
+    jellyfin = 8096;
+  };
+  media_gid = 1100;
+  storage = /mnt/storage;
+in
+{
   imports = [
-    ./hardware-configuration.nix
-    ../../nix/common.nix
-    ../../nix/ssh.nix
     ./media.nix
     ./vpn.nix
     # ./wireguard.nix
   ];
 
   system.stateVersion = "20.03";
+  networking.hostName = "box";
 
-  swapDevices = [
-    {
-      device = "/swapfile";
-      priority = 100;
-      size = 16384;
-    }
-  ];
+  custom = {
+    ssh.enable = true;
+
+    media = {
+      enable = true;
+      inherit ports storage;
+      gid = media_gid;
+      container_ip = ips.container;
+    };
+
+    vpn = {
+      enable = true;
+      inherit ips media_gid storage;
+      transmission_port = ports.transmission;
+    };
+  };
+
+  boot = {
+    initrd.availableKernelModules = [
+      "xhci_pci"
+      "ehci_pci"
+      "ahci"
+      "mpt3sas"
+      "usbhid"
+      "usb_storage"
+      "sd_mod"
+    ];
+    initrd.kernelModules = [ ];
+    kernelModules = [ "kvm-intel" ];
+    extraModulePackages = [ ];
+  };
 
   fileSystems = {
-    "/mnt/storage" = {
+    "/" = {
+      device = "/dev/disk/by-uuid/ed5f4093-2390-4539-adf0-8fdd721662c1";
+      fsType = "ext4";
+    };
+
+    "/boot" = {
+      device = "/dev/disk/by-uuid/0409-5C67";
+      fsType = "vfat";
+    };
+
+    "${storage}" = {
       device = "/dev/disk/by-uuid/ce5baea0-d13f-48be-88a1-a8b30b493b5e";
       fsType = "btrfs";
     };
   };
   services.btrfs.autoScrub.enable = true;
 
-  networking.hostName = "box";
+  swapDevices = [ ];
+
+  nix.settings.max-jobs = lib.mkDefault 4;
+  powerManagement.cpuFreqGovernor = lib.mkDefault "powersave";
+  # High-DPI console
+  console.font = lib.mkDefault "${pkgs.terminus_font}/share/consolefonts/ter-u28n.psf.gz";
 
   services.cron = {
     enable = true;

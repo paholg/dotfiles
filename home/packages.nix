@@ -1,6 +1,84 @@
-{pkgs, ...}: {
-  home.packages = with pkgs; [
-    alejandra # nix formatter
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
+with lib;
+let
+  cfg = config.custom.packages;
+
+  linux =
+    with pkgs;
+    if cfg.linux then
+      [
+        acpi
+        cargo-kcov
+        dmidecode
+        jc
+        kcov
+        lshw
+        outils # sha256, etc.
+        psmisc # killall, fuser, etc.
+        sparse
+        strace
+        usbutils
+      ]
+    else
+      [ ];
+
+  gui =
+    with pkgs;
+    if cfg.gui then
+      [
+        dialog
+        dmenu
+        inlyne # markdown viewer
+        (nerdfonts.override { fonts = [ "FiraCode" ]; })
+      ]
+    else
+      [ ];
+
+  linux-gui =
+    with pkgs;
+    if cfg.linux && cfg.gui then
+      [
+        adwaita-qt
+        arandr
+        audacity
+        blender
+        brightnessctl
+        chromium
+        unfree.discord
+        dolphin
+        dzen2
+        gimp
+        glxinfo
+        gnome.eog
+        krita-beta
+        libnotify
+        # libreoffice
+        lxappearance
+        lxqt.lxqt-policykit
+        # mangohud
+        okular
+        pavucontrol
+        rustybar
+        scrot
+        signal-desktop
+        unfree.slack
+        vlc
+        xclip
+        xdotool
+        xorg.xmodmap
+        xorg.xrandr
+        xournal
+        xsel
+      ]
+    else
+      [ ];
+
+  default = with pkgs; [
     angle-grinder
     arandr
     aws-rotate-key
@@ -60,8 +138,8 @@
     nickel
     nil # nix language server
     niv
+    nixfmt-rfc-style
     nix-output-monitor
-    nixpkgs-fmt
     nls # nickel language server
     nmap
     nodePackages.typescript-language-server
@@ -96,6 +174,24 @@
     yq-go
     zenith
     zip
-    zsh
   ];
+in
+{
+  options.custom.packages = {
+    gui = mkOption {
+      type = types.bool;
+      default = false;
+      description = "Enable gui packages";
+    };
+
+    linux = mkOption {
+      type = types.bool;
+      default = true;
+      description = "Enable linux-only packages";
+    };
+  };
+
+  config = {
+    home.packages = default ++ linux ++ gui ++ linux-gui;
+  };
 }

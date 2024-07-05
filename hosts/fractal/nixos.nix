@@ -1,21 +1,47 @@
-{pkgs, ...}: {
-  imports = [
-    ./hardware-configuration.nix
-    ../../nix/common.nix
-    ../../nix/gui.nix
-    ../../nix/ssh.nix
-  ];
-
+{ pkgs, ... }:
+{
   system.stateVersion = "23.11";
-
   networking.hostName = "fractal";
+
+  custom = {
+    gui.enable = true;
+    ssh.enable = true;
+  };
+
+  boot.initrd.availableKernelModules = [
+    "xhci_pci"
+    "ahci"
+    "nvme"
+    "usbhid"
+    "sd_mod"
+  ];
+  boot.initrd.kernelModules = [ ];
+  boot.kernelModules = [ "kvm-intel" ];
+  boot.extraModulePackages = [ ];
+
+  fileSystems = {
+    "/" = {
+      device = "/dev/disk/by-uuid/1543df69-6898-484e-ad8a-3aa78f46f039";
+      fsType = "ext4";
+    };
+
+    "/boot" = {
+      device = "/dev/disk/by-uuid/9F39-7573";
+      fsType = "vfat";
+    };
+
+    "/mnt/steam" = {
+      device = "/dev/disk/by-uuid/558f52a1-1444-4f6a-a8b9-e30c9d5b16f2";
+      fsType = "ext4";
+    };
+  };
+
+  swapDevices = [ ];
+  hardware.cpu.intel.updateMicrocode = true;
 
   # Maybe disable xpadneo for better results?
   # See: https://github.com/ValveSoftware/steam-for-linux/issues/9310#issuecomment-2098573826
   hardware.xpadneo.enable = true;
-  hardware.bluetooth.enable = true;
-  hardware.bluetooth.powerOnBoot = true;
-  services.blueman.enable = true;
 
   # For display-switch
   hardware.i2c.enable = true;
@@ -27,8 +53,8 @@
     enable = true;
 
     # amdvlk: open-source Vulkan driver from AMD
-    extraPackages = [pkgs.amdvlk];
-    extraPackages32 = [pkgs.driversi686Linux.amdvlk];
+    extraPackages = [ pkgs.amdvlk ];
+    extraPackages32 = [ pkgs.driversi686Linux.amdvlk ];
   };
 
   # Audio setup
@@ -46,21 +72,6 @@
     # Fix for Audioengine HD3 speakers
     default-sample-rate = 48000;
   };
-
-  # services.xserver = {
-  #   enable = true;
-  #   displayManager.autoLogin = {
-  #     enable = true;
-  #     user = "paho";
-  #   };
-
-  #   displayManager.defaultSession = "gnome";
-  #   displayManager.gdm.enable = true;
-  #   desktopManager.gnome.enable = true;
-  #   # displayManager.sddm.enable = true;
-  #   # displayManager.defaultSession = "plasmawayland";
-  #   # desktopManager.plasma5.enable = true;
-  # };
 
   programs.hyprland.enable = true;
 
@@ -89,19 +100,4 @@
       ];
     };
   };
-
-  services = {
-    # Network printer autodiscovery
-    # avahi = {
-    #   enable = true;
-    #   nssmdns4 = true;
-    #   openFirewall = true;
-    # };
-    printing = {
-      enable = true;
-      drivers = [pkgs.unfree.samsung-unified-linux-driver];
-    };
-  };
-
-  services.getty.autologinUser = "paho";
 }

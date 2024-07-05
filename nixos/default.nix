@@ -1,6 +1,11 @@
-{pkgs, ...}: {
+{ lib, pkgs, ... }:
+{
+  imports = [
+    ./gui.nix
+    ./ssh.nix
+  ];
   boot = {
-    kernelParams = ["consoleblank=30"];
+    kernelParams = [ "consoleblank=30" ];
 
     loader = {
       systemd-boot.enable = true;
@@ -11,24 +16,24 @@
   # Enable all firmware regardless of license.
   hardware.enableAllFirmware = true;
 
+  networking.useDHCP = lib.mkDefault true;
+  nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
+
   nix = {
     package = pkgs.nix;
     settings.auto-optimise-store = true;
-    settings.experimental-features = ["nix-command" "flakes"];
+    settings.experimental-features = [
+      "nix-command"
+      "flakes"
+    ];
     settings.max-jobs = "auto";
-    settings.trusted-users = ["paho"];
+    settings.trusted-users = [ "paho" ];
+    gc = {
+      automatic = true;
+      dates = "weekly";
+      options = "--delete-older-than 30d";
+    };
   };
-
-  nix.gc = {
-    automatic = true;
-    dates = "weekly";
-    options = "--delete-older-than 30d";
-  };
-
-  environment = {pathsToLink = ["/share/zsh"];};
-
-  # networking.networkmanager.enable = true;
-  # networking.useDHCP = false;
 
   i18n.defaultLocale = "en_US.UTF-8";
   console = {
@@ -53,7 +58,7 @@
     ];
     earlySetup = true;
     font = "ter-i32b";
-    packages = [pkgs.terminus_font];
+    packages = [ pkgs.terminus_font ];
     keyMap = "us";
   };
   time.timeZone = "America/Los_Angeles";
@@ -61,8 +66,11 @@
   users.users.paho = {
     shell = pkgs.bash;
     isNormalUser = true;
-    extraGroups = ["networkmanager" "wheel"];
+    extraGroups = [
+      "networkmanager"
+      "wheel"
+    ];
   };
 
-  programs.zsh.enable = true;
+  services.fwupd.enable = true;
 }

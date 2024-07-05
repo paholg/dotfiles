@@ -1,30 +1,17 @@
+{ ... }:
 {
-  pkgs,
-  lib,
-  ...
-}: {
-  imports = [
-    ../../home/common.nix
-    ../../home/common-linux.nix
-    ../../home/gui.nix
-    # ../../home/firefox.nix
-    ../../home/packages-gui.nix
-    ../../home/packages-gui-linux.nix
-    ../../home/display-switch.nix
+  imports = [ ../../home ];
+  home.stateVersion = "20.09";
 
-    ./hyprland.nix
-  ];
-
-  home = {
-    username = "paho";
-    homeDirectory = "/home/paho";
+  custom.home = {
+    gui = true;
+    nixos = true;
   };
+  custom.hyprland.enable = true;
 
-  # Requires system blueman service
-  services.blueman-applet.enable = true;
-
-  home.file = {
-    ".config/display-switch/display-switch.ini".text = lib.generators.toINIWithGlobalSection {} {
+  custom.display-switch = {
+    enable = true;
+    settings = {
       globalSection = {
         usb_device = "046d:c52b";
       };
@@ -46,10 +33,6 @@
     };
   };
 
-  programs.git.userEmail = "paho@paholg.com";
-
-  home.packages = with pkgs; [
-    clang
-    firefox
-  ];
+  # Requires system blueman service
+  services.blueman-applet.enable = true;
 }

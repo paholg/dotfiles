@@ -14,7 +14,6 @@ DOMAIN="paholg.com"
 EXT_IP=$(curl -s ifconfig.me)
 CUR_IP=$(dig +short home.paholg.com)
 
-
 if [ "$EXT_IP" = "$CUR_IP" ]; then
     echo "IP $CUR_IP current, exiting."
     exit 0

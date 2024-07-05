@@ -1,8 +1,5 @@
-{
-  pkgs,
-  lib,
-  ...
-}: let
+{ pkgs, ... }:
+let
   database_url = "postgresql://postgres:beyondidentity@dockerhost:5435/postgres?sslmode=disable";
   shellAliases = {
     vpn = "'/opt/awsvpnclient/AWS VPN Client'";
@@ -15,29 +12,17 @@
     user.email = "paho.lurie-gregg@beyondidentity.com";
     user.signingKey = "DC50592397AF3F8EEAD25A8522EF27F29CB66537";
   };
-in {
-  imports = [
-    ../../home/common.nix
-    ../../home/common-linux.nix
-    ../../home/gui.nix
-    ../../home/xmonad.nix
-    ../../home/firefox.nix
-    ../../home/packages-bi.nix
-    ../../home/packages-gui.nix
-    ../../home/packages-gui-linux.nix
-    ../../home/display-switch.nix
-  ];
+in
+{
+  home.stateVersion = "20.09";
 
-  nix = {
-    package = pkgs.nix;
-    settings.auto-optimise-store = true;
-    settings.experimental-features = ["nix-command" "flakes"];
-    settings.max-jobs = "auto";
+  custom.home = {
+    gui = true;
+    nixos = false;
   };
+  custom.xmonad.enable = true;
 
   home = {
-    username = "paho";
-    homeDirectory = "/home/paho";
     sessionVariables = {
       GOPATH = "$HOME/go";
       ZEROPW = "$GOPATH/src/gitlab.com/zeropw/zero";
@@ -54,8 +39,9 @@ in {
     };
   };
 
-  home.file = {
-    ".config/display-switch/display-switch.ini".text = lib.generators.toINIWithGlobalSection {} {
+  custom.display-switch = {
+    enable = true;
+    settings = {
       globalSection = {
         usb_device = "046d:c52b";
       };
@@ -75,7 +61,6 @@ in {
   };
 
   programs.git = {
-    userEmail = "paho@paholg.com";
     includes = [
       {
         condition = "gitdir:~/bi/";
@@ -89,7 +74,6 @@ in {
   };
 
   programs.fish.shellAliases = shellAliases;
-  programs.zsh.shellAliases = shellAliases;
 
   # compositing for zoom
   services.picom.enable = true;

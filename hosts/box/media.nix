@@ -1,69 +1,97 @@
-{pkgs, ...}: {
-  networking.firewall.allowedTCPPorts = [80 443];
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
+with lib;
+let
+  cfg = config.custom.media;
 
-  users.groups.media = {
-    gid = 1100;
-    members = ["paho"];
+  group = "media";
+in
+{
+  options.custom.media = {
+    enable = mkEnableOption "Media Serving";
+    gid = mkOption { type = types.int; };
+
+    ports = mkOption { type = types.attrsOf types.int; };
+
+    container_ip = mkOption { type = types.attrsOf types.str; };
+
+    storage = mkOption { type = types.attrsOf types.path; };
   };
 
-  security.acme = {
-    acceptTerms = true;
-    defaults.email = "paho@paholg.com";
-  };
+  config = mkIf cfg.enable {
+    networking.firewall.allowedTCPPorts = [
+      80
+      443
+    ];
 
-  services = {
-    nginx = {
-      enable = true;
-      recommendedProxySettings = true;
-      recommendedTlsSettings = true;
-      recommendedGzipSettings = true;
-      recommendedOptimisation = true;
+    users.groups.media = {
+      gid = cfg.gid;
+      members = [ "paho" ];
+    };
 
-      virtualHosts."10.0.0.4" = {
-        locations."/transmission".proxyPass = "http://10.233.1.2:9091";
-        locations."/prowlarr".proxyPass = "http://localhost:9696/prowlarr";
-        locations."/radarr".proxyPass = "http://localhost:7878/radarr";
-        locations."/sonarr".proxyPass = "http://localhost:8989/sonarr";
+    security.acme = {
+      acceptTerms = true;
+      defaults.email = "paho@paholg.com";
+    };
+
+    services = {
+      nginx = {
+        enable = true;
+        recommendedProxySettings = true;
+        recommendedTlsSettings = true;
+        recommendedGzipSettings = true;
+        recommendedOptimisation = true;
+
+        virtualHosts."10.0.0.4" = {
+          locations."/transmission".proxyPass = "http://${cfg.container_ip}:${cfg.ports.transmission}";
+          locations."/prowlarr".proxyPass = "http://localhost:${cfg.ports.prowlarr}/prowlarr";
+          locations."/radarr".proxyPass = "http://localhost:${cfg.ports.radarr}/radarr";
+          locations."/sonarr".proxyPass = "http://localhost:${cfg.ports.sonarr}/sonarr";
+        };
+
+        virtualHosts."tv.paholg.com" = {
+          enableACME = true;
+          forceSSL = true;
+          # jellyfin
+          locations."/".proxyPass = "http://localhost:${cfg.ports.jellyfin}";
+        };
       };
 
-      virtualHosts."tv.paholg.com" = {
-        enableACME = true;
-        forceSSL = true;
-        # jellyfin
-        locations."/".proxyPass = "http://localhost:8096";
+      jellyfin = {
+        enable = true;
+        inherit group;
       };
-    };
 
-    jellyfin = {
-      enable = true;
-      group = "media";
-    };
+      plex = {
+        enable = true;
+        inherit group;
+        package = pkgs.unfree.plex;
+        openFirewall = true;
+        dataDir = storage + /plex;
+      };
 
-    plex = {
-      enable = true;
-      package = pkgs.unfree.plex;
-      openFirewall = true;
-      dataDir = "/mnt/storage/plex";
-      group = "media";
-    };
+      prowlarr = {
+        enable = true;
+        openFirewall = true;
+      };
 
-    prowlarr = {
-      enable = true;
-      openFirewall = true;
-    };
+      radarr = {
+        enable = true;
+        inherit group;
+        openFirewall = true;
+        dataDir = storage + /radarr;
+      };
 
-    radarr = {
-      enable = true;
-      openFirewall = true;
-      dataDir = "/mnt/storage/radarr";
-      group = "media";
-    };
-
-    sonarr = {
-      enable = true;
-      openFirewall = true;
-      dataDir = "/mnt/storage/sonarr";
-      group = "media";
+      sonarr = {
+        enable = true;
+        inherit group;
+        openFirewall = true;
+        dataDir = storage + /sonarr;
+      };
     };
   };
 }

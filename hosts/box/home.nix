@@ -1,12 +1,9 @@
-{pkgs, ...}: {
-  imports = [../../home/common.nix ../../home/common-linux.nix];
+{ ... }:
+{
+  home.stateVersion = "20.09";
 
-  home = {
-    username = "paho";
-    homeDirectory = "/home/paho";
-
-    packages = with pkgs; [transmission];
+  custom.home = {
+    gui = false;
+    nixos = true;
   };
-
-  programs.git.userEmail = "paho@paholg.com";
 }
