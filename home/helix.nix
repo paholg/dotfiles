@@ -12,6 +12,8 @@ in
 {
   options.custom.helix = {
     enable = mkEnableOption "Helix";
+
+    pkg = mkPackageOption pkgs "helix" { default = [ "helix-custom" ]; };
   };
   config = mkIf cfg.enable {
     home.file.".config/helix/themes/paho-theme.toml".source = ./helix-theme.toml;

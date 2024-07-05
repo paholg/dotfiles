@@ -56,7 +56,7 @@
         };
         anyrun = anyrun.packages.${prev.system}.anyrun;
         display-switch = display-switch.defaultPackage.${prev.system};
-        helix = helix.packages.${prev.system}.default;
+        helix-custom = helix.packages.${prev.system}.default;
         # ra-multiplex = ra-multiplex.defaultPackage.${prev.system};
         rustybar = rustybar.defaultPackage.${prev.system};
       };
