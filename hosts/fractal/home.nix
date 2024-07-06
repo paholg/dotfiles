@@ -8,6 +8,7 @@
     nixos = true;
   };
   custom.hyprland.enable = true;
+  custom.starship.host_color = "cyan";
 
   custom.display-switch = {
     enable = true;

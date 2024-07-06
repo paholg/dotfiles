@@ -7,6 +7,7 @@
     gui = true;
     nixos = false;
   };
+  custom.starship.host_color = "yellow";
   custom.xmonad.enable = true;
 
   custom.display-switch = {
