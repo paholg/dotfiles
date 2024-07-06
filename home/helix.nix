@@ -43,7 +43,7 @@ in
 
     programs.helix = {
       enable = true;
-      package = pkgs.helix;
+      package = cfg.pkg;
       languages = {
         language = [
           {

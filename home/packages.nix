@@ -50,6 +50,7 @@ let
         brightnessctl
         chromium
         unfree.discord
+        dconf
         dolphin
         dzen2
         gimp
@@ -57,10 +58,8 @@ let
         gnome.eog
         krita-beta
         libnotify
-        # libreoffice
         lxappearance
         lxqt.lxqt-policykit
-        # mangohud
         okular
         pavucontrol
         rustybar

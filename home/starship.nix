@@ -6,6 +6,7 @@ in
 {
   options.custom.starship = {
     enable = mkEnableOption "Starship";
+    username = mkOption { type = types.str; };
     host_color = mkOption { type = types.str; };
   };
 
@@ -46,7 +47,10 @@ in
           disabled = false;
           format = "$time ";
         };
-        username.format = "[$user]($style)@";
+        username = {
+          format = "[$user]($style)@";
+          show_always = if (cfg.username == "paho") then false else true;
+        };
       };
     };
   };
