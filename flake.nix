@@ -41,6 +41,10 @@
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.naersk.follows = "naersk";
     };
+    # TODO: Workaround for steam issue.
+    # Can remove once 18.1 releases.
+    xmonad.url = "github:xmonad/xmonad";
+    xmonad-contrib.url = "github:xmonad/xmonad-contrib";
   };
 
   outputs =
@@ -64,7 +68,11 @@
       pkgs =
         system:
         import nixpkgs {
-          overlays = [ pkgs_overlay ];
+          overlays = [
+            pkgs_overlay
+            xmonad.overlay
+            xmonad-contrib.overlay
+          ];
           inherit system;
           # FIXME
           config.allowUnfree = true;
@@ -82,8 +90,6 @@
         builtins.mapAttrs (
           host: config:
           let
-            modules = config.modules or [ ];
-
             users = builtins.listToAttrs (
               map (username: {
                 name = username;
@@ -99,14 +105,14 @@
               ./nixos
               home-manager.nixosModules.home-manager
               # For `command-not-found`:
-              inputs.flake-programs-sqlite.nixosModules.programs-sqlite
+              flake-programs-sqlite.nixosModules.programs-sqlite
               {
                 home-manager.useGlobalPkgs = true;
                 home-manager.useUserPackages = true;
                 home-manager.users = users;
               }
               registry
-            ] ++ modules;
+            ];
           }
         ) hosts;
     in

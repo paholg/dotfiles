@@ -4,7 +4,7 @@
   networking.hostName = "fractal";
 
   custom = {
-    gui.enable = true;
+    gui = true;
     ssh.enable = true;
   };
 
@@ -52,6 +52,7 @@
   hardware.opengl = {
     enable = true;
 
+    driSupport32Bit = true;
     # amdvlk: open-source Vulkan driver from AMD
     extraPackages = [ pkgs.amdvlk ];
     extraPackages32 = [ pkgs.driversi686Linux.amdvlk ];
@@ -77,15 +78,40 @@
     description = "Guest";
     isNormalUser = true;
   };
-  # Auto-login guest on tty2, where we'll also auto-launch sway.
-  systemd.services."getty@tty2" = {
+
+  # Auto-login guest on TTY1
+  # systemd.targets."autologin-tty1" = {
+  #   requires = [ "multi-user.target" ];
+  #   after = [ "multi-user.target" ];
+  #   unitConfig = {
+  #     AllowIsolate = "yes";
+  #   };
+  # };
+  systemd.services."getty@tty1" = {
+    description = "Autologin guest on TTY1";
+    after = [ "systemd-logind.service" ];
+    wantedBy = [ "multi-user.target" ];
     serviceConfig = {
-      Type = "simple";
       ExecStart = [
         ""
-        "${pkgs.util-linux}/sbin/agetty agetty -o '-p -f -- \\u' --noclear --autologin guest %I $TERM"
+        "@${pkgs.utillinux}/sbin/agetty agetty --login-program ${pkgs.shadow}/bin/login --autologin guest --noclear %I $TERM"
       ];
+      Restart = "always";
+      Type = "idle";
     };
+  };
+  # TODO: switch to this when it can be for just one tty
+  # https://github.com/NixOS/nixpkgs/issues/81552
+  # services.getty.autologinUser = "guest";
+
+  services.xserver = {
+    enable = true;
+    displayManager.startx.enable = true;
+    # # windowManager.xmonad = {
+    # #   enable = true;
+    # #   enableContribAndExtras = true;
+    # # };
+    desktopManager.xfce.enable = true;
   };
 
   programs.steam = {
@@ -93,24 +119,27 @@
     package = pkgs.unfree.steam;
     remotePlay.openFirewall = true;
     dedicatedServer.openFirewall = true;
-    gamescopeSession = {
-      enable = true;
-      env = {
-        # Games allegedly prefer X11
-        SDL_VIDEODRIVER = "x11";
-        # Maybe fix audio stuttering?
-        PULSE_LATENCY_MSEC = "50";
-      };
-      args = [
-        "-W 3840"
-        "-H 2160"
-        # # Maybe help with mouse issues?
-        # "--force-grab-cursor"
-        # "--mouse-sensitivity"
-        # "3"
-        # Maybe causes segfaults?
-        # "--mangoapp"
-      ];
-    };
+    localNetworkGameTransfers.openFirewall = true;
+
+    protontricks.enable = true;
+
+    # gamescopeSession = {
+    #   enable = true;
+    #   env = {
+    #     # Games allegedly prefer X11
+    #     SDL_VIDEODRIVER = "x11";
+    #     # Maybe fix audio stuttering?
+    #     PULSE_LATENCY_MSEC = "50";
+    #   };
+    #   args = [
+    #     "-W 3840"
+    #     "-H 2160"
+    #     # # Maybe help with mouse issues?
+    #     # "--force-grab-cursor"
+    #     # "--mouse-sensitivity"
+    #     # "3"
+    #     "--mangoapp"
+    #   ];
+    # };
   };
 }

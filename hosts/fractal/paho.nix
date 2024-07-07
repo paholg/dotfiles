@@ -1,4 +1,4 @@
-{ ... }:
+{ config, ... }:
 {
   imports = [
     ../../home
@@ -6,22 +6,24 @@
   ];
   home.stateVersion = "20.09";
 
-  custom.home = {
+  custom = {
+    username = "paho";
     gui = true;
     nixos = true;
+    starship.host_color = "cyan";
+    xmonad.enable = true;
+    fishInit = # fish
+      ''
+        set TTY (tty)
+        # TTY2: startx
+        [ "$TTY" = "/dev/tty2" ] && exec "startx"
+      '';
   };
-  custom.sway = {
-    enable = true;
-    startup = [
-      { command = "steam-gamescope"; }
-      { command = "firefox"; }
-      { command = "Discord"; }
-    ];
-    extraConfig = [
-      "output HDMI-A-1 disable"
-      ''output DP-2 enable pos 2160 0 mode 3840x2160@60Hz transform 90 bg "#000000" solid_color''
-      ''output DP-3 enable pos 0 0 mode 3840x2160@144Hz transform 270 bg "#000000" solid_color''
-    ];
+
+  # Store dotfiles in a shared location, so guest can access too:
+  home.file.dotfiles.source = config.lib.file.mkOutOfStoreSymlink "/srv/dotfiles";
+
+  programs.ssh = {
+    addKeysToAgent = "yes";
   };
-  custom.starship.host_color = "cyan";
 }

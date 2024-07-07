@@ -6,7 +6,7 @@
 }:
 with lib;
 let
-  cfg = config.custom.sway;
+  cfg = config.custom;
   mod = "Mod4";
   term = lib.getExe pkgs.alacritty;
 
@@ -38,7 +38,7 @@ in
     };
   };
 
-  config = mkIf cfg.enable {
+  config = mkIf cfg.sway.enable {
     wayland.windowManager.sway = {
       enable = true;
       config = {
@@ -51,7 +51,7 @@ in
           "1" = [ { title = "Steam Big Picture Mode"; } ];
           "2" = [ { app_id = "^firefox$"; } ];
         };
-        startup = cfg.startup;
+        startup = cfg.sway.startup;
         floating = { };
         keybindings = {
           # *******************************************************************
@@ -133,7 +133,7 @@ in
             repeat_rate 50
           }
         ''
-        + builtins.concatStringsSep "" (map (item: "${item}\n") cfg.extraConfig);
+        + builtins.concatStringsSep "" (map (item: "${item}\n") cfg.sway.extraConfig);
       swaynag.enable = true;
     };
 

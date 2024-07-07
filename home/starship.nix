@@ -1,16 +1,15 @@
 { config, lib, ... }:
 with lib;
 let
-  cfg = config.custom.starship;
+  cfg = config.custom;
 in
 {
   options.custom.starship = {
     enable = mkEnableOption "Starship";
-    username = mkOption { type = types.str; };
     host_color = mkOption { type = types.str; };
   };
 
-  config = mkIf cfg.enable {
+  config = mkIf cfg.starship.enable {
     programs.starship = {
       enable = true;
       enableFishIntegration = true;
@@ -23,7 +22,7 @@ in
         };
         hostname = {
           format = "[$hostname]($style):";
-          style = "bold ${cfg.host_color}";
+          style = "bold ${cfg.starship.host_color}";
         };
         kubernetes = {
           disabled = true;

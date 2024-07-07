@@ -6,7 +6,7 @@
 }:
 with lib;
 let
-  cfg = config.custom.packages;
+  cfg = config.custom;
 
   linux =
     with pkgs;
@@ -73,6 +73,7 @@ let
         xorg.xrandr
         xournal
         xsel
+        zoom-us
       ]
     else
       [ ];
@@ -163,6 +164,7 @@ let
     terraform-ls
     tokei
     unison
+    unzip
     vim
     vscode-langservers-extracted # css, html, json, markdown, eslint
     wally-cli
@@ -176,20 +178,6 @@ let
   ];
 in
 {
-  options.custom.packages = {
-    gui = mkOption {
-      type = types.bool;
-      default = false;
-      description = "Enable gui packages";
-    };
-
-    linux = mkOption {
-      type = types.bool;
-      default = true;
-      description = "Enable linux-only packages";
-    };
-  };
-
   config = {
     home.packages = default ++ linux ++ gui ++ linux-gui;
   };

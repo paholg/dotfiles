@@ -1,7 +1,7 @@
 { config, lib, ... }:
 with lib;
 let
-  cfg = config.custom.firefox;
+  cfg = config.custom;
 
   extra_settings =
     if (cfg.username == "paho") then
@@ -18,10 +18,9 @@ in
 {
   options.custom.firefox = {
     enable = mkEnableOption "Firefox";
-    username = mkOption { type = types.str; };
   };
 
-  config = mkIf cfg.enable {
+  config = mkIf cfg.firefox.enable {
     programs.firefox = {
       enable = true;
 

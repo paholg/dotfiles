@@ -6,14 +6,14 @@
 }:
 with lib;
 let
-  cfg = config.custom.gui;
+  cfg = config.custom;
 in
 {
-  options.custom.gui = {
-    enable = mkEnableOption "Gui Settings";
+  options.custom = {
+    gui = mkEnableOption "Enable gui";
   };
 
-  config = mkIf cfg.enable {
+  config = mkIf cfg.gui {
     hardware = {
       bluetooth.enable = true;
       bluetooth.powerOnBoot = true;

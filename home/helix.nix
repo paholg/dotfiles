@@ -6,7 +6,7 @@
 }:
 with lib;
 let
-  cfg = config.custom.helix;
+  cfg = config.custom;
 in
 # ra_multiplex = "${lib.getExe' pkgs.ra-multiplex "ra-multiplex"}";
 {
@@ -15,7 +15,7 @@ in
 
     pkg = mkPackageOption pkgs "helix" { default = [ "helix-custom" ]; };
   };
-  config = mkIf cfg.enable {
+  config = mkIf cfg.helix.enable {
     home.file.".config/helix/themes/paho-theme.toml".source = ./helix-theme.toml;
 
     # Configure ra-multiplex for persistent rust-analyzer goodness!
@@ -43,7 +43,7 @@ in
 
     programs.helix = {
       enable = true;
-      package = cfg.pkg;
+      package = cfg.helix.pkg;
       languages = {
         language = [
           {
@@ -64,6 +64,11 @@ in
           {
             name = "nix";
             auto-format = true;
+            language-servers = [ "nixd" ];
+            formatter = {
+              command = lib.getExe pkgs.nixfmt-rfc-style;
+              args = [ ];
+            };
           }
           {
             name = "python";
@@ -88,8 +93,8 @@ in
         ];
 
         language-server = {
-          nil = {
-            config.nil.formatting.command = [ "${lib.getExe pkgs.nixfmt-rfc-style}" ];
+          nixd = {
+            command = "${lib.getExe pkgs.nixd}";
           };
           # ra-multiplex = {
           #   command = ra_multiplex;

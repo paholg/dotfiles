@@ -6,7 +6,7 @@
 }:
 with lib;
 let
-  cfg = config.custom.display-switch;
+  cfg = config.custom;
 in
 {
   options.custom.display-switch = {
@@ -36,7 +36,7 @@ in
     };
   };
 
-  config = mkIf cfg.enable {
+  config = mkIf cfg.display-switch.enable {
     systemd.user.services.display-switch = {
       Unit = {
         Description = "Display switch via USB switch";
@@ -52,7 +52,7 @@ in
 
     home.file.".config/display-switch/display-switch.ini".text =
       generators.toINIWithGlobalSection { }
-        cfg.settings;
+        cfg.display-switch.settings;
 
     # Requires system blueman service
     services.blueman-applet.enable = true;

@@ -6,7 +6,7 @@
 }:
 with lib;
 let
-  cfg = config.custom.home;
+  cfg = config.custom;
   helix = lib.getExe' pkgs.helix "hx";
 in
 {
@@ -19,10 +19,11 @@ in
     ./packages.nix
     ./starship.nix
     ./sway.nix
+    ./xfce.nix
     ./xmonad.nix
   ];
 
-  options.custom.home = {
+  options.custom = {
     username = mkOption {
       type = types.str;
       default = "paho";
@@ -34,32 +35,30 @@ in
       description = "Set true to enable gui functionality";
     };
 
+    linux = mkOption {
+      type = types.bool;
+      default = true;
+      description = "Set true iff on linux";
+    };
+
     nixos = mkOption {
       type = types.bool;
       default = false;
       description = "Set true iff on NixOs";
     };
 
-    sway_tty = mkOption {
-      type = types.int;
-      default = 1;
-      description = "TTY on which to autolaunch sway";
+    fishInit = mkOption {
+      type = types.str;
+      default = "";
+      description = "Extra fish shell init";
     };
   };
 
   config = {
     custom.alacritty.enable = mkDefault cfg.gui;
-    custom.firefox = {
-      enable = mkDefault cfg.gui;
-      username = cfg.username;
-    };
+    custom.firefox.enable = mkDefault cfg.gui;
     custom.helix.enable = mkDefault true;
-    custom.packages.gui = mkDefault cfg.gui;
-    custom.starship = {
-      enable = mkDefault true;
-      username = cfg.username;
-    };
-
+    custom.starship.enable = mkDefault true;
     targets.genericLinux.enable = mkDefault (!cfg.nixos);
 
     fonts.fontconfig.enable = true;
@@ -161,16 +160,6 @@ in
           reorder_keys = true;
         };
       };
-
-      ".Xresources".text = ''
-        Xft.dpi: 120
-        Xft.autohint: 0
-        Xft.lcdfilter: lcddefault
-        Xft.hintstyle: hintfull
-        Xft.hinting: 1
-        Xft.antialias: 1
-        Xcursor.size: 16
-      '';
     };
 
     manual = {
@@ -200,6 +189,16 @@ in
         day = 5000;
         night = 3300;
       };
+    };
+
+    xresources.properties = {
+        "Xft.dpi" = 120;
+        "Xft.autohint" = 0;
+        "Xft.lcdfilter" = "lcddefault";
+        "Xft.hintstyle" = "hintfull";
+        "Xft.hinting" = 1;
+        "Xft.antialias" = 1;
+        "Xcursor.size" = 24;
     };
 
     programs = {
@@ -237,11 +236,8 @@ in
             # Remove once this is merged:
             # https://github.com/nix-community/home-manager/pull/5199
             set fish_complete_path "${config.home.path}/share/fish/vendor_completions.d" $fish_complete_path
-
-            # Auto launch sway if on desired tty
-            set TTY (tty)
-            [ "$TTY" = "/dev/tty${toString cfg.sway_tty}" ] && exec sway
-          '';
+          ''
+          + cfg.fishInit;
 
         functions = {
           # nshell = "";

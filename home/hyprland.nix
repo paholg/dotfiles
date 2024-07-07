@@ -6,7 +6,7 @@
 }:
 with lib;
 let
-  cfg = config.custom.hyprland;
+  cfg = config.custom;
 
   # TODO: get this bin dir in PATH for hyprland
   set_sink = name: "$HOME/dotfiles/bin/list_sinks | jq '.\"${name}\"' | xargs wpctl set-default";
@@ -36,7 +36,7 @@ in
     enable = mkEnableOption "Hyprland";
   };
 
-  config = mkIf cfg.enable {
+  config = mkIf cfg.hyprland.enable {
     wayland.windowManager.hyprland = {
       enable = true;
       xwayland.enable = true;

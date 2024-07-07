@@ -30,6 +30,7 @@ import XMonad.Util.NamedScratchpad
 import XMonad.Util.Run
 import XMonad.Util.Scratchpad
 import XMonad.Util.SpawnOnce
+import XMonad.Util.Hacks (fixSteamFlicker)
 import qualified XMonad.StackSet as W
 
 -- Spacemacs dark-mode colors
@@ -78,7 +79,7 @@ wsLogHook h = dynamicLogWithPP $ def {
 
 ------------------------------------------------------------
 -- programs to use
-my_terminal = "nixGL alacritty"
+my_terminal = "alacritty"
 my_pdfviewer = "okular"
 my_statusbar = "rustybar"
 
@@ -197,12 +198,14 @@ my_keys = [
   ("C-<Print>", spawn "sleep 0.2; scrot -s $HOME/screenshots/%F-%H%M%S-s.png"),
   ("S-<Print>", spawn "scrot -u $HOME/screenshots/%F-%H%M%S-f.png"),
   ("<Print>", spawn "scrot $HOME/screenshots/%F-%H%M%S.png"),
-  ("M-n", spawn "monitor_sleep now"),
   -- multi-monitor modes
   ("M-m",  spawn "monitor_switch default"),
   ("M-C-m",  spawn "monitor_switch ctrl"),
   ("M-S-m",  spawn "monitor_switch shift"),
   ("M-C-S-m",  spawn "monitor_switch ctrl-shift"),
+  -- audio modes
+  ("M-S-s", spawn "set_sink 'Audioengine HD3'"),
+  ("M-S-h", spawn "set_sink 'KT USB Audio'"),
   -- run programs
   ("M-t", spawn my_terminal),
   ("M-r", spawn "dmenu_run -i -nb black -sb grey -nf grey -sf black -fn '-misc-fixed-medium-r-normal--18-*-*-*-*-*-*-*'"),
@@ -211,7 +214,7 @@ my_keys = [
   ("M-<Space>", sendMessage NextLayout),
   ("M-q", spawn ""), -- unbind this key
   ("M-C-q", kill),
-  ("M-C-l", spawn "slock"),
+  ("M-C-l", spawn "monitor_sleep now"),
   ("M-M1-x", spawn "xkill"),
   ("M-S-q", sequence_ [spawn "killall rustybar", restart "xmonad" True]),
   ("M-M1-q", io (exitWith ExitSuccess)), -- exit xmonad
@@ -253,13 +256,11 @@ my_keys = [
 
 startup = do
   setWMName "LG3D" -- makes java apps work
-  spawnOnce "slack"
   spawnOnce "firefox"
-  spawnOnce "bifox"
 
 main = do
   my_statusbar <- spawnPipe my_statusbar
-  xmonad $ ewmh $ withUrgencyHook NoUrgencyHook def {
+  xmonad $ ewmh $ def {
     workspaces = my_workspaces,
     startupHook = startup,
     manageHook = manageDocks
@@ -267,7 +268,7 @@ main = do
       <+> manageZoomHook
       <+> manageHook def
       <+> namedScratchpadManageHook scratch_pads,
-    handleEventHook = docksEventHook <+> handleEventHook def,
+    handleEventHook = fixSteamFlicker <+> docksEventHook <+> handleEventHook def,
     layoutHook = layout,
     logHook = wsLogHook my_statusbar,
     borderWidth = 2,
