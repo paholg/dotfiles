@@ -18,6 +18,7 @@
   boot.initrd.kernelModules = [ ];
   boot.kernelModules = [ "kvm-intel" ];
   boot.extraModulePackages = [ ];
+  hardware.cpu.intel.updateMicrocode = true;
 
   fileSystems = {
     "/" = {
@@ -37,7 +38,6 @@
   };
 
   swapDevices = [ ];
-  hardware.cpu.intel.updateMicrocode = true;
 
   # Maybe disable xpadneo for better results?
   # See: https://github.com/ValveSoftware/steam-for-linux/issues/9310#issuecomment-2098573826

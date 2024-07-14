@@ -5,7 +5,7 @@
     ./ssh.nix
   ];
   boot = {
-    kernelParams = [ "consoleblank=30" ];
+    kernelParams = [ "consoleblank=600" ];
 
     loader = {
       systemd-boot.enable = true;

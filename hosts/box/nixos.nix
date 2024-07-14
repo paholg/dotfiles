@@ -55,6 +55,7 @@ in
     kernelModules = [ "kvm-intel" ];
     extraModulePackages = [ ];
   };
+  hardware.cpu.intel.updateMicrocode = true;
 
   fileSystems = {
     "/" = {
