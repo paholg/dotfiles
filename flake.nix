@@ -82,8 +82,14 @@
         builtins.mapAttrs (
           host: config:
           let
-            username = config.username or "paho";
             modules = config.modules or [ ];
+
+            users = builtins.listToAttrs (
+              map (username: {
+                name = username;
+                value = import ./hosts/${host}/${username}.nix;
+              }) config.users
+            );
           in
           nixpkgs.lib.nixosSystem {
             pkgs = pkgs linux;
@@ -97,7 +103,7 @@
               {
                 home-manager.useGlobalPkgs = true;
                 home-manager.useUserPackages = true;
-                home-manager.users."${username}" = import ./hosts/${host}/home.nix;
+                home-manager.users = users;
               }
               registry
             ] ++ modules;
@@ -109,15 +115,18 @@
         "paho@ubuntu" = home-manager.lib.homeManagerConfiguration {
           pkgs = pkgs linux;
           modules = [
-            ./hosts/ubuntu/home.nix
+            ./hosts/ubuntu/paho.nix
             registry
           ];
         };
       };
 
       nixosConfigurations = nixos {
-        box = { };
-        fractal = { };
+        box.users = [ "paho" ];
+        fractal.users = [
+          "paho"
+          "guest"
+        ];
       };
     };
 }

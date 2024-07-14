@@ -53,5 +53,8 @@ in
     home.file.".config/display-switch/display-switch.ini".text =
       generators.toINIWithGlobalSection { }
         cfg.settings;
+
+    # Requires system blueman service
+    services.blueman-applet.enable = true;
   };
 }

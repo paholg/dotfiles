@@ -73,7 +73,20 @@
     default-sample-rate = 48000;
   };
 
-  programs.hyprland.enable = true;
+  users.users.guest = {
+    description = "Guest";
+    isNormalUser = true;
+  };
+  # Auto-login guest on tty2, where we'll also auto-launch sway.
+  systemd.services."getty@tty2" = {
+    serviceConfig = {
+      Type = "simple";
+      ExecStart = [
+        ""
+        "${pkgs.util-linux}/sbin/agetty agetty -o '-p -f -- \\u' --noclear --autologin guest %I $TERM"
+      ];
+    };
+  };
 
   programs.steam = {
     enable = true;

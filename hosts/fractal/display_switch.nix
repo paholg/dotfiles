@@ -1,14 +1,5 @@
 { ... }:
 {
-  imports = [ ../../home ];
-  home.stateVersion = "20.09";
-
-  custom.home = {
-    gui = true;
-    nixos = true;
-  };
-  custom.hyprland.enable = true;
-
   custom.display-switch = {
     enable = true;
     settings = {
@@ -32,7 +23,4 @@
       };
     };
   };
-
-  # Requires system blueman service
-  services.blueman-applet.enable = true;
 }

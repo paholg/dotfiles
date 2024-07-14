@@ -18,10 +18,16 @@ in
     ./hyprland.nix
     ./packages.nix
     ./starship.nix
+    ./sway.nix
     ./xmonad.nix
   ];
 
   options.custom.home = {
+    username = mkOption {
+      type = types.str;
+      default = "paho";
+    };
+
     gui = mkOption {
       type = types.bool;
       default = false;
@@ -33,22 +39,48 @@ in
       default = false;
       description = "Set true iff on NixOs";
     };
+
+    sway_tty = mkOption {
+      type = types.int;
+      default = 1;
+      description = "TTY on which to autolaunch sway";
+    };
   };
 
   config = {
     custom.alacritty.enable = mkDefault cfg.gui;
-    custom.firefox.enable = mkDefault cfg.gui;
+    custom.firefox = {
+      enable = mkDefault cfg.gui;
+      username = cfg.username;
+    };
     custom.helix.enable = mkDefault true;
     custom.packages.gui = mkDefault cfg.gui;
-    custom.starship.enable = mkDefault true;
+    custom.starship = {
+      enable = mkDefault true;
+      username = cfg.username;
+    };
 
     targets.genericLinux.enable = mkDefault (!cfg.nixos);
 
     fonts.fontconfig.enable = true;
 
+    # Themes
+    gtk = {
+      enable = true;
+      theme = {
+        name = "Adwaita-dark";
+        package = pkgs.gnome.gnome-themes-extra;
+      };
+    };
+    qt = {
+      enable = true;
+      platformTheme = "gnome";
+      style.name = "adwaita-dark";
+    };
+
     home = {
-      username = mkDefault "paho";
-      homeDirectory = mkDefault "/home/paho";
+      username = cfg.username;
+      homeDirectory = "/home/${cfg.username}";
 
       keyboard.options = [ "caps:backspace" ];
 
@@ -97,7 +129,7 @@ in
         own = # fish
           ''
             fd --no-ignore-vcs -Ho root | xargs -d'
-            ' sudo chown -h paho:paho'';
+            ' sudo chown -h ${cfg.username}:${cfg.username}'';
 
         sudop = ''sudo env "PATH=$PATH"'';
 
@@ -198,12 +230,17 @@ in
       fish = {
         enable = true;
 
-        # TODO: Temporary fix for fish completions.
-        # Remove once this is merged:
-        # https://github.com/nix-community/home-manager/pull/5199
         interactiveShellInit = # fish
           ''
+            set fish_greeting # disable
+            # TODO: Temporary fix for fish completions.
+            # Remove once this is merged:
+            # https://github.com/nix-community/home-manager/pull/5199
             set fish_complete_path "${config.home.path}/share/fish/vendor_completions.d" $fish_complete_path
+
+            # Auto launch sway if on desired tty
+            set TTY (tty)
+            [ "$TTY" = "/dev/tty${toString cfg.sway_tty}" ] && exec sway
           '';
 
         functions = {
@@ -217,7 +254,7 @@ in
         enableFishIntegration = true;
       };
 
-      git = {
+      git = mkIf (cfg.username == "paho") {
         enable = true;
         userName = "Paho Lurie-Gregg";
         userEmail = mkDefault "paho@paholg.com";
@@ -260,16 +297,16 @@ in
 
         matchBlocks = {
           box = {
+            user = cfg.username;
             hostname = "10.0.0.4";
-            user = "paho";
           };
           home = {
+            user = cfg.username;
             hostname = "home.paholg.com";
-            user = "paho";
           };
           fractal = {
+            user = cfg.username;
             hostname = "10.0.0.5";
-            user = "paho";
           };
         };
       };
