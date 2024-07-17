@@ -62,17 +62,18 @@
   security.rtkit.enable = true;
   services.pipewire = {
     enable = true;
+    audio.enable = true;
     alsa.enable = true;
     alsa.support32Bit = true;
     pulse.enable = true;
-    wireplumber.enable = true;
+    jack.enable = true;
   };
 
-  hardware.pulseaudio.enable = false;
-  hardware.pulseaudio.daemon.config = {
-    # Fix for Audioengine HD3 speakers
-    default-sample-rate = 48000;
-  };
+  # hardware.pulseaudio.enable = false;
+  # hardware.pulseaudio.daemon.config = {
+  #   # Fix for Audioengine HD3 speakers
+  #   default-sample-rate = 48000;
+  # };
 
   users.users.guest = {
     description = "Guest";

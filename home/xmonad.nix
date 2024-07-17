@@ -7,6 +7,24 @@
 with lib;
 let
   cfg = config.custom;
+  # Simple script that calls i3lock, first running a background task to put the
+  # screen to sleep every few seconds.
+  lock_script = pkgs.writeShellApplication {
+    name = "lock";
+    runtimeInputs = with pkgs; [
+      xidlehook
+      i3lock
+      xorg.xset
+    ];
+    text = # bash
+      ''
+        xidlehook --timer 5 "xset dpms force off" ""&
+        IDLE_PID=$!
+        i3lock -c 11aaaa
+        kill $IDLE_PID
+      '';
+  };
+  lock = lib.getExe lock_script;
 in
 {
   options.custom.xmonad = {
@@ -14,6 +32,7 @@ in
   };
 
   config = mkIf cfg.xmonad.enable {
+
     services = {
       dunst = {
         enable = true;
@@ -61,6 +80,7 @@ in
       '';
 
     home.packages = with pkgs; [
+      lock_script
       xorg.xauth
       xterm
     ];
@@ -69,11 +89,18 @@ in
       enable = true;
     };
 
-    services.screen-locker = {
+    services.xidlehook = {
       enable = true;
-      lockCmd = "${lib.getExe pkgs.i3lock} -c 111111";
-      inactiveInterval = 1;
-      xautolock.enable = true;
+      timers = [
+        {
+          delay = 285;
+          command = ''${lib.getExe pkgs.libnotify} -t 15000 -- "LOCKING in 15"'';
+        }
+        {
+          delay = 300;
+          command = lock;
+        }
+      ];
     };
 
     xsession = {

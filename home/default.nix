@@ -191,6 +191,8 @@ in
       };
     };
 
+    services.ssh-agent.enable = true;
+
     xresources.properties = {
       "Xft.dpi" = 120;
       "Xft.autohint" = 0;

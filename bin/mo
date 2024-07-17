@@ -26,7 +26,7 @@ else
 fi
 
 echo "Running fusermount -u $local"
-fusermount -u "$local"
+fusermount -u "$local" || true
 echo "Running $cmd $remote $local $extra"
 exec "$cmd" "$remote" "$local" "$extra"
 
