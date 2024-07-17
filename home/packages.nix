@@ -33,7 +33,8 @@ let
       [
         dialog
         dmenu
-        inlyne # markdown viewer
+        # TODO: Broken
+        # inlyne # markdown viewer
         (nerdfonts.override { fonts = [ "FiraCode" ]; })
       ]
     else

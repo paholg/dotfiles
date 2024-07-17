@@ -7,7 +7,7 @@
 with lib;
 let
   cfg = config.custom;
-  helix = lib.getExe' pkgs.helix "hx";
+  helix = getExe config.custom.helix.pkg;
 in
 {
   imports = [
@@ -192,13 +192,13 @@ in
     };
 
     xresources.properties = {
-        "Xft.dpi" = 120;
-        "Xft.autohint" = 0;
-        "Xft.lcdfilter" = "lcddefault";
-        "Xft.hintstyle" = "hintfull";
-        "Xft.hinting" = 1;
-        "Xft.antialias" = 1;
-        "Xcursor.size" = 24;
+      "Xft.dpi" = 120;
+      "Xft.autohint" = 0;
+      "Xft.lcdfilter" = "lcddefault";
+      "Xft.hintstyle" = "hintfull";
+      "Xft.hinting" = 1;
+      "Xft.antialias" = 1;
+      "Xcursor.size" = 24;
     };
 
     programs = {

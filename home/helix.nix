@@ -13,7 +13,10 @@ in
   options.custom.helix = {
     enable = mkEnableOption "Helix";
 
-    pkg = mkPackageOption pkgs "helix" { default = [ "helix-custom" ]; };
+    pkg = mkOption {
+      type = types.package;
+      default = pkgs.helix-custom;
+    };
   };
   config = mkIf cfg.helix.enable {
     home.file.".config/helix/themes/paho-theme.toml".source = ./helix-theme.toml;
@@ -43,7 +46,7 @@ in
 
     programs.helix = {
       enable = true;
-      package = cfg.helix.pkg;
+      package = pkgs.helix-custom;
       languages = {
         language = [
           {
