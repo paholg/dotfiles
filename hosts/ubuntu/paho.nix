@@ -1,14 +1,13 @@
-{ ... }:
-{
-  imports = [ ../../home ];
+{...}: {
+  imports = [../../home];
   home.stateVersion = "20.09";
 
-  custom.home = {
+  custom = {
     gui = true;
     nixos = false;
+    starship.host_color = "yellow";
+    xmonad.enable = true;
   };
-  custom.starship.host_color = "yellow";
-  custom.xmonad.enable = true;
 
   custom.display-switch = {
     enable = true;
@@ -30,7 +29,4 @@
       };
     };
   };
-
-  # compositing for zoom
-  services.picom.enable = true;
 }

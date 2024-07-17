@@ -4,12 +4,10 @@
   pkgs,
   ...
 }:
-with lib;
-let
+with lib; let
   cfg = config.custom;
   helix = getExe config.custom.helix.pkg;
-in
-{
+in {
   imports = [
     ./alacritty.nix
     ./display-switch.nix
@@ -81,7 +79,7 @@ in
       username = cfg.username;
       homeDirectory = "/home/${cfg.username}";
 
-      keyboard.options = [ "caps:backspace" ];
+      keyboard.options = ["caps:backspace"];
 
       sessionVariables = {
         EDITOR = helix;
@@ -118,14 +116,16 @@ in
 
         g = "git";
         gbt = "git bt | head -n10";
-        gsw = # fish
+        gsw =
+          # fish
           ''git switch $(git branch --sort=-committerdate | fzf | cut -c3- | cut -d " " -f1)'';
 
         ipinfo = "curl ipinfo.io 2> /dev/null | jq .";
 
         ns = "nh search";
 
-        own = # fish
+        own =
+          # fish
           ''
             fd --no-ignore-vcs -Ho root | xargs -d'
             ' sudo chown -h ${cfg.username}:${cfg.username}'';
@@ -137,7 +137,7 @@ in
     };
 
     home.file = {
-      ".cargo/config.toml".source = (pkgs.formats.toml { }).generate "" {
+      ".cargo/config.toml".source = (pkgs.formats.toml {}).generate "" {
         target.x86_64-unknown-linux-gnu = {
           # linker = "clang";
           linker = "${lib.getExe pkgs.clang}";
@@ -151,7 +151,7 @@ in
         theme = "Dark"
       '';
 
-      ".taplo.toml".source = (pkgs.formats.toml { }).generate "" {
+      ".taplo.toml".source = (pkgs.formats.toml {}).generate "" {
         formatting = {
           align_comments = false;
           align_entries = true;
@@ -207,7 +207,7 @@ in
       atuin = {
         enable = true;
         enableFishIntegration = true;
-        flags = [ "--disable-up-arrow" ];
+        flags = ["--disable-up-arrow"];
       };
 
       bash = {
@@ -231,7 +231,8 @@ in
       fish = {
         enable = true;
 
-        interactiveShellInit = # fish
+        interactiveShellInit =
+          # fish
           ''
             set fish_greeting # disable
             # TODO: Temporary fix for fish completions.
@@ -292,6 +293,8 @@ in
 
       ssh = {
         enable = true;
+
+        addKeysToAgent = "yes";
 
         matchBlocks = {
           box = {
