@@ -1,5 +1,4 @@
-{ lib, pkgs, ... }:
-let
+{config, ...}: let
   ips = {
     host = "10.233.1.1";
     container = "10.233.1.2";
@@ -13,11 +12,12 @@ let
   };
   media_gid = 1100;
   storage = /mnt/storage;
-in
-{
+in {
   imports = [
+    ./hardware-configuration.nix
     ./media.nix
     ./vpn.nix
+    # TODO: Get working
     # ./wireguard.nix
   ];
 
@@ -41,33 +41,7 @@ in
     };
   };
 
-  boot = {
-    initrd.availableKernelModules = [
-      "xhci_pci"
-      "ehci_pci"
-      "ahci"
-      "mpt3sas"
-      "usbhid"
-      "usb_storage"
-      "sd_mod"
-    ];
-    initrd.kernelModules = [ ];
-    kernelModules = [ "kvm-intel" ];
-    extraModulePackages = [ ];
-  };
-  hardware.cpu.intel.updateMicrocode = true;
-
   fileSystems = {
-    "/" = {
-      device = "/dev/disk/by-uuid/ed5f4093-2390-4539-adf0-8fdd721662c1";
-      fsType = "ext4";
-    };
-
-    "/boot" = {
-      device = "/dev/disk/by-uuid/0409-5C67";
-      fsType = "vfat";
-    };
-
     "${storage}" = {
       device = "/dev/disk/by-uuid/ce5baea0-d13f-48be-88a1-a8b30b493b5e";
       fsType = "btrfs";
@@ -75,12 +49,20 @@ in
   };
   services.btrfs.autoScrub.enable = true;
 
-  swapDevices = [ ];
-
-  nix.settings.max-jobs = lib.mkDefault 4;
-  powerManagement.cpuFreqGovernor = lib.mkDefault "powersave";
-  # High-DPI console
-  console.font = lib.mkDefault "${pkgs.terminus_font}/share/consolefonts/ter-u28n.psf.gz";
+  # ****************************************************************************
+  # ZFS STUFF
+  boot.kernelPackages = config.boot.zfs.package.latestCompatibleLinuxPackages;
+  services.zfs.autoScrub.enable = true;
+  boot.supportedFilesystems = ["zfs"];
+  boot.zfs.forceImportRoot = false;
+  # ZFS Tuning taken from https://jrs-s.net/2018/08/17/zfs-tuning-cheat-sheet/
+  boot.extraModprobeConfig = ''
+    options zfs ashift=12 xattr=sa compression=lz4 atime=off recordsize=1M
+  '';
+  networking.hostId = "b0c5b0c5";
+  # TODO:
+  # boot.zfs.extraPools = ["storage"];
+  # ****************************************************************************
 
   services.cron = {
     enable = true;
