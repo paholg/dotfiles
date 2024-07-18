@@ -9,13 +9,12 @@
       url = "github:wamserma/flake-programs-sqlite";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    anyrun = {
-      url = "github:Kirottu/anyrun";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
     display-switch = {
       url = "github:paholg/display-switch/flake";
       inputs.nixpkgs.follows = "nixpkgs";
+      inputs.crane.follows = "crane";
+      inputs.flake-utils.follows = "flake-utils";
+      inputs.rust-overlay.follows = "rust-overlay";
     };
     home-manager = {
       url = "github:nix-community/home-manager";
@@ -26,6 +25,9 @@
       # url = "github:helix-editor/helix/master";
 
       inputs.nixpkgs.follows = "nixpkgs";
+      inputs.crane.follows = "crane";
+      inputs.flake-utils.follows = "flake-utils";
+      inputs.rust-overlay.follows = "rust-overlay";
     };
     naersk = {
       url = "github:nix-community/naersk";
@@ -40,17 +42,51 @@
       url = "github:paholg/rustybar";
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.naersk.follows = "naersk";
+      inputs.utils.follows = "flake-utils";
     };
     # TODO: Workaround for steam issue.
     # Can remove once 18.1 releases.
-    xmonad.url = "github:xmonad/xmonad";
-    xmonad-contrib.url = "github:xmonad/xmonad-contrib";
+    xmonad = {
+      url = "github:xmonad/xmonad";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.flake-utils.follows = "flake-utils";
+      inputs.git-ignore-nix.follows = "git-ignore-nix";
+      inputs.unstable.follows = "nixpkgs";
+    };
+    xmonad-contrib = {
+      url = "github:xmonad/xmonad-contrib";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.flake-utils.follows = "flake-utils";
+      inputs.git-ignore-nix.follows = "git-ignore-nix";
+      inputs.xmonad.follows = "xmonad";
+    };
+
+    # Dependencies to minimize duplicates in `flake.lock`:
+    crane = {
+      url = "github:ipetkov/crane";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    flake-utils = {
+      url = "github:numtide/flake-utils";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.systems.follows = "systems";
+    };
+    git-ignore-nix = {
+      url = "github:hercules-ci/gitignore.nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    rust-overlay = {
+      url = "github:oxalica/rust-overlay";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.flake-utils.follows = "flake-utils";
+    };
+    systems = {
+      url = "github:nix-systems/default";
+    };
   };
 
-  outputs =
-    inputs:
-    with inputs;
-    let
+  outputs = inputs:
+    with inputs; let
       linux = "x86_64-linux";
 
       pkgs_overlay = final: prev: {
@@ -65,8 +101,7 @@
         rustybar = rustybar.defaultPackage.${prev.system};
       };
 
-      pkgs =
-        system:
+      pkgs = system:
         import nixpkgs {
           overlays = [
             pkgs_overlay
@@ -79,44 +114,41 @@
         };
 
       # use nix flake inputs for registry, for e.g. search.
-      registry =
-        { lib, ... }:
-        {
-          nix.registry = lib.mapAttrs (_: flake: { inherit flake; }) inputs;
-        };
+      registry = {lib, ...}: {
+        nix.registry = lib.mapAttrs (_: flake: {inherit flake;}) inputs;
+      };
 
-      nixos =
-        hosts:
+      nixos = hosts:
         builtins.mapAttrs (
-          host: config:
-          let
+          host: config: let
             users = builtins.listToAttrs (
               map (username: {
                 name = username;
                 value = import ./hosts/${host}/${username}.nix;
-              }) config.users
+              })
+              config.users
             );
           in
-          nixpkgs.lib.nixosSystem {
-            pkgs = pkgs linux;
-            system = linux;
-            modules = [
-              ./hosts/${host}/nixos.nix
-              ./nixos
-              home-manager.nixosModules.home-manager
-              # For `command-not-found`:
-              flake-programs-sqlite.nixosModules.programs-sqlite
-              {
-                home-manager.useGlobalPkgs = true;
-                home-manager.useUserPackages = true;
-                home-manager.users = users;
-              }
-              registry
-            ];
-          }
-        ) hosts;
-    in
-    {
+            nixpkgs.lib.nixosSystem {
+              pkgs = pkgs linux;
+              system = linux;
+              modules = [
+                ./hosts/${host}/nixos.nix
+                ./nixos
+                home-manager.nixosModules.home-manager
+                # For `command-not-found`:
+                flake-programs-sqlite.nixosModules.programs-sqlite
+                {
+                  home-manager.useGlobalPkgs = true;
+                  home-manager.useUserPackages = true;
+                  home-manager.users = users;
+                }
+                registry
+              ];
+            }
+        )
+        hosts;
+    in {
       homeConfigurations = {
         "paho@ubuntu" = home-manager.lib.homeManagerConfiguration {
           pkgs = pkgs linux;
@@ -128,7 +160,7 @@
       };
 
       nixosConfigurations = nixos {
-        box.users = [ "paho" ];
+        box.users = ["paho"];
         fractal.users = [
           "paho"
           "guest"
