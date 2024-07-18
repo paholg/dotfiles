@@ -68,7 +68,6 @@
     };
     flake-utils = {
       url = "github:numtide/flake-utils";
-      inputs.nixpkgs.follows = "nixpkgs";
       inputs.systems.follows = "systems";
     };
     git-ignore-nix = {
@@ -78,15 +77,16 @@
     rust-overlay = {
       url = "github:oxalica/rust-overlay";
       inputs.nixpkgs.follows = "nixpkgs";
-      inputs.flake-utils.follows = "flake-utils";
     };
     systems = {
       url = "github:nix-systems/default";
     };
   };
 
-  outputs = inputs:
-    with inputs; let
+  outputs =
+    inputs:
+    with inputs;
+    let
       linux = "x86_64-linux";
 
       pkgs_overlay = final: prev: {
@@ -101,7 +101,8 @@
         rustybar = rustybar.defaultPackage.${prev.system};
       };
 
-      pkgs = system:
+      pkgs =
+        system:
         import nixpkgs {
           overlays = [
             pkgs_overlay
@@ -114,41 +115,44 @@
         };
 
       # use nix flake inputs for registry, for e.g. search.
-      registry = {lib, ...}: {
-        nix.registry = lib.mapAttrs (_: flake: {inherit flake;}) inputs;
-      };
+      registry =
+        { lib, ... }:
+        {
+          nix.registry = lib.mapAttrs (_: flake: { inherit flake; }) inputs;
+        };
 
-      nixos = hosts:
+      nixos =
+        hosts:
         builtins.mapAttrs (
-          host: config: let
+          host: config:
+          let
             users = builtins.listToAttrs (
               map (username: {
                 name = username;
                 value = import ./hosts/${host}/${username}.nix;
-              })
-              config.users
+              }) config.users
             );
           in
-            nixpkgs.lib.nixosSystem {
-              pkgs = pkgs linux;
-              system = linux;
-              modules = [
-                ./hosts/${host}/nixos.nix
-                ./nixos
-                home-manager.nixosModules.home-manager
-                # For `command-not-found`:
-                flake-programs-sqlite.nixosModules.programs-sqlite
-                {
-                  home-manager.useGlobalPkgs = true;
-                  home-manager.useUserPackages = true;
-                  home-manager.users = users;
-                }
-                registry
-              ];
-            }
-        )
-        hosts;
-    in {
+          nixpkgs.lib.nixosSystem {
+            pkgs = pkgs linux;
+            system = linux;
+            modules = [
+              ./hosts/${host}/nixos.nix
+              ./nixos
+              home-manager.nixosModules.home-manager
+              # For `command-not-found`:
+              flake-programs-sqlite.nixosModules.programs-sqlite
+              {
+                home-manager.useGlobalPkgs = true;
+                home-manager.useUserPackages = true;
+                home-manager.users = users;
+              }
+              registry
+            ];
+          }
+        ) hosts;
+    in
+    {
       homeConfigurations = {
         "paho@ubuntu" = home-manager.lib.homeManagerConfiguration {
           pkgs = pkgs linux;
@@ -160,7 +164,7 @@
       };
 
       nixosConfigurations = nixos {
-        box.users = ["paho"];
+        box.users = [ "paho" ];
         fractal.users = [
           "paho"
           "guest"
