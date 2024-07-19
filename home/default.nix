@@ -4,10 +4,12 @@
   pkgs,
   ...
 }:
-with lib; let
+with lib;
+let
   cfg = config.custom;
   helix = getExe config.custom.helix.pkg;
-in {
+in
+{
   imports = [
     ./alacritty.nix
     ./display-switch.nix
@@ -79,7 +81,7 @@ in {
       username = cfg.username;
       homeDirectory = "/home/${cfg.username}";
 
-      keyboard.options = ["caps:backspace"];
+      keyboard.options = [ "caps:backspace" ];
 
       sessionVariables = {
         EDITOR = helix;
@@ -137,7 +139,7 @@ in {
     };
 
     home.file = {
-      ".cargo/config.toml".source = (pkgs.formats.toml {}).generate "" {
+      ".cargo/config.toml".source = (pkgs.formats.toml { }).generate "" {
         target.x86_64-unknown-linux-gnu = {
           # linker = "clang";
           linker = "${lib.getExe pkgs.clang}";
@@ -151,7 +153,7 @@ in {
         theme = "Dark"
       '';
 
-      ".taplo.toml".source = (pkgs.formats.toml {}).generate "" {
+      ".taplo.toml".source = (pkgs.formats.toml { }).generate "" {
         formatting = {
           align_comments = false;
           align_entries = true;
@@ -207,7 +209,7 @@ in {
       atuin = {
         enable = true;
         enableFishIntegration = true;
-        flags = ["--disable-up-arrow"];
+        flags = [ "--disable-up-arrow" ];
       };
 
       bash = {
@@ -243,6 +245,17 @@ in {
           + cfg.fishInit;
 
         functions = {
+          ssh = {
+            wraps = "ssh";
+            description = "ssh with reddish background";
+            body = # fish
+              ''
+                alacritty msg config "colors.primary.background='0x2a202a'"
+                alacritty msg config "window.padding.y=20"
+                command ssh $argv
+                alacritty msg config -r
+              '';
+          };
           # nshell = "";
           # e = "";
         };

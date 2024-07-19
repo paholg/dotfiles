@@ -20,11 +20,6 @@ in
           }
         ];
 
-        shell = {
-          program = "fish";
-          args = [ "--login" ];
-        };
-
         scrolling = {
           history = 100000;
           multiplier = 3;
