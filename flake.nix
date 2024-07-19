@@ -85,29 +85,28 @@
 
   outputs =
     inputs:
-    with inputs;
     let
       linux = "x86_64-linux";
 
       pkgs_overlay = final: prev: {
-        unfree = import nixpkgs {
+        unfree = import inputs.nixpkgs {
           system = prev.system;
           config.allowUnfree = true;
         };
-        anyrun = anyrun.packages.${prev.system}.anyrun;
-        display-switch = display-switch.defaultPackage.${prev.system};
-        helix-custom = helix.packages.${prev.system}.default;
+        anyrun = inputs.anyrun.packages.${prev.system}.anyrun;
+        display-switch = inputs.display-switch.defaultPackage.${prev.system};
+        helix-custom = inputs.helix.packages.${prev.system}.default;
         # ra-multiplex = ra-multiplex.defaultPackage.${prev.system};
-        rustybar = rustybar.defaultPackage.${prev.system};
+        rustybar = inputs.rustybar.defaultPackage.${prev.system};
       };
 
       pkgs =
         system:
-        import nixpkgs {
+        import inputs.nixpkgs {
           overlays = [
             pkgs_overlay
-            xmonad.overlay
-            xmonad-contrib.overlay
+            inputs.xmonad.overlay
+            inputs.xmonad-contrib.overlay
           ];
           inherit system;
           # FIXME
@@ -133,15 +132,15 @@
               }) config.users
             );
           in
-          nixpkgs.lib.nixosSystem {
+          inputs.nixpkgs.lib.nixosSystem {
             pkgs = pkgs linux;
             system = linux;
             modules = [
               ./hosts/${host}/nixos.nix
               ./nixos
-              home-manager.nixosModules.home-manager
+              inputs.home-manager.nixosModules.home-manager
               # For `command-not-found`:
-              flake-programs-sqlite.nixosModules.programs-sqlite
+              inputs.flake-programs-sqlite.nixosModules.programs-sqlite
               {
                 home-manager.useGlobalPkgs = true;
                 home-manager.useUserPackages = true;
@@ -154,7 +153,7 @@
     in
     {
       homeConfigurations = {
-        "paho@ubuntu" = home-manager.lib.homeManagerConfiguration {
+        "paho@ubuntu" = inputs.home-manager.lib.homeManagerConfiguration {
           pkgs = pkgs linux;
           modules = [
             ./hosts/ubuntu/paho.nix
