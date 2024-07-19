@@ -319,7 +319,6 @@ in
 
       zellij = {
         enable = true;
-        enableFishIntegration = true;
         settings = { };
       };
 
