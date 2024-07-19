@@ -168,6 +168,7 @@
           "paho"
           "guest"
         ];
+        t14s.users = [ "paho" ];
       };
     };
 }
