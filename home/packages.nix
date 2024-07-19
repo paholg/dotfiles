@@ -179,6 +179,7 @@ let
     xsv
     yaml-language-server
     yq-go
+    zellij
     zenith
     zip
   ];
