@@ -116,6 +116,8 @@ in
         sudop = ''sudo env "PATH=$PATH"'';
 
         t = "tmux attach";
+
+        zd = "zellij attach -c default";
       };
     };
 
@@ -226,17 +228,17 @@ in
           + cfg.fish_extra_init;
 
         functions = {
-          ssh = {
-            wraps = "ssh";
-            description = "ssh with reddish background";
-            body = # fish
-              ''
-                alacritty msg config "colors.primary.background='0x2a202a'"
-                alacritty msg config "window.padding.y=20"
-                command ssh $argv
-                alacritty msg config -r
-              '';
-          };
+          # ssh = {
+          #   wraps = "ssh";
+          #   description = "ssh with reddish background";
+          #   body = # fish
+          #     ''
+          #       alacritty msg config "colors.primary.background='0x2a202a'"
+          #       alacritty msg config "window.padding.y=20"
+          #       command ssh $argv
+          #       alacritty msg config -r
+          #     '';
+          # };
           # nshell = "";
           # e = "";
         };
@@ -294,14 +296,17 @@ in
           box = {
             user = cfg.username;
             hostname = "10.0.0.4";
+            extraOptions.RemoteCommand = "zd";
           };
           home = {
             user = cfg.username;
             hostname = "home.paholg.com";
+            extraOptions.RemoteCommand = "zd";
           };
           fractal = {
             user = cfg.username;
             hostname = "10.0.0.5";
+            extraOptions.RemoteCommand = "zd";
           };
         };
       };
@@ -310,6 +315,12 @@ in
         enable = true;
         newSession = true;
         terminal = "xterm-256color";
+      };
+
+      zellij = {
+        enable = true;
+        enableFishIntegration = true;
+        settings = { };
       };
 
       zoxide = {

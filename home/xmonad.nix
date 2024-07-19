@@ -64,7 +64,6 @@ in
         monitor_switch default &
         fixkb &
         background 150 &
-        xrdb -merge .Xresources &
         xsetroot -cursor_name left_ptr &
 
         # FROM https://wiki.nixos.org/wiki/Using_X_without_a_Display_Manager#Setting_up_Xorg_system-wide_but_without_a_Display_Manager
@@ -77,7 +76,7 @@ in
           dbus-update-activation-environment DISPLAY XAUTHORITY
         fi
 
-        exec xmonad
+        exec $HOME/.xsession
       '';
 
     home.packages = [ lock_script ];

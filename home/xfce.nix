@@ -15,6 +15,7 @@ in
   config = lib.mkIf cfg.xfce.enable {
     custom.wayland = false;
     custom.x11 = true;
+    # TODO: Probably don't need this stuff here.
     home.file.".xinitrc".text = # bash
       ''
         monitor_switch shift &
@@ -31,6 +32,8 @@ in
         if command -v dbus-update-activation-environment >/dev/null 2>&1; then
           dbus-update-activation-environment DISPLAY XAUTHORITY
         fi
+
+        . $HOME/.xsession
 
         exec startxfce4
       '';
