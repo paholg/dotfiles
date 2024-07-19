@@ -63,14 +63,14 @@ in {
 
     # Themes
     gtk = {
-      enable = true;
+      enable = mkDefault cfg.gui;
       theme = {
         name = "Adwaita-dark";
         package = pkgs.gnome.gnome-themes-extra;
       };
     };
     qt = {
-      enable = true;
+      enable = mkDefault cfg.gui;
       platformTheme = "gnome";
       style.name = "adwaita-dark";
     };

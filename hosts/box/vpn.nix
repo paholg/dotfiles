@@ -6,9 +6,9 @@
 with lib; let
   cfg = config.custom.vpn;
 
-  downloads = cfg.storage + /downloads;
-  completed = cfg.storage + /completed;
-  transmission = cfg.storage + /transmission;
+  downloads = cfg.storage + "/downloads";
+  completed = cfg.storage + "/completed";
+  transmission = cfg.storage + "/transmission";
 
   group = "media";
 in {
@@ -21,7 +21,7 @@ in {
 
     transmission_port = mkOption {type = types.int;};
 
-    storage = mkOption {type = types.attrsOf types.path;};
+    storage = mkOption {type = types.str;};
   };
 
   config = mkIf cfg.enable {
@@ -92,7 +92,7 @@ in {
                 type filter hook output priority -100;
 
                 oifname "tun0" accept
-                ip daddr ${hostIp} accept
+                ip daddr ${cfg.ips.host} accept
 
                 skgid ${toString cfg.media_gid} drop
               }
@@ -122,7 +122,7 @@ in {
             download-dir = completed;
             incomplete-dir = downloads;
             incomplete-dir-enabled = true;
-            rpc-bind-address = containerIp;
+            rpc-bind-address = cfg.ips.container;
             rpc-whitelist-enabled = false;
             download-queue-enabled = false;
             # NOTE: This mask needs to be specified in base 10 instead of octal.

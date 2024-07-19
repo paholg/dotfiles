@@ -11,7 +11,7 @@
     jellyfin = 8096;
   };
   media_gid = 1100;
-  storage = /mnt/storage;
+  storage = "/mnt/storage";
 in {
   imports = [
     ./hardware-configuration.nix
