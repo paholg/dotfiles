@@ -4,22 +4,20 @@
   pkgs,
   ...
 }:
-with lib;
-let
+with lib; let
   cfg = config.custom.media;
 
   group = "media";
-in
-{
+in {
   options.custom.media = {
     enable = mkEnableOption "Media Serving";
-    gid = mkOption { type = types.int; };
+    gid = mkOption {type = types.int;};
 
-    ports = mkOption { type = types.attrsOf types.int; };
+    ports = mkOption {type = types.attrsOf types.int;};
 
-    container_ip = mkOption { type = types.attrsOf types.str; };
+    container_ip = mkOption {type = types.str;};
 
-    storage = mkOption { type = types.attrsOf types.path; };
+    storage = mkOption {type = types.str;};
   };
 
   config = mkIf cfg.enable {
@@ -30,7 +28,7 @@ in
 
     users.groups.media = {
       gid = cfg.gid;
-      members = [ "paho" ];
+      members = ["paho"];
     };
 
     security.acme = {
@@ -47,17 +45,17 @@ in
         recommendedOptimisation = true;
 
         virtualHosts."10.0.0.4" = {
-          locations."/transmission".proxyPass = "http://${cfg.container_ip}:${cfg.ports.transmission}";
-          locations."/prowlarr".proxyPass = "http://localhost:${cfg.ports.prowlarr}/prowlarr";
-          locations."/radarr".proxyPass = "http://localhost:${cfg.ports.radarr}/radarr";
-          locations."/sonarr".proxyPass = "http://localhost:${cfg.ports.sonarr}/sonarr";
+          locations."/transmission".proxyPass = "http://${cfg.container_ip}:${toString cfg.ports.transmission}";
+          locations."/prowlarr".proxyPass = "http://localhost:${toString cfg.ports.prowlarr}/prowlarr";
+          locations."/radarr".proxyPass = "http://localhost:${toString cfg.ports.radarr}/radarr";
+          locations."/sonarr".proxyPass = "http://localhost:${toString cfg.ports.sonarr}/sonarr";
         };
 
         virtualHosts."tv.paholg.com" = {
           enableACME = true;
           forceSSL = true;
           # jellyfin
-          locations."/".proxyPass = "http://localhost:${cfg.ports.jellyfin}";
+          locations."/".proxyPass = "http://localhost:${toString cfg.ports.jellyfin}";
         };
       };
 
@@ -71,7 +69,7 @@ in
         inherit group;
         package = pkgs.unfree.plex;
         openFirewall = true;
-        dataDir = storage + /plex;
+        dataDir = cfg.storage + "/plex";
       };
 
       prowlarr = {
@@ -83,14 +81,14 @@ in
         enable = true;
         inherit group;
         openFirewall = true;
-        dataDir = storage + /radarr;
+        dataDir = cfg.storage + "/radarr";
       };
 
       sonarr = {
         enable = true;
         inherit group;
         openFirewall = true;
-        dataDir = storage + /sonarr;
+        dataDir = cfg.storage + "/sonarr";
       };
     };
   };
