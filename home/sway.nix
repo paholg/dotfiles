@@ -4,7 +4,6 @@
   pkgs,
   ...
 }:
-with lib;
 let
   cfg = config.custom;
   mod = "Mod4";
@@ -27,18 +26,20 @@ let
 in
 {
   options.custom.sway = {
-    enable = mkEnableOption "Sway";
-    startup = mkOption {
-      type = types.listOf types.attrs;
+    enable = lib.mkEnableOption "Sway";
+    startup = lib.mkOption {
+      type = lib.types.listOf lib.types.attrs;
       default = [ ];
     };
-    extraConfig = mkOption {
-      type = types.listOf types.str;
+    extraConfig = lib.mkOption {
+      type = lib.types.listOf lib.types.str;
       default = [ ];
     };
   };
 
-  config = mkIf cfg.sway.enable {
+  config = lib.mkIf cfg.sway.enable {
+    custom.wayland = true;
+    custom.x11 = false;
     wayland.windowManager.sway = {
       enable = true;
       config = {
@@ -160,7 +161,7 @@ in
 
     # Idle management
     services.swayidle = {
-      enable = mkDefault true;
+      enable = lib.mkDefault true;
       events = [
         {
           event = "before-sleep";

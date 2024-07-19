@@ -4,16 +4,17 @@
   pkgs,
   ...
 }:
-with lib;
 let
   cfg = config.custom;
 in
 {
   options.custom.xfce = {
-    enable = mkEnableOption "Xfce";
+    enable = lib.mkEnableOption "Xfce";
   };
 
-  config = mkIf cfg.xfce.enable {
+  config = lib.mkIf cfg.xfce.enable {
+    custom.wayland = false;
+    custom.x11 = true;
     home.file.".xinitrc".text = # bash
       ''
         monitor_switch shift &

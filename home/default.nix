@@ -4,16 +4,16 @@
   pkgs,
   ...
 }:
-with lib; let
+let
   cfg = config.custom;
-  helix = getExe config.custom.helix.pkg;
-in {
+  helix = lib.getExe config.custom.helix.pkg;
+in
+{
   imports = [
     ./alacritty.nix
     ./display-switch.nix
     ./firefox.nix
     ./helix.nix
-    ./hyprland.nix
     ./packages.nix
     ./starship.nix
     ./sway.nix
@@ -22,55 +22,38 @@ in {
   ];
 
   options.custom = {
-    username = mkOption {
-      type = types.str;
-      default = "paho";
-    };
-
-    gui = mkOption {
-      type = types.bool;
-      default = false;
-      description = "Set true to enable gui functionality";
-    };
-
-    linux = mkOption {
-      type = types.bool;
-      default = true;
-      description = "Set true iff on linux";
-    };
-
-    nixos = mkOption {
-      type = types.bool;
-      default = false;
-      description = "Set true iff on NixOs";
-    };
-
-    fishInit = mkOption {
-      type = types.str;
+    fish_extra_init = lib.mkOption {
+      type = lib.types.str;
       default = "";
-      description = "Extra fish shell init";
     };
+    gui = lib.mkOption { type = lib.types.bool; };
+    wayland = lib.mkOption { type = lib.types.bool; };
+    x11 = lib.mkOption { type = lib.types.bool; };
+    linux = lib.mkOption { type = lib.types.bool; };
+    nixos = lib.mkOption { type = lib.types.bool; };
+    username = lib.mkOption { type = lib.types.str; };
   };
 
   config = {
-    custom.alacritty.enable = mkDefault cfg.gui;
-    custom.firefox.enable = mkDefault cfg.gui;
-    custom.helix.enable = mkDefault true;
-    custom.starship.enable = mkDefault true;
-    targets.genericLinux.enable = mkDefault (!cfg.nixos);
+    targets.genericLinux.enable = !cfg.nixos;
+
+    custom = lib.mkIf (!cfg.gui || !cfg.linux) {
+      wayland = false;
+      x11 = false;
+    };
 
     fonts.fontconfig.enable = true;
 
     # Themes
     gtk = {
-      enable = mkDefault cfg.gui;
+      enable = cfg.gui;
       theme = {
         name = "Adwaita-dark";
         package = pkgs.gnome.gnome-themes-extra;
       };
     };
     qt = {
-      enable = mkDefault cfg.gui;
+      enable = cfg.gui;
       platformTheme = "gnome";
       style.name = "adwaita-dark";
     };
@@ -79,7 +62,7 @@ in {
       username = cfg.username;
       homeDirectory = "/home/${cfg.username}";
 
-      keyboard.options = ["caps:backspace"];
+      keyboard.options = [ "caps:backspace" ];
 
       sessionVariables = {
         EDITOR = helix;
@@ -137,7 +120,7 @@ in {
     };
 
     home.file = {
-      ".cargo/config.toml".source = (pkgs.formats.toml {}).generate "" {
+      ".cargo/config.toml".source = (pkgs.formats.toml { }).generate "" {
         target.x86_64-unknown-linux-gnu = {
           # linker = "clang";
           linker = "${lib.getExe pkgs.clang}";
@@ -151,7 +134,7 @@ in {
         theme = "Dark"
       '';
 
-      ".taplo.toml".source = (pkgs.formats.toml {}).generate "" {
+      ".taplo.toml".source = (pkgs.formats.toml { }).generate "" {
         formatting = {
           align_comments = false;
           align_entries = true;
@@ -168,9 +151,9 @@ in {
     };
 
     nix = {
-      package = mkDefault pkgs.nix;
-      settings.auto-optimise-store = mkDefault true;
-      settings.experimental-features = mkDefault [
+      package = lib.mkDefault pkgs.nix;
+      settings.auto-optimise-store = true;
+      settings.experimental-features = [
         "nix-command"
         "flakes"
       ];
@@ -182,7 +165,7 @@ in {
       };
     };
 
-    services.redshift = mkIf cfg.gui {
+    services.redshift = lib.mkIf cfg.gui {
       enable = true;
       provider = "geoclue2";
       temperature = {
@@ -207,7 +190,7 @@ in {
       atuin = {
         enable = true;
         enableFishIntegration = true;
-        flags = ["--disable-up-arrow"];
+        flags = [ "--disable-up-arrow" ];
       };
 
       bash = {
@@ -240,7 +223,7 @@ in {
             # https://github.com/nix-community/home-manager/pull/5199
             set fish_complete_path "${config.home.path}/share/fish/vendor_completions.d" $fish_complete_path
           ''
-          + cfg.fishInit;
+          + cfg.fish_extra_init;
 
         functions = {
           # nshell = "";
@@ -253,10 +236,10 @@ in {
         enableFishIntegration = true;
       };
 
-      git = mkIf (cfg.username == "paho") {
+      git = lib.mkIf (cfg.username == "paho") {
         enable = true;
         userName = "Paho Lurie-Gregg";
-        userEmail = mkDefault "paho@paholg.com";
+        userEmail = lib.mkDefault "paho@paholg.com";
         delta = {
           enable = true;
           options = {

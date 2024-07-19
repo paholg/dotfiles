@@ -1,14 +1,9 @@
 { config, lib, ... }:
-with lib;
 let
   cfg = config.custom;
 in
 {
-  options.custom.alacritty = {
-    enable = mkEnableOption "alacritty";
-  };
-
-  config = mkIf cfg.alacritty.enable {
+  config = lib.mkIf cfg.gui {
     programs.alacritty = {
       enable = true;
       settings = {

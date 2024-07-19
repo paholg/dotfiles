@@ -1,16 +1,10 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
-with lib;
+{ config, pkgs, ... }:
 let
   cfg = config.custom;
 
   linux =
-    with pkgs;
     if cfg.linux then
+      with pkgs;
       [
         acpi
         cargo-kcov
@@ -28,8 +22,8 @@ let
       [ ];
 
   gui =
-    with pkgs;
     if cfg.gui then
+      with pkgs;
       [
         dialog
         dmenu
@@ -40,9 +34,26 @@ let
     else
       [ ];
 
+  wayland = if cfg.wayland then [ ] else [ ];
+
+  x11 =
+    if cfg.x11 then
+      with pkgs;
+      [
+        xclip
+        xdotool
+        xorg.xauth
+        xorg.xmodmap
+        xorg.xrandr
+        xsel
+        xterm
+      ]
+    else
+      [ ];
+
   linux-gui =
-    with pkgs;
     if cfg.linux && cfg.gui then
+      with pkgs;
       [
         adwaita-qt
         arandr
@@ -68,12 +79,6 @@ let
         signal-desktop
         unfree.slack
         vlc
-        xclip
-        xdotool
-        xorg.xmodmap
-        xorg.xrandr
-        xournal
-        xsel
         zoom-us
       ]
     else
@@ -180,6 +185,6 @@ let
 in
 {
   config = {
-    home.packages = default ++ linux ++ gui ++ linux-gui;
+    home.packages = default ++ linux ++ gui ++ linux-gui ++ wayland ++ x11;
   };
 }

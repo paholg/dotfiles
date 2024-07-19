@@ -9,10 +9,11 @@
   custom = {
     username = "guest";
     gui = true;
+    linux = true;
     nixos = true;
     starship.host_color = "cyan";
     xfce.enable = true;
-    fishInit = # fish
+    fish_extra_init = # fish
       ''
         set TTY (tty)
         # TTY1: startx

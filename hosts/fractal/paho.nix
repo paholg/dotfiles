@@ -1,4 +1,5 @@
-{config, ...}: {
+{ config, ... }:
+{
   imports = [
     ../../home
     ./display_switch.nix
@@ -8,10 +9,11 @@
   custom = {
     username = "paho";
     gui = true;
+    linux = true;
     nixos = true;
     starship.host_color = "cyan";
     xmonad.enable = true;
-    fishInit =
+    fish_extra_init =
       # fish
       ''
         set TTY (tty)

@@ -4,15 +4,14 @@
   pkgs,
   ...
 }:
-with lib;
 let
   cfg = config.custom;
 in
 {
   options.custom.display-switch = {
-    enable = mkEnableOption "Display Switch";
+    enable = lib.mkEnableOption "Display Switch";
 
-    settings = mkOption {
+    settings = lib.mkOption {
       type = (pkgs.formats.iniWithGlobalSection { }).type;
       default = { };
       description = "Display Switch config file";
@@ -36,7 +35,7 @@ in
     };
   };
 
-  config = mkIf cfg.display-switch.enable {
+  config = lib.mkIf cfg.display-switch.enable {
     systemd.user.services.display-switch = {
       Unit = {
         Description = "Display switch via USB switch";
@@ -51,7 +50,7 @@ in
     };
 
     home.file.".config/display-switch/display-switch.ini".text =
-      generators.toINIWithGlobalSection { }
+      lib.generators.toINIWithGlobalSection { }
         cfg.display-switch.settings;
 
     # Requires system blueman service

@@ -1,15 +1,13 @@
 { config, lib, ... }:
-with lib;
 let
   cfg = config.custom;
 in
 {
   options.custom.starship = {
-    enable = mkEnableOption "Starship";
-    host_color = mkOption { type = types.str; };
+    host_color = lib.mkOption { type = lib.types.str; };
   };
 
-  config = mkIf cfg.starship.enable {
+  config = {
     programs.starship = {
       enable = true;
       enableFishIntegration = true;

@@ -4,31 +4,19 @@
   pkgs,
   ...
 }:
-with lib; let
-  cfg = config.custom.media;
-
-  group = "media";
-in {
-  options.custom.media = {
-    enable = mkEnableOption "Media Serving";
-    gid = mkOption {type = types.int;};
-
-    ports = mkOption {type = types.attrsOf types.int;};
-
-    container_ip = mkOption {type = types.str;};
-
-    storage = mkOption {type = types.str;};
-  };
-
-  config = mkIf cfg.enable {
+let
+  cfg = config.custom;
+in
+{
+  config = {
     networking.firewall.allowedTCPPorts = [
       80
       443
     ];
 
     users.groups.media = {
-      gid = cfg.gid;
-      members = ["paho"];
+      gid = cfg.groups.media;
+      members = [ "paho" ];
     };
 
     security.acme = {
@@ -45,7 +33,7 @@ in {
         recommendedOptimisation = true;
 
         virtualHosts."10.0.0.4" = {
-          locations."/transmission".proxyPass = "http://${cfg.container_ip}:${toString cfg.ports.transmission}";
+          locations."/transmission".proxyPass = "http://${cfg.ips.container}:${toString cfg.ports.transmission}";
           locations."/prowlarr".proxyPass = "http://localhost:${toString cfg.ports.prowlarr}/prowlarr";
           locations."/radarr".proxyPass = "http://localhost:${toString cfg.ports.radarr}/radarr";
           locations."/sonarr".proxyPass = "http://localhost:${toString cfg.ports.sonarr}/sonarr";
@@ -61,15 +49,15 @@ in {
 
       jellyfin = {
         enable = true;
-        inherit group;
+        group = "media";
       };
 
       plex = {
         enable = true;
-        inherit group;
+        group = "media";
         package = pkgs.unfree.plex;
         openFirewall = true;
-        dataDir = cfg.storage + "/plex";
+        dataDir = cfg.drives.storage + "/plex";
       };
 
       prowlarr = {
@@ -79,16 +67,16 @@ in {
 
       radarr = {
         enable = true;
-        inherit group;
+        group = "media";
         openFirewall = true;
-        dataDir = cfg.storage + "/radarr";
+        dataDir = cfg.drives.storage + "/radarr";
       };
 
       sonarr = {
         enable = true;
-        inherit group;
+        group = "media";
         openFirewall = true;
-        dataDir = cfg.storage + "/sonarr";
+        dataDir = cfg.drives.storage + "/sonarr";
       };
     };
   };

@@ -4,14 +4,11 @@
   config,
   ...
 }:
-with lib; let
+let
   cfg = config.custom;
-in {
-  options.custom = {
-    gui = mkEnableOption "Enable gui";
-  };
-
-  config = mkIf cfg.gui {
+in
+{
+  config = lib.mkIf cfg.gui {
     hardware = {
       bluetooth.enable = true;
       bluetooth.powerOnBoot = true;
@@ -20,13 +17,13 @@ in {
     location.provider = "geoclue2";
 
     environment.sessionVariables = {
-      GTK_DATA_PREFIX = ["${config.system.path}"];
+      GTK_DATA_PREFIX = [ "${config.system.path}" ];
     };
 
     programs.dconf.enable = true;
 
     # Workaround for swaylock not accepting my password.
-    security.pam.services.swaylock = {};
+    security.pam.services.swaylock = { };
 
     services = {
       blueman.enable = true;
@@ -37,7 +34,7 @@ in {
 
       printing = {
         enable = true;
-        drivers = [pkgs.samsung-unified-linux-driver];
+        drivers = [ pkgs.samsung-unified-linux-driver ];
       };
     };
 

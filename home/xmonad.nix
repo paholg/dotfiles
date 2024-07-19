@@ -4,7 +4,6 @@
   pkgs,
   ...
 }:
-with lib;
 let
   cfg = config.custom;
   # Simple script that calls i3lock, first running a background task to put the
@@ -28,10 +27,12 @@ let
 in
 {
   options.custom.xmonad = {
-    enable = mkEnableOption "Xmonad";
+    enable = lib.mkEnableOption "Xmonad";
   };
 
-  config = mkIf cfg.xmonad.enable {
+  config = lib.mkIf cfg.xmonad.enable {
+    custom.wayland = false;
+    custom.x11 = true;
 
     services = {
       dunst = {
@@ -79,11 +80,7 @@ in
         exec xmonad
       '';
 
-    home.packages = with pkgs; [
-      lock_script
-      xorg.xauth
-      xterm
-    ];
+    home.packages = [ lock_script ];
 
     services.picom = {
       enable = true;

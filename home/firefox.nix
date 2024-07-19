@@ -1,5 +1,4 @@
 { config, lib, ... }:
-with lib;
 let
   cfg = config.custom;
 
@@ -16,11 +15,7 @@ let
       { };
 in
 {
-  options.custom.firefox = {
-    enable = mkEnableOption "Firefox";
-  };
-
-  config = mkIf cfg.firefox.enable {
+  config = lib.mkIf cfg.gui {
     programs.firefox = {
       enable = true;
 
