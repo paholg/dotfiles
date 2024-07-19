@@ -5,7 +5,8 @@
 
   custom = {
     gui = true;
-    ssh.enable = true;
+    next_dns = true;
+    ssh = true;
   };
 
   boot.initrd.availableKernelModules = [
