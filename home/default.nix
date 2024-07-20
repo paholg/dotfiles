@@ -277,9 +277,7 @@ in
         };
       };
 
-      home-manager = {
-        enable = true;
-      };
+      home-manager.enable = true;
 
       ssh = {
         enable = true;
@@ -287,26 +285,21 @@ in
         addKeysToAgent = "yes";
 
         matchBlocks =
-          let
-            zellij = "zellij attach -c default";
-          in
-          {
-            box = {
+          lib.mapAttrs
+            (name: host: {
               user = cfg.username;
-              hostname = "10.0.0.4";
-              extraOptions.RemoteCommand = zellij;
+              hostname = host;
+              extraOptions = {
+                RemoteCommand = "zellij attach -c ssh";
+                RequestTTY = "yes";
+              };
+            })
+            {
+              home = "home.paholg.com";
+              t14s = "10.0.0.3";
+              box = "10.0.0.4";
+              fractal = "10.0.0.5";
             };
-            home = {
-              user = cfg.username;
-              hostname = "home.paholg.com";
-              extraOptions.RemoteCommand = zellij;
-            };
-            fractal = {
-              user = cfg.username;
-              hostname = "10.0.0.5";
-              extraOptions.RemoteCommand = zellij;
-            };
-          };
       };
 
       tmux = {
