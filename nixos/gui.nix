@@ -25,6 +25,16 @@ in
     # Workaround for swaylock not accepting my password.
     security.pam.services.swaylock = { };
 
+    # Pipewire audio
+    hardware.pulseaudio.enable = false;
+    security.rtkit.enable = true;
+    services.pipewire = {
+      enable = true;
+      alsa.enable = true;
+      alsa.support32Bit = true;
+      pulse.enable = true;
+    };
+
     services = {
       blueman.enable = true;
 
@@ -36,6 +46,15 @@ in
         enable = true;
         drivers = [ pkgs.samsung-unified-linux-driver ];
       };
+
+      xserver = {
+        enable = true;
+        displayManager.startx.enable = true;
+        autorun = false;
+        libinput.enable = true;
+        layout = "us";
+        xkbVariant = "";
+      };
     };
 
     qt = {
@@ -43,5 +62,6 @@ in
       platformTheme = "gnome";
       style = "adwaita-dark";
     };
+
   };
 }

@@ -63,7 +63,7 @@ sw: switch-nix switch-hm
 [private]
 switch-nix:
 	# TODO: Make pure
-	@just run nixos-rebuild "nh os switch . -- --impure"
+	@just run nixos-rebuild "nh os switch . -- --impure --extra-experimental-features 'nix-command flakes'"
 
 # Switch home-manager
 [private]
