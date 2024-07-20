@@ -290,7 +290,7 @@ in
               user = cfg.username;
               hostname = host;
               extraOptions = {
-                RemoteCommand = "zellij attach -c ssh";
+                RemoteCommand = "zellij";
                 RequestTTY = "yes";
               };
             })
