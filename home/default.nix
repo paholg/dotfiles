@@ -310,7 +310,23 @@ in
 
       zellij = {
         enable = true;
-        settings = { };
+        settings = {
+          theme = "custom";
+          themes.custom = {
+            fg = "#a3a3a3";
+            bg = "#1f2022";
+            black = "#1f2022";
+            red = "#f2241f";
+            green = "#67b11d";
+            yellow = "#b1951d";
+            blue = "#4f97d7";
+            magenta = "#a31db1";
+            cyan = "#2d9574";
+            white = "#a3a3a3";
+            orange = "#ff5733";
+
+          };
+        };
       };
 
       zoxide = {
