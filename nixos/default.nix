@@ -43,6 +43,7 @@ in
       settings.experimental-features = [
         "nix-command"
         "flakes"
+        "repl-flake"
       ];
       settings.max-jobs = "auto";
       settings.trusted-users = [ "paho" ];

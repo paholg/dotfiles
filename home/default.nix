@@ -114,8 +114,6 @@ in
             ' sudo chown -h ${cfg.username}:${cfg.username}'';
 
         sudop = ''sudo env "PATH=$PATH"'';
-
-        t = "tmux attach";
       };
     };
 
@@ -156,6 +154,7 @@ in
       settings.experimental-features = [
         "nix-command"
         "flakes"
+        "repl-flake"
       ];
 
       gc = {
@@ -289,10 +288,6 @@ in
             (name: host: {
               user = cfg.username;
               hostname = host;
-              extraOptions = {
-                RemoteCommand = "zellij";
-                RequestTTY = "yes";
-              };
             })
             {
               home = "home.paholg.com";
