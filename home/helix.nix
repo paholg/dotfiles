@@ -121,6 +121,11 @@ in
           rulers = [ 81 ];
           soft-wrap.enable = true;
           whitespace.render = "none";
+          end-of-line-diagnostics = "hint";
+          inline-diagnostics = {
+            cursor-line = "warning";
+            other-lines = "warning";
+          };
         };
         theme = "paho-theme";
 
