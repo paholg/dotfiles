@@ -58,11 +58,11 @@
         "utils": "utils"
       },
       "locked": {
-        "lastModified": 1721461345,
-        "narHash": "sha256-9a57tVPN/QB448SKByujCsjA2aLaY6NA2hWo+Fe4kZU=",
+        "lastModified": 1721485485,
+        "narHash": "sha256-mgDax5hetzZp1ENuYTgeqDB20+SOEoJb76nTfN8sWRI=",
         "owner": "wamserma",
         "repo": "flake-programs-sqlite",
-        "rev": "ccc21ebd0fcf9920d5e3db6bafc1d7508825af72",
+        "rev": "70ba52747c222b08b272020cead03555956942c3",
         "type": "github"
       },
       "original": {
