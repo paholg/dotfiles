@@ -116,8 +116,6 @@ in
         sudop = ''sudo env "PATH=$PATH"'';
 
         t = "tmux attach";
-
-        zd = "zellij attach -c default";
       };
     };
 
@@ -292,23 +290,27 @@ in
 
         addKeysToAgent = "yes";
 
-        matchBlocks = {
-          box = {
-            user = cfg.username;
-            hostname = "10.0.0.4";
-            extraOptions.RemoteCommand = "zd";
+        matchBlocks =
+          let
+            zellij = "zellij attach -c default";
+          in
+          {
+            box = {
+              user = cfg.username;
+              hostname = "10.0.0.4";
+              extraOptions.RemoteCommand = zellij;
+            };
+            home = {
+              user = cfg.username;
+              hostname = "home.paholg.com";
+              extraOptions.RemoteCommand = zellij;
+            };
+            fractal = {
+              user = cfg.username;
+              hostname = "10.0.0.5";
+              extraOptions.RemoteCommand = zellij;
+            };
           };
-          home = {
-            user = cfg.username;
-            hostname = "home.paholg.com";
-            extraOptions.RemoteCommand = "zd";
-          };
-          fractal = {
-            user = cfg.username;
-            hostname = "10.0.0.5";
-            extraOptions.RemoteCommand = "zd";
-          };
-        };
       };
 
       tmux = {
