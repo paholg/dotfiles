@@ -226,18 +226,14 @@ in
           + cfg.fish_extra_init;
 
         functions = {
-          # ssh = {
-          #   wraps = "ssh";
-          #   description = "ssh with reddish background";
-          #   body = # fish
-          #     ''
-          #       alacritty msg config "colors.primary.background='0x2a202a'"
-          #       alacritty msg config "window.padding.y=20"
-          #       command ssh $argv
-          #       alacritty msg config -r
-          #     '';
-          # };
-          # nshell = "";
+          nshell = {
+            wraps = "nix shell";
+            body = # fish
+              ''
+                set pkgs (string replace -ar '([\S]+)' 'nixpkgs#$0' $argv)
+                nix shell $pkgs --command fish
+              '';
+          };
           # e = "";
         };
       };

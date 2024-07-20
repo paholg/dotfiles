@@ -28,6 +28,7 @@ in
         };
         nix_shell = {
           unknown_msg = "unk";
+          heuristic = true;
         };
         shell = {
           disabled = false;
@@ -35,7 +36,7 @@ in
           unknown_indicator = "unk";
         };
         shlvl = {
-          disabled = false;
+          disabled = true;
         };
         sudo = {
           disabled = false;

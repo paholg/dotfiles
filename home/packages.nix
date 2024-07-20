@@ -42,9 +42,6 @@ let
       [
         xclip
         xdotool
-        xorg.xauth
-        xorg.xmodmap
-        xorg.xrandr
         xsel
         xterm
       ]

@@ -32,7 +32,7 @@ in
     # Enable all firmware regardless of license.
     hardware.enableAllFirmware = true;
 
-    networking.useDHCP = true;
+    networking.useDHCP = lib.mkDefault true;
     nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
 
     nix = {
@@ -53,6 +53,18 @@ in
     };
 
     i18n.defaultLocale = "en_US.UTF-8";
+    i18n.extraLocaleSettings = {
+      LC_ADDRESS = "en_US.UTF-8";
+      LC_IDENTIFICATION = "en_US.UTF-8";
+      LC_MEASUREMENT = "en_US.UTF-8";
+      LC_MONETARY = "en_US.UTF-8";
+      LC_NAME = "en_US.UTF-8";
+      LC_NUMERIC = "en_US.UTF-8";
+      LC_PAPER = "en_US.UTF-8";
+      LC_TELEPHONE = "en_US.UTF-8";
+      LC_TIME = "en_US.UTF-8";
+    };
+
     console = {
       # spacemacs colors:
       colors = [
@@ -79,6 +91,22 @@ in
       keyMap = "us";
     };
     time.timeZone = "America/Los_Angeles";
+
+    # polkit
+    security.polkit.enable = true;
+    systemd.user.services.polkit-gnome = {
+      description = "polkit-gnome-authentication-agent-1";
+      wantedBy = [ "graphical-session.target" ];
+      wants = [ "graphical-session.target" ];
+      after = [ "graphical-session.target" ];
+      serviceConfig = {
+        Type = "simple";
+        ExecStart = "${pkgs.polkit_gnome}/libexec/polkit-gnome-authentication-agent-1";
+        Restart = "on-failure";
+        RestartSec = 1;
+        TimeoutStopSec = 10;
+      };
+    };
 
     users.users.paho = {
       shell = pkgs.bash;
