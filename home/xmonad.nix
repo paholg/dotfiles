@@ -83,6 +83,7 @@ in
 
     services.picom = {
       enable = true;
+      vSync = true;
     };
 
     services.xidlehook = {
