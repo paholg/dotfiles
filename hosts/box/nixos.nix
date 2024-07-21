@@ -6,8 +6,8 @@ in
   imports = [
     ./hardware-configuration.nix
     ./ddns.nix
-    ./media.nix
-    ./vpn.nix
+    # ./media.nix
+    # ./vpn.nix
     # TODO: Get working
     # ./wireguard.nix
   ];
@@ -51,7 +51,7 @@ in
     };
 
     fileSystems = {
-      "${cfg.drives.storage}" = {
+      "/mnt/storage_old" = {
         device = "/dev/disk/by-uuid/ce5baea0-d13f-48be-88a1-a8b30b493b5e";
         fsType = "btrfs";
       };
@@ -69,8 +69,7 @@ in
       options zfs ashift=12 xattr=sa compression=lz4 atime=off recordsize=1M
     '';
     networking.hostId = "b0c5b0c5";
-    # TODO:
-    # boot.zfs.extraPools = ["storage"];
+    boot.zfs.extraPools = [ "storage" ];
     # ****************************************************************************
 
     # Michael Perlin SSH access
