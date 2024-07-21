@@ -1,13 +1,10 @@
 { config, lib, ... }:
-let
-  cfg = config.custom;
-in
 {
   imports = [
     ./hardware-configuration.nix
     ./ddns.nix
-    # ./media.nix
-    # ./vpn.nix
+    ./media.nix
+    ./vpn.nix
     # TODO: Get working
     # ./wireguard.nix
   ];
@@ -50,27 +47,17 @@ in
       };
     };
 
-    fileSystems = {
-      "/mnt/storage_old" = {
-        device = "/dev/disk/by-uuid/ce5baea0-d13f-48be-88a1-a8b30b493b5e";
-        fsType = "btrfs";
-      };
-    };
-    services.btrfs.autoScrub.enable = true;
-
-    # ****************************************************************************
-    # ZFS STUFF
+    # ZFS
     boot.kernelPackages = config.boot.zfs.package.latestCompatibleLinuxPackages;
     services.zfs.autoScrub.enable = true;
     boot.supportedFilesystems = [ "zfs" ];
     boot.zfs.forceImportRoot = false;
-    # ZFS Tuning taken from https://jrs-s.net/2018/08/17/zfs-tuning-cheat-sheet/
+    # ZFS tuning taken from https://jrs-s.net/2018/08/17/zfs-tuning-cheat-sheet/
     boot.extraModprobeConfig = ''
       options zfs ashift=12 xattr=sa compression=lz4 atime=off recordsize=1M
     '';
     networking.hostId = "b0c5b0c5";
     boot.zfs.extraPools = [ "storage" ];
-    # ****************************************************************************
 
     # Michael Perlin SSH access
     users.users.perlinm = {
