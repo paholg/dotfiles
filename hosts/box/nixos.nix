@@ -5,6 +5,7 @@ in
 {
   imports = [
     ./hardware-configuration.nix
+    ./ddns.nix
     ./media.nix
     ./vpn.nix
     # TODO: Get working
@@ -71,13 +72,6 @@ in
     # TODO:
     # boot.zfs.extraPools = ["storage"];
     # ****************************************************************************
-
-    services.cron = {
-      enable = true;
-      systemCronJobs = [
-        "* * * * * paho . /etc/profile; /home/paho/dotfiles/hosts/box/ddns.sh &> /tmp/cron.log"
-      ];
-    };
 
     # Michael Perlin SSH access
     users.users.perlinm = {

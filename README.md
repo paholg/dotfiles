@@ -9,14 +9,19 @@ home-manager), so the only configuration here is for that and for NixOS.
 * `bin/` contains scripts.
 * `home/` contains home-manager configuration, which includes all user-level
   config.
-* `nix/` contains NixOs configuration.
+* `nixos/` contains NixOs configuration.
 * `hosts/` contains config for individual hosts.
 
 # Instructions
 
-1. Set HOSTNAME
-2. Create `home.nix` and/or `configuration.nix` in hosts/HOSTNAME.
-3. Add entry in flake.nix for HOSTNAME.
-4. Enable experimantal features for "nix-command" and "flakes".
-5. Run ./install.sh
-6. Run `just up` to verify and get any updates.
+<!-- 1. Set HOSTNAME -->
+<!-- 2. Create `home.nix` and/or `configuration.nix` in hosts/HOSTNAME. -->
+<!-- 3. Add entry in flake.nix for HOSTNAME. -->
+<!-- 4. Enable experimantal features for "nix-command" and "flakes". -->
+<!-- 5. Run ./install.sh -->
+<!-- 6. Run `just up` to verify and get any updates. -->
+
+TODO: Get everything in nix store, so `dotfiles` doesn't even need to exist locally.
+
+TODO: New instructions/script.
+Note for agenix: Need ssh + system ssh key in keys.nix

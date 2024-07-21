@@ -4,6 +4,12 @@
   # TODO: Add more follows. Maybe a script to detect from flake.lock file?
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+    agenix = {
+      url = "github:ryantm/agenix";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.home-manager.follows = "home-manager";
+      inputs.systems.follows = "systems";
+    };
     # For `command-not-found`:
     flake-programs-sqlite = {
       url = "github:wamserma/flake-programs-sqlite";
@@ -93,6 +99,7 @@
           system = prev.system;
           config.allowUnfree = true;
         };
+        agenix = inputs.agenix.packages.${prev.system}.default;
         anyrun = inputs.anyrun.packages.${prev.system}.anyrun;
         display-switch = inputs.display-switch.defaultPackage.${prev.system};
         helix-custom = inputs.helix.packages.${prev.system}.default;
@@ -138,6 +145,7 @@
             modules = [
               ./hosts/${host}/nixos.nix
               ./nixos
+              inputs.agenix.nixosModules.default
               inputs.home-manager.nixosModules.home-manager
               # For `command-not-found`:
               inputs.flake-programs-sqlite.nixosModules.programs-sqlite

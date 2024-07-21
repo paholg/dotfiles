@@ -1,10 +1,12 @@
-{ config, ... }:
+{ config, pkgs, ... }:
 let
   cfg = config.custom;
 
   downloads = cfg.drives.storage + "/downloads";
   completed = cfg.drives.storage + "/completed";
   transmission = cfg.drives.storage + "/transmission";
+
+  ca_vancouver = (pkgs.writeText "ca_vancouver.ovpn" (builtins.readFile ./ca_vancouver.ovpn)).outPath;
 in
 {
   config = {
@@ -30,27 +32,16 @@ in
       bindMounts = {
         # Note: The container paths must match the host, as paths are provided
         # from transmission to Sonarr, etc.
-        "${downloads}" = {
-          hostPath = downloads;
-          isReadOnly = false;
-        };
-        "${completed}" = {
-          hostPath = completed;
-          isReadOnly = false;
-        };
-        "${transmission}" = {
-          hostPath = transmission;
-          isReadOnly = false;
-        };
+        "${downloads}".isReadOnly = false;
+        "${completed}".isReadOnly = false;
+        "${transmission}".isReadOnly = false;
         "/ca_vancouver.ovpn" = {
-          hostPath = "/home/paho/dotfiles/hosts/box/ca_vancouver.ovpn";
+          hostPath = ca_vancouver;
           isReadOnly = true;
         };
+        "${config.age.secrets.pia.path}".isReadOnly = true;
         # Fix DNS
-        "/etc/resolv.conf" = {
-          hostPath = "/etc/resolv.conf";
-          isReadOnly = true;
-        };
+        "/etc/resolv.conf".isReadOnly = true;
       };
 
       config =
@@ -85,12 +76,10 @@ in
           };
 
           services.openvpn.servers.pia = {
-            authUserPass = {
-              # NOTE: These end up world-readable. Not secure!
-              username = builtins.readFile /home/paho/secrets/pia_username;
-              password = builtins.readFile /home/paho/secrets/pia_password;
-            };
-            config = "config /ca_vancouver.ovpn";
+            config = ''
+              config /ca_vancouver.ovpn
+              auth-user-pass ${config.age.secrets.pia.path}
+            '';
           };
 
           services.transmission = {

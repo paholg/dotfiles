@@ -82,6 +82,7 @@ let
       [ ];
 
   default = with pkgs; [
+    agenix
     angle-grinder
     arandr
     aws-rotate-key

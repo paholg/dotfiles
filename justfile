@@ -16,6 +16,15 @@ up: \
 	up-nix \
 	sw
 
+swother host:
+	nixos-rebuild switch --flake . --target-host {{host}} --use-remote-sudo
+
+secret-edit file:
+	cd secrets && agenix -e {{file}}
+
+secret-rekey:
+	cd secrets && agenix -r
+
 # Update the dotfiles git repo
 [private]
 up-git:
@@ -63,7 +72,7 @@ sw: switch-nix switch-hm
 [private]
 switch-nix:
 	# TODO: Make pure
-	@just run nixos-rebuild "nh os switch . -- --impure --extra-experimental-features 'nix-command flakes'"
+	@just run nixos-rebuild "nh os switch . -- --extra-experimental-features 'nix-command flakes'"
 
 # Switch home-manager
 [private]
