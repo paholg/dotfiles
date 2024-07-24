@@ -1,9 +1,4 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ config, pkgs, ... }:
 let
   cfg = config.custom;
 in
@@ -23,6 +18,8 @@ in
       acceptTerms = true;
       defaults.email = "paho@paholg.com";
     };
+
+    environment.systemPackages = with pkgs; [ recyclarr ];
 
     services = {
       nginx = {

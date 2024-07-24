@@ -20,7 +20,7 @@ swother host:
 	nixos-rebuild switch --flake . --target-host {{host}} --use-remote-sudo
 
 secret-edit file:
-	cd secrets && agenix -e {{file}}
+	cd secrets && cp template {{file}} && agenix -e {{file}}
 
 secret-rekey:
 	cd secrets && agenix -r
