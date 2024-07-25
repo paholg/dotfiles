@@ -156,8 +156,8 @@ let
     pgcli
     pgformatter
     ra-multiplex
-    rip
     ripgrep
+    rm-improved
     rnr # regex rename
     ruby
     rufo
