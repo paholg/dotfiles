@@ -62,6 +62,16 @@ in
             gid = cfg.groups.media;
           };
 
+          # Increase the file descriptor limit
+          security.pam.loginLimits = [
+            {
+              domain = "*";
+              type = "soft";
+              item = "nofile";
+              value = "524288";
+            }
+          ];
+
           networking.nftables = {
             enable = true;
             tables.media_block = {
