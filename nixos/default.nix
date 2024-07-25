@@ -43,6 +43,7 @@ in
 
     # Enable all firmware regardless of license.
     hardware.enableAllFirmware = true;
+    hardware.enableRedistributableFirmware = true;
 
     networking.useDHCP = lib.mkDefault true;
     nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
