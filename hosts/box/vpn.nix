@@ -13,7 +13,7 @@ in
   config = {
     networking.nat = {
       enable = true;
-      externalInterface = "eno1";
+      externalInterface = "eno2";
       internalInterfaces = [ "ve-+" ];
     };
 
@@ -62,16 +62,6 @@ in
             gid = cfg.groups.media;
           };
 
-          # Increase the file descriptor limit
-          security.pam.loginLimits = [
-            {
-              domain = "*";
-              type = "soft";
-              item = "nofile";
-              value = "524288";
-            }
-          ];
-
           networking.nftables = {
             enable = true;
             tables.media_block = {
@@ -92,6 +82,7 @@ in
 
           services.openvpn.servers.air = {
             config = "config /config.ovpn";
+            updateResolvConf = true;
           };
 
           services.transmission = {
