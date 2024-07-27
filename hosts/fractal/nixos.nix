@@ -1,5 +1,6 @@
 { pkgs, ... }:
 {
+  imports = [ ./hardware-configuration.nix ];
   system.stateVersion = "23.11";
   networking.hostName = "fractal";
 
@@ -8,37 +9,6 @@
     next_dns = true;
     ssh = true;
   };
-
-  boot.initrd.availableKernelModules = [
-    "xhci_pci"
-    "ahci"
-    "nvme"
-    "usbhid"
-    "sd_mod"
-  ];
-  boot.initrd.kernelModules = [ ];
-  boot.kernelModules = [ "kvm-intel" ];
-  boot.extraModulePackages = [ ];
-  hardware.cpu.intel.updateMicrocode = true;
-
-  fileSystems = {
-    "/" = {
-      device = "/dev/disk/by-uuid/1543df69-6898-484e-ad8a-3aa78f46f039";
-      fsType = "ext4";
-    };
-
-    "/boot" = {
-      device = "/dev/disk/by-uuid/9F39-7573";
-      fsType = "vfat";
-    };
-
-    "/mnt/steam" = {
-      device = "/dev/disk/by-uuid/558f52a1-1444-4f6a-a8b9-e30c9d5b16f2";
-      fsType = "ext4";
-    };
-  };
-
-  swapDevices = [ ];
 
   # Maybe disable xpadneo for better results?
   # See: https://github.com/ValveSoftware/steam-for-linux/issues/9310#issuecomment-2098573826
