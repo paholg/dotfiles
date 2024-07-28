@@ -21,10 +21,6 @@
     networking.hostName = "box";
 
     custom = {
-      # Setting up NextDNS breaks routing for the nixos-container.
-      # Rather than solve this, we just mark it as false since we're using it on
-      # our router anyway.
-      next_dns = false;
       ssh = true;
       gui = false;
 

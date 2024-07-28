@@ -6,7 +6,6 @@
 
   custom = {
     gui = true;
-    next_dns = true;
     ssh = true;
   };
 

@@ -24,7 +24,6 @@ in
   ];
 
   options.custom = {
-    next_dns = lib.mkOption { type = lib.types.bool; };
     ssh = lib.mkOption { type = lib.types.bool; };
     gui = lib.mkOption { type = lib.types.bool; };
   };
@@ -134,16 +133,11 @@ in
     };
 
     services.fwupd.enable = true;
-    services.resolved = lib.mkIf cfg.next_dns {
-      enable = true;
-      extraConfig = ''
-        [Resolve]
-        DNS=45.90.28.0#827fdd.dns.nextdns.io
-        DNS=2a07:a8c0::#827fdd.dns.nextdns.io
-        DNS=45.90.30.0#827fdd.dns.nextdns.io
-        DNS=2a07:a8c1::#827fdd.dns.nextdns.io
-        DNSOverTLS=yes
-      '';
-    };
+
+    # Use Quad9 for DNS
+    networking.nameservers = [
+      "9.9.9.9"
+      "149.112.112.112"
+    ];
   };
 }
