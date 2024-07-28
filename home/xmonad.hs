@@ -214,7 +214,7 @@ my_keys = [
   ("M-<Space>", sendMessage NextLayout),
   ("M-q", spawn ""), -- unbind this key
   ("M-C-q", kill),
-  ("M-C-l", spawn "lock"),
+  ("M-C-l", spawn "locker"),
   ("M-M1-x", spawn "xkill"),
   ("M-S-q", sequence_ [spawn "killall rustybar", restart "xmonad" True]),
   ("M-M1-q", io (exitWith ExitSuccess)), -- exit xmonad

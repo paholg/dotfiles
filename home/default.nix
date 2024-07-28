@@ -14,9 +14,11 @@ in
     ./display-switch.nix
     ./firefox.nix
     ./helix.nix
+    ./mangohud.nix
     ./packages.nix
     ./starship.nix
     ./sway.nix
+    ./x11_lock.nix
     ./xfce.nix
     ./xmonad.nix
   ];
