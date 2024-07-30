@@ -58,7 +58,6 @@ let
         blender
         brightnessctl
         chromium
-        unfree.discord
         dconf
         dolphin
         dzen2
@@ -74,6 +73,7 @@ let
         rustybar
         scrot
         signal-desktop
+        unfree.discord
         unfree.slack
         vlc
         zoom-us
@@ -82,6 +82,7 @@ let
       [ ];
 
   default = with pkgs; [
+    # iredis
     agenix
     angle-grinder
     arandr
@@ -113,6 +114,7 @@ let
     difftastic
     diskus
     du-dust
+    dysk
     eza
     fd
     feh
@@ -127,12 +129,12 @@ let
     htop
     httpie
     hyperfine
-    # iredis
     jq
     just
     jwt-cli
     litecli
     lld
+    lsd
     marksman # markdown lsp
     mdcat
     mosh
@@ -142,19 +144,20 @@ let
     nickel
     nil # nix language server
     niv
-    nixfmt-rfc-style
     nix-output-monitor
+    nixfmt-rfc-style
     nls # nickel language server
     nmap
     nodePackages.typescript-language-server
+    onefetch
     openssl
     pciutils # lspci, etc.
     perl
-    # pkg-config
     pgcli
     pgformatter
     ra-multiplex
     ripgrep
+    rm-improved
     rnr # regex rename
     ruby
     rufo

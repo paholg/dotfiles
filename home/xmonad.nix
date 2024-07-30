@@ -4,35 +4,15 @@
   pkgs,
   ...
 }:
-let
-  cfg = config.custom;
-  # Simple script that calls i3lock, first running a background task to put the
-  # screen to sleep every few seconds.
-  lock_script = pkgs.writeShellApplication {
-    name = "lock";
-    runtimeInputs = with pkgs; [
-      xidlehook
-      i3lock
-      xorg.xset
-    ];
-    text = # bash
-      ''
-        xidlehook --timer 5 "xset dpms force off" ""&
-        IDLE_PID=$!
-        i3lock -c 11aaaa
-        kill $IDLE_PID
-      '';
-  };
-  lock = lib.getExe lock_script;
-in
 {
   options.custom.xmonad = {
     enable = lib.mkEnableOption "Xmonad";
   };
 
-  config = lib.mkIf cfg.xmonad.enable {
+  config = lib.mkIf config.custom.xmonad.enable {
     custom.wayland = false;
     custom.x11 = true;
+    custom.x11_lock.enable = true;
 
     services = {
       dunst = {
@@ -48,8 +28,8 @@ in
             format = "%a: %s";
             alignment = "right";
             word_wrap = true;
-            dmenu = "/usr/bin/env dmenu";
-            browser = "/usr/bin/env firefox";
+            dmenu = lib.getExe pkgs.dmenu;
+            browser = lib.getExe pkgs.firefox;
             mouse_left_click = "do_action";
             mouse_middle_click = "close_all";
             mouse_right_click = "close_current";
@@ -79,25 +59,9 @@ in
         exec $HOME/.xsession
       '';
 
-    home.packages = [ lock_script ];
-
     services.picom = {
       enable = true;
       vSync = true;
-    };
-
-    services.xidlehook = {
-      enable = true;
-      timers = [
-        {
-          delay = 285;
-          command = ''${lib.getExe pkgs.libnotify} -t 15000 -- "LOCKING in 15"'';
-        }
-        {
-          delay = 300;
-          command = lock;
-        }
-      ];
     };
 
     xsession = {
