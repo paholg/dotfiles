@@ -22,6 +22,8 @@ in
 
     programs.dconf.enable = true;
 
+    fonts.packages = with pkgs; [ (nerdfonts.override { fonts = [ "FiraCode" ]; }) ];
+
     # Workaround for swaylock not accepting my password.
     security.pam.services.swaylock = { };
 

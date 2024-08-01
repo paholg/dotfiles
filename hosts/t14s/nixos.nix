@@ -15,6 +15,13 @@
   # For display-switch
   hardware.i2c.enable = true;
 
+  # DisplayLink proprietary drivers for USB hubs.
+  # NOTE: Needs to be manually downloaded :(
+  services.xserver.videoDrivers = [
+    "displaylink"
+    "modesetting"
+  ];
+
   networking.networkmanager.enable = true;
 
   hardware.opengl = {
