@@ -44,6 +44,8 @@ in
         gnome-keyring.enable = true;
       };
 
+      libinput.enable = true;
+
       printing = {
         enable = true;
         drivers = [ pkgs.samsung-unified-linux-driver ];
@@ -53,9 +55,7 @@ in
         enable = true;
         displayManager.startx.enable = true;
         autorun = false;
-        libinput.enable = true;
-        layout = "us";
-        xkbVariant = "";
+        xkb.layout = "us";
       };
     };
 

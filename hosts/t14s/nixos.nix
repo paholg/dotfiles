@@ -24,10 +24,10 @@
 
   networking.networkmanager.enable = true;
 
-  hardware.opengl = {
+  hardware.graphics = {
     enable = true;
 
-    driSupport32Bit = true;
+    enable32Bit = true;
     # amdvlk: open-source Vulkan driver from AMD
     extraPackages = [ pkgs.amdvlk ];
     extraPackages32 = [ pkgs.driversi686Linux.amdvlk ];

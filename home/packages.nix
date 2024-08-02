@@ -61,9 +61,9 @@ let
         dconf
         dolphin
         dzen2
+        eog
         gimp
         glxinfo
-        gnome.eog
         krita-beta
         libnotify
         lxappearance
