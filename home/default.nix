@@ -10,6 +10,7 @@ let
 in
 {
   imports = [
+    ./i3.nix
     ./alacritty.nix
     ./display-switch.nix
     ./firefox.nix
