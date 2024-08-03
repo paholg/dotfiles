@@ -169,6 +169,9 @@ let
     sshfs-fuse
     taplo-cli # toml language server
     terraform-ls
+    tinymist
+    typst
+    typst-lsp
     tokei
     unison
     unzip
