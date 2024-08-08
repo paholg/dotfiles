@@ -1,4 +1,4 @@
-{ ... }:
+{ pkgs, ... }:
 {
   imports = [ ../../home ];
   home.stateVersion = "24.05";
@@ -19,4 +19,10 @@
         [ "$TTY" = "/dev/tty1" ] && exec "startx"
       '';
   };
+
+  home.packages = with pkgs; [
+    dive
+    podman-tui
+    distrobox
+  ];
 }
