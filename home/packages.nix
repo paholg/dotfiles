@@ -61,9 +61,9 @@ let
         dconf
         dolphin
         dzen2
+        eog
         gimp
         glxinfo
-        gnome.eog
         krita-beta
         libnotify
         lxappearance
@@ -169,6 +169,9 @@ let
     sshfs-fuse
     taplo-cli # toml language server
     terraform-ls
+    tinymist
+    typst
+    typst-lsp
     tokei
     unison
     unzip

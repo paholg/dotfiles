@@ -176,6 +176,7 @@
           "paho"
           "guest"
         ];
+        frame.users = [ "paho" ];
         t14s.users = [ "paho" ];
       };
     };

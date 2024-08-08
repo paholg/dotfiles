@@ -4,9 +4,6 @@
   pkgs,
   ...
 }:
-let
-  cfg = config.custom;
-in
 # ra_multiplex = "${lib.getExe' pkgs.ra-multiplex "ra-multiplex"}";
 {
   options.custom.helix = {
@@ -44,7 +41,7 @@ in
 
     programs.helix = {
       enable = true;
-      package = cfg.helix.pkg;
+      package = config.custom.helix.pkg;
       languages = {
         language = [
           {

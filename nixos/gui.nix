@@ -22,6 +22,8 @@ in
 
     programs.dconf.enable = true;
 
+    fonts.packages = with pkgs; [ (nerdfonts.override { fonts = [ "FiraCode" ]; }) ];
+
     # Workaround for swaylock not accepting my password.
     security.pam.services.swaylock = { };
 
@@ -42,6 +44,8 @@ in
         gnome-keyring.enable = true;
       };
 
+      libinput.enable = true;
+
       printing = {
         enable = true;
         drivers = [ pkgs.samsung-unified-linux-driver ];
@@ -51,9 +55,7 @@ in
         enable = true;
         displayManager.startx.enable = true;
         autorun = false;
-        libinput.enable = true;
-        layout = "us";
-        xkbVariant = "";
+        xkb.layout = "us";
       };
     };
 

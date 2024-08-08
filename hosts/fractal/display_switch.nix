@@ -10,7 +10,7 @@
         monitor1 = {
           monitor_id = "Gigabyte M32U";
           on_usb_connect = "DisplayPort1";
-          on_usb_disconnect = "DisplayPort2";
+          on_usb_disconnect = "Hdmi2";
         };
         monitor2 = {
           monitor_id = "HP Z32";
@@ -18,7 +18,7 @@
           # accept i2c signals when its already connected. Maybe if I have
           # display-switch with disconnect on both computers?
           on_usb_connect = "DisplayPort1";
-          on_usb_disconnect = "HDMI1";
+          on_usb_disconnect = "Hdmi1";
         };
       };
     };

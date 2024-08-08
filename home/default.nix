@@ -10,6 +10,7 @@ let
 in
 {
   imports = [
+    ./i3.nix
     ./alacritty.nix
     ./display-switch.nix
     ./firefox.nix
@@ -51,12 +52,12 @@ in
       enable = cfg.gui;
       theme = {
         name = "Adwaita-dark";
-        package = pkgs.gnome.gnome-themes-extra;
+        package = pkgs.gnome-themes-extra;
       };
     };
     qt = {
       enable = cfg.gui;
-      platformTheme = "gnome";
+      platformTheme.name = "adwaita";
       style.name = "adwaita-dark";
     };
 

@@ -14,7 +14,18 @@ in
     settings = lib.mkOption {
       type = (pkgs.formats.iniWithGlobalSection { }).type;
       default = { };
-      description = "Display Switch config file";
+      description = ''
+        Display Switch config file.
+
+        Note: Does not work over DisplayLink.
+
+        Get the USB device using `lsusb`.
+
+        Get the monitor ids using `ddcutil detect`.
+
+        The input IDs are Hdmi1, Hdmi2, DisplayPort2, DisplayPort2. For USB-C,
+        it will probably be DisplayPort2.
+      '';
       example = {
         globalSection = {
           usb_device = "abcd:1234";

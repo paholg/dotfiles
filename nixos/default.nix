@@ -1,12 +1,5 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ lib, pkgs, ... }:
 let
-  cfg = config.custom;
-
   secret_files = with builtins; filter (f: f != "secrets.nix") (attrNames (readDir ../secrets));
   secrets = builtins.listToAttrs (
     map (f: {
