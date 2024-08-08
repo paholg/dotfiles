@@ -36,11 +36,37 @@ in
           locations."/sonarr".proxyPass = "http://localhost:${toString cfg.ports.sonarr}/sonarr";
         };
 
+        virtualHosts."auth.paholg.com" = {
+          enableACME = true;
+          forceSSL = true;
+          locations."/".proxyPass = "http://localhost:${toString config.services.keycloak.settings.http-port}/";
+        };
+
         virtualHosts."tv.paholg.com" = {
           enableACME = true;
           forceSSL = true;
-          # jellyfin
           locations."/".proxyPass = "http://localhost:${toString cfg.ports.jellyfin}";
+        };
+      };
+
+      postgresql = {
+        enable = true;
+        package = pkgs.postgresql_16;
+        dataDir = config.custom.drives.storage + "/postgres";
+      };
+
+      keycloak = {
+        enable = true;
+        database = {
+          type = "postgresql";
+          passwordFile = config.age.secrets.keycloak_postgres_pw.path;
+        };
+
+        settings = {
+          hostname = "auth.paholg.com";
+          http-port = 38080;
+          proxy-headers = "xforwarded";
+          http-enabled = true;
         };
       };
 
