@@ -6,6 +6,9 @@
   fractal = {
     paho = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAINiwxr54qPq+/0gJNA0QGJRWh1VVhTGraYirDQ30wcDI paho@nixos";
   };
+  frame = {
+    paho = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIHDc3j00XKN88DEvApCgwxo8kWPehhlIMnJIgcBLLP09 paho@frame";
+  };
   t14s = {
     system = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOxZYxMc3qHT3RlBzVHXdxwfw+SC/Ak4mgPqXtUXPwQH";
     paho = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIIQJXbrxsf62WbCtljpQBzonh0SZ7A0g9SsqKbdy0amE paho@t14s";
