@@ -10,11 +10,11 @@
     username = "paho";
     gui = true;
     linux = true;
+    mangohud.enable = true;
     nixos = true;
     starship.host_color = "cyan";
     xmonad.enable = true;
-    fish_extra_init =
-      # fish
+    fish_extra_init = # fish
       ''
         set TTY (tty)
         # TTY2: startx

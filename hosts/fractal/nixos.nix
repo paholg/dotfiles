@@ -50,40 +50,19 @@
     isNormalUser = true;
   };
 
-  # Auto-login guest on TTY1
-  # systemd.targets."autologin-tty1" = {
-  #   requires = [ "multi-user.target" ];
-  #   after = [ "multi-user.target" ];
-  #   unitConfig = {
-  #     AllowIsolate = "yes";
-  #   };
-  # };
-  systemd.services."getty@tty1" = {
-    description = "Autologin guest on TTY1";
-    after = [ "systemd-logind.service" ];
-    wantedBy = [ "multi-user.target" ];
-    serviceConfig = {
-      ExecStart = [
-        ""
-        "@${pkgs.utillinux}/sbin/agetty agetty --login-program ${pkgs.shadow}/bin/login --autologin guest --noclear %I $TERM"
-      ];
-      Restart = "always";
-      Type = "idle";
-    };
-  };
-  # TODO: switch to this when it can be for just one tty
-  # https://github.com/NixOS/nixpkgs/issues/81552
-  # services.getty.autologinUser = "guest";
-
   services.xserver = {
     enable = true;
-    displayManager.startx.enable = true;
-    # # windowManager.xmonad = {
-    # #   enable = true;
-    # #   enableContribAndExtras = true;
-    # # };
+    displayManager = {
+      # autoLogin.enable = true;
+      # autoLogin.user = "guest";
+      # gdm.enable = true;
+      startx.enable = true;
+    };
+    # desktopManager.gnome.enable = true;
     desktopManager.xfce.enable = true;
   };
+  # systemd.services."getty@tty1".enable = false;
+  # systemd.services."autovt@tty1".enable = false;
 
   programs.steam = {
     enable = true;

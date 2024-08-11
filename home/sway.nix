@@ -138,21 +138,6 @@ in
       swaynag.enable = true;
     };
 
-    programs.mangohud = {
-      enable = true;
-      enableSessionWide = true;
-      settings = {
-        toggle_hud = "Super_L+slash";
-
-        fps_limit = 0;
-      };
-    };
-
-    home.sessionVariables = {
-      # Hide mangohud by default
-      MANGOHUD_CONFIG = "no_display";
-    };
-
     home.packages = with pkgs; [
       tofi # App launcher
       wl-clipboard

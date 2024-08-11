@@ -15,7 +15,7 @@ in
     ./display-switch.nix
     ./firefox.nix
     ./helix.nix
-    # ./mangohud.nix
+    ./mangohud.nix
     ./packages.nix
     ./starship.nix
     ./sway.nix

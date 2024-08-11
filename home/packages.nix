@@ -42,6 +42,7 @@ let
       [
         xclip
         xdotool
+        xorg.xev
         xsel
         xterm
       ]
