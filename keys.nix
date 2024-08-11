@@ -8,6 +8,7 @@
     paho = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAINiwxr54qPq+/0gJNA0QGJRWh1VVhTGraYirDQ30wcDI paho@nixos";
   };
   frame = {
+    system = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAINpeveePFaKTMn6poqRLtSYztJBAxQrmGvog+hhjQViI root@frame";
     paho = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIHDc3j00XKN88DEvApCgwxo8kWPehhlIMnJIgcBLLP09 paho@frame";
   };
   pixel5 = {
