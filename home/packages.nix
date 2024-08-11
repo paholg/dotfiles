@@ -43,6 +43,7 @@ let
         xclip
         xdotool
         xorg.xev
+        xorg.xkill
         xsel
         xterm
       ]
@@ -71,6 +72,7 @@ let
         lxqt.lxqt-policykit
         okular
         pavucontrol
+        pulseaudioFull
         rustybar
         scrot
         signal-desktop

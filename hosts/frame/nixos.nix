@@ -24,6 +24,10 @@
     extraPackages32 = [ pkgs.driversi686Linux.amdvlk ];
   };
 
+  services.logind.extraConfig = ''
+    HandlePowerKey=suspend
+  '';
+
   virtualisation.podman = {
     enable = true;
     dockerCompat = true;
