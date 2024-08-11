@@ -1,7 +1,7 @@
 { config, lib, ... }:
 {
   options.custom.mangohud = {
-    enable = lib.mkOption { type = lib.types.bool; };
+    enable = lib.mkEnableOption "Mangohud";
   };
 
   config = lib.mkIf config.custom.mangohud.enable {
