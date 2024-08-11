@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ ... }:
 
 {
   imports = [ ./hardware-configuration.nix ];
@@ -9,20 +9,12 @@
   custom = {
     gui = true;
     ssh = true;
+    amd-graphics = true;
   };
 
   boot.initrd.luks.devices."luks-0f2fe45b-6e0e-4cb6-b9ee-87b639fb04cb".device = "/dev/disk/by-uuid/0f2fe45b-6e0e-4cb6-b9ee-87b639fb04cb";
 
   networking.networkmanager.enable = true;
-
-  hardware.graphics = {
-    enable = true;
-
-    enable32Bit = true;
-    # amdvlk: open-source Vulkan driver from AMD
-    extraPackages = [ pkgs.amdvlk ];
-    extraPackages32 = [ pkgs.driversi686Linux.amdvlk ];
-  };
 
   services.logind.extraConfig = ''
     HandlePowerKey=suspend
@@ -32,5 +24,16 @@
     enable = true;
     dockerCompat = true;
     defaultNetwork.settings.dns_enabled = true;
+  };
+
+  # ***************************************************************************
+  # Fingerprint
+  services.fprintd = {
+    enable = true;
+  };
+  # Start the driver at boot
+  systemd.services.fprintd = {
+    wantedBy = [ "multi-user.target" ];
+    serviceConfig.type = "simple";
   };
 }

@@ -54,6 +54,7 @@ in
         enable = true;
         touchpad = {
           tapping = false;
+          clickMethod = "clickfinger";
           disableWhileTyping = true;
         };
       };

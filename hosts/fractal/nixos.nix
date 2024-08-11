@@ -7,6 +7,7 @@
   custom = {
     gui = true;
     ssh = true;
+    amd-graphics = true;
   };
 
   # Maybe disable xpadneo for better results?
@@ -18,15 +19,6 @@
 
   networking.networkmanager.enable = false;
   networking.wireless.enable = false;
-
-  hardware.graphics = {
-    enable = true;
-
-    enable32Bit = true;
-    # amdvlk: open-source Vulkan driver from AMD
-    extraPackages = [ pkgs.amdvlk ];
-    extraPackages32 = [ pkgs.driversi686Linux.amdvlk ];
-  };
 
   users.users.guest = {
     description = "Guest";
