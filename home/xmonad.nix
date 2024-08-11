@@ -48,7 +48,7 @@
 
         # FROM https://wiki.nixos.org/wiki/Using_X_without_a_Display_Manager#Setting_up_Xorg_system-wide_but_without_a_Display_Manager
         if test -z "$DBUS_SESSION_BUS_ADDRESS"; then
-        	eval $(dbus-launch --exit-with-session --sh-syntax)
+          eval $(dbus-launch --exit-with-session --sh-syntax)
         fi
         systemctl --user import-environment DISPLAY XAUTHORITY
 
