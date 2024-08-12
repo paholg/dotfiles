@@ -1,5 +1,4 @@
-{ ... }:
-
+{ lib, pkgs, ... }:
 {
   imports = [ ./hardware-configuration.nix ];
 
@@ -22,11 +21,23 @@
 
   virtualisation.podman = {
     enable = true;
+    autoPrune.enable = true;
     dockerCompat = true;
     defaultNetwork.settings.dns_enabled = true;
   };
 
-  # ***************************************************************************
+  systemd.services.distrobox-vanta = {
+    enable = true;
+    wantedBy = [ "multi-user.target" ];
+    after = [ "podman.service" ];
+    bindsTo = [ "podman.service" ];
+
+    serviceConfig = {
+      ExecStart = "${lib.getExe pkgs.podman} start -a vanta";
+    };
+  };
+
+  # ****************************************************************************
   # Fingerprint
   services.fprintd = {
     enable = true;

@@ -115,8 +115,6 @@ in
           ''
             fd --no-ignore-vcs -Ho root | xargs -d'
             ' sudo chown -h ${cfg.username}:${cfg.username}'';
-
-        sudop = ''sudo env "PATH=$PATH"'';
       };
     };
 
