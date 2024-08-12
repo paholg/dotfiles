@@ -5,8 +5,8 @@
   ...
 }:
 let
-  cfg = config.custom;
   helix = lib.getExe config.custom.helix.pkg;
+  homeDir = config.home.homeDirectory;
 in
 {
   imports = [
@@ -38,32 +38,45 @@ in
   };
 
   config = {
-    targets.genericLinux.enable = !cfg.nixos;
+    targets.genericLinux.enable = !config.custom.nixos;
 
-    custom = lib.mkIf (!cfg.gui || !cfg.linux) {
+    custom = lib.mkIf (!config.custom.gui || !config.custom.linux) {
       wayland = false;
       x11 = false;
     };
 
     fonts.fontconfig.enable = true;
 
+    xdg.userDirs = {
+      enable = true;
+      createDirectories = false;
+      desktop = "${homeDir}/.";
+      documents = "${homeDir}/docs";
+      download = "${homeDir}/downloads";
+      music = "${homeDir}/docs/music";
+      pictures = "${homeDir}/docs/pics";
+      publicShare = "${homeDir}/docs/public";
+      templates = "${homeDir}/docs/templates";
+      videos = "${homeDir}/docs/videos";
+    };
+
     # Themes
     gtk = {
-      enable = cfg.gui;
+      enable = config.custom.gui;
       theme = {
         name = "Adwaita-dark";
         package = pkgs.gnome-themes-extra;
       };
     };
     qt = {
-      enable = cfg.gui;
+      enable = config.custom.gui;
       platformTheme.name = "adwaita";
       style.name = "adwaita-dark";
     };
 
     home = {
-      username = cfg.username;
-      homeDirectory = "/home/${cfg.username}";
+      username = config.custom.username;
+      homeDirectory = "/home/${config.custom.username}";
 
       keyboard.options = [ "caps:backspace" ];
 
@@ -114,7 +127,7 @@ in
           # fish
           ''
             fd --no-ignore-vcs -Ho root | xargs -d'
-            ' sudo chown -h ${cfg.username}:${cfg.username}'';
+            ' sudo chown -h ${config.custom.username}:${config.custom.username}'';
       };
     };
 
@@ -165,7 +178,7 @@ in
       };
     };
 
-    services.redshift = lib.mkIf cfg.gui {
+    services.redshift = lib.mkIf config.custom.gui {
       enable = true;
       provider = "geoclue2";
       temperature = {
@@ -223,7 +236,7 @@ in
             # https://github.com/nix-community/home-manager/pull/5199
             set fish_complete_path "${config.home.path}/share/fish/vendor_completions.d" $fish_complete_path
           ''
-          + cfg.fish_extra_init;
+          + config.custom.fish_extra_init;
 
         functions = {
           nshell = {
@@ -243,7 +256,7 @@ in
         enableFishIntegration = true;
       };
 
-      git = lib.mkIf (cfg.username == "paho") {
+      git = lib.mkIf (config.custom.username == "paho") {
         enable = true;
         userName = "Paho Lurie-Gregg";
         userEmail = lib.mkDefault "paho@paholg.com";
@@ -287,7 +300,7 @@ in
         matchBlocks =
           lib.mapAttrs
             (name: host: {
-              user = cfg.username;
+              user = config.custom.username;
               hostname = host;
             })
             {
