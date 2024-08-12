@@ -85,6 +85,10 @@
             # language-servers = ["ra-multiplex"];
           }
           {
+            name = "ruby";
+            language-servers = [ "ruby-lsp" ];
+          }
+          {
             name = "toml";
             auto-format = true;
           }
@@ -93,6 +97,9 @@
         language-server = {
           nixd = {
             command = "${lib.getExe pkgs.nixd}";
+          };
+          ruby-lsp = {
+            command = "${lib.getExe pkgs.ruby-lsp}";
           };
           # ra-multiplex = {
           #   command = ra_multiplex;
@@ -104,7 +111,6 @@
       settings = {
         editor = {
           true-color = true;
-          # auto-pairs = false;
           bufferline = "multiple";
           indent-guides.render = true;
           file-picker = {

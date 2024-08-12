@@ -163,12 +163,12 @@ let
     rm-improved
     rnr # regex rename
     ruby
+    ruby-lsp
     rufo
     rustup
     sd
     shellcheck
     socat
-    solargraph
     sshfs-fuse
     taplo-cli # toml language server
     terraform-ls
