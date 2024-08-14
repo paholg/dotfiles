@@ -43,6 +43,15 @@ in
       default-sample-rate = 48000;
     };
 
+    hardware.printers.ensurePrinters = [
+      {
+        name = "Samsung_Xpress";
+        location = "Paho Office";
+        deviceUri = "ipp://10.0.0.2/ipp";
+        model = "samsung/M267x.ppd";
+      }
+    ];
+
     services = {
       blueman.enable = true;
 
