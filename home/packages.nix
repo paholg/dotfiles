@@ -27,6 +27,7 @@ let
       [
         dialog
         dmenu
+        libreoffice
         # TODO: Broken
         # inlyne # markdown viewer
         (nerdfonts.override { fonts = [ "FiraCode" ]; })
@@ -64,6 +65,7 @@ let
         dolphin
         dzen2
         eog
+        evince
         gimp
         glxinfo
         krita-beta
@@ -164,6 +166,7 @@ let
     rnr # regex rename
     ruby
     ruby-lsp
+    rubyfmt
     rufo
     rustup
     sd
