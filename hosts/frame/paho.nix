@@ -20,9 +20,15 @@
       '';
   };
 
+  home.shellAliases = {
+    my = "mycli --socket /tmp/mysql.sock -uroot -D scholarly_development";
+  };
+
   home.packages = with pkgs; [
-    dive
-    podman-tui
     distrobox
+    heroku
+    iredis
+    mycli
+    pscale
   ];
 }

@@ -26,15 +26,25 @@
     defaultNetwork.settings.dns_enabled = true;
   };
 
-  systemd.services.distrobox-vanta = {
-    enable = true;
-    wantedBy = [ "multi-user.target" ];
-    after = [ "podman.service" ];
-    bindsTo = [ "podman.service" ];
+  # FIXME
+  # systemd.services.distrobox-vanta = {
+  #   enable = true;
+  #   wantedBy = [ "multi-user.target" ];
+  #   after = [ "podman.service" ];
+  #   bindsTo = [ "podman.service" ];
 
-    serviceConfig = {
-      ExecStart = "${lib.getExe pkgs.podman} start -a vanta";
-    };
+  #   serviceConfig = {
+  #     ExecStart = "${lib.getExe pkgs.podman} start -a vanta";
+  #   };
+  # };
+
+  services.mysql = {
+    enable = true;
+    package = pkgs.mysql80;
+  };
+
+  services.redis.servers."" = {
+    enable = true;
   };
 
   # ****************************************************************************
