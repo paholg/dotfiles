@@ -152,7 +152,7 @@ in
           align_entries = true;
           array_auto_collapse = true;
           array_auto_expand = false;
-          reorder_keys = true;
+          reorder_keys = false;
         };
       };
     };
