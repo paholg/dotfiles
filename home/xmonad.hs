@@ -23,7 +23,7 @@ import XMonad.Layout.PerWorkspace
 import XMonad.Layout.Renamed
 import XMonad.Layout.ResizableTile
 import XMonad.Layout.Spacing
-import XMonad.Layout.ThreeColumns
+import XMonad.Layout.ResizableThreeColumns
 import XMonad.Layout.WindowNavigation
 import XMonad.Util.EZConfig(additionalKeysP)
 import XMonad.Util.NamedScratchpad
@@ -85,22 +85,23 @@ my_statusbar = "rustybar"
 
 ------------------------------------------------------------
 -- layouts
-
+three = ResizableThreeColMid 1 (4/100) (1/2) []
 tall = renamed [Replace "Tall"] $ ResizableTall 1 (1/20) (10/20) []
 -- mirror = renamed [Replace "Mirror" ] $ ResizableTall 2 (4/100) (89/100) []
 -- big = renamed [Replace "Big"] $ ResizableTall 1 (1/20) (18/20) []
 -- cal = renamed [Replace "Cal"] $ ResizableTall 2 (1/20) (15/20) []
--- three = ThreeCol 1 (4/100) (1/2)
 
-main_layout = windowNavigation (tall)
+three_layout = windowNavigation(three)
+tall_layout = windowNavigation (tall)
 -- big_layout = windowNavigation (big)
 -- cal_layout = windowNavigation (cal)
 -- mirror_layout = windowNavigation (mirror)
--- trip_layout = windowNavigation(three)
 
-space = 5
+space = 3
 
-layout = (noBorders . avoidStruts . spacing space . gaps [(U, -space), (R, -space), (L, -space), (D, -space)] $ main_layout) ||| (noBorders . avoidStruts $ Full)
+layout = (noBorders . avoidStruts . spacing space . gaps [(U, -space), (R, -space), (L, -space), (D, -space)] $ three_layout)
+ ||| (noBorders . avoidStruts . spacing space . gaps [(U, -space), (R, -space), (L, -space), (D, -space)] $ tall_layout)
+ ||| (noBorders . avoidStruts $ Full)
   -- ||| (avoidStruts $ mirror_layout)
 
 ------------------------------------------------------------

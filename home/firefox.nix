@@ -8,8 +8,8 @@ let
         "services.sync.username" = "paho@paholg.com";
 
         # These settings together disable the default tab bar:
-        "toolkit.legacyUserProfileCustomizations.stylesheets" = true;
-        "browser.tabs.tabmanager.enabled" = false;
+        # "toolkit.legacyUserProfileCustomizations.stylesheets" = true;
+        # "browser.tabs.tabmanager.enabled" = false;
       }
     else
       { };
