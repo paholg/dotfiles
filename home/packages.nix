@@ -62,6 +62,7 @@ let
         brightnessctl
         chromium
         dconf
+        ddcutil
         dolphin
         dzen2
         eog
