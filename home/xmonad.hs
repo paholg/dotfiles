@@ -146,10 +146,8 @@ manageZoomHook =
 ------------------------------------------------------------
 -- scratch pads
 scratch_pads = [ NS "terminal" spawnTerm findTerm manageTerm,
-                 NS "bitwarden" spawnBitwarden findBitwarden manageBitwarden,
                  NS "volume" spawnVolume findVolume manageVolume,
-                 NS "calc" spawnCalc findCalc manageCalc,
-                 NS "network" spawnNetwork findNetwork manageNetwork
+                 NS "calc" spawnCalc findCalc manageCalc
                ]
   where
     spawnTerm = my_terminal ++ " --title scratchpad"
@@ -160,14 +158,6 @@ scratch_pads = [ NS "terminal" spawnTerm findTerm manageTerm,
         w = 0.5
         t = 1.0 - h
         l = 0.0
-    spawnBitwarden = my_terminal ++ " --title bitwarden"
-    findBitwarden = title =? "bitwarden"
-    manageBitwarden = customFloating $ W.RationalRect l t w h
-      where
-        h = 1
-        w = 0.5
-        t = 1.0 - h
-        l = (1.0 - w)/2.0
     spawnVolume = "pavucontrol"
     findVolume = title =? "Volume Control"
     manageVolume = customFloating $ W.RationalRect l t w h
@@ -184,14 +174,6 @@ scratch_pads = [ NS "terminal" spawnTerm findTerm manageTerm,
         w = 0.2
         t = 0.0
         l = 1.0 - w
-    spawnNetwork = my_terminal ++ " --title nmtui -e nmtui"
-    findNetwork = title =? "nmtui"
-    manageNetwork = customFloating $ W.RationalRect l t w h
-      where
-        h = 0.5
-        w = 0.5
-        t = (1.0 - h)/2.0
-        l = (1.0 - w)/2.0
 
 ------------------------------------------------------------
 my_keys = [
@@ -205,10 +187,11 @@ my_keys = [
   ("M-S-m",  spawn "monitor_switch shift"),
   ("M-C-S-m",  spawn "monitor_switch ctrl-shift"),
   -- audio modes
+  ("M-S-a", spawn "set_sink 'KT USB Audio'"),
   ("M-S-s", spawn "set_sink 'Audioengine HD3'"),
-  ("M-S-h", spawn "set_sink 'KT USB Audio'"),
   -- run programs
   ("M-t", spawn my_terminal),
+  ("M-f", spawn "firefox"),
   ("M-r", spawn "dmenu_run -i -nb black -sb grey -nf grey -sf black -fn '-misc-fixed-medium-r-normal--18-*-*-*-*-*-*-*'"),
   -- window manager stuff
   ("M-v", sendMessage ToggleStruts),
@@ -226,19 +209,26 @@ my_keys = [
   ("M-S-[", shiftNextScreen),
   ("M-S-]", shiftPrevScreen),
   ("M-z", withFocused $ windows . W.sink), -- push window into tiling
-  ("M-e", sendMessage $ Go U), -- change focus using wasd
-  ("M-s", sendMessage $ Go L),
-  ("M-d", sendMessage $ Go D),
-  ("M-f", sendMessage $ Go R),
-  ("M-h", sendMessage Shrink), -- move center to left
-  ("M-j", sendMessage MirrorShrink), -- increase vertical size
-  ("M-k", sendMessage MirrorExpand), -- reduce vertical size
-  ("M-l", sendMessage Expand), -- move center to right
+  -- ("M-e", sendMessage $ Go U), -- change focus using wasd
+  -- ("M-s", sendMessage $ Go L),
+  -- ("M-d", sendMessage $ Go D),
+  -- ("M-f", sendMessage $ Go R),
+  ("M-h", sendMessage $ Go L),
+  ("M-j", sendMessage $ Go D),
+  ("M-k", sendMessage $ Go U),
+  ("M-l", sendMessage $ Go R),
+  ("M-S-h", sendMessage $ Swap L),
+  ("M-S-j", sendMessage $ Swap D),
+  ("M-S-k", sendMessage $ Swap U),
+  ("M-S-l", sendMessage $ Swap R),
+  ("M-C-h", sendMessage Shrink), -- move center to left
+  ("M-C-j", sendMessage MirrorShrink), -- increase vertical size
+  ("M-C-k", sendMessage MirrorExpand), -- reduce vertical size
+  ("M-C-l", sendMessage Expand), -- move center to right
   -- Scratch pads
   ("M-o", namedScratchpadAction scratch_pads "volume"),
   ("M-c", namedScratchpadAction scratch_pads "calc"),
   ("M-x", namedScratchpadAction scratch_pads "terminal"),
-  ("M-p", namedScratchpadAction scratch_pads "bitwarden"),
   -- Media keys
   ("<XF86AudioMute>",         spawn "pactl set-sink-mute @DEFAULT_SINK@ toggle"),
   ("M-<Left>",                spawn "pactl set-sink-mute @DEFAULT_SINK@ toggle"),
