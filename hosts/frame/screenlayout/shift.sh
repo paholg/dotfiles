@@ -1,12 +1,11 @@
 #!/bin/sh
-xrandr --output eDP-1 --primary --mode 2256x1504 --pos 0x0 --rotate normal \
+
+xrandr --output eDP-1 --off \
        --output DP-1 --off \
-       --output DP-2 --off \
+       --output DP-2 --primary --mode 3840x2160 --pos 0x0 \
        --output DP-3 --off \
        --output DP-4 --off \
        --output DP-5 --off \
        --output DP-6 --off \
        --output DP-7 --off \
-       --output DP-8 --off \
-       --output DP-9 --mode 3840x2160 --pos 2256x0 --rotate left \
-       --output DP-10 --mode 3840x2160 --pos 4416x0 --rotate right
+       --output DP-8 --off
