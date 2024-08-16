@@ -18,21 +18,6 @@
         # TTY1: startx
         [ "$TTY" = "/dev/tty1" ] && exec "startx"
       '';
-    display-switch = {
-      enable = true;
-      settings = {
-        globalSection = {
-          usb_device = "2109:0817";
-        };
-        sections = {
-          monitor1 = {
-            monitor_id = "PG42UQ";
-            on_usb_connect = "Hdmi1";
-            on_usb_disconnect = "DisplayPort1";
-          };
-        };
-      };
-    };
   };
 
   home.shellAliases = {
