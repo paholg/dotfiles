@@ -44,6 +44,7 @@ in
         # };
 
         window.dynamic_title = true;
+        window.opacity = 0.9;
 
         font = {
           size = 10;
@@ -71,7 +72,7 @@ in
         # (https://github.com/nashamri/spacemacs-theme)
         colors = {
           primary = {
-            background = "0x1f2022";
+            background = "0x000000";
             foreground = "0xa3a3a3";
           };
 

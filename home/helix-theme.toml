@@ -33,7 +33,7 @@
 "diff.minus" = "#dc597f"
 "diff.plus"  = "#59dcb7"
 
-"ui.background"        = { bg = "bg2" }
+"ui.background"        = {}
 "ui.bufferline.active" = { modifiers = ["reversed"] }
 "ui.help"              = { bg = "#232d38", fg = "#e5ded6" }
 "ui.linenr"            = { fg = "lnum", bg = "bg3" }
@@ -81,7 +81,7 @@ bg-err        = "#2b0e0e"
 bg-info       = "#2b490c"
 bg-war        = "#572c0e"
 bg1           = "#262626"
-bg2           = "#1c1c1c"
+bg2           = "#000000"
 bg3           = "#121212"
 bg4           = "#080808"
 border        = "#111111"

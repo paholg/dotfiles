@@ -43,7 +43,7 @@
       ''
         monitor_switch default &
         fixkb &
-        background 150 &
+        background 60 &
         xsetroot -cursor_name left_ptr &
 
         # FROM https://wiki.nixos.org/wiki/Using_X_without_a_Display_Manager#Setting_up_Xorg_system-wide_but_without_a_Display_Manager
