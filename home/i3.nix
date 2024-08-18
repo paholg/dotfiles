@@ -8,6 +8,7 @@ let
   mod = "Mod4";
   term = lib.getExe pkgs.alacritty;
   rofi = lib.getExe config.programs.rofi.finalPackage;
+  pamixer = lib.getExe pkgs.pamixer;
 in
 {
   options.custom.i3 = {
@@ -152,14 +153,14 @@ in
 
         # *******************************************************************
         # Media
-        "XF86AudioMute" = "exec pactl set-sink-mute @DEFAULT_SINK@ toggle";
-        "${mod}+Left" = "exec pactl set-sink-mute @DEFAULT_SINK@ toggle";
+        "XF86AudioMute" = "exec ${pamixer} -t";
+        "${mod}+Left" = "exec ${pamixer} -t";
         "XF86AudioMicMute" = "exec pactl set-source-mute @DEFAULT_SOURCE@ toggle";
         "${mod}+Right" = "exec pactl set-source-mute @DEFAULT_SOURCE@ toggle";
-        "XF86AudioLowerVolume" = "exec pactl set-sink-volume @DEFAULT_SINK@ -5%";
-        "XF86AudioRaiseVolume" = "exec pactl set-sink-volume @DEFAULT_SINK@ +5%";
-        "${mod}+Down" = "exec pactl set-sink-volume @DEFAULT_SINK@ -5%";
-        "${mod}+Up" = "exec pactl set-sink-volume @DEFAULT_SINK@ +5%";
+        "XF86AudioLowerVolume" = "exec ${pamixer} -d5";
+        "XF86AudioRaiseVolume" = "exec ${pamixer} -i5";
+        "${mod}+Down" = "exec ${pamixer} -d5";
+        "${mod}+Up" = "exec ${pamixer} -i5";
         "XF86MonBrightnessUp" = "exec brightnessctl s +10%";
         "XF86MonBrightnessDown" = "exec brightnessctl s 10%-";
 
