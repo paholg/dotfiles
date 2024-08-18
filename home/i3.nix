@@ -48,7 +48,10 @@ in
         }
       ];
       assigns = {
-        "0:`" = [ { class = "^discord$"; } ];
+        "0:`" = [
+          { class = "^discord$"; }
+          { class = "^slack$"; }
+        ];
         "1" = [ { title = "Steam"; } ];
       };
       floating = {
@@ -180,31 +183,8 @@ in
         "${mod}+Ctrl+q" = "kill";
 
         "${mod}+Ctrl+n" = "exec xset dpms force off";
-      } // config.custom.i3.customConfig;
-
-      # keybindings = {
-      #   # Work mode:
-      #   "${mod}+Shift+m" = ''
-      #     exec swaymsg output HDMI-A-1 disable; \
-      #     exec swaymsg output DP-2 enable pos 2160 0 mode 3840x2160@60Hz transform 90 bg "#000000" solid_color; \
-      #     exec swaymsg output DP-3 enable pos 0 0 mode 3840x2160@144Hz transform 270 bg "#000000" solid_color;
-      #   '';
-      #   # Game mode:
-      #   "${mod}+Ctrl+m" = ''
-      #     exec swaymsg output HDMI-A-1 disable; \
-      #     exec swaymsg output DP-2 disable; \
-      #     exec swaymsg output DP-3 enable pos 0 0 mode 3840x2160@144Hz transform 0 bg "#000000" solid_color;
-      #   '';
-      #   # Couch mode:
-      #   "${mod}+m" = ''
-      #     exec swaymsg output HDMI-A-1 enable pos 0 0 mode 2840x2160@60Hz bg "#000000" solid_color; \
-      #     exec swaymsg output DP-2 disable;
-      #     exec swaymsg output DP-3 disable;
-      #     exec ${set_sink "HDA ATI HDMI"};
-      #   '';
-
-      # };
-    };
+      };
+    } // config.custom.i3.customConfig;
 
     services = {
       dunst = {

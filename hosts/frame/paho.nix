@@ -9,8 +9,22 @@
     linux = true;
     nixos = true;
     starship.host_color = "cyan";
-    xmonad.enable = true;
-    # i3.enable = true;
+    # xmonad.enable = true;
+    i3.enable = true;
+    i3.customConfig = {
+      startup = [
+        {
+          command = "slack";
+          always = true;
+          notification = true;
+        }
+        {
+          command = "firefox";
+          always = true;
+          notification = true;
+        }
+      ];
+    };
     fish_extra_init =
       # fish
       ''
