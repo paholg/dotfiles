@@ -7,13 +7,14 @@
 let
   mod = "Mod4";
   term = lib.getExe pkgs.alacritty;
+  rofi = lib.getExe config.programs.rofi.finalPackage;
 in
 {
   options.custom.i3 = {
     enable = lib.mkEnableOption "i3";
-    startup = lib.mkOption {
-      type = lib.types.listOf lib.types.attrs;
-      default = [ ];
+    customConfig = lib.mkOption {
+      type = lib.types.attrs;
+      default = { };
     };
     extraConfig = lib.mkOption {
       type = lib.types.lines;
@@ -26,6 +27,11 @@ in
     custom.x11 = true;
     custom.x11_lock.enable = true;
 
+    programs.rofi = {
+      enable = true;
+      terminal = term;
+    };
+
     xsession.enable = true;
     xsession.windowManager.i3 = {
       enable = true;
@@ -34,14 +40,16 @@ in
     xsession.windowManager.i3.config = {
       modifier = mod;
       terminal = term;
-      bars = [ { position = "top"; } ];
-      # colors = { };
+      bars = [
+        {
+          position = "top";
+          statusCommand = lib.getExe' pkgs.i3status-rust "i3status-rs";
+        }
+      ];
       assigns = {
         "0:`" = [ { class = "^discord$"; } ];
         "1" = [ { title = "Steam"; } ];
-        "2" = [ { class = "^firefox$"; } ];
       };
-      startup = config.custom.i3.startup;
       floating = {
         modifier = mod;
         titlebar = true;
@@ -103,16 +111,11 @@ in
         "${mod}+Shift+0" = "move container to workspace 10:0";
 
         # *******************************************************************
-        # Change setup
-        # "${mod}+Shift+h" = "exec ${set_sink "KT USB Audio"}";
-        # "${mod}+Shift+s" = "exec ${set_sink "Audioengine HD3"}";
-
-        # *******************************************************************
         # Layouts
         "${mod}+space" = "fullscreen toggle";
         "${mod}+z" = "floating toggle";
-        "${mod}+v" = "splitv";
-        "${mod}+s" = "splith";
+        "${mod}+v" = "splith";
+        "${mod}+s" = "splitv";
         "${mod}+e" = "layout toggle split";
         "${mod}+x" = "focus mode_toggle";
 
@@ -125,38 +128,58 @@ in
         # *******************************************************************
         # Navigation
         "${mod}+a" = "focus parent";
+        "${mod}+d" = "focus child";
 
         "${mod}+h" = "focus left";
         "${mod}+j" = "focus down";
         "${mod}+k" = "focus up";
         "${mod}+l" = "focus right";
 
-        # "${mod}+Shift+a" = "move parent";
         "${mod}+Shift+h" = "move left";
         "${mod}+Shift+j" = "move down";
         "${mod}+Shift+k" = "move up";
         "${mod}+Shift+l" = "move right";
 
+        "${mod}+Control+h" = "resize shrink width 5 px or 5 ppt";
+        "${mod}+Control+j" = "resize shrink height 5 px or 5 ppt";
+        "${mod}+Control+k" = "resize grow height 5 px or 5 ppt";
+        "${mod}+Control+l" = "resize grow width 5 px or 5 ppt";
+
+        # *******************************************************************
+        # Audio modes
+        "${mod}+Shift+a" = "exec set_sink 'KT USB Audio'";
+        "${mod}+Shift+s" = "exec set_sink 'HDA ATI HDMI'";
+
+        # *******************************************************************
+        # Media
+        "XF86AudioMute" = "exec pactl set-sink-mute @DEFAULT_SINK@ toggle";
+        "${mod}+Left" = "exec pactl set-sink-mute @DEFAULT_SINK@ toggle";
+        "XF86AudioMicMute" = "exec pactl set-source-mute @DEFAULT_SOURCE@ toggle";
+        "${mod}+Right" = "exec pactl set-source-mute @DEFAULT_SOURCE@ toggle";
+        "XF86AudioLowerVolume" = "exec pactl set-sink-volume @DEFAULT_SINK@ -5%";
+        "XF86AudioRaiseVolume" = "exec pactl set-sink-volume @DEFAULT_SINK@ +5%";
+        "${mod}+Down" = "exec pactl set-sink-volume @DEFAULT_SINK@ -5%";
+        "${mod}+Up" = "exec pactl set-sink-volume @DEFAULT_SINK@ +5%";
+        "XF86MonBrightnessUp" = "exec brightnessctl s +10%";
+        "XF86MonBrightnessDown" = "exec brightnessctl s 10%-";
+
         # *******************************************************************
         # STUFF
         "${mod}+Shift+q" = "reload";
-        "${mod}+Alt+q" = "exit";
+        "${mod}+Alt+q" = ''exec "i3-nagbar -t warning -m 'Really exit?' -B 'Yes' 'i3-msg exit'"'';
 
         # *******************************************************************
         # Launch programs
         "${mod}+t" = "exec ${term}";
-        "${mod}+r" = "splith; exec ${term}";
-        "${mod}+g" = "splitv; exec ${term}";
         "${mod}+f" = "exec firefox";
         "${mod}+o" = "exec pavucontrol";
-        # "${mod}+r" = "exec tofi-run | xargs swaymsg exec --";
+        "${mod}+r" = "exec ${rofi} -show run";
+        "${mod}+w" = "exec ${rofi} -show window";
 
         "${mod}+Ctrl+q" = "kill";
 
-        "${mod}+Ctrl+l" = "exec xset dpms force off";
-      };
-      # menu = "";
-      # modes = {};
+        "${mod}+Ctrl+n" = "exec xset dpms force off";
+      } // config.custom.i3.customConfig;
 
       # keybindings = {
       #   # Work mode:
@@ -216,7 +239,7 @@ in
       ''
         monitor_switch default &
         fixkb &
-        background 150 &
+        background 60 &
         xsetroot -cursor_name left_ptr &
 
         # FROM https://wiki.nixos.org/wiki/Using_X_without_a_Display_Manager#Setting_up_Xorg_system-wide_but_without_a_Display_Manager

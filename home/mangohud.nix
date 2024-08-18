@@ -17,7 +17,7 @@
 
     home.sessionVariables = {
       # Hide mangohud by default
-      MANGOHUD_CONFIG = "no_display";
+      # MANGOHUD_CONFIG = "no_display";
     };
   };
 }

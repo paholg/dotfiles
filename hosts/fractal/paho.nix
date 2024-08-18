@@ -13,7 +13,8 @@
     mangohud.enable = true;
     nixos = true;
     starship.host_color = "cyan";
-    xmonad.enable = true;
+    # xmonad.enable = true;
+    i3.enable = true;
     fish_extra_init = # fish
       ''
         set TTY (tty)

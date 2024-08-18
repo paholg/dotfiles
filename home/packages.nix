@@ -41,6 +41,8 @@ let
     if cfg.x11 then
       with pkgs;
       [
+        arandr
+        rustybar
         xclip
         xdotool
         xorg.xev
@@ -56,7 +58,6 @@ let
       with pkgs;
       [
         adwaita-qt
-        arandr
         audacity
         blender
         brightnessctl
@@ -76,7 +77,6 @@ let
         okular
         pavucontrol
         pulseaudioFull
-        rustybar
         scrot
         signal-desktop
         unfree.discord
