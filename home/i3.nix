@@ -125,7 +125,7 @@ in
 
         # *******************************************************************
         # Monitors
-        "${mod}+m" = "exec monitor_switch";
+        "${mod}+m" = "exec monitor_switch default";
         "${mod}+Shift+m" = "exec monitor_switch shift";
         "${mod}+Contorl+m" = "exec monitor_switch ctrl";
 

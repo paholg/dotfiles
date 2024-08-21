@@ -39,6 +39,7 @@
   };
 
   home.packages = with pkgs; [
+    awscli2
     distrobox
     heroku
     iredis
