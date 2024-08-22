@@ -171,6 +171,7 @@ let
     rufo
     rustup
     sd
+    serpl # search and replace
     shellcheck
     socat
     sshfs-fuse

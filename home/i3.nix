@@ -9,6 +9,29 @@ let
   term = lib.getExe pkgs.alacritty;
   rofi = lib.getExe config.programs.rofi.finalPackage;
   pamixer = lib.getExe pkgs.pamixer;
+
+  zoom_sink_titles = [
+    "Zoom - Free Account"
+    "Zoom - Licensed Account"
+    "Zoom"
+    "Zoom Meeting"
+  ];
+  zoom_commands =
+    [
+      {
+        command = "floating enable";
+        criteria = {
+          class = "zoom";
+        };
+      }
+    ]
+    ++ lib.map (title: {
+      command = "floating disable";
+      criteria = {
+        class = "zoom";
+        title = title;
+      };
+    }) zoom_sink_titles;
 in
 {
   options.custom.i3 = {
@@ -45,6 +68,7 @@ in
         {
           position = "top";
           statusCommand = lib.getExe' pkgs.i3status-rust "i3status-rs";
+          trayOutput = "primary";
         }
       ];
       assigns = {
@@ -57,7 +81,10 @@ in
       floating = {
         modifier = mod;
         titlebar = true;
-        criteria = [ ];
+        criteria = [
+          { title = "Bluetooth Devices"; }
+          { class = "pavucontrol"; }
+        ];
       };
       focus = {
         followMouse = true;
@@ -80,7 +107,7 @@ in
       };
       window = {
         border = 0;
-        commands = [ ];
+        commands = [ ] ++ zoom_commands;
         hideEdgeBorders = "smart";
         titlebar = true;
       };
