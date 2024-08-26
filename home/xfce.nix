@@ -18,7 +18,7 @@ in
     # TODO: Probably don't need this stuff here.
     home.file.".xinitrc".text = # bash
       ''
-        monitor_switch shift &
+        monitor_switch ctrl &
         fixkb &
         xrdb -merge .Xresources &
         xsetroot -cursor_name left_ptr &
@@ -33,7 +33,7 @@ in
           dbus-update-activation-environment DISPLAY XAUTHORITY
         fi
 
-        . $HOME/.xsession
+        # . $HOME/.xsession
 
         exec startxfce4
       '';
