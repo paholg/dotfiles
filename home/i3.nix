@@ -111,7 +111,7 @@ in
         hideEdgeBorders = "smart";
         titlebar = true;
       };
-      workspaceAutoBackAndForth = true;
+      workspaceAutoBackAndForth = false;
       workspaceLayout = "default";
 
       keybindings = {
