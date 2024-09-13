@@ -1,4 +1,4 @@
-{ config, ... }:
+{ config, pkgs, ... }:
 {
   imports = [
     ../../home
@@ -22,6 +22,10 @@
         [ "$TTY" = "/dev/tty2" ] && exec "startx"
       '';
   };
+
+  home.packages = with pkgs; [
+    discover-overlay
+  ];
 
   # Store dotfiles in a shared location, so guest can access too:
   home.file.dotfiles.source = config.lib.file.mkOutOfStoreSymlink "/srv/dotfiles";

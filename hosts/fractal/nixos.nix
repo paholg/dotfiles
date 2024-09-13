@@ -25,6 +25,9 @@
     isNormalUser = true;
   };
 
+  # For rebinding mouse
+  services.ratbagd.enable = true;
+
   services.xserver = {
     enable = true;
     displayManager = {
