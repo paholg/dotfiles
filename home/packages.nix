@@ -130,6 +130,7 @@ let
     gitAndTools.delta
     gitAndTools.hub
     gnuplot
+    fastfetch
     haskell-language-server
     helm-ls
     htop
@@ -145,7 +146,6 @@ let
     mdcat
     mosh
     ncdu # interactive disk-usage
-    neofetch
     nh # nix helper
     nickel
     nil # nix language server
