@@ -15,6 +15,6 @@
     paho = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIAz7dvsIeGWRD3zTaenldrKwPJ0z+9fGuDOHkOa4luJd JuiceSSH";
   };
   pixel9 = {
-    Paho = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIMHlpWL6Y8GRwfiQc6KGK9V7y/ftSkS8nZ3DGYhcptFF JuiceSSH";
+    paho = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIMHlpWL6Y8GRwfiQc6KGK9V7y/ftSkS8nZ3DGYhcptFF JuiceSSH";
   };
 }
