@@ -70,7 +70,6 @@
     # Dependencies to minimize duplicates in `flake.lock`:
     crane = {
       url = "github:ipetkov/crane";
-      inputs.nixpkgs.follows = "nixpkgs";
     };
     flake-utils = {
       url = "github:numtide/flake-utils";
@@ -105,6 +104,7 @@
         helix-custom = inputs.helix.packages.${prev.system}.default;
         # ra-multiplex = ra-multiplex.defaultPackage.${prev.system};
         rustybar = inputs.rustybar.defaultPackage.${prev.system};
+        vanta-agent = prev.callPackage ./vanta.nix { };
       };
 
       pkgs =

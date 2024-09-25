@@ -1,6 +1,9 @@
-{ lib, pkgs, ... }:
+{ config, pkgs, ... }:
 {
-  imports = [ ./hardware-configuration.nix ];
+  imports = [
+    ./hardware-configuration.nix
+    ./vanta-service.nix
+  ];
 
   system.stateVersion = "23.11";
   networking.hostName = "frame";
@@ -26,17 +29,13 @@
     defaultNetwork.settings.dns_enabled = true;
   };
 
-  # FIXME
-  # systemd.services.distrobox-vanta = {
-  #   enable = true;
-  #   wantedBy = [ "multi-user.target" ];
-  #   after = [ "podman.service" ];
-  #   bindsTo = [ "podman.service" ];
+  environment.systemPackages = [ pkgs.vanta-agent ];
 
-  #   serviceConfig = {
-  #     ExecStart = "${lib.getExe pkgs.podman} start -a vanta";
-  #   };
-  # };
+  programs.adb.enable = true;
+  users.users.paho.extraGroups = [
+    "adbusers"
+    "kvm"
+  ];
 
   services.mysql = {
     enable = true;
@@ -50,6 +49,13 @@
   services.power-profiles-daemon = {
     enable = true;
   };
+
+  services.vanta-agent = {
+    enable = true;
+  };
+  systemd.tmpfiles.rules = [
+    "L /etc/vanta.conf - - - - ${config.age.secrets.vanta.path}"
+  ];
 
   # ****************************************************************************
   # Fingerprint
