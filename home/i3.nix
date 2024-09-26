@@ -13,7 +13,6 @@ let
   zoom_sink_titles = [
     "Zoom - Free Account"
     "Zoom - Licensed Account"
-    "Zoom"
     "Zoom Meeting"
   ];
   zoom_commands =
