@@ -45,6 +45,13 @@
       languages = {
         language = [
           {
+            name = "c";
+            file-types = [
+              "c"
+              "keymap"
+            ];
+          }
+          {
             name = "git-commit";
             rulers = [
               51
