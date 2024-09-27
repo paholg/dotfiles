@@ -10,9 +10,7 @@
     amd-graphics = true;
   };
 
-  # Maybe disable xpadneo for better results?
-  # See: https://github.com/ValveSoftware/steam-for-linux/issues/9310#issuecomment-2098573826
-  hardware.xpadneo.enable = true;
+  hardware.xone.enable = true;
 
   # For display-switch
   hardware.i2c.enable = true;
