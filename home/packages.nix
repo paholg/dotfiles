@@ -29,7 +29,7 @@ let
         dmenu
         libreoffice
         # TODO: Broken
-        # inlyne # markdown viewer
+        inlyne # markdown viewer
         (nerdfonts.override { fonts = [ "FiraCode" ]; })
       ]
     else
@@ -92,6 +92,7 @@ let
     agenix
     angle-grinder
     arandr
+    ast-grep
     aws-rotate-key
     bacon
     bash-language-server
@@ -165,8 +166,8 @@ let
     ripgrep
     rm-improved
     rnr # regex rename
-    ruby
-    ruby-lsp
+    ruby_3_3
+    # rubyPackages_3_3.ruby-lsp
     rubyfmt
     rufo
     rustup
