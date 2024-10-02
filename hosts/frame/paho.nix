@@ -38,6 +38,13 @@
     my = "mycli --socket /tmp/mysql.sock -uroot -D scholarly_development";
   };
 
+  programs.obs-studio = {
+    enable = true;
+    plugins = with pkgs.obs-studio-plugins; [
+      droidcam-obs
+    ];
+  };
+
   home.packages = with pkgs; [
     awscli2
     distrobox
