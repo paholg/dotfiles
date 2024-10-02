@@ -87,7 +87,7 @@ in
       };
       focus = {
         followMouse = true;
-        mouseWarping = true;
+        mouseWarping = false;
         newWindow = "smart";
         wrapping = "yes";
       };
