@@ -57,7 +57,7 @@
   };
 
   services.vanta-agent = {
-    enable = true;
+    enable = false;
   };
   systemd.tmpfiles.rules = [
     "L /etc/vanta.conf - - - - ${config.age.secrets.vanta.path}"
