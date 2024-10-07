@@ -47,6 +47,7 @@
 
   home.packages = with pkgs; [
     awscli2
+    csvtool
     distrobox
     heroku
     iredis
