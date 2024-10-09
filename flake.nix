@@ -50,22 +50,6 @@
       inputs.naersk.follows = "naersk";
       inputs.utils.follows = "flake-utils";
     };
-    # TODO: Workaround for steam issue.
-    # Can remove once 18.1 releases.
-    xmonad = {
-      url = "github:xmonad/xmonad";
-      inputs.nixpkgs.follows = "nixpkgs";
-      inputs.flake-utils.follows = "flake-utils";
-      inputs.git-ignore-nix.follows = "git-ignore-nix";
-      inputs.unstable.follows = "nixpkgs";
-    };
-    xmonad-contrib = {
-      url = "github:xmonad/xmonad-contrib";
-      inputs.nixpkgs.follows = "nixpkgs";
-      inputs.flake-utils.follows = "flake-utils";
-      inputs.git-ignore-nix.follows = "git-ignore-nix";
-      inputs.xmonad.follows = "xmonad";
-    };
 
     # Dependencies to minimize duplicates in `flake.lock`:
     crane = {
@@ -112,8 +96,6 @@
         import inputs.nixpkgs {
           overlays = [
             pkgs_overlay
-            inputs.xmonad.overlay
-            inputs.xmonad-contrib.overlay
           ];
           inherit system;
           # FIXME

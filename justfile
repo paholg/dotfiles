@@ -7,9 +7,6 @@ default:
 # Update system
 up: \
 	up-git \
-	up-ubuntu \
-	up-yay \
-	up-yum \
 	up-rust \
 	up-host \
 	up-fw \
@@ -28,27 +25,13 @@ secret-rekey:
 # Update the dotfiles git repo
 [private]
 up-git:
-	@just run git "git pull"
+	git pull
 
-# Update with apt
-[private]
-up-ubuntu:
-	@just run apt "sudo apt update && sudo apt dist-upgrade && sudo apt autoremove"
-
-# Update on Arch with yay
-[private]
-up-yay:
-	@just run yay yay
-
-# Update with yum
-[private]
-up-yum:
-	@just run yum "sudo yum check-update && sudo yum update"
 
 # Update rust
 [private]
 up-rust:
-	@just run rustup "rustup update"
+	rustup update
 
 # Run any host-specific updates
 [private]
@@ -58,7 +41,7 @@ up-host:
 # Update nix flake
 [private]
 up-nix:
-	@just run nix "nix flake update"
+	nix flake update
 
 # Update firmware
 [private]
