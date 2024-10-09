@@ -273,6 +273,7 @@ in
           rebase.autosquash = true;
           init.defaultBranch = "main";
           credential.helper = "store";
+          log.date = "local";
         };
         lfs.enable = true;
         aliases = {
