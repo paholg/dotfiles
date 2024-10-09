@@ -63,7 +63,11 @@ up-nix:
 # Update firmware
 [private]
 up-fw:
-	@just run fwupdmgr "if fwupdmgr refresh; then fwupdmgr get-updates && fwupdmgr update; fi"
+	#!/usr/bin/env bash
+	set -euo pipefail
+	fwupdmgr refresh || exit 0
+	fwupdmgr get-updates || exit 0
+	fwupdmgr update
 
 # Switch nixos and home-manager
 sw: switch-nix switch-hm
