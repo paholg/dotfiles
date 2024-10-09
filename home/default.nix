@@ -109,6 +109,8 @@ in
 
         hx = "env CARGO_TARGET_DIR=$HOME/.cargo/cache2 ${helix}";
 
+        just = "${lib.getExe pkgs.just} --command-color=blue";
+
         ls = "eza";
         la = "ls -la";
         ll = "ls -l";
