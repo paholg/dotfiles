@@ -102,11 +102,11 @@
         "utils": "utils"
       },
       "locked": {
-        "lastModified": 1728424351,
-        "narHash": "sha256-PwbW4Oo/AtQAQs7+8ZibP6RUIHh53Phq3QKEwW3Pmdw=",
+        "lastModified": 1728486971,
+        "narHash": "sha256-a7OwlXhUz+Hp+G7H39p5X2+KoJ5E1Byib6cg2ZPj6bM=",
         "owner": "wamserma",
         "repo": "flake-programs-sqlite",
-        "rev": "9e6f928b64fc4934585e6e3e2c37ce42ac67b33a",
+        "rev": "964ed45802ab9cc9146b9b34a3b81c6f557fd952",
         "type": "github"
       },
       "original": {
@@ -255,9 +255,7 @@
         "nixpkgs": "nixpkgs",
         "rust-overlay": "rust-overlay",
         "rustybar": "rustybar",
-        "systems": "systems",
-        "xmonad": "xmonad",
-        "xmonad-contrib": "xmonad-contrib"
+        "systems": "systems"
       }
     },
     "rust-overlay": {
@@ -267,11 +265,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1728354625,
-        "narHash": "sha256-r+Sa1NRRT7LXKzCaVaq75l1GdZcegODtF06uaxVVVbI=",
+        "lastModified": 1728461096,
+        "narHash": "sha256-cd0cXB85B3kGpm+iumP9xCnqFErspXL9Z/2X59kQ6c4=",
         "owner": "oxalica",
         "repo": "rust-overlay",
-        "rev": "d216ade5a0091ce60076bf1f8bc816433a1fc5da",
+        "rev": "e310b9bd71fa6c6a9fec0a8cf5af43ce798a0ad6",
         "type": "github"
       },
       "original": {
@@ -333,64 +331,6 @@
       "original": {
         "owner": "numtide",
         "repo": "flake-utils",
-        "type": "github"
-      }
-    },
-    "xmonad": {
-      "inputs": {
-        "flake-utils": [
-          "flake-utils"
-        ],
-        "git-ignore-nix": [
-          "git-ignore-nix"
-        ],
-        "nixpkgs": [
-          "nixpkgs"
-        ],
-        "unstable": [
-          "nixpkgs"
-        ]
-      },
-      "locked": {
-        "lastModified": 1728318022,
-        "narHash": "sha256-JYDe/lNgfiWl+QXZDtaLuU3sscybO9XQVupiFsoUInE=",
-        "owner": "xmonad",
-        "repo": "xmonad",
-        "rev": "eba9e97794705349f9c6a50230bb88b8ef7d539a",
-        "type": "github"
-      },
-      "original": {
-        "owner": "xmonad",
-        "repo": "xmonad",
-        "type": "github"
-      }
-    },
-    "xmonad-contrib": {
-      "inputs": {
-        "flake-utils": [
-          "flake-utils"
-        ],
-        "git-ignore-nix": [
-          "git-ignore-nix"
-        ],
-        "nixpkgs": [
-          "nixpkgs"
-        ],
-        "xmonad": [
-          "xmonad"
-        ]
-      },
-      "locked": {
-        "lastModified": 1728324446,
-        "narHash": "sha256-Q8YdaORLH0re1+FD/5xk4YXultXZ/8JkTgIcDt2vr7o=",
-        "owner": "xmonad",
-        "repo": "xmonad-contrib",
-        "rev": "1c5261d65a56d72bfb49d778f7b1e3482881d368",
-        "type": "github"
-      },
-      "original": {
-        "owner": "xmonad",
-        "repo": "xmonad-contrib",
         "type": "github"
       }
     }
