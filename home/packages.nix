@@ -170,7 +170,7 @@ let
     # rubyPackages_3_3.ruby-lsp
     rubyfmt
     rufo
-    rustup
+    # rustup
     sd
     serpl # search and replace
     shellcheck

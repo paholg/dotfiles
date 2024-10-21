@@ -7,7 +7,6 @@ default:
 # Update system
 up: \
 	up-git \
-	up-rust \
 	up-host \
 	up-fw \
 	up-nix \
