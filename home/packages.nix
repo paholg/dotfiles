@@ -100,11 +100,9 @@ let
     bat-extras.batgrep
     bat-extras.batman
     bat-extras.prettybat
-    bind
     bitwarden-cli
     bottom
     broot
-    bundix # generate nix expressions for bundler
     cachix
     cargo-deny
     cargo-duplicates
@@ -115,11 +113,9 @@ let
     cargo-machete
     cargo-nextest
     cargo-outdated
-    cargo-watch
     choose
     curl
     difftastic
-    diskus
     du-dust
     dysk
     eza
@@ -130,69 +126,41 @@ let
     git
     gitAndTools.delta
     gitAndTools.hub
-    gnuplot
     fastfetch
-    haskell-language-server
-    helm-ls
     htop
     httpie
     hyperfine
     jq
     just
-    jwt-cli
-    litecli
-    lld
-    lsd
+    litecli # sqlite cli
     marksman # markdown lsp
-    mdcat
-    mosh
     ncdu # interactive disk-usage
     nh # nix helper
-    nickel
-    nil # nix language server
-    niv
     nix-output-monitor
-    nixfmt-rfc-style
-    nls # nickel language server
-    nmap
     nodePackages.typescript-language-server
     onefetch
     openssl
     pciutils # lspci, etc.
-    perl
     pgcli
-    pgformatter
-    ra-multiplex
     ripgrep
-    rm-improved
     rnr # regex rename
-    ruby_3_3
-    # rubyPackages_3_3.ruby-lsp
-    rubyfmt
-    rufo
-    # rustup
+    ruby
     sd
     serpl # search and replace
     shellcheck
     socat
     sshfs-fuse
     taplo-cli # toml language server
-    terraform-ls
-    tinymist
+    tinymist # typst language server
     typst
     typst-lsp
     tokei
-    unison
     unzip
-    vim
     vscode-langservers-extracted # css, html, json, markdown, eslint
-    wally-cli
-    wasm-bindgen-cli
     wget
     xsv
     yaml-language-server
     yq-go
-    zenith
     zip
   ];
 in
