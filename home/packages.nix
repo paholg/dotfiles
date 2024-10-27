@@ -70,7 +70,7 @@ let
         evince
         gimp
         glxinfo
-        krita-beta
+        krita
         libnotify
         lxappearance
         lxqt.lxqt-policykit
