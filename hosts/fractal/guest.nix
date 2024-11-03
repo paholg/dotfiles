@@ -10,7 +10,7 @@
     username = "guest";
     gui = true;
     linux = true;
-    mangohud.enable = true;
+    mangohud.enable = false;
     nixos = true;
     starship.host_color = "cyan";
     xfce.enable = true;

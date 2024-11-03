@@ -145,6 +145,7 @@ let
     ripgrep
     rnr # regex rename
     ruby
+    rustup
     sd
     serpl # search and replace
     shellcheck
