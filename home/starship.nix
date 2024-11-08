@@ -12,18 +12,24 @@ in
       enable = true;
       enableFishIntegration = true;
       settings = {
-        right_format = "$kubernetes$aws";
         git_branch.format = "[$symbol$branch]($style) ";
         status.disabled = false;
         aws = {
           disabled = false;
+          format = ''[$symbol($profile )(\($region\) )(\[$duration\] )]($style)'';
+          region_aliases = {
+            us-east-1 = "use1";
+            us-east-2 = "use2";
+            us-west-1 = "usw1";
+            us-west-2 = "usw2";
+          };
         };
         hostname = {
           format = "[$hostname]($style):";
           style = "bold ${cfg.starship.host_color}";
         };
         kubernetes = {
-          disabled = true;
+          disabled = false;
           format = "[$symbol$context( ($namespace))]($style)";
         };
         nix_shell = {

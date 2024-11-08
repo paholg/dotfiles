@@ -88,7 +88,7 @@ in
       focus = {
         followMouse = true;
         mouseWarping = false;
-        newWindow = "smart";
+        newWindow = "urgent";
         wrapping = "yes";
       };
       # fonts = { };

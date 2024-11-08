@@ -24,6 +24,7 @@
   };
 
   home.packages = with pkgs; [
+    blender
     discover-overlay
   ];
 

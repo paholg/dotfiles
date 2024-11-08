@@ -102,11 +102,11 @@
         "utils": "utils"
       },
       "locked": {
-        "lastModified": 1730865854,
-        "narHash": "sha256-jB3syA//gmES1VF10YlSsKK58rfoB65MjgziiTzW9eM=",
+        "lastModified": 1730999327,
+        "narHash": "sha256-Aaf/yhJenMF6oCP3imkjfS73+OGgxSPaBZRsx2G0/RI=",
         "owner": "wamserma",
         "repo": "flake-programs-sqlite",
-        "rev": "c451ae5c4ea1485e05d80113993e23337b90c85b",
+        "rev": "ec39853ad60ec863a01842a427584919d6b45467",
         "type": "github"
       },
       "original": {
@@ -265,11 +265,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1730860036,
-        "narHash": "sha256-u0sfA4B65Q9cRO3xpIkQ4nldB8isfdIb3rWtsnRZ+Iw=",
+        "lastModified": 1730946479,
+        "narHash": "sha256-AxGJ3BRc44o3RBcfXxZqjVYftVtJ2sl+/WEjiLUmXRY=",
         "owner": "oxalica",
         "repo": "rust-overlay",
-        "rev": "b8eb3aeb21629cbe14968a5e3b1cbaefb0d1b260",
+        "rev": "7fba269fe89ffad47206e0afba233d337c04cf08",
         "type": "github"
       },
       "original": {

@@ -59,7 +59,6 @@ let
       [
         adwaita-qt
         audacity
-        blender
         brightnessctl
         chromium
         dconf
