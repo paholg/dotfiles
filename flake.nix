@@ -27,7 +27,9 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     helix = {
-      url = "github:paholg/helix/file-picker-navigation";
+      # url = "git+file:///home/paho/src/helix";
+      url = "github:drybalka/helix/add-file-browser";
+      # url = "github:paholg/helix/file-picker-navigation";
       # url = "github:helix-editor/helix/master";
 
       inputs.nixpkgs.follows = "nixpkgs";
@@ -85,7 +87,7 @@
         agenix = inputs.agenix.packages.${prev.system}.default;
         anyrun = inputs.anyrun.packages.${prev.system}.anyrun;
         display-switch = inputs.display-switch.defaultPackage.${prev.system};
-        helix-custom = inputs.helix.packages.${prev.system}.default;
+        helix = inputs.helix.packages.${prev.system}.default;
         # ra-multiplex = ra-multiplex.defaultPackage.${prev.system};
         rustybar = inputs.rustybar.defaultPackage.${prev.system};
         vanta-agent = prev.callPackage ./vanta.nix { };

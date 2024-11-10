@@ -5,7 +5,6 @@
   ...
 }:
 let
-  helix = lib.getExe config.custom.helix.pkg;
   homeDir = config.home.homeDirectory;
 in
 {
@@ -81,7 +80,6 @@ in
       keyboard.options = [ "caps:backspace" ];
 
       sessionVariables = {
-        EDITOR = helix;
         RUST_NEW_ERROR_FORMAT = "true";
         CARGO_HOME = "$HOME/.cargo";
         MANPAGER = "sh -c 'col -bx | bat -l man -p'";
@@ -106,8 +104,6 @@ in
         check_sync = "watch grep -e Dirty: -e Writeback: /proc/meminfo";
 
         d = "just -f $HOME/dotfiles/justfile";
-
-        hx = "env CARGO_TARGET_DIR=$HOME/.cargo/cache2 ${helix}";
 
         just = "${lib.getExe pkgs.just} --command-color=blue";
 

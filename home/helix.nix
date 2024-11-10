@@ -1,18 +1,10 @@
 {
-  config,
   lib,
   pkgs,
   ...
 }:
 # ra_multiplex = "${lib.getExe' pkgs.ra-multiplex "ra-multiplex"}";
 {
-  options.custom.helix = {
-    pkg = lib.mkOption {
-      type = lib.types.package;
-      default = pkgs.helix-custom;
-    };
-  };
-
   config = {
     home.file.".config/helix/themes/paho-theme.toml".source = ./helix-theme.toml;
 
@@ -41,7 +33,7 @@
 
     programs.helix = {
       enable = true;
-      package = config.custom.helix.pkg;
+      defaultEditor = true;
       languages = {
         language = [
           {
@@ -141,6 +133,7 @@
               f = "file_picker_in_current_directory";
               F = "file_picker";
               c = "file_picker_in_current_buffer_directory";
+              C = "file_browser";
             };
 
             # Custom bindings
