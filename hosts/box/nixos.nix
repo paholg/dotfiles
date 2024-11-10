@@ -1,4 +1,4 @@
-{ config, lib, ... }:
+{ lib, pkgs, ... }:
 {
   imports = [
     ./hardware-configuration.nix
@@ -44,7 +44,9 @@
     };
 
     # ZFS
-    boot.kernelPackages = config.boot.zfs.package.latestCompatibleLinuxPackages;
+    # We don't want to use the latest kernel due to ZFS compatibility, which is
+    # our default.
+    boot.kernelPackages = pkgs.linuxPackages;
     services.zfs.autoScrub.enable = true;
     boot.supportedFilesystems = [ "zfs" ];
     boot.zfs.forceImportRoot = false;
