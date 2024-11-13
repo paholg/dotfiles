@@ -264,7 +264,7 @@ in
         };
         extraConfig = {
           diff.external = "difft";
-          pull.rebase = false;
+          pull.rebase = true;
           push.default = "current";
           rebase.autosquash = true;
           init.defaultBranch = "main";
