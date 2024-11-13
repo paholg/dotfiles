@@ -271,7 +271,6 @@ in
           credential.helper = "store";
           log.date = "local";
         };
-        lfs.enable = true;
         aliases = {
           b = "branch";
           bt = "branch -v --sort=-committerdate";
