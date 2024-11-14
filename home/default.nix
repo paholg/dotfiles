@@ -112,7 +112,6 @@ in
         ll = "ls -l";
 
         g = "git";
-        gbt = "git bt | head -n10";
         gsw =
           # fish
           ''git switch $(git branch --sort=-committerdate | fzf | cut -c3- | cut -d " " -f1)'';
@@ -282,6 +281,7 @@ in
           dc = "diff --cached";
           fixup = "!git commit -a --amend --no-edit && git push -f";
           l = "log";
+          rs = "restore --staged";
           rsw = "restore --staged --worktree";
           s = "status";
           sw = "switch";

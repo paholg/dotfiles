@@ -131,6 +131,7 @@ let
     hyperfine
     jq
     just
+    lazygit
     litecli # sqlite cli
     marksman # markdown lsp
     ncdu # interactive disk-usage
