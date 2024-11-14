@@ -29,7 +29,6 @@
       # fish
       ''
         set TTY (tty)
-        # TTY1: startx
         [ "$TTY" = "/dev/tty1" ] && exec "startx"
       '';
   };
