@@ -32,6 +32,13 @@
           notification = true;
         }
       ];
+      window.commands = [
+        # float gam for now
+        {
+          command = "floating enable";
+          criteria.class = "client";
+        }
+      ];
     };
     fish_extra_init = # fish
       ''
