@@ -12,7 +12,6 @@ let
 in
 {
   imports = [
-    ./amd-graphics.nix
     ./gui.nix
     ./ssh.nix
   ];

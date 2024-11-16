@@ -17,7 +17,6 @@
   custom = {
     gui = true;
     ssh = true;
-    amd-graphics = true;
   };
 
   boot.initrd.luks.devices."luks-0f2fe45b-6e0e-4cb6-b9ee-87b639fb04cb".device = "/dev/disk/by-uuid/0f2fe45b-6e0e-4cb6-b9ee-87b639fb04cb";

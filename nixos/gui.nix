@@ -12,6 +12,8 @@ in
     hardware = {
       bluetooth.enable = true;
       bluetooth.powerOnBoot = true;
+      graphics.enable = true;
+      graphics.enable32Bit = true;
     };
 
     location.provider = "geoclue2";
