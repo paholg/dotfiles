@@ -48,7 +48,7 @@
   };
 
   home.packages = with pkgs; [
-    # blender
+    blender-hip
     discover-overlay
   ];
 
