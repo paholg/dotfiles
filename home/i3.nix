@@ -76,7 +76,6 @@ in
           { class = "^slack$"; }
         ];
         "1" = [ { title = "Steam"; } ];
-        "2" = [ { class = "^firefox$"; } ];
       };
       floating = {
         modifier = mod;
