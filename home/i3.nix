@@ -197,6 +197,9 @@ in
         # STUFF
         "${mod}+Shift+q" = "reload";
         "${mod}+Alt+q" = ''exec "i3-nagbar -t warning -m 'Really exit?' -B 'Yes' 'i3-msg exit'"'';
+        "Print" = ''exec "scrot $HOME/screenshots/%F_%H.%M.%S.png"'';
+        "Ctrl+Print" = ''exec "sleep 0.2; scrot -fs $HOME/screenshots/%F_%H.%M.%S-s.png"'';
+        "Shift+Print" = ''exec "scrot -u $HOME/screenshots/%F_%H.%M.%S-w.png"'';
 
         # *******************************************************************
         # Launch programs
