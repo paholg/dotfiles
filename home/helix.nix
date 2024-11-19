@@ -134,6 +134,12 @@
               F = "file_picker";
               c = "file_picker_in_current_buffer_directory";
               C = "file_browser";
+              l = [
+                ":new"
+                ":insert-output lazygit"
+                ":buffer-close!"
+                ":redraw"
+              ];
             };
 
             # Custom bindings

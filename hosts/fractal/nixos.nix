@@ -7,7 +7,6 @@
   custom = {
     gui = true;
     ssh = true;
-    amd-graphics = true;
   };
 
   hardware.xone.enable = true;

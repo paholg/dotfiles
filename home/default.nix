@@ -264,14 +264,13 @@ in
         };
         extraConfig = {
           diff.external = "difft";
-          pull.rebase = false;
+          pull.rebase = true;
           push.default = "current";
           rebase.autosquash = true;
           init.defaultBranch = "main";
           credential.helper = "store";
           log.date = "local";
         };
-        lfs.enable = true;
         aliases = {
           b = "branch";
           bt = "branch -v --sort=-committerdate";
