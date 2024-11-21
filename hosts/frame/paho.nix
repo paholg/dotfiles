@@ -11,20 +11,10 @@
     starship.host_color = "cyan";
     # xmonad.enable = true;
     i3.enable = true;
-    i3.customConfig = {
-      startup = [
-        {
-          command = "slack";
-          always = true;
-          notification = true;
-        }
-        {
-          command = "firefox";
-          always = true;
-          notification = true;
-        }
-      ];
-    };
+    i3.customConfig = ''
+      exec_always slack
+      exec_always firefox
+    '';
     fish_extra_init =
       # fish
       ''

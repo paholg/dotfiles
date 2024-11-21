@@ -14,32 +14,14 @@
     nixos = true;
     starship.host_color = "cyan";
     i3.enable = true;
-    i3.customConfig = {
-      startup = [
-        {
-          command = "discord";
-          always = true;
-          notification = true;
-        }
-        {
-          command = "steam";
-          always = true;
-          notification = true;
-        }
-        {
-          command = "firefox";
-          always = true;
-          notification = true;
-        }
-      ];
-      window.commands = [
-        # float gam for now
-        {
-          command = "floating enable";
-          criteria.class = "client";
-        }
-      ];
-    };
+    i3.customConfig = ''
+      exec_always discord
+      exec_always steam
+      exec_always firefox
+
+      # Float gam
+      for_window [class="client"] floating enable
+    '';
     fish_extra_init = # fish
       ''
         set TTY (tty)
@@ -50,6 +32,7 @@
   home.packages = with pkgs; [
     blender-hip
     discover-overlay
+    quickemu # For Windows VM
   ];
 
   # Store dotfiles in a shared location, so guest can access too:
