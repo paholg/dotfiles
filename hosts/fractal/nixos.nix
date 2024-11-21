@@ -9,7 +9,9 @@
     ssh = true;
   };
 
-  hardware.xone.enable = true;
+  # Non-xbox controllers are borked when we use this. TBD: Will the xbox
+  # controllers work without it?
+  # hardware.xone.enable = true;
 
   # For display-switch
   hardware.i2c.enable = true;
