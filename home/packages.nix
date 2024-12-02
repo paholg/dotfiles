@@ -30,7 +30,7 @@ let
         libreoffice
         # TODO: Broken
         inlyne # markdown viewer
-        (nerdfonts.override { fonts = [ "FiraCode" ]; })
+        nerd-fonts.fira-code
       ]
     else
       [ ];
