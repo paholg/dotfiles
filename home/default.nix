@@ -174,6 +174,10 @@ in
       };
     };
 
+    services.blueman-applet = lib.mkIf config.custom.gui {
+      enable = true;
+    };
+
     services.redshift = lib.mkIf config.custom.gui {
       enable = true;
       provider = "geoclue2";

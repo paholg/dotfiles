@@ -90,7 +90,6 @@
         helix = inputs.helix.packages.${prev.system}.default;
         # ra-multiplex = ra-multiplex.defaultPackage.${prev.system};
         rustybar = inputs.rustybar.defaultPackage.${prev.system};
-        vanta-agent = prev.callPackage ./vanta.nix { };
       };
 
       pkgs =

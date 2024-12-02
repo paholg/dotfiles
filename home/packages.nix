@@ -117,6 +117,7 @@ let
     difftastic
     du-dust
     dysk
+    erdtree # pretty tree
     eza
     fd
     feh
@@ -153,6 +154,7 @@ let
     sshfs-fuse
     taplo-cli # toml language server
     tinymist # typst language server
+    tlrc # Shorter man-pages
     typst
     typst-lsp
     tokei

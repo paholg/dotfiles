@@ -1,18 +1,11 @@
-{ config, pkgs, ... }:
+{ pkgs, ... }:
 {
   imports = [
     ./hardware-configuration.nix
-    ./vanta-service.nix
   ];
 
   system.stateVersion = "23.11";
   networking.hostName = "frame";
-
-  boot.extraModulePackages = [ config.boot.kernelPackages.v4l2loopback ];
-  boot.extraModprobeConfig = ''
-    options v4l2loopback devices=1 video_nr=1 card_label="OBS Cam" exclusive_caps=1
-  '';
-  security.polkit.enable = true;
 
   custom = {
     gui = true;
@@ -34,15 +27,12 @@
     defaultNetwork.settings.dns_enabled = true;
   };
 
-  environment.systemPackages = [ pkgs.vanta-agent ];
-
   programs.adb.enable = true;
   users.users.paho.extraGroups = [
     "adbusers"
     "kvm"
   ];
 
-  services.blueman-applet.enable = true;
   services.mysql = {
     enable = true;
     package = pkgs.mysql80;
@@ -55,13 +45,6 @@
   services.power-profiles-daemon = {
     enable = true;
   };
-
-  services.vanta-agent = {
-    enable = false;
-  };
-  systemd.tmpfiles.rules = [
-    "L /etc/vanta.conf - - - - ${config.age.secrets.vanta.path}"
-  ];
 
   # ****************************************************************************
   # Fingerprint
