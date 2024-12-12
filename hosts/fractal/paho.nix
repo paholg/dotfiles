@@ -1,4 +1,33 @@
 { config, pkgs, ... }:
+let
+  gamescopeSession = pkgs.writeShellApplication {
+    name = "gamescope-session";
+    runtimeInputs = with pkgs; [
+      steam
+      gamescope
+    ];
+    text = # bash
+      ''
+        gamescopeArgs=(
+            --adaptive-sync # VRR support
+            # --hdr-enabled
+            --rt
+            --steam
+            # See /sys/class/drm/card* for output names that gamescope uses.
+            # They may be different than xrandr.
+            --prefer-output DP-1
+            --force-grab-cursor
+            -s 0.05
+        )
+        steamArgs=(
+            -pipewire-dmabuf
+            -tenfoot
+        )
+
+        exec gamescope "''${gamescopeArgs[@]}" -- steam "''${steamArgs[@]}"
+      '';
+  };
+in
 {
   imports = [
     ../../home
@@ -29,11 +58,14 @@
       '';
   };
 
-  home.packages = with pkgs; [
-    blender-hip
-    discover-overlay
-    quickemu # For Windows VM
-  ];
+  home.packages =
+    with pkgs;
+    [
+      blender-hip
+      discover-overlay
+      quickemu # For Windows VM
+    ]
+    ++ [ gamescopeSession ];
 
   # Store dotfiles in a shared location, so guest can access too:
   home.file.dotfiles.source = config.lib.file.mkOutOfStoreSymlink "/srv/dotfiles";
