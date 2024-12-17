@@ -28,8 +28,8 @@
     };
     helix = {
       # url = "git+file:///home/paho/src/helix";
-      url = "github:drybalka/helix/add-file-browser";
-      # url = "github:paholg/helix/file-picker-navigation";
+      # url = "github:drybalka/helix/add-file-browser";
+      url = "github:paholg/helix/file-picker-navigation";
       # url = "github:helix-editor/helix/master";
 
       inputs.nixpkgs.follows = "nixpkgs";

@@ -133,7 +133,6 @@
               f = "file_picker_in_current_directory";
               F = "file_picker";
               c = "file_picker_in_current_buffer_directory";
-              C = "file_browser";
               l = [
                 ":new"
                 ":insert-output lazygit"
