@@ -24,7 +24,10 @@
     };
 
     xsession.enable = true;
-    home.packages = [ pkgs.i3 ];
+    home.packages = with pkgs; [
+      i3
+      i3status-rust
+    ];
     xsession.windowManager.command = "${lib.getExe pkgs.i3}";
     xdg.configFile."i3/config" = {
       text = builtins.readFile ./i3_config + config.custom.i3.customConfig;

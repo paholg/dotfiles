@@ -23,8 +23,8 @@ assign [title="Steam"] 1
 bar {
   font pango:monospace 8.000000
   position top
-  status_command /nix/store/41ydh00362vysb384pz7a23h6ip6g9di-i3status-rust-0.33.1/bin/i3status-rs
-  i3bar_command /nix/store/bgpl4fdpc4mpxnlx0mzaahs03z7zkpws-i3-4.24/bin/i3bar
+  status_command i3status-rs
+  i3bar_command i3bar
   tray_output primary
 }
 
