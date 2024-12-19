@@ -27,10 +27,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     helix = {
-      # url = "git+file:///home/paho/src/helix";
-      # url = "github:drybalka/helix/add-file-browser";
       url = "github:paholg/helix/file-picker-navigation";
-      # url = "github:helix-editor/helix/master";
 
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.crane.follows = "crane";
@@ -41,11 +38,6 @@
       url = "github:nix-community/naersk";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    # ra-multiplex = {
-    #   url = "github:paholg/ra-multiplex/temp";
-    #   inputs.nixpkgs.follows = "nixpkgs";
-    #   inputs.naersk.follows = "naersk";
-    # };
     rustybar = {
       url = "github:paholg/rustybar";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -85,10 +77,8 @@
           config.allowUnfree = true;
         };
         agenix = inputs.agenix.packages.${prev.system}.default;
-        anyrun = inputs.anyrun.packages.${prev.system}.anyrun;
         display-switch = inputs.display-switch.defaultPackage.${prev.system};
         helix = inputs.helix.packages.${prev.system}.default;
-        # ra-multiplex = ra-multiplex.defaultPackage.${prev.system};
         rustybar = inputs.rustybar.defaultPackage.${prev.system};
       };
 

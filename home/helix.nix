@@ -3,33 +3,9 @@
   pkgs,
   ...
 }:
-# ra_multiplex = "${lib.getExe' pkgs.ra-multiplex "ra-multiplex"}";
 {
   config = {
     home.file.".config/helix/themes/paho-theme.toml".source = ./helix-theme.toml;
-
-    # Configure ra-multiplex for persistent rust-analyzer goodness!
-    # home.file = {
-    #   ".config/ra-multiplex/config.toml".source = (pkgs.formats.toml {}).generate "" {
-    #     instance_timeout = false;
-    #     min_available_memory = "4 GiB";
-    #     gc_interval = 10;
-    #     listen = ["127.0.0.1" 27631];
-    #     connect = ["127.0.0.1" 27631];
-    #     log_filters = "info";
-    #   };
-    # };
-
-    # systemd.user.services.ra-multiplex = {
-    #   Unit = {
-    #     Description = "Rust Analyzer multiplex server";
-    #     Documentation = ["https://github.com/pr2502/ra-multiplex"];
-    #   };
-    #   Install.WantedBy = ["default.target"];
-    #   Service = {
-    #     ExecStart = "/bin/bash -lc 'CARGO_TARGET_DIR=/home/paho/.cargo/cache2 ${ra_multiplex} server'";
-    #   };
-    # };
 
     programs.helix = {
       enable = true;
@@ -70,10 +46,6 @@
           {
             name = "python";
             auto-format = true;
-            # formatter = {
-            #   command = "black";
-            #   args = ["-" "--quiet" "--line-length=79"];
-            # };
           }
           {
             name = "rust";
@@ -81,7 +53,6 @@
               81
               101
             ];
-            # language-servers = ["ra-multiplex"];
           }
           {
             name = "ruby";
@@ -100,10 +71,6 @@
           ruby-lsp = {
             command = "${lib.getExe pkgs.ruby-lsp}";
           };
-          # ra-multiplex = {
-          #   command = ra_multiplex;
-          #   args = ["client"];
-          # };
         };
       };
 

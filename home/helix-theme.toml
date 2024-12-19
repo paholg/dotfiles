@@ -42,14 +42,16 @@
 "ui.statusline"        = { fg = "base", bg = "act1" }
 "ui.window"            = { bg = "bg3" }
 
-"ui.text"                     = { fg = "base" }
-"ui.text.focus"               = { fg = "#e5ded6", modifiers = ["bold"] }
-"ui.virtual"                  = "#627d9d"
-"ui.virtual.inlay-hint"       = { fg = "#627d9d", modifiers = ["dim", "italic"] }
-"ui.virtual.jump.multi.first" = { fg = "red", bg = "bg4", modifiers = ["bold"] }
-"ui.virtual.jump.multi.rest"  = { fg = "red", bg = "bg4", modifiers = ["bold"] }
-"ui.virtual.jump.single"      = { fg = "red", bg = "bg4", modifiers = ["bold"] }
-"ui.virtual.ruler"            = { bg = "bg3" }
+"ui.picker.header"               = { bg = "bg1" }
+"ui.picker.header.column"        = { fg = "head1" }
+"ui.picker.header.column.active" = { fg = "blue" }
+
+"ui.text"               = { fg = "base" }
+"ui.text.focus"         = { fg = "#e5ded6", modifiers = ["bold"] }
+"ui.virtual"            = "#627d9d"
+"ui.virtual.inlay-hint" = { fg = "#627d9d", modifiers = ["dim", "italic"] }
+"ui.virtual.jump-label" = { fg = "red", bg = "bg4", modifiers = ["bold"] }
+"ui.virtual.ruler"      = { bg = "bg1" }
 
 
 "ui.cursor"            = { fg = "cursor", bg = "bg2", modifiers = ["reversed"] }
