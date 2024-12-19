@@ -17,7 +17,7 @@ let
             # They may be different than xrandr.
             --prefer-output DP-1
             --force-grab-cursor
-            -s 0.05
+            -s 1.0
         )
         steamArgs=(
             -pipewire-dmabuf
