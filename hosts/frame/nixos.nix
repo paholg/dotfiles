@@ -12,7 +12,8 @@
     ssh = true;
   };
 
-  boot.initrd.luks.devices."luks-0f2fe45b-6e0e-4cb6-b9ee-87b639fb04cb".device = "/dev/disk/by-uuid/0f2fe45b-6e0e-4cb6-b9ee-87b639fb04cb";
+  boot.initrd.luks.devices."luks-0f2fe45b-6e0e-4cb6-b9ee-87b639fb04cb".device =
+    "/dev/disk/by-uuid/0f2fe45b-6e0e-4cb6-b9ee-87b639fb04cb";
 
   networking.networkmanager.enable = true;
 
@@ -36,6 +37,9 @@
   services.mysql = {
     enable = true;
     package = pkgs.mysql80;
+    settings = {
+      mysqld.sort_buffer_size = "512k";
+    };
   };
 
   services.redis.servers."" = {
