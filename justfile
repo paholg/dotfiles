@@ -9,7 +9,6 @@ up: \
 	up-git \
 	up-host \
 	up-fw \
-	up-nix \
 	sw
 
 swother host:
@@ -36,11 +35,6 @@ up-rust:
 [private]
 up-host:
 	if test -f "hosts/$(hostname)/up"; then "hosts/$(hostname)/up"; fi
-
-# Update nix flake
-[private]
-up-nix:
-	nix flake update
 
 # Update firmware
 [private]
