@@ -27,6 +27,10 @@
     my = "mycli --socket /tmp/mysql.sock -uroot -D scholarly_development";
   };
 
+  programs.obs-studio = {
+    enable = true;
+  };
+
   home.packages = with pkgs; [
     awscli2
     csvtool
