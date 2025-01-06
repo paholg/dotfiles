@@ -30,7 +30,6 @@ in
     security.pam.services.swaylock = { };
 
     # Pipewire audio
-    hardware.pulseaudio.enable = false;
     security.rtkit.enable = true;
     services.pipewire = {
       enable = true;
@@ -40,6 +39,7 @@ in
       pulse.enable = true;
       jack.enable = true;
     };
+    services.pulseaudio.enable = false;
     hardware.pulseaudio.daemon.config = {
       # Fix for Audioengine HD3 speakers
       default-sample-rate = 48000;
