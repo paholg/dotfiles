@@ -37,9 +37,9 @@
   services.mysql = {
     enable = true;
     package = pkgs.mysql80;
-    settings = {
-      mysqld.sort_buffer_size = "512k";
-    };
+    # settings = {
+    #   mysqld.sort_buffer_size = "512k";
+    # };
   };
 
   services.redis.servers."" = {
