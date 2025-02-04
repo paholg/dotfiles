@@ -7,7 +7,6 @@ let
       with pkgs;
       [
         acpi
-        cargo-kcov
         dmidecode
         jc
         kcov
@@ -156,12 +155,11 @@ let
     tinymist # typst language server
     tlrc # Shorter man-pages
     typst
-    typst-lsp
     tokei
     unzip
     vscode-langservers-extracted # css, html, json, markdown, eslint
     wget
-    xsv
+    xan
     yaml-language-server
     yq-go
     zip
