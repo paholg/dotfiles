@@ -33,17 +33,16 @@ in
     security.rtkit.enable = true;
     services.pipewire = {
       enable = true;
-      audio.enable = true;
       alsa.enable = true;
       alsa.support32Bit = true;
       pulse.enable = true;
       jack.enable = true;
     };
-    services.pulseaudio.enable = false;
-    hardware.pulseaudio.daemon.config = {
-      # Fix for Audioengine HD3 speakers
-      default-sample-rate = 48000;
-    };
+    # services.pulseaudio.enable = false;
+    # services.pulseaudio.daemon.config = {
+    #   # Fix for Audioengine HD3 speakers
+    #   default-sample-rate = 48000;
+    # };
 
     hardware.printers.ensurePrinters = [
       {
