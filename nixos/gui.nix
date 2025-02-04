@@ -37,12 +37,19 @@ in
       alsa.support32Bit = true;
       pulse.enable = true;
       jack.enable = true;
+
+      # extraConfig.pipewire = {
+      #   "10-clock-rate" = {
+      #     "context.properties" = {
+      #       # Fix for Audioengine HD3 speakers???
+      #       "default.clock.rate" = 48000;
+      #       "default.clock.allowed-rates" = [
+      #         48000
+      #       ];
+      #     };
+      #   };
+      # };
     };
-    # services.pulseaudio.enable = false;
-    # services.pulseaudio.daemon.config = {
-    #   # Fix for Audioengine HD3 speakers
-    #   default-sample-rate = 48000;
-    # };
 
     hardware.printers.ensurePrinters = [
       {

@@ -95,6 +95,10 @@
         theme = "paho-theme";
 
         keys = {
+          insert = {
+            C-h = "goto_prev_tabstop";
+            C-l = "goto_next_tabstop";
+          };
           normal = {
             space = {
               f = "file_picker_in_current_directory";
