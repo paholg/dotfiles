@@ -29,6 +29,7 @@
 
   programs.obs-studio = {
     enable = true;
+    plugins = [ pkgs.obs-studio-plugins.obs-backgroundremoval ];
   };
 
   home.packages = with pkgs; [
