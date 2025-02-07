@@ -40,6 +40,8 @@
 "ui.linenr.selected"   = { fg = "base", bg = "highlight" }
 "ui.popup"             = { bg = "bg3" }
 "ui.statusline"        = { fg = "base", bg = "act1" }
+"ui.statusline.insert" = { fg = "blue", bg = "act1" }
+"ui.statusline.select" = { fg = "green", bg = "act1" }
 "ui.window"            = { bg = "bg3" }
 
 "ui.picker.header"               = { bg = "bg1" }

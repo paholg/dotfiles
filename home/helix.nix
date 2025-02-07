@@ -76,22 +76,18 @@
 
       settings = {
         editor = {
-          true-color = true;
-          bufferline = "multiple";
+          color-modes = true;
+          completion-replace = true;
+          end-of-line-diagnostics = "hint";
+          file-picker.hidden = false;
           indent-guides.render = true;
-          file-picker = {
-            hidden = false;
-          };
-          lsp = {
-            auto-signature-help = false;
-            display-messages = true;
-            display-inlay-hints = true;
-          };
+          lsp.auto-signature-help = false;
+          lsp.display-inlay-hints = true;
           rulers = [ 81 ];
           soft-wrap.enable = true;
-          whitespace.render = "none";
-          end-of-line-diagnostics = "hint";
+          true-color = true;
         };
+
         theme = "paho-theme";
 
         keys = {
@@ -101,8 +97,6 @@
           };
           normal = {
             space = {
-              f = "file_picker_in_current_directory";
-              F = "file_picker";
               c = "file_picker_in_current_buffer_directory";
               l = [
                 ":new"
@@ -111,9 +105,6 @@
                 ":redraw"
               ];
             };
-
-            # Custom bindings
-            # A-r = ":lsp-custom rust-analyzer/reloadWorkspace";
             A-h = ":toggle-option lsp.display-inlay-hints";
           };
         };
