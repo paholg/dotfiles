@@ -27,7 +27,7 @@ let
         dialog
         dmenu
         libreoffice
-        # TODO: Broken
+        mdbook
         inlyne # markdown viewer
         nerd-fonts.fira-code
       ]
