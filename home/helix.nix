@@ -96,6 +96,7 @@
             C-l = "goto_next_tabstop";
           };
           normal = {
+            X = "extend_line_above";
             space = {
               c = "file_picker_in_current_buffer_directory";
               l = [
