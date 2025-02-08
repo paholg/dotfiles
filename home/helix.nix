@@ -10,6 +10,8 @@
     programs.helix = {
       enable = true;
       defaultEditor = true;
+      package = pkgs.external.helix;
+
       languages = {
         language = [
           {
@@ -66,10 +68,10 @@
 
         language-server = {
           nixd = {
-            command = "${lib.getExe pkgs.nixd}";
+            command = lib.getExe pkgs.nixd;
           };
           ruby-lsp = {
-            command = "${lib.getExe pkgs.ruby-lsp}";
+            command = lib.getExe pkgs.ruby-lsp;
           };
         };
       };

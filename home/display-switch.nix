@@ -52,7 +52,7 @@ in
         Description = "Display switch via USB switch";
       };
       Service = {
-        ExecStart = lib.getExe' pkgs.display-switch "display_switch";
+        ExecStart = lib.getExe' pkgs.external.display-switch "display_switch";
         Type = "simple";
         StandardOutput = "journal";
         Restart = "always";

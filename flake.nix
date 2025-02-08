@@ -72,14 +72,12 @@
       linux = "x86_64-linux";
 
       pkgs_overlay = final: prev: {
-        unfree = import inputs.nixpkgs {
-          system = prev.system;
-          config.allowUnfree = true;
+        external = {
+          agenix = inputs.agenix.packages.${prev.system}.default;
+          display-switch = inputs.display-switch.defaultPackage.${prev.system};
+          helix = inputs.helix.packages.${prev.system}.default;
+          rustybar = inputs.rustybar.defaultPackage.${prev.system};
         };
-        agenix = inputs.agenix.packages.${prev.system}.default;
-        display-switch = inputs.display-switch.defaultPackage.${prev.system};
-        helix = inputs.helix.packages.${prev.system}.default;
-        rustybar = inputs.rustybar.defaultPackage.${prev.system};
       };
 
       pkgs =
@@ -89,7 +87,6 @@
             pkgs_overlay
           ];
           inherit system;
-          # FIXME
           config.allowUnfree = true;
         };
 

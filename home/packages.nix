@@ -41,7 +41,7 @@ let
       with pkgs;
       [
         arandr
-        rustybar
+        external.rustybar
         xclip
         xdotool
         xorg.xev
@@ -77,8 +77,8 @@ let
         pulseaudioFull
         scrot
         signal-desktop
-        unfree.discord
-        unfree.slack
+        discord
+        slack
         vlc
         zoom-us
       ]
@@ -87,7 +87,7 @@ let
 
   default = with pkgs; [
     # iredis
-    agenix
+    external.agenix
     angle-grinder
     arandr
     ast-grep

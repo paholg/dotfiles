@@ -146,7 +146,6 @@ in
       plex = {
         enable = true;
         group = "media";
-        package = pkgs.unfree.plex;
         openFirewall = true;
         dataDir = cfg.drives.storage + "/plex";
       };
