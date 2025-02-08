@@ -133,6 +133,7 @@ let
     just
     lazygit
     litecli # sqlite cli
+    markdown-oxide
     marksman # markdown lsp
     ncdu # interactive disk-usage
     nh # nix helper
