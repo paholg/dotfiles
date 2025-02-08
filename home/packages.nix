@@ -98,7 +98,8 @@ let
     bat-extras.batgrep
     bat-extras.batman
     bat-extras.prettybat
-    bitwarden-cli
+    # TODO: broken
+    # bitwarden-cli
     bottom
     broot
     cachix

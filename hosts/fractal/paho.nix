@@ -61,7 +61,8 @@ in
   home.packages =
     with pkgs;
     [
-      blender-hip
+      # TODO: broken
+      # blender-hip
       discover-overlay
       quickemu # For Windows VM
     ]
