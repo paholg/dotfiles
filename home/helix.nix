@@ -33,6 +33,17 @@
             auto-format = false;
           }
           {
+            name = "markdown";
+            comment-tokens = [
+              "-"
+              "+"
+              "*"
+              "1."
+              ">"
+              "- [ ]"
+            ];
+          }
+          {
             name = "nickel";
             auto-format = true;
           }
