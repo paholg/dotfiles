@@ -321,7 +321,7 @@ in
       };
 
       zellij = {
-        enable = true;
+        enable = false;
         settings = {
           theme = "custom";
           themes.custom = {
