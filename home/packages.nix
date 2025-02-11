@@ -97,6 +97,8 @@ let
     bat
     bat-extras.batgrep
     bat-extras.batman
+    bat-extras.batpipe
+    bat-extras.batwatch
     bat-extras.prettybat
     # TODO: broken
     # bitwarden-cli
@@ -117,6 +119,7 @@ let
     difftastic
     du-dust
     dysk
+    entr # Watch for file changes
     erdtree # pretty tree
     eza
     fd

@@ -82,7 +82,6 @@ in
       sessionVariables = {
         RUST_NEW_ERROR_FORMAT = "true";
         CARGO_HOME = "$HOME/.cargo";
-        MANPAGER = "sh -c 'col -bx | bat -l man -p'";
         MANROFFOPT = "-c";
 
         CARGO_TARGET_DIR = "$HOME/.cargo/cache";
@@ -96,10 +95,7 @@ in
       ];
 
       shellAliases = {
-        cb = "cargo build --color always 2>&1 | less -R";
-        cc = "cargo check --color always 2>&1 | less -R";
-        ct = "cargo test --color always 2>&1 | less -R";
-        cw = ''cargo watch -s "cargo check --colow always 2>&1 | less -R"'';
+        bathelp = "bat --plain --language help";
 
         check_sync = "watch grep -e Dirty: -e Writeback: /proc/meminfo";
 
@@ -227,14 +223,16 @@ in
       fish = {
         enable = true;
 
-        interactiveShellInit =
-          # fish
+        interactiveShellInit = # fish
           ''
             set fish_greeting # disable
             # TODO: Temporary fix for fish completions.
             # Remove once this is merged:
             # https://github.com/nix-community/home-manager/pull/5199
             set fish_complete_path "${config.home.path}/share/fish/vendor_completions.d" $fish_complete_path
+
+            batman --export-env | source
+            eval (batpipe)
           ''
           + config.custom.fish_extra_init;
 
@@ -247,7 +245,13 @@ in
                 nix shell $pkgs --command fish
               '';
           };
-          # e = "";
+          h = {
+            description = "Render the --help for a command with bat";
+            body = # fish
+              ''
+                $argv --help 2>&1 | bathelp
+              '';
+          };
         };
       };
 
