@@ -291,6 +291,27 @@ in
         };
       };
 
+      jujutsu = lib.mkIf (config.custom.username == "paho") {
+        enable = true;
+        settings = {
+          user = {
+            name = "Paho Lurie-Gregg";
+            email = "paho@paholg.com";
+          };
+
+          ui = {
+            diff.tool = [
+              "difft"
+              "--color=always"
+              "$left"
+              "$right"
+            ];
+
+            pager = ":builtin";
+          };
+        };
+      };
+
       home-manager.enable = true;
 
       ssh = {
