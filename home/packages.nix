@@ -94,12 +94,6 @@ let
     aws-rotate-key
     bacon
     bash-language-server
-    bat
-    bat-extras.batgrep
-    bat-extras.batman
-    bat-extras.batpipe
-    bat-extras.batwatch
-    bat-extras.prettybat
     # TODO: broken
     # bitwarden-cli
     bottom

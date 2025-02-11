@@ -96,6 +96,7 @@ in
 
       shellAliases = {
         bathelp = "bat --plain --language help";
+        batlog = "bat -pp -l log";
 
         check_sync = "watch grep -e Dirty: -e Writeback: /proc/meminfo";
 
@@ -213,6 +214,20 @@ in
             exec ${pkgs.fish}/bin/fish $LOGIN_OPTION
           fi
         '';
+      };
+
+      bat = {
+        enable = true;
+        extraPackages = with pkgs.bat-extras; [
+          batgrep
+          batman
+          batpipe
+          batwatch
+          prettybat
+        ];
+        config = {
+          theme = "TwoDark";
+        };
       };
 
       direnv = {
