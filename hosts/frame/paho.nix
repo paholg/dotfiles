@@ -38,6 +38,7 @@
     distrobox
     heroku
     iredis
+    mermaid-cli
     mycli
     pscale
   ];
