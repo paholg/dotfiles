@@ -98,6 +98,10 @@
           lsp.display-inlay-hints = true;
           rulers = [ 81 ];
           soft-wrap.enable = true;
+          sticky-context = {
+            enable = true;
+            indicator = true;
+          };
           true-color = true;
         };
 

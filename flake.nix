@@ -27,7 +27,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     helix = {
-      url = "github:paholg/helix/file-picker-navigation";
+      url = "github:paholg/helix/driver";
 
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.crane.follows = "crane";
