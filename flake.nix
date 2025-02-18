@@ -38,12 +38,12 @@
       url = "github:nix-community/naersk";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    rustybar = {
-      url = "github:paholg/rustybar";
-      inputs.nixpkgs.follows = "nixpkgs";
-      inputs.naersk.follows = "naersk";
-      inputs.utils.follows = "flake-utils";
-    };
+    # rustybar = {
+    #   url = "github:paholg/rustybar";
+    #   inputs.nixpkgs.follows = "nixpkgs";
+    #   inputs.naersk.follows = "naersk";
+    #   inputs.utils.follows = "flake-utils";
+    # };
 
     # Dependencies to minimize duplicates in `flake.lock`:
     crane = {
@@ -76,7 +76,7 @@
           agenix = inputs.agenix.packages.${prev.system}.default;
           display-switch = inputs.display-switch.defaultPackage.${prev.system};
           helix = inputs.helix.packages.${prev.system}.default;
-          rustybar = inputs.rustybar.defaultPackage.${prev.system};
+          # rustybar = inputs.rustybar.defaultPackage.${prev.system};
         };
       };
 

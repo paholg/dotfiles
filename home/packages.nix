@@ -41,7 +41,7 @@ let
       with pkgs;
       [
         arandr
-        external.rustybar
+        # external.rustybar
         xclip
         xdotool
         xorg.xev
