@@ -12,81 +12,6 @@
       defaultEditor = true;
       package = pkgs.external.helix;
 
-      languages = {
-        language = [
-          {
-            name = "c";
-            file-types = [
-              "c"
-              "keymap"
-            ];
-          }
-          {
-            name = "git-commit";
-            rulers = [
-              51
-              73
-            ];
-          }
-          {
-            name = "json";
-            auto-format = false;
-          }
-          {
-            name = "markdown";
-            comment-tokens = [
-              "-"
-              "+"
-              "*"
-              "1."
-              ">"
-              "- [ ]"
-            ];
-          }
-          {
-            name = "nickel";
-            auto-format = true;
-          }
-          {
-            name = "nix";
-            auto-format = true;
-            language-servers = [ "nixd" ];
-            formatter = {
-              command = lib.getExe pkgs.nixfmt-rfc-style;
-              args = [ ];
-            };
-          }
-          {
-            name = "python";
-            auto-format = true;
-          }
-          {
-            name = "rust";
-            rulers = [
-              81
-              101
-            ];
-          }
-          {
-            name = "ruby";
-            language-servers = [ "ruby-lsp" ];
-          }
-          {
-            name = "toml";
-            auto-format = true;
-          }
-        ];
-
-        language-server = {
-          nixd = {
-            command = lib.getExe pkgs.nixd;
-          };
-          ruby-lsp = {
-            command = lib.getExe pkgs.ruby-lsp;
-          };
-        };
-      };
-
       settings = {
         editor = {
           color-modes = true;
@@ -124,6 +49,81 @@
               ];
             };
             A-h = ":toggle-option lsp.display-inlay-hints";
+          };
+        };
+
+        languages = {
+          language = [
+            {
+              name = "c";
+              file-types = [
+                "c"
+                "keymap"
+              ];
+            }
+            {
+              name = "git-commit";
+              rulers = [
+                51
+                73
+              ];
+            }
+            {
+              name = "json";
+              auto-format = false;
+            }
+            {
+              name = "markdown";
+              comment-tokens = [
+                "-"
+                "+"
+                "*"
+                "1."
+                ">"
+                "- [ ]"
+              ];
+            }
+            {
+              name = "nickel";
+              auto-format = true;
+            }
+            {
+              name = "nix";
+              auto-format = true;
+              language-servers = [ "nixd" ];
+              formatter = {
+                command = lib.getExe pkgs.nixfmt-rfc-style;
+                args = [ ];
+              };
+            }
+            {
+              name = "python";
+              auto-format = true;
+            }
+            {
+              name = "rust";
+              rulers = [
+                81
+                101
+              ];
+            }
+            {
+              name = "ruby";
+              language-servers = [ "ruby-lsp" ];
+            }
+            {
+              name = "toml";
+              auto-format = true;
+            }
+          ];
+
+          language-server = {
+            nixd = {
+              command = lib.getExe pkgs.nixd;
+            };
+            ruby-lsp = {
+              command = lib.getExe pkgs.ruby-lsp;
+            };
           };
         };
       };
