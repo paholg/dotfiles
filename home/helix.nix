@@ -25,7 +25,7 @@
           soft-wrap.enable = true;
           sticky-context = {
             enable = true;
-            indicator = true;
+            indicator = false;
           };
           true-color = true;
         };

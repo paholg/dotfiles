@@ -48,6 +48,8 @@
 "ui.picker.header.column"        = { fg = "head1" }
 "ui.picker.header.column.active" = { fg = "blue" }
 
+"ui.sticky.context" = { bg = "bg1" }
+
 "ui.text"               = { fg = "base" }
 "ui.text.focus"         = { fg = "#e5ded6", modifiers = ["bold"] }
 "ui.virtual"            = "#627d9d"
