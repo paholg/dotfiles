@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ lib, pkgs, ... }:
 {
   imports = [
     ./hardware-configuration.nix
@@ -54,5 +54,18 @@
   systemd.services.fprintd = {
     wantedBy = [ "multi-user.target" ];
     serviceConfig.type = "simple";
+  };
+
+  systemd.services.vanta_manager = {
+    description = "Start vanta container";
+    wantedBy = [ "multi-user.target" ];
+    after = [ "network-online.target" ];
+    wants = [ "network-online.target" ];
+    serviceConfig = {
+      Type = "oneshot";
+      RemainAfterExit = true;
+      ExecStart = "${lib.getExe pkgs.podman} start vanta";
+      ExecStop = "${lib.getExe pkgs.podman} stop vanta";
+    };
   };
 }
