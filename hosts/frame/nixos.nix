@@ -24,15 +24,10 @@
   virtualisation.podman = {
     enable = true;
     autoPrune.enable = true;
+    autoPrune.flags = [ "--all" ];
     dockerCompat = true;
     defaultNetwork.settings.dns_enabled = true;
   };
-
-  programs.adb.enable = true;
-  users.users.paho.extraGroups = [
-    "adbusers"
-    "kvm"
-  ];
 
   services.mysql = {
     enable = true;
