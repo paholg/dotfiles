@@ -62,17 +62,17 @@ let
         chromium
         dconf
         ddcutil
-        dolphin
         dzen2
         eog
         evince
         gimp
         glxinfo
+        kdePackages.dolphin
+        kdePackages.okular
         krita
         libnotify
         lxappearance
         lxqt.lxqt-policykit
-        okular
         pavucontrol
         pulseaudioFull
         scrot
