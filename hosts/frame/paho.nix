@@ -45,12 +45,14 @@
   # Vanta stuff
   home.shellAliases.vanta_create = # bash
     ''
-      distrobox create -ri debian:stable \
+      distrobox create -i debian:stable \
         -n vanta \
+        -r \
         --home "$HOME/vanta/" \
         --init \
         --additional-packages "systemd libpam-systemd pipewire-audio-client-libraries" \
-        --additional-flags "--label keep-true"
+        --additional-flags "--label keep-true" && \
+        vanta_enter \
     '';
   home.shellAliases.vanta_enter = "distrobox enter --root -nw vanta";
 

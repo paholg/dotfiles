@@ -23,8 +23,8 @@
 
   virtualisation.podman = {
     enable = true;
-    autoPrune.enable = true;
-    autoPrune.flags = [ "--all" ];
+    # This deletes distrobox images :(
+    autoPrune.enable = false;
     dockerCompat = true;
     defaultNetwork.settings.dns_enabled = true;
   };
