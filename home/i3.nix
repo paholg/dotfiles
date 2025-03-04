@@ -26,7 +26,7 @@
     xsession.enable = true;
     home.packages = with pkgs; [
       i3
-      i3status-rust
+      i3status
     ];
     xsession.windowManager.command = "${lib.getExe pkgs.i3}";
     xdg.configFile."i3/config" = {
