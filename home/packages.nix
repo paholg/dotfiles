@@ -62,6 +62,7 @@ let
         chromium
         dconf
         ddcutil
+        discord
         dzen2
         eog
         evince
@@ -77,7 +78,6 @@ let
         pulseaudioFull
         scrot
         signal-desktop
-        discord
         slack
         vlc
         zoom-us
