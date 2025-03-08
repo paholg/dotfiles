@@ -49,6 +49,9 @@ for_window [class="zoom" title="Zoom - Free Account"] floating disable
 for_window [class="zoom" title="Zoom - Licensed Account"] floating disable
 for_window [class="zoom" title="Zoom Meeting"] floating disable
 
+# Chromium for selenium tests
+for_window [class="Chromium-browser"] floating enable
+
 # ******************************************************************************
 # Keybindings
 
