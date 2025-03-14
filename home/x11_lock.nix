@@ -23,6 +23,9 @@ let
     XSECURELOCK_PASSWORD_PROMPT = "cursor";
     XSECURELOCK_SHOW_DATETIME = "1";
     XSECURELOCK_SHOW_KEYBOARD_LAYOUT = "0";
+
+    # Without this, can't lock when running wayland in a different VTT.
+    XSECURELOCK_DEBUG_ALLOW_LOCKING_IF_INEFFECTIVE = "1";
     # XSECURELOCK_SHOW_HOSTNAME = "0";
     # XSECURELOCK_SHOW_USERNAME = "0";
 
