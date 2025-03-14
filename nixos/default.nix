@@ -29,6 +29,7 @@ in
         systemd-boot = {
           enable = true;
           memtest86.enable = true;
+          configurationLimit = 10;
         };
         efi.canTouchEfiVariables = true;
       };
@@ -102,22 +103,6 @@ in
       keyMap = "us";
     };
     time.timeZone = "America/Los_Angeles";
-
-    # polkit
-    security.polkit.enable = true;
-    systemd.user.services.polkit-gnome = {
-      description = "polkit-gnome-authentication-agent-1";
-      wantedBy = [ "graphical-session.target" ];
-      wants = [ "graphical-session.target" ];
-      after = [ "graphical-session.target" ];
-      serviceConfig = {
-        Type = "simple";
-        ExecStart = "${pkgs.polkit_gnome}/libexec/polkit-gnome-authentication-agent-1";
-        Restart = "on-failure";
-        RestartSec = 1;
-        TimeoutStopSec = 10;
-      };
-    };
 
     users.users.paho = {
       shell = pkgs.bash;

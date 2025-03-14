@@ -14,7 +14,6 @@
   };
 
   config = lib.mkIf config.custom.i3.enable {
-    custom.wayland = false;
     custom.x11 = true;
     custom.x11_lock.enable = true;
 

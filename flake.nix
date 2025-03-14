@@ -38,12 +38,6 @@
       url = "github:nix-community/naersk";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    # rustybar = {
-    #   url = "github:paholg/rustybar";
-    #   inputs.nixpkgs.follows = "nixpkgs";
-    #   inputs.naersk.follows = "naersk";
-    #   inputs.utils.follows = "flake-utils";
-    # };
 
     # Dependencies to minimize duplicates in `flake.lock`:
     crane = {

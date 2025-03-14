@@ -15,12 +15,12 @@ in
     ./firefox.nix
     ./helix.nix
     ./mangohud.nix
+    ./niri
     ./packages.nix
     ./starship.nix
     ./sway.nix
     ./x11_lock.nix
     ./xfce.nix
-    ./xmonad.nix
   ];
 
   options.custom = {
@@ -173,15 +173,6 @@ in
 
     services.blueman-applet = lib.mkIf config.custom.gui {
       enable = true;
-    };
-
-    services.redshift = lib.mkIf config.custom.gui {
-      enable = true;
-      provider = "geoclue2";
-      temperature = {
-        day = 5000;
-        night = 3300;
-      };
     };
 
     services.ssh-agent.enable = true;

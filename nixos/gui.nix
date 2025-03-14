@@ -8,6 +8,8 @@ let
   cfg = config.custom;
 in
 {
+  imports = [ ./niri.nix ];
+
   config = lib.mkIf cfg.gui {
     hardware = {
       bluetooth.enable = true;
@@ -26,8 +28,7 @@ in
 
     fonts.packages = [ pkgs.nerd-fonts.fira-code ];
 
-    # Workaround for swaylock not accepting my password.
-    security.pam.services.swaylock = { };
+    programs.niri.enable = true;
 
     # Pipewire audio
     security.rtkit.enable = true;
@@ -37,18 +38,6 @@ in
       alsa.support32Bit = true;
       pulse.enable = true;
       jack.enable = true;
-
-      # extraConfig.pipewire = {
-      #   "10-clock-rate" = {
-      #     "context.properties" = {
-      #       # Fix for Audioengine HD3 speakers???
-      #       "default.clock.rate" = 48000;
-      #       "default.clock.allowed-rates" = [
-      #         48000
-      #       ];
-      #     };
-      #   };
-      # };
     };
 
     hardware.printers.ensurePrinters = [
@@ -79,13 +68,6 @@ in
       printing = {
         enable = true;
         drivers = [ pkgs.samsung-unified-linux-driver ];
-      };
-
-      xserver = {
-        enable = true;
-        displayManager.startx.enable = true;
-        autorun = false;
-        xkb.layout = "us";
       };
     };
 
