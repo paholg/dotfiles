@@ -44,10 +44,11 @@ in
         # };
 
         window.dynamic_title = true;
+        window.decorations = "None";
         window.opacity = 0.9;
 
         font = {
-          size = 10;
+          size = 12;
           normal = {
             family = "FiraCode Nerd Font Mono";
             style = "Regular";

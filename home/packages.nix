@@ -80,7 +80,6 @@ let
         signal-desktop
         slack
         vlc
-        zoom-us
       ]
     else
       [ ];

@@ -9,17 +9,15 @@
     linux = true;
     nixos = true;
     starship.host_color = "cyan";
-    # xmonad.enable = true;
-    i3.enable = true;
-    i3.customConfig = ''
-      exec_always slack
-      exec_always firefox
-    '';
+    i3.enable = false;
+    niri.enable = true;
+    x11 = false;
+    x11_lock.enable = false;
     fish_extra_init =
       # fish
       ''
         set TTY (tty)
-        [ "$TTY" = "/dev/tty1" ] && exec "startx"
+        [ "$TTY" = "/dev/tty1" ] && exec "niri-session"
       '';
   };
 
@@ -40,7 +38,10 @@
     mermaid-cli
     mycli
     pscale
+    zoom-us
   ];
+
+  # home.file.".config/zoomus.conf".source = ./zoom.conf;
 
   # Vanta stuff
   home.shellAliases.vanta_create = # bash
