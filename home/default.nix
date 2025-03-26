@@ -18,7 +18,7 @@ in
     ./niri
     ./packages.nix
     ./starship.nix
-    ./sway.nix
+    ./stylix.nix
     ./x11_lock.nix
     ./xfce.nix
   ];
@@ -57,20 +57,6 @@ in
       publicShare = "${homeDir}/docs/public";
       templates = "${homeDir}/docs/templates";
       videos = "${homeDir}/docs/videos";
-    };
-
-    # Themes
-    gtk = {
-      enable = config.custom.gui;
-      theme = {
-        name = "Adwaita-dark";
-        package = pkgs.gnome-themes-extra;
-      };
-    };
-    qt = {
-      enable = config.custom.gui;
-      platformTheme.name = "adwaita";
-      style.name = "adwaita-dark";
     };
 
     home = {
@@ -216,9 +202,6 @@ in
           batwatch
           prettybat
         ];
-        config = {
-          theme = "TwoDark";
-        };
       };
 
       direnv = {

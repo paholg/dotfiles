@@ -8,7 +8,10 @@ let
   cfg = config.custom;
 in
 {
-  imports = [ ./niri.nix ];
+  imports = [
+    ./niri.nix
+    ./stylix.nix
+  ];
 
   config = lib.mkIf cfg.gui {
     hardware = {
@@ -70,12 +73,5 @@ in
         drivers = [ pkgs.samsung-unified-linux-driver ];
       };
     };
-
-    qt = {
-      enable = true;
-      platformTheme = "gnome";
-      style = "adwaita-dark";
-    };
-
   };
 }

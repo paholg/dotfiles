@@ -24,6 +24,10 @@ let
   };
 in
 {
+  imports = [
+    ./background.nix
+  ];
+
   options.custom.niri = {
     enable = lib.mkEnableOption "niri";
   };
@@ -34,10 +38,82 @@ in
     home.packages = [
       locker
       pkgs.nautilus # File-picker used by our desktop portal
-      pkgs.niri
     ];
 
-    home.file.".config/niri/config.kdl".source = ./config.kdl;
+    programs = {
+      fuzzel.enable = true;
+      swaylock.enable = true;
+      waybar = import ./waybar.nix;
+
+      niri = {
+        settings = {
+          binds = import ./binds.nix;
+          environment = {
+            NIXOS_OZONE_WL = "1";
+          };
+          input = {
+            focus-follows-mouse.enable = true;
+            keyboard = {
+              repeat-delay = 200;
+              repeat-rate = 50;
+            };
+            touchpad = {
+              natural-scroll = false;
+              tap = false;
+              dwt = true;
+              click-method = "clickfinger";
+            };
+          };
+          outputs = {
+            "DP-3" = {
+              enable = true;
+              position = {
+                x = 1735;
+                y = 0;
+              };
+            };
+            "eDP-1" = {
+              enable = true;
+              position = {
+                x = 0;
+                y = 0;
+              };
+              scale = 1.3;
+            };
+          };
+          screenshot-path = "~/screenshots/%F_%H.%M.%S.png";
+          layout = {
+            center-focused-column = "never";
+            gaps = 4;
+          };
+          spawn-at-startup = [
+            {
+              command = [
+                "systemctl"
+                "--user"
+                "restart"
+                "waybar.service"
+              ];
+            }
+          ];
+          window-rules = [
+            {
+              draw-border-with-background = false;
+            }
+            {
+              matches = [ { app-id = "Zoom Workplace"; } ];
+              excludes = [
+                { title = "Zoom - Free Account"; }
+                { title = "Zoom - Licensed Account"; }
+                { title = "Zoom Meeting"; }
+                { title = "Meeting"; }
+              ];
+              open-floating = true;
+            }
+          ];
+        };
+      };
+    };
 
     services = {
       gammastep = {
@@ -54,19 +130,6 @@ in
       mako = {
         enable = true;
       };
-    };
-
-    programs = {
-      fuzzel = {
-        enable = true;
-      };
-      swaylock = {
-        enable = true;
-        settings = {
-          color = "003333";
-        };
-      };
-      waybar = import ./waybar.nix;
     };
   };
 }

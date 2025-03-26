@@ -38,6 +38,17 @@
       url = "github:nix-community/naersk";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    niri = {
+      url = "github:sodiboo/niri-flake";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    stylix = {
+      url = "github:danth/stylix";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.flake-utils.follows = "flake-utils";
+      inputs.home-manager.follows = "home-manager";
+      inputs.systems.follows = "systems";
+    };
 
     # Dependencies to minimize duplicates in `flake.lock`:
     crane = {
@@ -70,7 +81,6 @@
           agenix = inputs.agenix.packages.${prev.system}.default;
           display-switch = inputs.display-switch.defaultPackage.${prev.system};
           helix = inputs.helix.packages.${prev.system}.default;
-          # rustybar = inputs.rustybar.defaultPackage.${prev.system};
         };
       };
 
@@ -111,6 +121,8 @@
               ./nixos
               inputs.agenix.nixosModules.default
               inputs.home-manager.nixosModules.home-manager
+              inputs.niri.nixosModules.niri
+              inputs.stylix.nixosModules.stylix
               # For `command-not-found`:
               inputs.flake-programs-sqlite.nixosModules.programs-sqlite
               {
