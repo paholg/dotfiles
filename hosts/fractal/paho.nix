@@ -37,12 +37,8 @@ in
 
   custom = {
     username = "paho";
-    gui = true;
-    linux = true;
-    nixos = true;
     mangohud.enable = true;
     starship.host_color = "cyan";
-    niri.enable = true;
     fish_extra_init = # fish
       ''
         set TTY (tty)

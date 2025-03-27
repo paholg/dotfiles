@@ -1,7 +1,4 @@
 { config, lib, ... }:
-let
-  cfg = config.custom;
-in
 {
   options.custom.starship = {
     host_color = lib.mkOption { type = lib.types.str; };
@@ -83,7 +80,7 @@ in
         };
         hostname = {
           format = "[$hostname]($style):";
-          style = "bold ${cfg.starship.host_color}";
+          style = "bold ${config.custom.starship.host_color}";
         };
         kubernetes = {
           disabled = false;
@@ -110,7 +107,7 @@ in
         };
         username = {
           format = "[$user]($style)@";
-          show_always = if (cfg.username == "paho") then false else true;
+          show_always = if (config.custom.username == "paho") then false else true;
         };
       };
     };

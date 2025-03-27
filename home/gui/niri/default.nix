@@ -1,9 +1,4 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ pkgs, ... }:
 let
   # Lock the session, running swayidle on a fast loop to turn off displays while
   # locked.
@@ -28,13 +23,7 @@ in
     ./background.nix
   ];
 
-  options.custom.niri = {
-    enable = lib.mkEnableOption "niri";
-  };
-
-  config = lib.mkIf config.custom.niri.enable {
-    custom.wayland = true;
-
+  config = {
     home.packages = [
       locker
       pkgs.nautilus # File-picker used by our desktop portal

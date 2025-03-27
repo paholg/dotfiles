@@ -1,10 +1,8 @@
 { config, ... }:
 let
-  cfg = config.custom;
-
-  downloads = cfg.drives.storage + "/downloads";
-  completed = cfg.drives.storage + "/completed";
-  transmission = cfg.drives.storage + "/transmission";
+  downloads = config.custom.drives.storage + "/downloads";
+  completed = config.custom.drives.storage + "/completed";
+  transmission = config.custom.drives.storage + "/transmission";
 
   ovpn = config.age.secrets.vpn_config.path;
   peer_port = 23014;
@@ -21,7 +19,7 @@ in
     networking.networkmanager.unmanaged = [ "interface-name:ve-*" ];
 
     networking.firewall.allowedTCPPorts = [
-      cfg.ports.transmission
+      config.custom.ports.transmission
       peer_port
     ];
 
@@ -30,8 +28,8 @@ in
       autoStart = true;
       enableTun = true;
       privateNetwork = true;
-      hostAddress = cfg.ips.host;
-      localAddress = cfg.ips.container;
+      hostAddress = config.custom.ips.host;
+      localAddress = config.custom.ips.container;
 
       forwardPorts = [ { hostPort = peer_port; } ];
 
@@ -59,7 +57,7 @@ in
           ];
 
           users.groups.media = {
-            gid = cfg.groups.media;
+            gid = config.custom.groups.media;
           };
 
           networking.nftables = {
@@ -72,9 +70,9 @@ in
                   type filter hook output priority -100;
 
                   oifname "tun0" accept
-                  ip daddr ${cfg.ips.host} accept
+                  ip daddr ${config.custom.ips.host} accept
 
-                  skgid ${toString cfg.groups.media} drop
+                  skgid ${toString config.custom.groups.media} drop
                 }
               '';
             };
@@ -98,7 +96,7 @@ in
               download-dir = completed;
               incomplete-dir = downloads;
               incomplete-dir-enabled = true;
-              rpc-bind-address = cfg.ips.container;
+              rpc-bind-address = config.custom.ips.container;
               rpc-whitelist-enabled = false;
               download-queue-enabled = false;
               seed-queue-enabled = false;

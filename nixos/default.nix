@@ -1,4 +1,9 @@
-{ lib, pkgs, ... }:
+{
+  gui,
+  lib,
+  pkgs,
+  ...
+}:
 let
   secret_files = with builtins; filter (f: f != "secrets.nix") (attrNames (readDir ../secrets));
   secrets = builtins.listToAttrs (
@@ -12,14 +17,9 @@ let
 in
 {
   imports = [
-    ./gui.nix
+    ./stylix.nix
     ./ssh.nix
-  ];
-
-  options.custom = {
-    ssh = lib.mkOption { type = lib.types.bool; };
-    gui = lib.mkOption { type = lib.types.bool; };
-  };
+  ] ++ (if gui then [ ./gui ] else [ ]);
 
   config = {
     boot = {

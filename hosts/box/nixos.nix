@@ -21,9 +21,6 @@
     networking.hostName = "box";
 
     custom = {
-      ssh = true;
-      gui = false;
-
       ips = {
         host = "10.233.1.1";
         container = "10.233.1.2";
@@ -42,6 +39,8 @@
         storage = "/mnt/storage";
       };
     };
+
+    programs.niri.enable = false;
 
     # ZFS
     # We don't want to use the latest kernel due to ZFS compatibility, which is

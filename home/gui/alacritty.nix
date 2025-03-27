@@ -1,9 +1,6 @@
-{ config, lib, ... }:
-let
-  cfg = config.custom;
-in
+{ ... }:
 {
-  config = lib.mkIf cfg.gui {
+  config = {
     programs.alacritty = {
       enable = true;
       settings = {

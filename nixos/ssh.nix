@@ -1,9 +1,6 @@
-{ config, lib, ... }:
-let
-  cfg = config.custom;
-in
+{ ... }:
 {
-  config = lib.mkIf cfg.ssh {
+  config = {
     services.openssh = {
       enable = true;
       settings = {

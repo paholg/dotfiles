@@ -1,5 +1,4 @@
 {
-  config,
   lib,
   pkgs,
   ...
@@ -36,7 +35,7 @@ let
   };
 in
 {
-  config = lib.mkIf config.custom.wayland {
+  config = {
     home.file."wallpapers/.keep".text = "";
 
     home.packages = [ background ];

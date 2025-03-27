@@ -1,7 +1,4 @@
 { config, pkgs, ... }:
-let
-  cfg = config.custom;
-in
 {
   config = {
     networking.firewall.allowedTCPPorts = [
@@ -10,7 +7,7 @@ in
     ];
 
     users.groups.media = {
-      gid = cfg.groups.media;
+      gid = config.custom.groups.media;
       members = [ "paho" ];
     };
 
@@ -30,12 +27,13 @@ in
         recommendedOptimisation = true;
 
         virtualHosts."10.0.0.4" = {
-          locations."/".proxyPass = "http://localhost:${toString cfg.ports.jellyfin}";
+          locations."/".proxyPass = "http://localhost:${toString config.custom.ports.jellyfin}";
           locations."/transmission".proxyPass =
-            "http://${cfg.ips.container}:${toString cfg.ports.transmission}";
-          locations."/prowlarr".proxyPass = "http://localhost:${toString cfg.ports.prowlarr}/prowlarr";
-          locations."/radarr".proxyPass = "http://localhost:${toString cfg.ports.radarr}/radarr";
-          locations."/sonarr".proxyPass = "http://localhost:${toString cfg.ports.sonarr}/sonarr";
+            "http://${config.custom.ips.container}:${toString config.custom.ports.transmission}";
+          locations."/prowlarr".proxyPass =
+            "http://localhost:${toString config.custom.ports.prowlarr}/prowlarr";
+          locations."/radarr".proxyPass = "http://localhost:${toString config.custom.ports.radarr}/radarr";
+          locations."/sonarr".proxyPass = "http://localhost:${toString config.custom.ports.sonarr}/sonarr";
         };
 
         virtualHosts."auth.paholg.com" = {
@@ -114,7 +112,7 @@ in
         virtualHosts."tv.paholg.com" = {
           enableACME = true;
           forceSSL = true;
-          locations."/".proxyPass = "http://localhost:${toString cfg.ports.jellyfin}";
+          locations."/".proxyPass = "http://localhost:${toString config.custom.ports.jellyfin}";
         };
       };
 
@@ -148,7 +146,7 @@ in
         enable = true;
         group = "media";
         openFirewall = true;
-        dataDir = cfg.drives.storage + "/plex";
+        dataDir = config.custom.drives.storage + "/plex";
       };
 
       prowlarr = {
@@ -160,14 +158,14 @@ in
         enable = true;
         group = "media";
         openFirewall = true;
-        dataDir = cfg.drives.storage + "/radarr";
+        dataDir = config.custom.drives.storage + "/radarr";
       };
 
       sonarr = {
         enable = true;
         group = "media";
         openFirewall = true;
-        dataDir = cfg.drives.storage + "/sonarr";
+        dataDir = config.custom.drives.storage + "/sonarr";
       };
     };
   };

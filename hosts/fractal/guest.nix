@@ -62,12 +62,8 @@ in
 
   custom = {
     username = "guest";
-    gui = true;
-    linux = true;
-    nixos = true;
     mangohud.enable = false;
     starship.host_color = "cyan";
-    niri.enable = true;
 
     fish_extra_init = # fish
       ''

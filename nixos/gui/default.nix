@@ -1,19 +1,14 @@
 {
-  lib,
   pkgs,
   config,
   ...
 }:
-let
-  cfg = config.custom;
-in
 {
   imports = [
     ./niri.nix
-    ./stylix.nix
   ];
 
-  config = lib.mkIf cfg.gui {
+  config = {
     hardware = {
       bluetooth.enable = true;
       bluetooth.powerOnBoot = true;
@@ -30,8 +25,6 @@ in
     programs.dconf.enable = true;
 
     fonts.packages = [ pkgs.nerd-fonts.fira-code ];
-
-    programs.niri.enable = true;
 
     # Pipewire audio
     security.rtkit.enable = true;

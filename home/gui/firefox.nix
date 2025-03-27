@@ -1,21 +1,15 @@
-{ config, lib, ... }:
+{ config, ... }:
 let
-  cfg = config.custom;
-
   extra_settings =
-    if (cfg.username == "paho") then
+    if (config.custom.username == "paho") then
       {
         "services.sync.username" = "paho@paholg.com";
-
-        # These settings together disable the default tab bar:
-        # "toolkit.legacyUserProfileCustomizations.stylesheets" = true;
-        # "browser.tabs.tabmanager.enabled" = false;
       }
     else
       { };
 in
 {
-  config = lib.mkIf cfg.gui {
+  config = {
     programs.firefox = {
       enable = true;
 
@@ -23,7 +17,7 @@ in
         isDefault = true;
         settings = {
           "browser.display.background_color" = "#bdbdbd";
-          "browser.download.dir" = "/home/${cfg.username}/downloads";
+          "browser.download.dir" = "/home/${config.custom.username}/downloads";
           "browser.search.suggest.enabled" = false;
           "browser.startup.page" = 3;
           "browser.urlbar.placeholderName" = "Kagi";

@@ -4,11 +4,6 @@
   system.stateVersion = "23.11";
   networking.hostName = "fractal";
 
-  custom = {
-    gui = true;
-    ssh = true;
-  };
-
   # Need to install here for polit rules to be picked up.
   environment.systemPackages = [ pkgs.quickemu ];
   virtualisation.spiceUSBRedirection.enable = true;

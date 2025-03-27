@@ -5,11 +5,7 @@
 
   custom = {
     username = "paho";
-    gui = true;
-    linux = true;
-    nixos = true;
     starship.host_color = "yellow";
-    niri.enable = true;
     fish_extra_init =
       # fish
       ''

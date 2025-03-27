@@ -1,4 +1,6 @@
 {
+  gui,
+  nixos,
   config,
   lib,
   pkgs,
@@ -9,46 +11,22 @@ let
 in
 {
   imports = [
-    ./i3.nix
-    ./alacritty.nix
-    ./display-switch.nix
-    ./firefox.nix
     ./helix.nix
-    ./mangohud.nix
-    ./niri
     ./packages.nix
     ./starship.nix
     ./stylix.nix
-    ./x11_lock.nix
-    ./xfce.nix
-  ];
+  ] ++ (if gui then [ ./gui ] else [ ]);
 
   options.custom = {
     fish_extra_init = lib.mkOption {
       type = lib.types.str;
       default = "";
     };
-    gui = lib.mkOption { type = lib.types.bool; };
-    wayland = lib.mkOption {
-      type = lib.types.bool;
-      default = false;
-    };
-    x11 = lib.mkOption {
-      type = lib.types.bool;
-      default = false;
-    };
-    linux = lib.mkOption { type = lib.types.bool; };
-    nixos = lib.mkOption { type = lib.types.bool; };
     username = lib.mkOption { type = lib.types.str; };
   };
 
   config = {
-    targets.genericLinux.enable = !config.custom.nixos;
-
-    custom = lib.mkIf (!config.custom.gui || !config.custom.linux) {
-      wayland = false;
-      x11 = false;
-    };
+    targets.genericLinux.enable = !nixos;
 
     fonts.fontconfig.enable = true;
 
@@ -163,7 +141,7 @@ in
       };
     };
 
-    services.blueman-applet = lib.mkIf config.custom.gui {
+    services.blueman-applet = lib.mkIf gui {
       enable = true;
     };
 

@@ -1,9 +1,12 @@
-{ config, pkgs, ... }:
+{
+  gui,
+  linux,
+  pkgs,
+  ...
+}:
 let
-  cfg = config.custom;
-
-  linux =
-    if cfg.linux then
+  linuxPackages =
+    if linux then
       with pkgs;
       [
         acpi
@@ -20,50 +23,27 @@ let
     else
       [ ];
 
-  gui =
-    if cfg.gui then
+  guiPackages =
+    if gui then
       with pkgs;
       [
-        dialog
-        dmenu
         libreoffice
         mdbook
         inlyne # markdown viewer
-        nerd-fonts.fira-code
       ]
     else
       [ ];
 
-  wayland = if cfg.wayland then [ ] else [ ];
-
-  x11 =
-    if cfg.x11 then
+  linuxGuiPackages =
+    if linux && gui then
       with pkgs;
       [
-        arandr
-        # external.rustybar
-        xclip
-        xdotool
-        xorg.xev
-        xorg.xkill
-        xsel
-        xterm
-      ]
-    else
-      [ ];
-
-  linux-gui =
-    if cfg.linux && cfg.gui then
-      with pkgs;
-      [
-        adwaita-qt
         audacity
         brightnessctl
         chromium
         dconf
         ddcutil
         discord
-        dzen2
         eog
         evince
         gimp
@@ -76,7 +56,6 @@ let
         lxqt.lxqt-policykit
         pavucontrol
         pulseaudioFull
-        scrot
         signal-desktop
         slack
         vlc
@@ -84,7 +63,7 @@ let
     else
       [ ];
 
-  default = with pkgs; [
+  defaultPackages = with pkgs; [
     # iredis
     external.agenix
     angle-grinder
@@ -165,6 +144,6 @@ let
 in
 {
   config = {
-    home.packages = default ++ linux ++ gui ++ linux-gui ++ wayland ++ x11;
+    home.packages = defaultPackages ++ linuxPackages ++ guiPackages ++ linuxGuiPackages;
   };
 }

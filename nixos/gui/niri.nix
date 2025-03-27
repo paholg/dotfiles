@@ -1,11 +1,6 @@
+{ pkgs, ... }:
 {
-  config,
-  lib,
-  pkgs,
-  ...
-}:
-{
-  config = lib.mkIf config.custom.gui {
+  config = {
     programs.niri.enable = true;
 
     # Workaround for swaylock not accepting password.

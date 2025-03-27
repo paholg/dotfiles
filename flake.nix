@@ -109,29 +109,35 @@
             users = builtins.listToAttrs (
               map (username: {
                 name = username;
-                value = import ./hosts/${host}/${username}.nix;
+                value = ./hosts/${host}/${username}.nix;
               }) config.users
             );
+            specialArgs = {
+              gui = config.gui;
+              linux = true;
+              nixos = true;
+            };
           in
           inputs.nixpkgs.lib.nixosSystem {
+            inherit specialArgs;
             pkgs = pkgs linux;
             system = linux;
             modules = [
-              ./hosts/${host}/nixos.nix
               ./nixos
+              ./hosts/${host}/nixos.nix
               inputs.agenix.nixosModules.default
               inputs.home-manager.nixosModules.home-manager
-              inputs.niri.nixosModules.niri
               inputs.stylix.nixosModules.stylix
               # For `command-not-found`:
               inputs.flake-programs-sqlite.nixosModules.programs-sqlite
               {
                 home-manager.useGlobalPkgs = true;
                 home-manager.useUserPackages = true;
+                home-manager.extraSpecialArgs = specialArgs;
                 home-manager.users = users;
               }
               registry
-            ];
+            ] ++ (if config.gui then [ inputs.niri.nixosModules.niri ] else [ ]);
           }
         ) hosts;
     in
@@ -147,13 +153,21 @@
       };
 
       nixosConfigurations = nixos {
-        box.users = [ "paho" ];
-        fractal.users = [
-          "paho"
-          "guest"
-        ];
-        frame.users = [ "paho" ];
-        t14s.users = [ "paho" ];
+        box = {
+          gui = false;
+          users = [ "paho" ];
+        };
+        fractal = {
+          gui = true;
+          users = [
+            "paho"
+            "guest"
+          ];
+        };
+        frame = {
+          gui = true;
+          users = [ "paho" ];
+        };
       };
     };
 }
