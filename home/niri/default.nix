@@ -38,6 +38,7 @@ in
     home.packages = [
       locker
       pkgs.nautilus # File-picker used by our desktop portal
+      pkgs.xwayland-satellite
     ];
 
     programs = {
@@ -49,6 +50,7 @@ in
         settings = {
           binds = import ./binds.nix;
           environment = {
+            DISPLAY = ":0"; # For xwayland
             NIXOS_OZONE_WL = "1";
           };
           input = {
@@ -94,6 +96,9 @@ in
                 "restart"
                 "waybar.service"
               ];
+            }
+            {
+              command = [ "xwayland-satellite" ];
             }
           ];
           window-rules = [
