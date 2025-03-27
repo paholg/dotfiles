@@ -36,6 +36,13 @@
       { command = [ "firefox" ]; }
       { command = [ "slack" ]; }
     ];
+    window-rules = [
+      {
+        # For selenium tests
+        matches = [ { app-id = "Chromium-browser"; } ];
+        open-floating = true;
+      }
+    ];
   };
 
   home.shellAliases = {

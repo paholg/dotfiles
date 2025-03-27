@@ -78,6 +78,10 @@ in
               draw-border-with-background = false;
             }
             {
+              matches = [ { app-id = "pavucontrol"; } ];
+              open-floating = true;
+            }
+            {
               matches = [ { app-id = "Zoom Workplace"; } ];
               excludes = [
                 { title = "Zoom - Free Account"; }

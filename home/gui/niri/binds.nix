@@ -4,6 +4,7 @@
   "Print".action.screenshot = { };
   "Super+Alt+Q".action.quit = { };
   "Super+F".action.spawn = "firefox";
+  "Super+O".action.spawn = "pavucontrol";
   "Super+BracketLeft".action.consume-or-expel-window-left = { };
   "Super+BracketRight".action.consume-or-expel-window-right = { };
   "Super+C".action.center-column = { };
