@@ -43,7 +43,10 @@ in
             NIXOS_OZONE_WL = "1";
           };
           input = {
-            focus-follows-mouse.enable = true;
+            focus-follows-mouse = {
+              enable = true;
+              max-scroll-amount = "0%";
+            };
             keyboard = {
               repeat-delay = 200;
               repeat-rate = 50;
