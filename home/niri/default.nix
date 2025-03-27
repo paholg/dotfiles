@@ -109,6 +109,7 @@ in
                 { title = "Meeting"; }
               ];
               open-floating = true;
+              open-focused = false;
             }
           ];
         };

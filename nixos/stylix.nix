@@ -1,22 +1,28 @@
 { pkgs, ... }:
 {
+  fonts.packages = with pkgs; [
+    nerd-fonts.fira-code
+    nerd-fonts.monaspace
+    monaspace
+  ];
+
   stylix = {
     enable = true;
     polarity = "dark";
     base16Scheme = "${pkgs.base16-schemes}/share/themes/seti.yaml";
     fonts = {
       monospace = {
-        name = "Fira Code Nerd Font Mono";
-        package = pkgs.nerd-fonts.fira-code;
+        name = "Monaspace Neon";
+        package = pkgs.nerd-fonts.monaspace;
       };
     };
     cursor = {
       package = pkgs.phinger-cursors;
-      name = "phinger-cursors-dark";
-      size = 24;
+      name = "phinger-cursors-light";
+      size = 32;
     };
     opacity = {
-      popups = 0.7;
+      popups = 0.9;
       terminal = 0.9;
     };
   };

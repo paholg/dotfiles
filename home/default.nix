@@ -170,7 +170,6 @@ in
       "Xft.hintstyle" = "hintfull";
       "Xft.hinting" = 1;
       "Xft.antialias" = 1;
-      "Xcursor.size" = 24;
     };
 
     programs = {
