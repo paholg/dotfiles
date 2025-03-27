@@ -64,7 +64,6 @@ in
       # TODO: broken
       # blender-hip
       discover-overlay
-      quickemu # For Windows VM
     ]
     ++ [ gamescopeSession ];
 

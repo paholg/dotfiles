@@ -9,9 +9,9 @@
     ssh = true;
   };
 
-  # Non-xbox controllers are borked when we use this. TBD: Will the xbox
-  # controllers work without it?
-  # hardware.xone.enable = true;
+  # Need to install here for polit rules to be picked up.
+  environment.systemPackages = [ pkgs.quickemu ];
+  virtualisation.spiceUSBRedirection.enable = true;
 
   # For display-switch
   hardware.i2c.enable = true;
