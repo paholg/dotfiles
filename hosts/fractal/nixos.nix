@@ -30,16 +30,10 @@
   services.xserver = {
     enable = true;
     displayManager = {
-      # autoLogin.enable = true;
-      # autoLogin.user = "guest";
-      # gdm.enable = true;
       startx.enable = true;
     };
-    # desktopManager.gnome.enable = true;
     desktopManager.xfce.enable = true;
   };
-  # systemd.services."getty@tty1".enable = false;
-  # systemd.services."autovt@tty1".enable = false;
 
   programs.steam = {
     enable = true;

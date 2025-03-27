@@ -312,19 +312,25 @@ in
         addKeysToAgent = "yes";
 
         matchBlocks =
-          lib.mapAttrs
+          (lib.mapAttrs
             (name: host: {
               user = config.custom.username;
               hostname = host;
             })
             {
               home = "home.paholg.com";
-              t14s = "10.0.0.3";
               box = "10.0.0.4";
               fractal = "10.0.0.5";
-              frame-wifi = "10.0.0.6";
-              frame-eth = "10.0.0.7";
+              frame-eth = "10.0.0.6";
+              frame-wifi = "10.0.0.7";
+            }
+          )
+          // {
+            router = {
+              user = "admin";
+              hostname = "10.0.0.1";
             };
+          };
       };
 
       tmux = {
