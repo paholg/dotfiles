@@ -27,14 +27,6 @@
   # For rebinding mouse
   services.ratbagd.enable = true;
 
-  services.xserver = {
-    enable = true;
-    displayManager = {
-      startx.enable = true;
-    };
-    desktopManager.xfce.enable = true;
-  };
-
   programs.steam = {
     enable = true;
     package = pkgs.steam;

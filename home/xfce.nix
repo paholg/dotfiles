@@ -13,7 +13,6 @@ in
   };
 
   config = lib.mkIf cfg.xfce.enable {
-    custom.wayland = false;
     custom.x11 = true;
     # TODO: Probably don't need this stuff here.
     home.file.".xinitrc".text = # bash

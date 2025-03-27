@@ -66,23 +66,6 @@ in
               click-method = "clickfinger";
             };
           };
-          outputs = {
-            "DP-3" = {
-              enable = true;
-              position = {
-                x = 1735;
-                y = 0;
-              };
-            };
-            "eDP-1" = {
-              enable = true;
-              position = {
-                x = 0;
-                y = 0;
-              };
-              scale = 1.3;
-            };
-          };
           screenshot-path = "~/screenshots/%F_%H.%M.%S.png";
           layout = {
             center-focused-column = "never";

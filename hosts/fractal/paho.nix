@@ -33,29 +33,57 @@ in
     ../../home
     ./display_switch.nix
   ];
-  home.stateVersion = "20.09";
+  home.stateVersion = "24.05";
 
   custom = {
     username = "paho";
     gui = true;
     linux = true;
-    mangohud.enable = true;
     nixos = true;
+    mangohud.enable = true;
     starship.host_color = "cyan";
-    i3.enable = true;
-    i3.customConfig = ''
-      exec_always discord
-      exec_always steam
-      exec_always firefox
-
-      # Float gam
-      for_window [class="client"] floating enable
-    '';
+    niri.enable = true;
     fish_extra_init = # fish
       ''
         set TTY (tty)
-        [ "$TTY" = "/dev/tty2" ] && exec "startx"
+        [ "$TTY" = "/dev/tty2" ] && exec "niri-session"
       '';
+  };
+
+  programs.niri.settings = {
+    outputs = {
+      "DP-1" = {
+        enable = true;
+        mode = {
+          width = 3840;
+          height = 2160;
+          refresh = 138.0;
+        };
+        variable-refresh-rate = "on-demand";
+      };
+      "HDMI-A-1" = {
+        enable = false;
+        mode = {
+          width = 3840;
+          height = 2160;
+          refresh = 120.0;
+        };
+        scale = 2.0;
+        variable-refresh-rate = "on-demand";
+      };
+    };
+    spawn-at-startup = [
+      { command = [ "firefox" ]; }
+      { command = [ "discord" ]; }
+      { command = [ "steam" ]; }
+    ];
+    window-rules = [
+      {
+        # Float gam
+        matches = [ { app-id = "client"; } ];
+        open-floating = true;
+      }
+    ];
   };
 
   home.packages =
