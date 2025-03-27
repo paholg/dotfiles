@@ -8,17 +8,32 @@
     gui = true;
     linux = true;
     nixos = true;
-    starship.host_color = "cyan";
-    i3.enable = false;
+    starship.host_color = "yellow";
     niri.enable = true;
-    x11 = false;
-    x11_lock.enable = false;
     fish_extra_init =
       # fish
       ''
         set TTY (tty)
         [ "$TTY" = "/dev/tty1" ] && exec "niri-session"
       '';
+  };
+
+  programs.niri.settings.outputs = {
+    "DP-3" = {
+      enable = true;
+      position = {
+        x = 1735;
+        y = 0;
+      };
+    };
+    "eDP-1" = {
+      enable = true;
+      position = {
+        x = 0;
+        y = 0;
+      };
+      scale = 1.3;
+    };
   };
 
   home.shellAliases = {

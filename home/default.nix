@@ -29,8 +29,14 @@ in
       default = "";
     };
     gui = lib.mkOption { type = lib.types.bool; };
-    wayland = lib.mkOption { type = lib.types.bool; };
-    x11 = lib.mkOption { type = lib.types.bool; };
+    wayland = lib.mkOption {
+      type = lib.types.bool;
+      default = false;
+    };
+    x11 = lib.mkOption {
+      type = lib.types.bool;
+      default = false;
+    };
     linux = lib.mkOption { type = lib.types.bool; };
     nixos = lib.mkOption { type = lib.types.bool; };
     username = lib.mkOption { type = lib.types.str; };

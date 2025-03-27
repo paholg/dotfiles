@@ -64,10 +64,11 @@ in
     username = "guest";
     gui = true;
     linux = true;
-    mangohud.enable = false;
     nixos = true;
+    mangohud.enable = false;
     starship.host_color = "cyan";
-    i3.enable = true;
+    niri.enable = true;
+
     fish_extra_init = # fish
       ''
         set TTY (tty)
