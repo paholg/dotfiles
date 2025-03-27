@@ -3,7 +3,7 @@
   "Ctrl+Print".action.screenshot-screen = { };
   "Print".action.screenshot = { };
   "Super+Alt+Q".action.quit = { };
-  "Super+F".action.spawn = "firefox";
+  "Super+B".action.spawn = "firefox";
   "Super+O".action.spawn = "pavucontrol";
   "Super+BracketLeft".action.consume-or-expel-window-left = { };
   "Super+BracketRight".action.consume-or-expel-window-right = { };
@@ -20,6 +20,7 @@
   "Super+Equal".action.set-column-width = "+10%";
   "Super+Minus".action.set-column-width = "-10%";
   "Super+Space".action.maximize-column = { };
+  "Super+Ctrl+Space".action.reset-window-height = { };
   "Super+H".action.focus-column-left = { };
   "Super+I".action.focus-workspace-up = { };
   "Super+J".action.focus-window-down = { };
@@ -38,7 +39,7 @@
   "Super+Shift+Ctrl+K".action.move-column-to-monitor-up = { };
   "Super+Shift+Ctrl+L".action.move-column-to-monitor-right = { };
   "Super+Shift+Equal".action.set-window-height = "+10%";
-  "Super+Shift+F".action.fullscreen-window = { };
+  "Super+F".action.fullscreen-window = { };
   "Super+Shift+H".action.focus-monitor-left = { };
   "Super+Shift+J".action.focus-monitor-down = { };
   "Super+Shift+K".action.focus-monitor-up = { };
