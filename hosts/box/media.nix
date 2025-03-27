@@ -30,6 +30,7 @@ in
         recommendedOptimisation = true;
 
         virtualHosts."10.0.0.4" = {
+          locations."/".proxyPass = "http://localhost:${toString cfg.ports.jellyfin}";
           locations."/transmission".proxyPass =
             "http://${cfg.ips.container}:${toString cfg.ports.transmission}";
           locations."/prowlarr".proxyPass = "http://localhost:${toString cfg.ports.prowlarr}/prowlarr";
