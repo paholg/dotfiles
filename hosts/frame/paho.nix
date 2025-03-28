@@ -6,6 +6,7 @@
   custom = {
     username = "paho";
     starship.host_color = "yellow";
+    swaylock.color = "224444";
     fish_extra_init =
       # fish
       ''
