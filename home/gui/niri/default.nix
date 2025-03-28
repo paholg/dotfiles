@@ -81,11 +81,11 @@ in
               draw-border-with-background = false;
             }
             {
-              matches = [ { app-id = "pavucontrol"; } ];
-              open-floating = true;
-            }
-            {
-              matches = [ { app-id = ".blueman-manager-wrapped"; } ];
+              matches = [
+                { app-id = "pavucontrol"; }
+                { title = "Extension: (Bitwarden Password Manager)"; }
+                { app-id = ".blueman-manager-wrapped"; }
+              ];
               open-floating = true;
             }
             {

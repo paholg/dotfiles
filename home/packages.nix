@@ -128,6 +128,7 @@ let
     shellcheck
     socat
     sshfs-fuse
+    superhtml # html lsp
     taplo-cli # toml language server
     tinymist # typst language server
     tlrc # Shorter man-pages

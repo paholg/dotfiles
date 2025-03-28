@@ -23,7 +23,7 @@
     };
     opacity = {
       popups = 0.9;
-      terminal = 0.9;
+      terminal = 0.95;
     };
   };
 }

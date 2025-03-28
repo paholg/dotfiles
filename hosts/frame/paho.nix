@@ -39,7 +39,7 @@
     window-rules = [
       {
         # For selenium tests
-        matches = [ { app-id = "Chromium-browser"; } ];
+        matches = [ { app-id = "chromium-browser"; } ];
         open-floating = true;
       }
     ];
