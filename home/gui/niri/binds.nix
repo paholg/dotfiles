@@ -36,6 +36,7 @@
   "Super+Period".action.expel-window-from-column = { };
 
   # Resize
+  "Super+Return".action.expand-column-to-available-width = { };
   "Super+Space".action.maximize-column = { };
   "Super+Ctrl+Space".action.reset-window-height = { };
 
