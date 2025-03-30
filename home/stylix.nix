@@ -1,4 +1,9 @@
-{ config, lib, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 {
   options.custom = {
     swaylock.color = lib.mkOption {
@@ -8,8 +13,30 @@
   };
 
   config = {
-    stylix.targets.helix.enable = false;
-    stylix.targets.firefox.profileNames = [ "default" ];
+    stylix = {
+      enable = true;
+      polarity = "dark";
+      base16Scheme = "${pkgs.base16-schemes}/share/themes/seti.yaml";
+      fonts = {
+        monospace = {
+          name = "Monaspace Neon";
+          package = pkgs.monaspace;
+        };
+      };
+      cursor = {
+        package = pkgs.phinger-cursors;
+        name = "phinger-cursors-light";
+        size = 32;
+      };
+      opacity = {
+        popups = 0.9;
+        terminal = 0.95;
+      };
+      targets = {
+        helix.enable = false;
+        firefox.profileNames = [ "default" ];
+      };
+    };
 
     # Program overrides
     programs = {

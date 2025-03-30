@@ -17,7 +17,6 @@ let
 in
 {
   imports = [
-    ./stylix.nix
     ./ssh.nix
   ] ++ (if gui then [ ./gui ] else [ ]);
 
