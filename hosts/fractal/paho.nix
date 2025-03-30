@@ -74,6 +74,10 @@ in
       { command = [ "discord" ]; }
       { command = [ "steam" ]; }
     ];
+    workspaces = {
+      main.open-on-output = "DP-1";
+      zchat.open-on-output = "DP-1";
+    };
     window-rules = [
       {
         # Float gam

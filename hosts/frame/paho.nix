@@ -37,6 +37,10 @@
       { command = [ "firefox" ]; }
       { command = [ "slack" ]; }
     ];
+    workspaces = {
+      main.open-on-output = "DP-3";
+      zchat.open-on-output = "eDP-1";
+    };
     window-rules = [
       {
         # For selenium tests

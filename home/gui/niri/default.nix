@@ -60,8 +60,14 @@ in
           };
           screenshot-path = "~/screenshots/%F_%H.%M.%S.png";
           layout = {
+            always-center-single-column = true;
             center-focused-column = "never";
             gaps = 4;
+            empty-workspace-above-first = true;
+          };
+          workspaces = {
+            main = { };
+            zchat = { };
           };
           spawn-at-startup = [
             {
@@ -98,6 +104,14 @@ in
               ];
               open-floating = true;
               open-focused = false;
+            }
+            {
+              matches = [
+                { app-id = "discord"; }
+                { app-id = "steam"; }
+                { app-id = "slack"; }
+              ];
+              open-on-workspace = "zchat";
             }
           ];
         };
