@@ -24,7 +24,11 @@
 
   programs.steam = {
     enable = true;
-    package = pkgs.steam;
+    package = pkgs.steam.override {
+      # Hack to fix Proton games using the wrong timezone.
+      # https://github.com/NixOS/nixpkgs/issues/338266#issuecomment-2419568331
+      extraBwrapArgs = [ "--unsetenv TZ" ];
+    };
     remotePlay.openFirewall = true;
     dedicatedServer.openFirewall = true;
     localNetworkGameTransfers.openFirewall = true;
