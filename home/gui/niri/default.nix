@@ -27,6 +27,7 @@ in
     home.packages = [
       locker
       pkgs.nautilus # File-picker used by our desktop portal
+      pkgs.wl-clipboard-rs
       pkgs.xwayland-satellite
     ];
 
@@ -96,32 +97,34 @@ in
           ];
           window-rules = [
             {
+              matches = [ { app-id = "Alacritty"; } ];
               draw-border-with-background = false;
             }
-            {
-              matches = [
-                { app-id = "pavucontrol"; }
-                { title = "Extension: (Bitwarden Password Manager)"; }
-                { app-id = ".blueman-manager-wrapped"; }
-              ];
-              open-floating = true;
-            }
+            # Firefox
             {
               matches = [ { app-id = "firefox"; } ];
               default-column-width = {
                 proportion = 0.5;
               };
             }
+            # Floating
             {
-              matches = [ { app-id = "Zoom Workplace"; } ];
-              excludes = [
-                { title = "Zoom - Free Account"; }
-                { title = "Zoom - Licensed Account"; }
-                { title = "Zoom Meeting"; }
-                { title = "Meeting"; }
+              matches = [
+                {
+                  # TODO: Firefox changes the window name after opening it, so
+                  # find a way to make this work.
+                  app-id = "firefox";
+                  title = "^Extension.*Bitwarden";
+                }
+                { app-id = "pavucontrol"; }
+                { app-id = ".blueman-manager-wrapped"; }
               ];
               open-floating = true;
-              open-focused = false;
+            }
+            # Chat Workspace
+            {
+              matches = [ { app-id = "discord"; } ];
+              open-on-workspace = "chat";
             }
             {
               matches = [
@@ -136,12 +139,22 @@ in
               };
             }
             {
-              matches = [
-                { app-id = "discord"; }
-                { app-id = "steam"; }
-                { app-id = "slack"; }
-              ];
+              matches = [ { app-id = "Slack"; } ];
               open-on-workspace = "chat";
+              default-column-width = {
+                proportion = 1.0;
+              };
+            }
+            {
+              matches = [ { app-id = "Zoom Workplace"; } ];
+              excludes = [
+                { title = "Zoom - Free Account"; }
+                { title = "Zoom - Licensed Account"; }
+                { title = "Zoom Meeting"; }
+                { title = "Meeting"; }
+              ];
+              open-floating = true;
+              open-focused = false;
             }
           ];
         };

@@ -40,12 +40,25 @@
     workspaces = {
       "01-main".open-on-output = "DP-3";
       "02-chat".open-on-output = "eDP-1";
+      "99-zoom" = {
+        name = "zoom";
+        open-on-output = "eDP-1";
+      };
     };
     window-rules = [
       {
         # For selenium tests
         matches = [ { app-id = "chromium-browser"; } ];
         open-floating = true;
+      }
+      # Zoom's stupid thing.
+      {
+        matches = [ { app-id = "Zoom Workplace"; } ];
+        excludes = [
+          { title = "Zoom Workplace - Free account"; }
+        ];
+        open-floating = true;
+        open-focused = false;
       }
     ];
   };

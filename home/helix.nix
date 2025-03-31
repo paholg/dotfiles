@@ -29,6 +29,7 @@
           #   indicator = false;
           # };
           true-color = true;
+          # clipboard-provider = "wayland";
         };
 
         theme = "paho-theme";
