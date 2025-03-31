@@ -39,7 +39,7 @@
     ];
     workspaces = {
       main.open-on-output = "DP-3";
-      zchat.open-on-output = "eDP-1";
+      chat.open-on-output = "eDP-1";
     };
     window-rules = [
       {

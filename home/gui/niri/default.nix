@@ -78,8 +78,8 @@ in
             ];
           };
           workspaces = {
-            main = { };
-            zchat = { };
+            "01-main".name = "main";
+            "02-chat".name = "chat";
           };
           spawn-at-startup = [
             {
@@ -123,7 +123,7 @@ in
                 { app-id = "steam"; }
                 { app-id = "slack"; }
               ];
-              open-on-workspace = "zchat";
+              open-on-workspace = "chat";
             }
           ];
         };

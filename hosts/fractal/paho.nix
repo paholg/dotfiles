@@ -76,7 +76,7 @@ in
     ];
     workspaces = {
       main.open-on-output = "DP-1";
-      zchat.open-on-output = "DP-1";
+      chat.open-on-output = "DP-1";
     };
     window-rules = [
       {
