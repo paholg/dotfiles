@@ -39,9 +39,9 @@
   "Super+Return".action.expand-column-to-available-width = { };
   "Super+Space".action.maximize-column = { };
   "Super+Ctrl+Space".action.reset-window-height = { };
+  "Super+W".action.switch-preset-column-width = { };
 
   "Super+F".action.fullscreen-window = { };
-  "Super+W".action.switch-preset-column-width = { };
 
   "Super+Ctrl+E".action.set-window-height = "+10%";
   "Super+Ctrl+S".action.set-column-width = "-10%";
