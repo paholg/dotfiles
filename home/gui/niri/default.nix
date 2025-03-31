@@ -107,6 +107,12 @@ in
               open-floating = true;
             }
             {
+              matches = [ { app-id = "firefox"; } ];
+              default-column-width = {
+                proportion = 0.5;
+              };
+            }
+            {
               matches = [ { app-id = "Zoom Workplace"; } ];
               excludes = [
                 { title = "Zoom - Free Account"; }
@@ -116,6 +122,18 @@ in
               ];
               open-floating = true;
               open-focused = false;
+            }
+            {
+              matches = [
+                {
+                  app-id = "steam";
+                  title = "Steam";
+                }
+              ];
+              open-on-workspace = "chat";
+              default-column-width = {
+                proportion = 0.5;
+              };
             }
             {
               matches = [
