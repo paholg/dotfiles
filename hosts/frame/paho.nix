@@ -38,8 +38,8 @@
       { command = [ "slack" ]; }
     ];
     workspaces = {
-      main.open-on-output = "DP-3";
-      chat.open-on-output = "eDP-1";
+      "01-main".open-on-output = "DP-3";
+      "02-chat".open-on-output = "eDP-1";
     };
     window-rules = [
       {

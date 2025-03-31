@@ -75,8 +75,8 @@ in
       { command = [ "steam" ]; }
     ];
     workspaces = {
-      main.open-on-output = "DP-1";
-      chat.open-on-output = "DP-1";
+      "01-main".open-on-output = "DP-1";
+      "02-chat".open-on-output = "DP-1";
     };
     window-rules = [
       {
