@@ -69,6 +69,7 @@ in
               proportion = 0.25;
             };
           };
+          switch-events.lid-close.action.spawn = "locker";
           workspaces = {
             "01-main".name = "main";
             "02-chat".name = "chat";
