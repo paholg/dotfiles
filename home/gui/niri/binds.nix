@@ -37,9 +37,12 @@
 
   # Resize
   "Super+Return".action.expand-column-to-available-width = { };
-  "Super+Space".action.maximize-column = { };
-  "Super+Ctrl+Space".action.reset-window-height = { };
-  "Super+W".action.switch-preset-column-width = { };
+  "Super+Space".action.reset-window-height = { };
+
+  "Super+Q".action.set-column-width = "25%";
+  "Super+W".action.set-column-width = "50%";
+  "Super+E".action.set-column-width = "75%";
+  "Super+R".action.set-column-width = "100%";
 
   "Super+F".action.fullscreen-window = { };
 
@@ -60,7 +63,7 @@
   "Ctrl+Print".action.screenshot-screen = { };
 
   # Spawn
-  "Super+R".action.spawn = "fuzzel";
+  "Super+G".action.spawn = "fuzzel";
   "Super+T".action.spawn = "alacritty";
   "Super+O".action.spawn = "pavucontrol";
   "Super+B".action.spawn = "firefox";
