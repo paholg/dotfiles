@@ -12,12 +12,8 @@
         toggle_hud = "Super_L+slash";
 
         fps_limit = 0;
+        no_display = true;
       };
-    };
-
-    home.sessionVariables = {
-      # Hide mangohud by default
-      # MANGOHUD_CONFIG = "no_display";
     };
   };
 }
