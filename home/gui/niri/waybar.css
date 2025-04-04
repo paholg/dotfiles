@@ -1,0 +1,90 @@
+@define-color bg #000000;
+@define-color text #b2b2b2;
+@define-color text-faded #666666;
+@define-color urgent #eb4d4b;
+
+@define-color good @text;
+@define-color okay #2d9574;
+@define-color warn #a31db1;
+@define-color crit #f2241f;
+
+* {
+  font-family: Monaspace Neon, monospace;
+  font-size: 13px;
+}
+
+window#waybar {
+  background-color: @bg;
+  color: @good;
+}
+
+button {
+  border-radius: 0;
+}
+
+#workspaces button {
+  padding: 0 5px;
+  background-color: transparent;
+  color: @text;
+}
+
+#workspaces button.focused {
+  box-shadow: inset 0 -3px @text;
+}
+
+#workspaces button.urgent {
+  background-color: @urgent;
+}
+
+#workspaces button.empty {
+  color: @text-faded;
+}
+
+#window {
+  color: @text;
+}
+
+#clock,
+#battery,
+#cpu,
+#memory,
+#disk,
+#temperature,
+#backlight,
+#network,
+#pulseaudio,
+#wireplumber,
+#custom-media,
+#tray,
+#mode,
+#idle_inhibitor,
+#scratchpad,
+#power-profiles-daemon,
+#mpd {
+  padding: 0 10px;
+}
+
+.okay {
+  color: @okay;
+}
+
+.warn {
+  color: @warn;
+}
+
+.crit {
+  color: @crit;
+}
+
+#battery {
+  color: @good;
+}
+
+#tray>.passive {
+  -gtk-icon-effect: dim;
+}
+
+#tray>.needs-attention {
+  -gtk-icon-effect: highlight;
+  background-color: #eb4d4b;
+}

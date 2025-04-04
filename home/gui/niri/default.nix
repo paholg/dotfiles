@@ -21,6 +21,7 @@ in
 {
   imports = [
     ./background.nix
+    ./waybar.nix
   ];
 
   config = {
@@ -34,7 +35,6 @@ in
     programs = {
       fuzzel.enable = true;
       swaylock.enable = true;
-      waybar = import ./waybar.nix;
 
       niri = {
         settings = {

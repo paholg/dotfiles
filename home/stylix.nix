@@ -36,6 +36,7 @@
         helix.enable = false;
         gtk.enable = false; # Getting breadcrumbs with light background
         firefox.profileNames = [ "default" ];
+        waybar.enable = false;
       };
     };
 
