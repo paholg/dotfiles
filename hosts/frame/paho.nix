@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ config, pkgs, ... }:
 {
   imports = [ ../../home ];
   home.stateVersion = "24.05";
@@ -14,6 +14,8 @@
         [ "$TTY" = "/dev/tty1" ] && exec "niri-session"
       '';
   };
+
+  home.file.foo.source = config.lib.file.mkOutOfStoreSymlink "/home/paho/dotfiles/foo";
 
   programs.niri.settings = {
     outputs = {
