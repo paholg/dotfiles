@@ -22,26 +22,13 @@ in
           "browser.startup.page" = 3;
           "browser.urlbar.placeholderName" = "Kagi";
           "devtools.theme" = "dark";
-          "experiments.activeExperiment" = false;
-          "experiments.enabled" = false;
-          "experiments.supported" = false;
           "extensions.pocket.enabled" = false;
           "general.smoothScroll" = false;
-          "layout.css.devPixelsPerPx" = "1";
           "media.videocontrols.picture-in-picture.enabled" = false;
-          "network.IDN_show_punycode" = true;
-          "network.allow-experiments" = false;
           "signon.rememberSignons" = false;
           "widget.content.gtk-theme-override" = "Adwaita:dark";
         } // extra_settings;
       };
     };
-
-    home.file.".mozilla/firefox/default/chrome/userChrome.css".text = # css
-      ''
-        #TabsToolbar {
-          visibility: collapse !important;
-        }
-      '';
   };
 }
