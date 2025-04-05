@@ -51,6 +51,9 @@ in
             keyboard = {
               repeat-delay = 200;
               repeat-rate = 50;
+              xkb = {
+                options = "caps:backspace";
+              };
             };
             touchpad = {
               natural-scroll = false;
