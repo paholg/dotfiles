@@ -74,6 +74,18 @@
     "-c"
     "notify-send \"$(niri msg focused-window)\""
   ];
+
+  # System settings
+  XF86MonBrightnessUp.action.spawn = [
+    "brightnessctl"
+    "s"
+    "+10%"
+  ];
+  XF86MonBrightnessDown.action.spawn = [
+    "brightnessctl"
+    "s"
+    "10%-"
+  ];
   "XF86AudioLowerVolume".action.spawn = [
     "wpctl"
     "set-volume"
