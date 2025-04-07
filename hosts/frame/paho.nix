@@ -51,15 +51,6 @@
         matches = [ { app-id = "chromium-browser"; } ];
         open-floating = true;
       }
-      # Zoom's stupid thing.
-      {
-        matches = [ { app-id = "Zoom Workplace"; } ];
-        excludes = [
-          { title = "Zoom Workplace - Free account"; }
-        ];
-        open-floating = true;
-        open-focused = false;
-      }
     ];
   };
 

@@ -143,8 +143,6 @@ in
             {
               matches = [ { app-id = "Zoom Workplace"; } ];
               excludes = [
-                { title = "Zoom - Free Account"; }
-                { title = "Zoom - Licensed Account"; }
                 { title = "Zoom Meeting"; }
                 { title = "Meeting"; }
               ];
