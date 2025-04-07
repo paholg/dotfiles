@@ -209,19 +209,34 @@ in
           + config.custom.fish_extra_init;
 
         functions = {
-          nshell = {
-            wraps = "nix shell";
+          e = {
+            description = "Bring to foreground or open helix";
             body = # fish
               ''
-                set pkgs (string replace -ar '([\S]+)' 'nixpkgs#$0' $argv)
-                nix shell $pkgs --command fish
+                if test "$(jobs -lc)" = "hx"
+                  fg
+                else
+                  hx
+                end 
               '';
           };
           h = {
             description = "Render the --help for a command with bat";
             body = # fish
               ''
-                $argv --help 2>&1 | bathelp
+                if not isatty stdin
+                  bathelp
+                else
+                  $argv --help 2>&1 | bathelp
+                end
+              '';
+          };
+          nshell = {
+            wraps = "nix shell";
+            body = # fish
+              ''
+                set pkgs (string replace -ar '([\S]+)' 'nixpkgs#$0' $argv)
+                nix shell $pkgs --command fish
               '';
           };
         };
