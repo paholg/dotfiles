@@ -20,6 +20,7 @@ let
 in
 {
   imports = [
+    ./binds.nix
     ./background.nix
     ./waybar.nix
   ];
@@ -38,7 +39,6 @@ in
 
       niri = {
         settings = {
-          binds = import ./binds.nix;
           environment = {
             DISPLAY = ":0"; # For xwayland
             NIXOS_OZONE_WL = "1";
