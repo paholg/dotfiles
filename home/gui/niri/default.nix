@@ -95,13 +95,6 @@ in
               matches = [ { app-id = "Alacritty"; } ];
               draw-border-with-background = false;
             }
-            # Firefox
-            {
-              matches = [ { app-id = "firefox"; } ];
-              default-column-width = {
-                proportion = 0.5;
-              };
-            }
             # Floating
             {
               matches = [
