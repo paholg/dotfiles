@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ lib, pkgs, ... }:
 let
   # Lock the session, running swayidle on a fast loop to turn off displays while
   # locked.
@@ -11,10 +11,21 @@ let
     ];
     text = # bash
       ''
-        swayidle timeout 10 'niri msg action power-off-monitors' resume 'niri msg action power-on-monitors' &
+        swayidle timeout 10 'niri msg action power-off-monitors' &
         SWAY_IDLE=$!
         swaylock
         kill $SWAY_IDLE
+      '';
+  };
+  idler = pkgs.writeShellApplication {
+    name = "idler";
+    runtimeInputs = with pkgs; [
+      swayidle
+      niri
+    ];
+    text = # bash
+      ''
+        swayidle timeout 180 'niri msg action power-off-monitors'
       '';
   };
 in
@@ -86,9 +97,8 @@ in
                 "waybar.service"
               ];
             }
-            {
-              command = [ "xwayland-satellite" ];
-            }
+            { command = [ (lib.getExe pkgs.xwayland-satellite) ]; }
+            { command = [ (lib.getExe idler) ]; }
           ];
           window-rules = [
             {
