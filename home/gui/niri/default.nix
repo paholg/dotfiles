@@ -98,7 +98,7 @@ in
               ];
             }
             { command = [ (lib.getExe pkgs.xwayland-satellite) ]; }
-            { command = [ (lib.getExe idler) ]; }
+            # { command = [ (lib.getExe idler) ]; }
           ];
           window-rules = [
             {
