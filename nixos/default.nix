@@ -112,6 +112,7 @@ in
       ];
     };
 
+    programs.dconf.enable = true;
     services.fwupd.enable = true;
 
     # Use Quad9 for DNS
