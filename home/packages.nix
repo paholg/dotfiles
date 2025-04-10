@@ -119,6 +119,7 @@ let
     openssl
     pciutils # lspci, etc.
     pgcli
+    procs # ps
     ripgrep
     rnr # regex rename
     ruby
