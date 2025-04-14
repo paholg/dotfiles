@@ -1,5 +1,5 @@
 "attribute"             = "#dc7759"
-"comment"               = { fg = "comment", bg = "comment-bg" }
+"comment"               = { fg = "comment", modifiers = ["italic"] }
 "constant.builtin"      = "const"
 "constructor"           = "var"
 "function"              = "var"
