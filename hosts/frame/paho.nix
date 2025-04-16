@@ -71,6 +71,7 @@
     mermaid-cli
     mycli
     pscale
+    vscodium-fhs
     zoom-us
   ];
 
