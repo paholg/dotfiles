@@ -64,4 +64,8 @@
       ExecStop = "${lib.getExe pkgs.podman} stop vanta";
     };
   };
+
+  # ****************************************************************************
+  # Seeing display freezes; testing settings to fix.
+  boot.kernelPackages = pkgs.linuxPackages_6_6;
 }
