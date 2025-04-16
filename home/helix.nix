@@ -115,6 +115,11 @@
             language-servers = [ "ruby-lsp" ];
           }
           {
+            name = "sql";
+            auto-format = true;
+            language-servers = [ "sqls" ];
+          }
+          {
             name = "toml";
             auto-format = true;
           }
@@ -126,6 +131,9 @@
           };
           ruby-lsp = {
             command = lib.getExe pkgs.ruby-lsp;
+          };
+          sqls = {
+            command = lib.getExe pkgs.sqls;
           };
         };
       };
