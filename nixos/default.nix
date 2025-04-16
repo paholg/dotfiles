@@ -4,17 +4,6 @@
   pkgs,
   ...
 }:
-let
-  secret_files = with builtins; filter (f: f != "secrets.nix") (attrNames (readDir ../secrets));
-  secrets = builtins.listToAttrs (
-    map (f: {
-      name = f;
-      value = {
-        file = ../secrets/${f};
-      };
-    }) secret_files
-  );
-in
 {
   imports = [
     ./ssh.nix
@@ -42,8 +31,6 @@ in
 
     networking.useDHCP = lib.mkDefault true;
     nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
-
-    age.secrets = secrets;
 
     nix = {
       package = lib.mkDefault pkgs.nix;

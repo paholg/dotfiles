@@ -1,6 +1,15 @@
 { config, pkgs, ... }:
 {
   config = {
+    age.secrets = {
+      gandi = {
+        file = ../../secrets/gandi;
+      };
+      vpn_config = {
+        file = ../../secrets/vpn_config;
+      };
+    };
+
     networking.firewall.allowedTCPPorts = [
       80
       443
@@ -39,8 +48,6 @@
         virtualHosts."auth.paholg.com" = {
           enableACME = true;
           forceSSL = true;
-          locations."/".proxyPass =
-            "http://localhost:${toString config.services.keycloak.settings.http-port}/";
         };
 
         virtualHosts."plex.paholg.com" = {
@@ -120,21 +127,6 @@
         enable = true;
         package = pkgs.postgresql_16;
         dataDir = config.custom.drives.storage + "/postgres";
-      };
-
-      keycloak = {
-        enable = true;
-        database = {
-          type = "postgresql";
-          passwordFile = config.age.secrets.keycloak_postgres_pw.path;
-        };
-
-        settings = {
-          hostname = "auth.paholg.com";
-          http-port = 38080;
-          proxy-headers = "xforwarded";
-          http-enabled = true;
-        };
       };
 
       jellyfin = {

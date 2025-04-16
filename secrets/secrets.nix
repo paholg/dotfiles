@@ -1,14 +1,12 @@
 with builtins;
 let
-  lib = (import <nixpkgs> { }).lib;
-  keys = lib.flatten (map (attrs: attrValues attrs) (attrValues (import ../keys.nix)));
-  secrets = filter (f: f != "secrets.nix") (attrNames (readDir ./.));
+  keys = (import ../keys.nix);
+  boxKeys = with keys; [
+    box.system
+    box.paho
+  ];
 in
-listToAttrs (
-  map (secret: {
-    name = secret;
-    value = {
-      publicKeys = keys;
-    };
-  }) secrets
-)
+{
+  gandi.publicKeys = boxKeys;
+  vpn_config.publicKeys = boxKeys;
+}
