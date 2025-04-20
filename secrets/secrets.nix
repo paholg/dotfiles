@@ -9,4 +9,5 @@ in
 {
   gandi.publicKeys = boxKeys;
   vpn_config.publicKeys = boxKeys;
+  playlister_env.publicKeys = boxKeys;
 }

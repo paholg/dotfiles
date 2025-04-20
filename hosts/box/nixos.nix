@@ -4,6 +4,7 @@
     ./hardware-configuration.nix
     ./ddns.nix
     ./media.nix
+    ./playlister.nix
     ./vpn.nix
     # TODO: Get working
     # ./wireguard.nix

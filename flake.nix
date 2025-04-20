@@ -42,6 +42,13 @@
       url = "github:sodiboo/niri-flake";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    playlister = {
+      url = "github:paholg/playlister";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.crane.follows = "crane";
+      inputs.flake-utils.follows = "flake-utils";
+      inputs.rust-overlay.follows = "rust-overlay";
+    };
     stylix = {
       url = "github:danth/stylix";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -81,6 +88,7 @@
           agenix = inputs.agenix.packages.${prev.system}.default;
           display-switch = inputs.display-switch.defaultPackage.${prev.system};
           helix = inputs.helix.packages.${prev.system}.default;
+          playlister = inputs.playlister.packages.${prev.system}.default;
         };
       };
 
