@@ -11,6 +11,7 @@ let
 in
 {
   imports = [
+    ./bacon.nix
     ./helix.nix
     ./packages.nix
     ./starship.nix

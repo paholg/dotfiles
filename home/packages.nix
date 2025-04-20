@@ -70,12 +70,12 @@ let
     arandr
     ast-grep
     aws-rotate-key
-    bacon
     bash-language-server
     # TODO: broken
     # bitwarden-cli
     bottom
     broot
+    btop-rocm
     cachix
     cargo-deny
     cargo-duplicates
