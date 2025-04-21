@@ -73,6 +73,10 @@ in
 
         d = "just -f $HOME/dotfiles/justfile";
 
+        j = "journalctl -eo cat";
+        ju = "journalctl -eo cat --user";
+        s = "systemctl";
+        su = "systemctl --user";
         just = "${lib.getExe pkgs.just} --command-color=blue";
 
         ls = "eza";
