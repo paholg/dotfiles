@@ -1,6 +1,30 @@
-{ pkgs, ... }:
 {
-  imports = [ ../../home ];
+  pkgs,
+  ...
+}:
+let
+  zoomWc = pkgs.writeShellApplication {
+    name = "zoom-watercooler";
+    runtimeInputs = with pkgs; [
+      jq
+      niri
+    ];
+    text = # bash
+      ''
+        niri msg -j windows \
+          | jq '.[] | select(.app_id == "Zoom Workplace") | .pid' \
+          | head -n1 \
+          | xargs kill || true
+
+        xargs xdg-open < "$HOME/docs/watercooler_link"
+      '';
+  };
+in
+{
+  imports = [
+    ../../home
+  ];
+
   home.stateVersion = "24.05";
 
   custom = {
@@ -16,6 +40,9 @@
   };
 
   programs.niri.settings = {
+    binds = {
+      "Super+Ctrl+W".action.spawn = "zoom-watercooler";
+    };
     outputs = {
       "DP-3" = {
         enable = true;
@@ -62,18 +89,22 @@
     enable = true;
     plugins = [ pkgs.obs-studio-plugins.obs-backgroundremoval ];
   };
-  home.packages = with pkgs; [
-    awscli2
-    csvtool
-    distrobox
-    heroku
-    iredis
-    mermaid-cli
-    mycli
-    pscale
-    vscodium-fhs
-    zoom-us
-  ];
+  home.packages =
+    (with pkgs; [
+      awscli2
+      csvtool
+      distrobox
+      heroku
+      iredis
+      mermaid-cli
+      mycli
+      pscale
+      vscodium-fhs
+      zoom-us
+    ])
+    ++ [
+      zoomWc
+    ];
 
   # home.file.".config/zoomus.conf".source = ./zoom.conf;
 

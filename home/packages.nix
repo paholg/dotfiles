@@ -56,7 +56,7 @@ let
         lxqt.lxqt-policykit
         pavucontrol
         pulseaudioFull
-        signal-desktop
+        signal-desktop-bin
         slack
         vlc
       ]
@@ -105,6 +105,7 @@ let
     htop
     httpie
     hyperfine
+    jless
     jq
     just
     lazygit

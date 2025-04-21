@@ -1,6 +1,7 @@
 with builtins;
 let
   keys = (import ../keys.nix);
+  # allKeys = concatLists (attrValues (mapAttrs (name: value: attrValues value) keys));
   boxKeys = with keys; [
     box.system
     box.paho
