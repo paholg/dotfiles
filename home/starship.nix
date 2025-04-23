@@ -11,10 +11,6 @@
       settings = {
         format = "$username$hostname$localip$directory$custom$all$shlvl$character";
         git_branch.format = "[$symbol$branch]($style) ";
-        git_branch.disabled = true;
-        git_commit.disabled = true;
-        git_state.disabled = true;
-        git_status.disabled = true;
         status.disabled = false;
         aws = {
           disabled = false;
