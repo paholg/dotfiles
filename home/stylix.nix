@@ -22,6 +22,7 @@
           name = "Monaspace Neon";
           package = pkgs.monaspace;
         };
+        sizes.terminal = 12;
       };
       cursor = {
         package = pkgs.phinger-cursors;
@@ -34,6 +35,7 @@
       };
       targets = {
         helix.enable = false;
+        kitty.variant256Colors = true;
         firefox.profileNames = [ "default" ];
         waybar.enable = false;
       };

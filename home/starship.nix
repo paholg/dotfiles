@@ -9,7 +9,7 @@
       enable = true;
       enableFishIntegration = true;
       settings = {
-        format = "$username$hostname$localip$shlvl$directory$custom$all";
+        format = "$username$hostname$localip$directory$custom$all$shlvl$character";
         git_branch.format = "[$symbol$branch]($style) ";
         git_branch.disabled = true;
         git_commit.disabled = true;
@@ -88,7 +88,7 @@
         };
         nix_shell = {
           unknown_msg = "unk";
-          heuristic = true;
+          # heuristic = true;
         };
         shell = {
           disabled = false;
@@ -96,7 +96,13 @@
           unknown_indicator = "unk";
         };
         shlvl = {
-          disabled = true;
+          disabled = false;
+          format = "[$symbol]($style)";
+          repeat = true;
+          symbol = "❯";
+          repeat_offset = 2;
+          style = "cyan";
+          threshold = 0;
         };
         sudo = {
           disabled = false;

@@ -102,7 +102,10 @@ in
           ];
           window-rules = [
             {
-              matches = [ { app-id = "Alacritty"; } ];
+              matches = [
+                { app-id = "Alacritty"; }
+                { app-id = "kitty"; }
+              ];
               draw-border-with-background = false;
             }
             # Floating

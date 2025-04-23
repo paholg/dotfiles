@@ -82,7 +82,7 @@ in
 
     # Spawn
     "Super+G".action.spawn = "fuzzel";
-    "Super+T".action.spawn = "alacritty";
+    "Super+T".action.spawn = "kitty";
     "Super+O".action.spawn = "pavucontrol";
     "Super+B".action.spawn = "firefox";
     "Super+Ctrl+N".action.spawn = "locker";

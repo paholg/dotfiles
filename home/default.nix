@@ -73,6 +73,8 @@ in
 
         d = "just -f $HOME/dotfiles/justfile";
 
+        icat = "kitten icat";
+
         j = "journalctl -eo cat";
         ju = "journalctl -eo cat --user";
         s = "systemctl";

@@ -1,15 +1,13 @@
 #!/usr/bin/env bash
+set -euo pipefail
 
 # A modified version of the playground script found here:
 # https://www.greyblake.com/blog/rust-playground-at-your-fingertips/
 #
 # While the original runs vim and cargo in tmux panes, this one opens your
-# $EDITOR in a separate alacritty terminal.
+# $EDITOR in a separate kitty terminal.
 #
-# Depends on `alacritty` and `bacon`.
-
-set -euo pipefail
-
+# Depends on `kitty` and `bacon`.
 
 PLAYGROUND_DIR="/tmp/rust_playground"
 TIMESTAMP=$(date +"%Y-%m-%d-%H%M%S")
@@ -22,7 +20,7 @@ if (( $# > 0 )); then
     cargo add "$@"
 fi
 
-alacritty -e "$EDITOR" "./src/main.rs" 2> /dev/null &
+kitty -e "$EDITOR" "./src/main.rs" 2> /dev/null &
 bacon -j run
 
 printf "\n\nTo continue working on this project:\ncd %s\n" "$PROJECT_DIR"
