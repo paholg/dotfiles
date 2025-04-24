@@ -18,11 +18,11 @@
       polarity = "dark";
       base16Scheme = "${pkgs.base16-schemes}/share/themes/seti.yaml";
       fonts = {
+        sizes.terminal = 12;
         monospace = {
           name = "Monaspace Neon";
           package = pkgs.monaspace;
         };
-        sizes.terminal = 12;
       };
       cursor = {
         package = pkgs.phinger-cursors;
@@ -45,6 +45,9 @@
     programs = {
       alacritty.settings.colors.primary.background = lib.mkForce "0x000000";
       swaylock.settings.color = lib.mkForce config.custom.swaylock.color;
+      kitty.extraConfig = ''
+        font_features MonaspaceNeon-Regular +calt +liga +ss01 +ss03 +ss04 +ss02 +ss05 +ss06 +ss07 +ss08 +ss09 +ss10
+      '';
     };
 
   };
