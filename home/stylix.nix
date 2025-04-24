@@ -46,7 +46,7 @@
       alacritty.settings.colors.primary.background = lib.mkForce "0x000000";
       swaylock.settings.color = lib.mkForce config.custom.swaylock.color;
       kitty.extraConfig = ''
-        font_family family='Monaspace Neon' style=Light features="+calt +liga +ss01 +ss03 +ss04 +ss02 +ss05 +ss06 +ss07 +ss08 +ss09 +ss10"
+        font_family family='Monaspace Neon' style=Light features="+calt +liga +ss01 +ss03 +ss04 +ss02 +ss05 +ss07 +ss09 +ss10"
       '';
     };
 
