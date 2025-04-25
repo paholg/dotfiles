@@ -23,6 +23,7 @@
           lsp.display-inlay-hints = true;
           rulers = [ 81 ];
           soft-wrap.enable = true;
+          scroll-lines = 1;
           # Flickery and hides the top row when multiple panes open :(
           # sticky-context = {
           #   enable = true;
