@@ -10,7 +10,7 @@
           "-euo"
           "pipefail"
           "-c"
-          "cargo tree --depth 1 -e normal --prefix none | cut -d' ' -f1 | xargs printf -- '-p %s\n' | xargs cargo doc --open --no-deps"
+          "cargo tree --depth 1 -e normal --prefix none | rg '^([^ ]+) v([^ ]+).*$' -r '-p $1@$2' | xargs cargo doc --open --no-deps"
         ];
         need_stdout = false;
         on_success = "back";
