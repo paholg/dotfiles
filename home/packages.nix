@@ -114,6 +114,7 @@ let
     marksman # markdown lsp
     ncdu # interactive disk-usage
     nh # nix helper
+    nixd
     nix-output-monitor
     nodePackages.typescript-language-server
     onefetch

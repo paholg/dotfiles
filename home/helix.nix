@@ -94,7 +94,6 @@
           {
             name = "nix";
             auto-format = true;
-            language-servers = [ "nixd" ];
             formatter = {
               command = lib.getExe pkgs.nixfmt-rfc-style;
               args = [ ];
@@ -127,9 +126,6 @@
         ];
 
         language-server = {
-          nixd = {
-            command = lib.getExe pkgs.nixd;
-          };
           ruby-lsp = {
             command = lib.getExe pkgs.ruby-lsp;
           };
