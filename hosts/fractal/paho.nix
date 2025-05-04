@@ -58,7 +58,7 @@ in
         };
         variable-refresh-rate = "on-demand";
       };
-      "HDMI-A-1" = {
+      "DP-2" = {
         enable = false;
         mode = {
           width = 3840;

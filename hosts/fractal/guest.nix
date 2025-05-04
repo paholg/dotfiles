@@ -24,7 +24,7 @@ let
       "--hdr-enabled"
       # See /sys/class/drm/card* for output names that gamescope uses.
       # They may be different than xrandr.
-      "--prefer-output HDMI-A-1"
+      "--prefer-output DP-2"
     ]
   );
 
