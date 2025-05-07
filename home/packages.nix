@@ -48,6 +48,7 @@ let
         evince
         gimp
         glxinfo
+        guvcview
         kdePackages.dolphin
         kdePackages.okular
         krita
