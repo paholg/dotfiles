@@ -86,6 +86,10 @@ in
     "Super+O".action.spawn = "pavucontrol";
     "Super+B".action.spawn = "firefox";
     "Super+Ctrl+N".action.spawn = "locker";
+    "Super+Ctrl+B".action.spawn = [
+      (lib.getExe pkgs.imv)
+      "-f"
+    ];
     "Super+Ctrl+R".action.spawn = [
       "/usr/bin/env"
       "bash"
