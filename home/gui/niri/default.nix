@@ -111,12 +111,6 @@ in
             # Floating
             {
               matches = [
-                {
-                  # TODO: Firefox changes the window name after opening it, so
-                  # find a way to make this work.
-                  app-id = "firefox";
-                  title = "^Extension.*Bitwarden";
-                }
                 { app-id = "pavucontrol"; }
                 { app-id = ".blueman-manager-wrapped"; }
               ];
@@ -124,27 +118,12 @@ in
             }
             # Chat Workspace
             {
-              matches = [ { app-id = "discord"; } ];
-              open-on-workspace = "chat";
-            }
-            {
               matches = [
-                {
-                  app-id = "steam";
-                  title = "Steam";
-                }
+                { app-id = "discord"; }
+                { app-id = "steam"; }
+                { app-id = "Slack"; }
               ];
               open-on-workspace = "chat";
-              default-column-width = {
-                proportion = 0.5;
-              };
-            }
-            {
-              matches = [ { app-id = "Slack"; } ];
-              open-on-workspace = "chat";
-              default-column-width = {
-                proportion = 1.0;
-              };
             }
             {
               matches = [ { app-id = "Zoom Workplace"; } ];
