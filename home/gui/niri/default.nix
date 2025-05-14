@@ -11,10 +11,14 @@ let
     ];
     text = # bash
       ''
+        cleanup() {
+          kill "$SWAY_IDLE"
+        }
+        trap cleanup EXIT
+
         swayidle timeout 10 'niri msg action power-off-monitors' &
         SWAY_IDLE=$!
         swaylock
-        kill $SWAY_IDLE
       '';
   };
   idler = pkgs.writeShellApplication {
