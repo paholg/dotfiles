@@ -109,6 +109,7 @@ let
     jless
     jq
     just
+    kitty.terminfo
     lazygit
     litecli # sqlite cli
     markdown-oxide
