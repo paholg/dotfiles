@@ -123,6 +123,9 @@ let
     pciutils # lspci, etc.
     pgcli
     procs # ps
+    python3Full
+    python3Packages.python-lsp-server
+    python3Packages.python-lsp-ruff
     ripgrep
     rnr # regex rename
     ruby
