@@ -153,7 +153,7 @@ in
 
       mako = {
         enable = true;
-        defaultTimeout = 60000;
+        settings.default-timeout = 60000;
       };
     };
   };
