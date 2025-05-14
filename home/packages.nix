@@ -126,6 +126,7 @@ let
     python3Full
     python3Packages.python-lsp-server
     python3Packages.python-lsp-ruff
+    python3Packages.ruff
     ripgrep
     rnr # regex rename
     ruby
