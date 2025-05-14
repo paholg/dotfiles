@@ -1,4 +1,9 @@
-{ config, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 {
   age.secrets = {
     gandi = {
@@ -158,5 +163,10 @@
       openFirewall = true;
       dataDir = config.custom.drives.storage + "/sonarr";
     };
+  };
+
+  systemd.services.jellyfin = {
+    # Override UMask so that the `media` group gets file permissions
+    serviceConfig.UMask = lib.mkForce "0002";
   };
 }
