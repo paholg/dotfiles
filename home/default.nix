@@ -75,8 +75,8 @@ in
 
         icat = "kitten icat";
 
-        j = "journalctl -eo cat";
-        ju = "journalctl -eo cat --user";
+        j = "journalctl -e";
+        ju = "journalctl -e --user";
         s = "systemctl";
         su = "systemctl --user";
         just = "${lib.getExe pkgs.just} --command-color=blue";
