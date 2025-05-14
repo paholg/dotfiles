@@ -8,6 +8,7 @@
         PermitRootLogin = "no";
       };
     };
+    services.fail2ban.enable = true;
 
     networking.firewall.allowedUDPPortRanges = [
       # Ports for Mosh
