@@ -1,4 +1,16 @@
-{ ... }:
+{ config, ... }:
+let
+  setOrder = service: {
+    ${service}.rules.auth =
+      let
+        unixOrder = config.security.pam.services.${service}.rules.auth.unix.order;
+      in
+      {
+        u2f.order = unixOrder + 1;
+        fprintd.order = unixOrder + 2;
+      };
+  };
+in
 {
   security.pam.u2f = {
     enable = true;
@@ -8,9 +20,13 @@
   };
 
   security.pam.services = {
-    swaylock = {
-      u2fAuth = true;
-      fprintAuth = true;
+    login = {
+      u2fAuth = false;
+      fprintAuth = false;
     };
-  };
+    sudo = {
+      u2fAuth = false;
+      fprintAuth = false;
+    };
+  } // (setOrder "swaylock");
 }
