@@ -19,14 +19,17 @@ in
     };
   };
 
-  security.pam.services = {
-    login = {
-      u2fAuth = false;
-      fprintAuth = false;
-    };
-    sudo = {
-      u2fAuth = false;
-      fprintAuth = false;
-    };
-  } // (setOrder "swaylock");
+  security.pam.services =
+    {
+      login = {
+        u2fAuth = false;
+        fprintAuth = false;
+      };
+      sudo = {
+        u2fAuth = false;
+        fprintAuth = false;
+      };
+    }
+    // (setOrder "swaylock")
+    // (setOrder "polkit-1");
 }

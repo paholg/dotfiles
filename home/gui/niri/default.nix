@@ -50,7 +50,12 @@ in
 
     programs = {
       fuzzel.enable = true;
-      swaylock.enable = true;
+      swaylock = {
+        enable = true;
+        settings = {
+          show-failed-attempts = true;
+        };
+      };
 
       niri = {
         settings = {
