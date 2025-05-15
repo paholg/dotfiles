@@ -52,6 +52,8 @@
     serviceConfig.type = "simple";
   };
 
+  # ****************************************************************************
+  # Vanta
   systemd.services.vanta_manager = {
     description = "Start vanta container";
     wantedBy = [ "multi-user.target" ];

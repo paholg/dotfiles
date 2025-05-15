@@ -6,6 +6,7 @@
 {
   imports = [
     ./niri.nix
+    ./security.nix
   ];
 
   config = {
