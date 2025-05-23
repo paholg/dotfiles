@@ -99,6 +99,8 @@ in
       mermaid-cli
       mycli
       pscale
+      terraform
+      terraform-ls
       vscodium-fhs
       zoom-us
     ])
