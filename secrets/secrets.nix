@@ -8,7 +8,7 @@ let
   ];
 in
 {
-  porkbun_ddclient_config.publicKeys = boxKeys;
+  "porkbun_api.json".publicKeys = boxKeys;
   vpn_config.publicKeys = boxKeys;
   playlister_env.publicKeys = boxKeys;
 }

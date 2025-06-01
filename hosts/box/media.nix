@@ -6,8 +6,8 @@
 }:
 {
   age.secrets = {
-    porkbun_ddclient_config = {
-      file = ../../secrets/porkbun_ddclient_config;
+    porkbun_api = {
+      file = ../../secrets/porkbun_api.json;
     };
     vpn_config = {
       file = ../../secrets/vpn_config;
