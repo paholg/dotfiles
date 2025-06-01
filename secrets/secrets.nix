@@ -8,7 +8,7 @@ let
   ];
 in
 {
-  gandi.publicKeys = boxKeys;
+  porkbun_ddclient_config.publicKeys = boxKeys;
   vpn_config.publicKeys = boxKeys;
   playlister_env.publicKeys = boxKeys;
 }

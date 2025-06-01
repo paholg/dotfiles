@@ -6,8 +6,8 @@
 }:
 {
   age.secrets = {
-    gandi = {
-      file = ../../secrets/gandi;
+    porkbun_ddclient_config = {
+      file = ../../secrets/porkbun_ddclient_config;
     };
     vpn_config = {
       file = ../../secrets/vpn_config;
