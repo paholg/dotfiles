@@ -90,6 +90,7 @@ let
     choose
     curl
     difftastic
+    dig
     du-dust
     dysk
     entr # Watch for file changes
