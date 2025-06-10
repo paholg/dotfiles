@@ -31,7 +31,7 @@ in
     "Super+I".action.focus-workspace-up = { };
     "Super+U".action.focus-workspace-down = { };
 
-    "Super+Ctrl+Z".action.switch-focus-between-floating-and-tiling = { };
+    "Super+Tab".action.switch-focus-between-floating-and-tiling = { };
 
     # Window Movement
     "Super+Ctrl+H".action.move-column-left = { };
