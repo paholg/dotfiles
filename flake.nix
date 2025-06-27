@@ -134,7 +134,6 @@
               ./hosts/${host}/nixos.nix
               inputs.agenix.nixosModules.default
               inputs.home-manager.nixosModules.home-manager
-              inputs.stylix.nixosModules.stylix
               # For `command-not-found`:
               inputs.flake-programs-sqlite.nixosModules.programs-sqlite
               {
@@ -142,6 +141,9 @@
                 home-manager.useUserPackages = true;
                 home-manager.extraSpecialArgs = specialArgs;
                 home-manager.users = users;
+                home-manager.sharedModules = [
+                  inputs.stylix.homeModules.stylix
+                ];
               }
               registry
             ] ++ (if config.gui then [ inputs.niri.nixosModules.niri ] else [ ]);

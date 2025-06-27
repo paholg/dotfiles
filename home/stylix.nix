@@ -59,6 +59,5 @@
       '';
       swaylock.settings.color = lib.mkForce config.custom.swaylock.color;
     };
-
   };
 }
