@@ -10,11 +10,6 @@
       inputs.home-manager.follows = "home-manager";
       inputs.systems.follows = "systems";
     };
-    # For `command-not-found`:
-    flake-programs-sqlite = {
-      url = "github:wamserma/flake-programs-sqlite";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
     display-switch = {
       url = "github:paholg/display-switch/flake";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -134,8 +129,6 @@
               ./hosts/${host}/nixos.nix
               inputs.agenix.nixosModules.default
               inputs.home-manager.nixosModules.home-manager
-              # For `command-not-found`:
-              inputs.flake-programs-sqlite.nixosModules.programs-sqlite
               {
                 home-manager.useGlobalPkgs = true;
                 home-manager.useUserPackages = true;

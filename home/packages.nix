@@ -65,7 +65,6 @@ let
       [ ];
 
   defaultPackages = with pkgs; [
-    # iredis
     external.agenix
     angle-grinder
     arandr
