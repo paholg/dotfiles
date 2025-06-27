@@ -123,6 +123,11 @@
             name = "toml";
             auto-format = true;
           }
+          {
+            name = "xml";
+            auto-format = true;
+            language-servers = [ "xml" ];
+          }
         ];
 
         language-server = {
@@ -131,6 +136,9 @@
           };
           sqls = {
             command = lib.getExe pkgs.sqls;
+          };
+          xml = {
+            command = lib.getExe pkgs.lemminx;
           };
         };
       };
