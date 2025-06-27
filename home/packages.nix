@@ -117,8 +117,9 @@ let
     marksman # markdown lsp
     ncdu # interactive disk-usage
     nh # nix helper
-    nixd
     nix-output-monitor
+    nix-search
+    nixd
     nodePackages.typescript-language-server
     onefetch
     openssl

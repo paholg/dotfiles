@@ -92,7 +92,7 @@ in
 
         ipinfo = "curl ipinfo.io 2> /dev/null | jq .";
 
-        ns = "nh search";
+        ns = "nix-search";
 
         own =
           # fish
