@@ -14,7 +14,7 @@ let
       ''
         bg() {
           IMG=$(fd ".+\..+" ~/wallpapers/ | shuf -n1 | tee -a ~/wallpapers/history)
-          swaybg -i "$IMG" &> /dev/null &
+          swaybg -m fill -i "$IMG" &> /dev/null &
           echo "$!"
         }
 
