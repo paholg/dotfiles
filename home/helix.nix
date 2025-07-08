@@ -14,6 +14,7 @@
 
       settings = {
         editor = {
+          auto-pairs = false;
           color-modes = true;
           completion-replace = true;
           end-of-line-diagnostics = "hint";
