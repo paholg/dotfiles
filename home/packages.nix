@@ -150,6 +150,7 @@ let
     xan
     yaml-language-server
     yq-go
+    zellij
     zip
   ];
 in
