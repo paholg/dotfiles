@@ -22,6 +22,16 @@
             us-west-2 = "usw2";
           };
         };
+        custom = {
+          heroku = {
+            command = "echo $HEROKU_APP";
+            when = ''[ -n "$HEROKU_APP" ]'';
+            format = "[$symbol $output]($style) ";
+            style = "#D7BFF2 italic";
+            symbol = "";
+            shell = "bash";
+          };
+        };
         # custom = {
         #   jj = {
         #     when = true;
