@@ -46,7 +46,7 @@ let
         discord
         eog
         evince
-        gimp
+        # gimp # broken
         glxinfo
         guvcview
         kdePackages.dolphin
