@@ -94,10 +94,13 @@ in
       awscli2
       csvtool
       distrobox
+      dive # look into docker image layers
       heroku
-      iredis
+      # iredis
       mermaid-cli
       mycli
+      podman-compose
+      podman-tui
       pscale
       terraform
       terraform-ls

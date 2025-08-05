@@ -131,7 +131,7 @@ let
     python3Packages.ruff
     ripgrep
     rnr # regex rename
-    ruby
+    ruby_3_4
     rustup
     sd
     serpl # search and replace
