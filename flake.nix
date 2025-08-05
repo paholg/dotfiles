@@ -37,6 +37,10 @@
       url = "github:sodiboo/niri-flake";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    nix-index-database = {
+      url = "github:nix-community/nix-index-database";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     playlister = {
       url = "github:paholg/playlister";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -135,6 +139,10 @@
                 home-manager.users = users;
                 home-manager.sharedModules = [
                   inputs.stylix.homeModules.stylix
+                  inputs.nix-index-database.homeModules.nix-index
+                  {
+                    programs.nix-index-database.comma.enable = true;
+                  }
                 ];
               }
               registry
