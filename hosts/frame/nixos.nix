@@ -16,6 +16,10 @@
     HandlePowerKey=suspend
   '';
 
+  services.tlp = {
+    enable = true;
+  };
+
   virtualisation.podman = {
     enable = true;
     # This deletes distrobox images :(
@@ -33,10 +37,6 @@
   };
 
   services.redis.servers."" = {
-    enable = true;
-  };
-
-  services.power-profiles-daemon = {
     enable = true;
   };
 
