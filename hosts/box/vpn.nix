@@ -99,7 +99,8 @@ in
               rpc-bind-address = config.custom.ips.container;
               rpc-whitelist-enabled = false;
               download-queue-enabled = false;
-              seed-queue-enabled = false;
+              seed-queue-enabled = true;
+              ratio-limit = 2.0;
               # NOTE: This mask needs to be specified in base 10 instead of octal.
               umask = 7; # 0o007 == 7
               cache-size-mb = 1024;
