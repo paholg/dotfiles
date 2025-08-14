@@ -125,6 +125,7 @@ let
     pciutils # lspci, etc.
     pgcli
     procs # ps
+    pv
     python3Full
     python3Packages.python-lsp-server
     python3Packages.python-lsp-ruff
