@@ -16,10 +16,6 @@
     HandlePowerKey=suspend
   '';
 
-  services.tlp = {
-    enable = true;
-  };
-
   virtualisation.podman = {
     enable = true;
     # This deletes distrobox images :(
@@ -35,6 +31,8 @@
     #   mysqld.sort_buffer_size = "512k";
     # };
   };
+
+  services.power-profiles-daemon.enable = true;
 
   services.redis.servers."" = {
     enable = true;
