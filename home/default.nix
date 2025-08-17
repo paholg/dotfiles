@@ -230,7 +230,7 @@ in
           };
           es = {
             description = "envswitch";
-            body = "${lib.getExe pkgs.external.envswitch} -sfish $argv | source";
+            body = "${lib.getExe pkgs.external.envswitch} set -sfish $argv | source";
           };
           h = {
             description = "Render the --help for a command with bat";
