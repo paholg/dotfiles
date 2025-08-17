@@ -106,6 +106,7 @@
           format = "[$symbol$context( ($namespace))]($style)";
         };
         nix_shell = {
+          disabled = true;
           unknown_msg = "unk";
           # heuristic = true;
         };
@@ -134,6 +135,14 @@
           format = "[$user]($style)@";
           show_always = if (config.custom.username == "paho") then false else true;
         };
+
+        # Programming language versions can get noisy. Let's just turn them off
+        # for now.
+        nodejs.disabled = true;
+        python.disabled = true;
+        ruby.disabled = true;
+        rust.disabled = true;
+
       };
     };
   };
