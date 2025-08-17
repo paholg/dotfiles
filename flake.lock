@@ -177,11 +177,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1755417085,
-        "narHash": "sha256-Nyk3N5qRlXMrDYVFnllPpOZoMtzcF75yi9bDgdoxs5E=",
+        "lastModified": 1755420709,
+        "narHash": "sha256-ZlysW20DIStCg0N2eAtimR0YX3BtFtm7qVCOs1LPEhM=",
         "owner": "paholg",
         "repo": "envswitch",
-        "rev": "b4ea5f60b46015f88f533ddf7028e5bfcade81a9",
+        "rev": "f094a36293bf2f49fcfba64784e9317978efc308",
         "type": "github"
       },
       "original": {
