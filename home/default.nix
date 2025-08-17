@@ -16,7 +16,8 @@ in
     ./packages.nix
     ./starship.nix
     ./stylix.nix
-  ] ++ (if gui then [ ./gui ] else [ ]);
+  ]
+  ++ (if gui then [ ./gui ] else [ ]);
 
   options.custom = {
     fish_extra_init = lib.mkOption {
@@ -203,17 +204,17 @@ in
         enable = true;
 
         interactiveShellInit = # fish
-          ''
-            set fish_greeting # disable
-            # TODO: Temporary fix for fish completions.
-            # Remove once this is merged:
-            # https://github.com/nix-community/home-manager/pull/5199
-            set fish_complete_path "${config.home.path}/share/fish/vendor_completions.d" $fish_complete_path
+        ''
+          set fish_greeting # disable
+          # TODO: Temporary fix for fish completions.
+          # Remove once this is merged:
+          # https://github.com/nix-community/home-manager/pull/5199
+          set fish_complete_path "${config.home.path}/share/fish/vendor_completions.d" $fish_complete_path
 
-            batman --export-env | source
-            eval (batpipe)
-          ''
-          + config.custom.fish_extra_init;
+          batman --export-env | source
+          eval (batpipe)
+        ''
+        + config.custom.fish_extra_init;
 
         functions = {
           e = {
@@ -226,6 +227,10 @@ in
                   hx
                 end 
               '';
+          };
+          es = {
+            description = "envswitch";
+            body = "${lib.getExe pkgs.external.envswitch} -sfish $argv | source";
           };
           h = {
             description = "Render the --help for a command with bat";

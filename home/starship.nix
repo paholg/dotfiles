@@ -1,4 +1,9 @@
-{ config, lib, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 {
   options.custom.starship = {
     host_color = lib.mkOption { type = lib.types.str; };
@@ -30,6 +35,14 @@
             style = "#D7BFF2 italic";
             symbol = "";
             shell = "bash";
+          };
+          envswitch = {
+            description = "Show which envswitch environment is currently active.";
+            command = "${lib.getExe pkgs.external.envswitch} get";
+            style = "yellow";
+            when = true;
+            format = "[($symbol $output )]($style)";
+            symbol = "";
           };
         };
         # custom = {

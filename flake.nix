@@ -17,6 +17,13 @@
       inputs.flake-utils.follows = "flake-utils";
       inputs.rust-overlay.follows = "rust-overlay";
     };
+    envswitch = {
+      url = "github:paholg/envswitch";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.crane.follows = "crane";
+      inputs.flake-utils.follows = "flake-utils";
+      inputs.rust-overlay.follows = "rust-overlay";
+    };
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -84,6 +91,7 @@
         external = {
           agenix = inputs.agenix.packages.${prev.system}.default;
           display-switch = inputs.display-switch.defaultPackage.${prev.system};
+          envswitch = inputs.envswitch.packages.${prev.system}.default;
           helix = inputs.helix.packages.${prev.system}.default;
           playlister = inputs.playlister.packages.${prev.system}.default;
         };
@@ -146,7 +154,8 @@
                 ];
               }
               registry
-            ] ++ (if config.gui then [ inputs.niri.nixosModules.niri ] else [ ]);
+            ]
+            ++ (if config.gui then [ inputs.niri.nixosModules.niri ] else [ ]);
           }
         ) hosts;
     in
