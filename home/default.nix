@@ -213,6 +213,8 @@ in
 
           batman --export-env | source
           eval (batpipe)
+
+          envswitch setup fish | source
         ''
         + config.custom.fish_extra_init;
 
@@ -227,10 +229,6 @@ in
                   hx
                 end 
               '';
-          };
-          es = {
-            description = "envswitch";
-            body = "${lib.getExe pkgs.external.envswitch} set -sfish $argv | source";
           };
           h = {
             description = "Render the --help for a command with bat";
