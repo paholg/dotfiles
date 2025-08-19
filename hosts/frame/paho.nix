@@ -92,6 +92,7 @@ in
   home.packages =
     (with pkgs; [
       awscli2
+      claude-code
       csvtool
       distrobox
       dive # look into docker image layers
