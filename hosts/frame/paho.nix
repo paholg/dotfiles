@@ -82,6 +82,7 @@ in
   };
 
   home.shellAliases = {
+    charge-limit = "sudo framework_tool --charge-limit";
     my = "mycli --socket /tmp/mysql.sock -uroot -D scholarly_development";
   };
 
@@ -96,6 +97,7 @@ in
       csvtool
       distrobox
       dive # look into docker image layers
+      framework-tool
       heroku
       # iredis
       mermaid-cli
