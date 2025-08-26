@@ -12,9 +12,9 @@
 
   networking.networkmanager.enable = true;
 
-  services.logind.extraConfig = ''
-    HandlePowerKey=suspend
-  '';
+  services.logind.settings.Login = {
+    HandlePowerKey = "suspend";
+  };
 
   virtualisation.podman = {
     enable = true;
