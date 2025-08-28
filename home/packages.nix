@@ -105,7 +105,6 @@ let
     gitAndTools.hub
     fastfetch
     htop
-    httpie
     hyperfine
     jless
     jq
@@ -151,6 +150,7 @@ let
     vscode-langservers-extracted # css, html, json, markdown, eslint
     wget
     xan
+    xh
     yaml-language-server
     yq-go
     zellij
