@@ -32,8 +32,6 @@
       url = "github:paholg/helix/driver";
 
       inputs.nixpkgs.follows = "nixpkgs";
-      inputs.crane.follows = "crane";
-      inputs.flake-utils.follows = "flake-utils";
       inputs.rust-overlay.follows = "rust-overlay";
     };
     naersk = {
