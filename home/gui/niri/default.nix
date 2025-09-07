@@ -60,7 +60,6 @@ in
       niri = {
         settings = {
           environment = {
-            DISPLAY = ":0"; # For xwayland
             NIXOS_OZONE_WL = "1";
           };
           input = {
@@ -106,7 +105,6 @@ in
                 "waybar.service"
               ];
             }
-            { command = [ (lib.getExe pkgs.xwayland-satellite) ]; }
             # { command = [ (lib.getExe idler) ]; }
           ];
           window-rules = [

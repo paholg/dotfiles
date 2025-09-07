@@ -90,10 +90,8 @@ in
     NGROK_URL = "paholg.ngrok.app";
   };
 
-  programs.obs-studio = {
-    enable = true;
-    plugins = [ pkgs.obs-studio-plugins.obs-backgroundremoval ];
-  };
+  programs.obs-studio.enable = true;
+
   home.packages =
     (with pkgs; [
       awscli2

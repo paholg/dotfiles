@@ -37,7 +37,7 @@ in
 
   custom = {
     username = "paho";
-    mangohud.enable = true;
+    mangohud.enable = false;
     starship.host_color = "cyan";
     swaylock.color = "220044";
     fish_extra_init = # fish
@@ -46,6 +46,8 @@ in
         [ "$TTY" = "/dev/tty2" ] && exec "niri-session"
       '';
   };
+
+  programs.obs-studio.enable = true;
 
   programs.niri.settings = {
     outputs = {
@@ -93,6 +95,7 @@ in
       # TODO: broken
       # blender-hip
       discover-overlay
+      ffmpeg
     ]
     ++ [ gamescopeSession ];
 
