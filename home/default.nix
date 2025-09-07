@@ -24,6 +24,10 @@ in
       type = lib.types.str;
       default = "";
     };
+    swaylock.color = lib.mkOption {
+      type = lib.types.str;
+      default = "888888";
+    };
     username = lib.mkOption { type = lib.types.str; };
   };
 
@@ -317,14 +321,15 @@ in
 
       ssh = {
         enable = true;
-
-        addKeysToAgent = "yes";
+        enableDefaultConfig = false;
 
         matchBlocks =
           (lib.mapAttrs
             (name: host: {
               user = config.custom.username;
               hostname = host;
+              addKeysToAgent = "yes";
+
             })
             {
               home = "home.paholg.com";

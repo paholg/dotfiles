@@ -5,16 +5,11 @@
   ...
 }:
 {
-  options.custom = {
-    swaylock.color = lib.mkOption {
-      type = lib.types.str;
-      default = "888888";
-    };
-  };
-
   config = {
     stylix = {
       enable = true;
+      # Incompatible with useGlobalPkgs:
+      overlays.enable = false;
       polarity = "dark";
       base16Scheme = "${pkgs.base16-schemes}/share/themes/seti.yaml";
       fonts = {
