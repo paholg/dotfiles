@@ -27,9 +27,13 @@
   services.mysql = {
     enable = true;
     package = pkgs.mysql80;
-    # settings = {
-    #   mysqld.sort_buffer_size = "512k";
-    # };
+    settings = {
+      mysqld = {
+        expire_logs_days = 7;
+        max_binlog_size = "100M";
+        # sort_buffer_size = "512k";
+      };
+    };
   };
 
   services.power-profiles-daemon.enable = true;

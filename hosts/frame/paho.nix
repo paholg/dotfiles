@@ -86,6 +86,10 @@ in
     my = "mycli --socket /tmp/mysql.sock -uroot -D scholarly_development";
   };
 
+  home.sessionVariables = {
+    NGROK_URL = "paholg.ngrok.app";
+  };
+
   programs.obs-studio = {
     enable = true;
     plugins = [ pkgs.obs-studio-plugins.obs-backgroundremoval ];
