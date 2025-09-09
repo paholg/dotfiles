@@ -328,8 +328,6 @@ in
             (name: host: {
               user = config.custom.username;
               hostname = host;
-              addKeysToAgent = "yes";
-
             })
             {
               home = "home.paholg.com";
@@ -343,6 +341,9 @@ in
             router = {
               user = "admin";
               hostname = "10.0.0.1";
+            };
+            "*" = {
+              addKeysToAgent = "yes";
             };
           };
       };
