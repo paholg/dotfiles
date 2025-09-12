@@ -27,9 +27,12 @@ let
     if gui then
       with pkgs;
       [
+        inlyne # markdown viewer
+        kdePackages.kdenlive # video editing
+        krita
         libreoffice
         mdbook
-        inlyne # markdown viewer
+        pinta # paint
       ]
     else
       [ ];
@@ -51,9 +54,7 @@ let
         guvcview
         kdePackages.dolphin
         kdePackages.okular
-        krita
         libnotify
-        lxappearance
         lxqt.lxqt-policykit
         pavucontrol
         pulseaudioFull
