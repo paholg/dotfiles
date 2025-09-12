@@ -56,6 +56,7 @@ in
       keyboard.options = [ "caps:backspace" ];
 
       sessionVariables = {
+        PAGER = "bat -l";
         RUST_NEW_ERROR_FORMAT = "true";
         CARGO_HOME = "$HOME/.cargo";
         MANROFFOPT = "-c";
@@ -191,6 +192,7 @@ in
       bat = {
         enable = true;
         extraPackages = with pkgs.bat-extras; [
+          batdiff
           batgrep
           batman
           batpipe
