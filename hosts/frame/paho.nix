@@ -102,6 +102,7 @@ in
       framework-tool
       heroku
       # iredis
+      impala # wifi management
       mermaid-cli
       mycli
       podman-compose

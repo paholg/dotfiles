@@ -10,11 +10,20 @@
   boot.initrd.luks.devices."luks-0f2fe45b-6e0e-4cb6-b9ee-87b639fb04cb".device =
     "/dev/disk/by-uuid/0f2fe45b-6e0e-4cb6-b9ee-87b639fb04cb";
 
-  networking.networkmanager.enable = true;
+  networking = {
+    networkmanager.enable = false;
+    wireless.iwd.enable = true;
+  };
 
   services.logind.settings.Login = {
     HandlePowerKey = "suspend";
   };
+
+  # Need to install here for polit rules to be picked up.
+  environment.systemPackages = with pkgs; [
+    quickemu
+  ];
+  services.samba.enable = true;
 
   virtualisation.podman = {
     enable = true;
