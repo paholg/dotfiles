@@ -17,6 +17,7 @@
           auto-pairs = false;
           color-modes = true;
           completion-replace = true;
+          inline-diagnostics.cursor-line = "disable";
           end-of-line-diagnostics = "hint";
           file-picker.hidden = false;
           indent-guides.render = true;
