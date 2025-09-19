@@ -14,6 +14,7 @@ in
     ./bacon.nix
     ./helix.nix
     ./packages.nix
+    ./script.nix
     ./starship.nix
     ./stylix.nix
   ]

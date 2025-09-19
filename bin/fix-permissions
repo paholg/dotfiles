@@ -1,4 +1,0 @@
-#!/bin/sh
-
-fd . -td -0 | xargs -0 chmod 755
-fd . -tf -0 | xargs -0 chmod 644
