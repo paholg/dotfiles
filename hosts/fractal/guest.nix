@@ -1,64 +1,9 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
-let
-  gamescopeArgsCommon = [
-    "--adaptive-sync" # VRR support
-    "--rt"
-    "--steam"
-  ];
-  gamescopeArgsOffice = lib.strings.concatStringsSep " " (
-    gamescopeArgsCommon
-    ++ [
-      # See /sys/class/drm/card* for output names that gamescope uses.
-      # They may be different than xrandr.
-      "--prefer-output DP-1"
-    ]
-  );
-  gamescopeArgsTv = lib.strings.concatStringsSep " " (
-    gamescopeArgsCommon
-    ++ [
-      "--hdr-enabled"
-      # See /sys/class/drm/card* for output names that gamescope uses.
-      # They may be different than xrandr.
-      "--prefer-output DP-2"
-    ]
-  );
-
-  steamArgs = lib.strings.concatStringsSep " " [
-    "-pipewire-dmabuf"
-    "-tenfoot"
-  ];
-  gamescopeOffice = pkgs.writeShellApplication {
-    name = "gamescope-office";
-    runtimeInputs = [
-      pkgs.gamescope
-      pkgs.steam
-    ];
-    text = "exec gamescope ${gamescopeArgsOffice} -- steam ${steamArgs}";
-  };
-  gamescopeTv = pkgs.writeShellApplication {
-    name = "gamescope-tv";
-    runtimeInputs = [
-      pkgs.gamescope
-      pkgs.steam
-    ];
-    text = "exec gamescope ${gamescopeArgsTv} -- steam ${steamArgs}";
-  };
-in
+{ config, lib, ... }:
 {
   imports = [
     ../../home
   ];
   home.stateVersion = "24.05";
-
-  home.packages = [
-    gamescopeOffice
-    gamescopeTv
-  ];
 
   custom = {
     username = "guest";
@@ -69,8 +14,45 @@ in
       ''
         set TTY (tty)
         # TTY1: startx
-        [ "$TTY" = "/dev/tty1" ] && ${lib.getExe gamescopeTv} 2>&1 | tee gamescope.log
+        [ "$TTY" = "/dev/tty1" ] && exec "niri-session"
       '';
+  };
+
+  programs.niri.settings = {
+    outputs = {
+      "DP-1" = {
+        enable = true;
+        mode = {
+          width = 3840;
+          height = 2160;
+          refresh = 138.0;
+        };
+        variable-refresh-rate = "on-demand";
+      };
+      "DP-2" = {
+        enable = false;
+        mode = {
+          width = 3840;
+          height = 2160;
+          refresh = 120.0;
+        };
+        scale = 2.0;
+        variable-refresh-rate = "on-demand";
+      };
+    };
+    spawn-at-startup = [
+      { command = [ "steam" ]; }
+    ];
+    workspaces = {
+      "01-main".open-on-output = "DP-1";
+    };
+
+    binds = {
+      # Override to disable the locker for guest.
+      "Super+Ctrl+N" = lib.mkForce { action.spawn = ""; };
+    };
+
+    window-rules = lib.mkForce [ ];
   };
 
   home.file.dotfiles.source = config.lib.file.mkOutOfStoreSymlink "/srv/dotfiles";

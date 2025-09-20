@@ -1,4 +1,4 @@
-{ lib, pkgs, ... }:
+{ pkgs, ... }:
 let
   # Lock the session, running swayidle on a fast loop to turn off displays while
   # locked.
