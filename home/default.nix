@@ -57,7 +57,7 @@ in
       keyboard.options = [ "caps:backspace" ];
 
       sessionVariables = {
-        PAGER = "bat -l";
+        PAGER = "bat -p";
         RUST_NEW_ERROR_FORMAT = "true";
         CARGO_HOME = "$HOME/.cargo";
         MANROFFOPT = "-c";

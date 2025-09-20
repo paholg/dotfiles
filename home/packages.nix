@@ -127,7 +127,7 @@ let
     pgcli
     procs # ps
     pv
-    python3Full
+    python3
     python3Packages.python-lsp-server
     python3Packages.python-lsp-ruff
     python3Packages.ruff
