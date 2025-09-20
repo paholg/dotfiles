@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ pkgs, ... }:
 {
   imports = [
     ../../home
@@ -66,7 +66,4 @@
     discover-overlay
     ffmpeg
   ];
-
-  # Store dotfiles in a shared location, so guest can access too:
-  home.file.dotfiles.source = config.lib.file.mkOutOfStoreSymlink "/srv/dotfiles";
 }

@@ -1,4 +1,4 @@
-{ config, lib, ... }:
+{ lib, ... }:
 {
   imports = [
     ../../home
@@ -54,6 +54,4 @@
 
     window-rules = lib.mkForce [ ];
   };
-
-  home.file.dotfiles.source = config.lib.file.mkOutOfStoreSymlink "/srv/dotfiles";
 }

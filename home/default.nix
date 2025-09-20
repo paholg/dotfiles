@@ -66,10 +66,7 @@ in
       };
 
       sessionPath = [
-        "$HOME/dotfiles/bin"
-        "$HOME/dotfiles/hosts/$(hostname)/bin"
         "$HOME/.cargo/bin"
-        "$HOME/go/bin"
       ];
 
       shellAliases = {
@@ -77,8 +74,6 @@ in
         batlog = "bat -pp -l log";
 
         check_sync = "watch grep -e Dirty: -e Writeback: /proc/meminfo";
-
-        d = "just -f $HOME/dotfiles/justfile";
 
         icat = "kitten icat";
 

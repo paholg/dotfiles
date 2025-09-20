@@ -21,7 +21,5 @@ home-manager), so the only configuration here is for that and for NixOS.
 <!-- 5. Run ./install.sh -->
 <!-- 6. Run `just up` to verify and get any updates. -->
 
-TODO: Get everything in nix store, so `dotfiles` doesn't even need to exist locally.
-
 TODO: New instructions/script.
 Note for agenix: Need ssh + system ssh key in keys.nix
