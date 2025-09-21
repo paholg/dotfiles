@@ -29,17 +29,15 @@
           height = 2160;
           refresh = 138.0;
         };
-        variable-refresh-rate = "on-demand";
       };
       "DP-2" = {
         enable = false;
         mode = {
           width = 3840;
           height = 2160;
-          refresh = 120.0;
+          refresh = 60.0;
         };
         scale = 2.0;
-        variable-refresh-rate = "on-demand";
       };
     };
     spawn-at-startup = [

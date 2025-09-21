@@ -21,37 +21,35 @@
   programs.niri.settings = {
     outputs = {
       "DP-1" = {
-        enable = true;
+        enable = false;
         mode = {
           width = 3840;
           height = 2160;
           refresh = 138.0;
         };
-        variable-refresh-rate = "on-demand";
       };
       "DP-2" = {
-        enable = false;
+        enable = true;
         mode = {
           width = 3840;
           height = 2160;
-          refresh = 120.0;
+          refresh = 60.0;
         };
         scale = 2.0;
-        variable-refresh-rate = "on-demand";
       };
     };
-    spawn-at-startup = [
+    spawn-at-startup = lib.mkForce [
       { command = [ "steam" ]; }
     ];
-    workspaces = {
-      "01-main".open-on-output = "DP-1";
-    };
-
     binds = {
       # Override to disable the locker for guest.
       "Super+Ctrl+N" = lib.mkForce { action.spawn = ""; };
     };
-
-    window-rules = lib.mkForce [ ];
+    workspaces = lib.mkForce { };
+    window-rules = lib.mkForce [
+      {
+        open-maximized = true;
+      }
+    ];
   };
 }

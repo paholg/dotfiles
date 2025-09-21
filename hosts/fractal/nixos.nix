@@ -22,6 +22,11 @@
   # For rebinding mouse
   services.ratbagd.enable = true;
 
+  services.lact.enable = true;
+  hardware.amdgpu.overdrive.enable = true;
+
+  programs.gamemode.enable = true;
+
   programs.steam = {
     enable = true;
     package = pkgs.steam.override {
@@ -34,24 +39,5 @@
     localNetworkGameTransfers.openFirewall = true;
 
     protontricks.enable = true;
-
-    # gamescopeSession = {
-    #   enable = true;
-    #   env = {
-    #     # Games allegedly prefer X11
-    #     SDL_VIDEODRIVER = "x11";
-    #     # Maybe fix audio stuttering?
-    #     PULSE_LATENCY_MSEC = "50";
-    #   };
-    #   args = [
-    #     "-W 3840"
-    #     "-H 2160"
-    #     # # Maybe help with mouse issues?
-    #     # "--force-grab-cursor"
-    #     # "--mouse-sensitivity"
-    #     # "3"
-    #     "--mangoapp"
-    #   ];
-    # };
   };
 }

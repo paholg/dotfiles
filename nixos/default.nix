@@ -7,7 +7,8 @@
 {
   imports = [
     ./ssh.nix
-  ] ++ (if gui then [ ./gui ] else [ ]);
+  ]
+  ++ (if gui then [ ./gui ] else [ ]);
 
   config = {
     boot = {
@@ -22,8 +23,6 @@
         efi.canTouchEfiVariables = true;
       };
     };
-
-    boot.kernelPackages = lib.mkDefault pkgs.linuxPackages_latest;
 
     # Enable all firmware regardless of license.
     hardware.enableAllFirmware = true;

@@ -36,8 +36,6 @@ let
 in
 {
   config = {
-    home.file."wallpapers/.keep".text = "";
-
     home.packages = [ background ];
 
     systemd.user.services.background = {

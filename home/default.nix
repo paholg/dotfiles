@@ -70,8 +70,12 @@ in
       ];
 
       shellAliases = {
+        audio = "systemctl --user restart pipewire";
+
         bathelp = "bat --plain --language help";
         batlog = "bat -pp -l log";
+
+        bg = "systemctl --user restart background";
 
         check_sync = "watch grep -e Dirty: -e Writeback: /proc/meminfo";
 
