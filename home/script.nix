@@ -44,14 +44,21 @@ let
     ];
     text = # bash
       ''
-        branch=$(git branch --show-current)
-        pr=$(gh pr list --head "$branch" --json number -q '.[0].number')
-        title=$(git log -1 --pretty=%s)
-        body=$(git log -1 --pretty=%b)
+        # Source: https://github.com/not-an-aardvark/git-delete-squashed
 
-        echo "Updating PR #$pr title and body"
+        TARGET_BRANCH=main
 
-        gh pr edit "$pr" --title "$title" --body "$body"
+        git checkout -q $TARGET_BRANCH
+        branches=$(git for-each-ref refs/heads/ "--format=%(refname:short)")
+        for branch in $branches; do
+          mergeBase=$(git merge-base $TARGET_BRANCH "$branch")
+          # Want the symbols to be literal
+          # shellcheck disable=SC1083,SC1001
+          tree=$(git rev-parse "$branch"\^{tree})
+          commit_tree=$(git commit-tree "$tree" -p "$mergeBase" -m _)
+          cherry=$(git cherry $TARGET_BRANCH "$commit_tree")
+          [[ "$cherry" == "-"* ]] && (echo "Branch merged: $branch" && git branch -D "$branch") || echo "Not merged: $branch"
+        done
       '';
   };
   mkfile = pkgs.writeShellApplication {
