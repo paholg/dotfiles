@@ -57,7 +57,6 @@ in
       keyboard.options = [ "caps:backspace" ];
 
       sessionVariables = {
-        PAGER = "bat -p";
         RUST_NEW_ERROR_FORMAT = "true";
         CARGO_HOME = "$HOME/.cargo";
         MANROFFOPT = "-c";
@@ -290,7 +289,7 @@ in
           d = "diff";
           dc = "diff --cached";
           fixup = "!git commit -a --amend --no-edit && git push -f";
-          l = "log";
+          l = ''!git log "$@" | bat -n'';
           rs = "restore --staged";
           rsw = "restore --staged --worktree";
           s = "status";
