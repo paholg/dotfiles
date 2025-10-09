@@ -289,7 +289,7 @@ in
           d = "diff";
           dc = "diff --cached";
           fixup = "!git commit -a --amend --no-edit && git push -f";
-          l = ''!git log "$@" | bat -n'';
+          l = ''!l() { git log "$@" | bat -n; }; l'';
           rs = "restore --staged";
           rsw = "restore --staged --worktree";
           s = "status";

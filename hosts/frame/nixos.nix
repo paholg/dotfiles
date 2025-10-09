@@ -25,6 +25,8 @@
   ];
   services.samba.enable = true;
 
+  programs.nix-ld.enable = true;
+
   virtualisation.podman = {
     enable = true;
     # This deletes distrobox images :(
