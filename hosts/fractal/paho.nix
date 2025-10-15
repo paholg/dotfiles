@@ -52,7 +52,7 @@
     window-rules = [
       {
         # Float gam
-        matches = [ { app-id = "client"; } ];
+        matches = [ { title = "client"; } ];
         open-floating = true;
       }
     ];
