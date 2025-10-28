@@ -272,6 +272,8 @@ in
       git = lib.mkIf (config.custom.username == "paho") {
         enable = true;
         settings = {
+          core.pager = "delta";
+          interactive.diffFilter = "delta --color-only";
           diff.external = "difft";
           pull.rebase = true;
           push.default = "current";
