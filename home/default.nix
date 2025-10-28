@@ -262,17 +262,16 @@ in
         enableFishIntegration = true;
       };
 
+      delta = {
+        enable = true;
+        options = {
+          line-numbers = true;
+        };
+      };
+
       git = lib.mkIf (config.custom.username == "paho") {
         enable = true;
-        userName = "Paho Lurie-Gregg";
-        userEmail = lib.mkDefault "paho@paholg.com";
-        delta = {
-          enable = true;
-          options = {
-            line-numbers = true;
-          };
-        };
-        extraConfig = {
+        settings = {
           diff.external = "difft";
           pull.rebase = true;
           push.default = "current";
@@ -280,20 +279,26 @@ in
           init.defaultBranch = "main";
           credential.helper = "store";
           log.date = "local";
-        };
-        aliases = {
-          b = "branch";
-          bt = "branch -v --sort=-committerdate";
-          c = "commit";
-          co = "checkout";
-          d = "diff";
-          dc = "diff --cached";
-          fixup = "!git commit -a --amend --no-edit && git push -f";
-          l = ''!l() { git log "$@" | bat -n; }; l'';
-          rs = "restore --staged";
-          rsw = "restore --staged --worktree";
-          s = "status";
-          sw = "switch";
+
+          user = {
+            name = "Paho Lurie-Gregg";
+            email = "paho@paholg.com";
+          };
+
+          alias = {
+            b = "branch";
+            bt = "branch -v --sort=-committerdate";
+            c = "commit";
+            co = "checkout";
+            d = "diff";
+            dc = "diff --cached";
+            fixup = "!git commit -a --amend --no-edit && git push -f";
+            l = ''!l() { git log "$@" | bat -n; }; l'';
+            rs = "restore --staged";
+            rsw = "restore --staged --worktree";
+            s = "status";
+            sw = "switch";
+          };
         };
       };
 

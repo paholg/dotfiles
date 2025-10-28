@@ -102,7 +102,6 @@ let
     fzf
     gh # GitHub CLI
     git
-    gitAndTools.delta
     gitAndTools.hub
     fastfetch
     htop
