@@ -10,11 +10,7 @@
   boot.initrd.luks.devices."luks-0f2fe45b-6e0e-4cb6-b9ee-87b639fb04cb".device =
     "/dev/disk/by-uuid/0f2fe45b-6e0e-4cb6-b9ee-87b639fb04cb";
 
-  networking = {
-    networkmanager.enable = false;
-    wireless.iwd.enable = true;
-  };
-
+  networking.networkmanager.enable = true;
   services.logind.settings.Login = {
     HandlePowerKey = "suspend";
   };
