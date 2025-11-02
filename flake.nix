@@ -85,21 +85,22 @@
     let
       linux = "x86_64-linux";
 
-      pkgs_overlay = final: prev: {
-        external = {
-          agenix = inputs.agenix.packages.${prev.system}.default;
-          display-switch = inputs.display-switch.defaultPackage.${prev.system};
-          envswitch = inputs.envswitch.packages.${prev.system}.default;
-          helix = inputs.helix.packages.${prev.system}.default;
-          playlister = inputs.playlister.packages.${prev.system}.default;
+      pkgs_overlay =
+        system: final: prev: {
+          external = {
+            agenix = inputs.agenix.packages.${system}.default;
+            display-switch = inputs.display-switch.defaultPackage.${system};
+            envswitch = inputs.envswitch.packages.${system}.default;
+            helix = inputs.helix.packages.${system}.default;
+            playlister = inputs.playlister.packages.${system}.default;
+          };
         };
-      };
 
       pkgs =
         system:
         import inputs.nixpkgs {
           overlays = [
-            pkgs_overlay
+            (pkgs_overlay system)
           ];
           inherit system;
           config.allowUnfree = true;
@@ -132,7 +133,6 @@
           inputs.nixpkgs.lib.nixosSystem {
             inherit specialArgs;
             pkgs = pkgs linux;
-            system = linux;
             modules = [
               ./nixos
               ./hosts/${host}/nixos.nix

@@ -50,12 +50,12 @@ let
         eog
         evince
         # gimp # broken
-        glxinfo
         guvcview
         kdePackages.dolphin
         kdePackages.okular
         libnotify
         lxqt.lxqt-policykit
+        mesa-demos
         pavucontrol
         pulseaudioFull
         signal-desktop-bin
@@ -68,7 +68,6 @@ let
   defaultPackages = with pkgs; [
     external.agenix
     angle-grinder
-    arandr
     ast-grep
     aws-rotate-key
     bash-language-server
@@ -91,7 +90,7 @@ let
     curl
     difftastic
     dig
-    du-dust
+    dust
     dysk
     entr # Watch for file changes
     external.envswitch
@@ -102,7 +101,7 @@ let
     fzf
     gh # GitHub CLI
     git
-    gitAndTools.hub
+    github-cli
     fastfetch
     htop
     hyperfine
@@ -141,7 +140,7 @@ let
     sshfs-fuse
     superhtml # html lsp
     tabiew
-    taplo-cli # toml language server
+    taplo # toml language server
     tinymist # typst language server
     tlrc # Shorter man-pages
     typst

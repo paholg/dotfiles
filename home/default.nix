@@ -192,7 +192,7 @@ in
         enable = true;
         extraPackages = with pkgs.bat-extras; [
           batdiff
-          batgrep
+          # batgrep # broken
           batman
           batpipe
           batwatch
