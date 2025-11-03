@@ -108,6 +108,7 @@ let
     jless
     jq
     just
+    just-lsp
     kitty.terminfo
     lazygit
     litecli # sqlite cli
