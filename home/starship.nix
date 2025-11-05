@@ -39,8 +39,8 @@
           envswitch = {
             description = "Show which envswitch environment is currently active.";
             command = "${lib.getExe pkgs.external.envswitch} get";
+            when = "${lib.getExe pkgs.external.envswitch} get";
             style = "yellow";
-            when = true;
             format = "[($symbol $output )]($style)";
             symbol = "";
           };

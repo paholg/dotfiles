@@ -85,16 +85,15 @@
     let
       linux = "x86_64-linux";
 
-      pkgs_overlay =
-        system: final: prev: {
-          external = {
-            agenix = inputs.agenix.packages.${system}.default;
-            display-switch = inputs.display-switch.defaultPackage.${system};
-            envswitch = inputs.envswitch.packages.${system}.default;
-            helix = inputs.helix.packages.${system}.default;
-            playlister = inputs.playlister.packages.${system}.default;
-          };
+      pkgs_overlay = system: final: prev: {
+        external = {
+          agenix = inputs.agenix.packages.${system}.default;
+          display-switch = inputs.display-switch.defaultPackage.${system};
+          envswitch = inputs.envswitch.packages.${system}.default;
+          helix = inputs.helix.packages.${system}.default;
+          playlister = inputs.playlister.packages.${system}.default;
         };
+      };
 
       pkgs =
         system:
