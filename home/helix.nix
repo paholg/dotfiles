@@ -54,6 +54,7 @@
               ];
             };
             A-h = ":toggle-option lsp.display-inlay-hints";
+            C-p = ''@"%p"+d''; # Copy path to system clipboard
           };
         };
       };
