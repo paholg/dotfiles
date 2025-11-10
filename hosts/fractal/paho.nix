@@ -59,6 +59,7 @@
   };
 
   home.packages = with pkgs; [
+    claude-code
     # TODO: broken
     # blender-hip
     discover-overlay
