@@ -31,12 +31,6 @@ in
     username = "paho";
     starship.host_color = "yellow";
     swaylock.color = "224444";
-    fish_extra_init =
-      # fish
-      ''
-        set TTY (tty)
-        [ "$TTY" = "/dev/tty1" ] && exec "niri-session"
-      '';
   };
 
   programs.niri.settings = {

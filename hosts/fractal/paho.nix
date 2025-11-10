@@ -11,11 +11,6 @@
     mangohud.enable = true;
     starship.host_color = "cyan";
     swaylock.color = "220044";
-    fish_extra_init = # fish
-      ''
-        set TTY (tty)
-        [ "$TTY" = "/dev/tty2" ] && exec "niri-session"
-      '';
   };
 
   programs.obs-studio.enable = true;
