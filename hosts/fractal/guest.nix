@@ -63,6 +63,13 @@ in
     username = "guest";
     mangohud.enable = false;
     starship.host_color = "cyan";
+
+    fish_extra_init = # fish
+      ''
+        set TTY (tty)
+        # TTY1: startx
+        [ "$TTY" = "/dev/tty1" ] && ${lib.getExe gamescopeTv} 2>&1 | tee gamescope.log
+      '';
   };
 
   programs.niri.settings = {
@@ -88,6 +95,10 @@ in
     spawn-at-startup = lib.mkForce [
       { command = [ "steam" ]; }
     ];
+    binds = {
+      # Override to disable the locker for guest.
+      "Super+Ctrl+N" = lib.mkForce { action.spawn = ""; };
+    };
     workspaces = lib.mkForce { };
     window-rules = lib.mkForce [
       {

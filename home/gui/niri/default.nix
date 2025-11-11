@@ -1,39 +1,35 @@
-{ lib, pkgs, ... }:
+{ pkgs, ... }:
 let
   # Lock the session, running swayidle on a fast loop to turn off displays while
   # locked.
   locker = pkgs.writeShellApplication {
     name = "locker";
-    runtimeInputs = with pkgs; [ swayidle ];
-    text = # bash
-      ''
-        # Create a FD and block on it, while capturing swaylock's PID for later
-        # use (unlocking).
-        #
-        # This should give us the same security as `swaylock -f` while also
-        # obtaining the PID.
-        exec {ready_fd}<> <(:)
-        swaylock --ready-fd $ready_fd &
-        echo $! > "$XDG_RUNTIME_DIR/swaylock.pid"
-        read -ru $ready_fd
-        exec {ready_fd}<&-
-
-        dbus-send --system \
-          --print-reply \
-          --dest=org.gnome.DisplayManager /org/gnome/DisplayManager/LocalDisplayFactory \
-          org.gnome.DisplayManager.LocalDisplayFactory.CreateTransientDisplay
-      '';
-  };
-
-  idler = pkgs.writeShellApplication {
-    name = "idler";
-    runtimeInputs = [
-      pkgs.swayidle
-      locker
+    runtimeInputs = with pkgs; [
+      swayidle
+      swaylock
+      niri
     ];
     text = # bash
       ''
-        swayidle -w timeout 300 locker
+        cleanup() {
+          kill "$SWAY_IDLE"
+        }
+        trap cleanup EXIT
+
+        swayidle timeout 10 'niri msg action power-off-monitors' &
+        SWAY_IDLE=$!
+        swaylock
+      '';
+  };
+  idler = pkgs.writeShellApplication {
+    name = "idler";
+    runtimeInputs = with pkgs; [
+      swayidle
+      niri
+    ];
+    text = # bash
+      ''
+        swayidle timeout 180 'niri msg action power-off-monitors'
       '';
   };
 in
@@ -147,20 +143,6 @@ in
             }
           ];
         };
-      };
-    };
-
-    systemd.user.services.idler = {
-      Unit = {
-        Description = "Lock when idle";
-        PartOf = [ "graphical-session.target" ];
-        After = [ "graphical-session.target" ];
-        Requisite = [ "graphical-session.target" ];
-      };
-
-      Service = {
-        ExecStart = lib.getExe idler;
-        Restart = "on-failure";
       };
     };
 
