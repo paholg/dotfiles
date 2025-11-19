@@ -88,6 +88,7 @@ in
 
   home.sessionVariables = {
     NGROK_URL = "paholg.ngrok.app";
+    PODMAN_COMPOSE_WARNING_LOGS = "false";
   };
 
   programs.obs-studio = {
@@ -106,9 +107,11 @@ in
       # iredis
       mermaid-cli
       mycli
+      mysql80
       podman-compose
       podman-tui
       pscale
+      redis
       terraform
       terraform-ls
       vscodium-fhs
