@@ -1,22 +1,10 @@
-{
-  config,
-  pkgs,
-  ...
-}:
+{ config, ... }:
 {
   # Grant nginx access to kanidm group for ACME certificates
   users.users.nginx.extraGroups = [ "kanidm" ];
 
   services.kanidm = {
-    enableClient = true;
     enableServer = true;
-    # TODO: Think about this.
-    # https://kanidm.github.io/kanidm/master/server_updates.html
-    package = pkgs.kanidm_1_7;
-
-    clientSettings = {
-      uri = "https://auth.paholg.com";
-    };
     serverSettings = {
       version = "2";
       bindaddress = "0.0.0.0:${toString config.custom.ports.kanidm}";
@@ -36,7 +24,6 @@
         versions = 7;
       };
     };
-
   };
 
   # The kanidm module won't let us set the db_path directly.

@@ -8,6 +8,7 @@
   config = {
     stylix = {
       enable = true;
+      enableReleaseChecks = false;
       # Incompatible with useGlobalPkgs:
       overlays.enable = false;
       polarity = "dark";

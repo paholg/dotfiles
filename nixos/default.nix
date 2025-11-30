@@ -101,6 +101,15 @@
     programs.dconf.enable = true;
     services.fwupd.enable = true;
 
+    services.kanidm = {
+      enableClient = true;
+      package = pkgs.kanidm_1_8;
+
+      clientSettings = {
+        uri = "https://auth.paholg.com";
+      };
+    };
+
     # Use Quad9 for DNS
     networking.nameservers = [
       "9.9.9.9"
