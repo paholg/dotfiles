@@ -85,6 +85,7 @@ in
 
           services.transmission = {
             enable = true;
+            package = pkgs.transmission_4;
             group = "media";
             openFirewall = true;
             home = transmission;

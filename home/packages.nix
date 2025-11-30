@@ -87,6 +87,7 @@ let
     cargo-nextest
     cargo-outdated
     choose
+    claude-code
     curl
     difftastic
     dig

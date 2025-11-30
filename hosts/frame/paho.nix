@@ -98,7 +98,6 @@ in
 
   home.packages =
     (with pkgs; [
-      claude-code
       csvtool
       distrobox
       dive # look into docker image layers

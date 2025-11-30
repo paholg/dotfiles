@@ -141,26 +141,26 @@
     plex = {
       enable = true;
       group = "media";
-      openFirewall = true;
+      openFirewall = false;
       dataDir = config.custom.drives.storage + "/plex";
     };
 
     prowlarr = {
       enable = true;
-      openFirewall = true;
+      openFirewall = false;
     };
 
     radarr = {
       enable = true;
       group = "media";
-      openFirewall = true;
+      openFirewall = false;
       dataDir = config.custom.drives.storage + "/radarr";
     };
 
     sonarr = {
       enable = true;
       group = "media";
-      openFirewall = true;
+      openFirewall = false;
       dataDir = config.custom.drives.storage + "/sonarr";
     };
   };
