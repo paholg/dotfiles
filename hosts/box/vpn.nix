@@ -97,6 +97,8 @@ in
               download-dir = completed;
               incomplete-dir = downloads;
               incomplete-dir-enabled = true;
+              rpc-host-whitelist-enabled = true;
+              rpc-host-whitelist = "home.paholg.com";
               rpc-bind-address = config.custom.ips.container;
               rpc-whitelist-enabled = false;
               download-queue-enabled = false;
