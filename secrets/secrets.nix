@@ -9,6 +9,7 @@ let
 in
 {
   "porkbun_api.json".publicKeys = boxKeys;
-  vpn_config.publicKeys = boxKeys;
   playlister_env.publicKeys = boxKeys;
+  vpn_config.publicKeys = boxKeys;
+  oauth2_proxy.publicKeys = boxKeys;
 }

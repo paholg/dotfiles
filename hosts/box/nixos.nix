@@ -1,8 +1,9 @@
 { lib, pkgs, ... }:
 {
   imports = [
-    ./hardware-configuration.nix
+    ./auth.nix
     ./ddns.nix
+    ./hardware-configuration.nix
     ./media.nix
     ./playlister.nix
     ./vpn.nix
@@ -27,11 +28,14 @@
         container = "10.233.1.2";
       };
       ports = {
+        kanidm = 8443;
+        kanidm_ldap = 3636;
         transmission = 9091;
         prowlarr = 9696;
         radarr = 7878;
         sonarr = 8989;
         jellyfin = 8096;
+        oauth2_proxy = 4180;
       };
       groups = {
         media = 1100;

@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Home Services</title>
+  <style>
+    body {
+      font-family: system-ui, -apple-system, sans-serif;
+      max-width: 800px;
+      margin: 50px auto;
+      padding: 20px;
+      background: #1a1a1a;
+      color: #e0e0e0;
+    }
+
+    h1 {
+      color: #fff;
+      border-bottom: 2px solid #444;
+      padding-bottom: 10px;
+    }
+
+    .services {
+      display: grid;
+      gap: 15px;
+      margin-top: 30px;
+    }
+
+    .service-link {
+      display: block;
+      padding: 20px;
+      background: #2a2a2a;
+      border: 1px solid #444;
+      border-radius: 8px;
+      text-decoration: none;
+      color: #fff;
+      transition: all 0.2s;
+    }
+
+    .service-link:hover {
+      background: #333;
+      border-color: #666;
+      transform: translateX(5px);
+    }
+
+    .service-name {
+      font-size: 1.2em;
+      font-weight: 600;
+    }
+
+    .service-desc {
+      color: #aaa;
+      font-size: 0.9em;
+      margin-top: 5px;
+    }
+  </style>
+</head>
+
+<body>
+  <h1>Home Services</h1>
+  <div class="services">
+    <a href="/sonarr" class="service-link">
+      <div class="service-name">Sonarr</div>
+      <div class="service-desc">TV series management</div>
+    </a>
+    <a href="/radarr" class="service-link">
+      <div class="service-name">Radarr</div>
+      <div class="service-desc">Movie management</div>
+    </a>
+    <a href="/transmission/web" class="service-link">
+      <div class="service-name">Transmission</div>
+      <div class="service-desc">Torrent management</div>
+    </a>
+    <a href="https://tv.paholg.com" class="service-link">
+      <div class="service-name">Jellyfin</div>
+      <div class="service-desc">Media server</div>
+    </a>
+    <a href="/prowlarr" class="service-link">
+      <div class="service-name">Prowlarr</div>
+      <div class="service-desc">Indexer manager</div>
+    </a>
+    <a href="https://auth.paholg.com" class="service-link">
+      <div class="service-name">Kanidm</div>
+      <div class="service-desc">Authentication & identity management</div>
+    </a>
+  </div>
+</body>
+
+</html>
