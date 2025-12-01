@@ -63,16 +63,6 @@ in
       recommendedGzipSettings = true;
       recommendedOptimisation = true;
 
-      virtualHosts."10.0.0.4" = {
-        locations."/".proxyPass = "http://localhost:${toString config.custom.ports.jellyfin}";
-        locations."/transmission".proxyPass =
-          "http://${config.custom.ips.container}:${toString config.custom.ports.transmission}";
-        locations."/prowlarr".proxyPass =
-          "http://localhost:${toString config.custom.ports.prowlarr}/prowlarr";
-        locations."/radarr".proxyPass = "http://localhost:${toString config.custom.ports.radarr}/radarr";
-        locations."/sonarr".proxyPass = "http://localhost:${toString config.custom.ports.sonarr}/sonarr";
-      };
-
       virtualHosts."tv.paholg.com" = {
         enableACME = true;
         forceSSL = true;
