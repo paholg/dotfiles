@@ -88,7 +88,21 @@ in
 
   home.sessionVariables = {
     NGROK_URL = "paholg.ngrok.app";
+    REMOTE_HOST = "paholg.ngrok.app";
     PODMAN_COMPOSE_WARNING_LOGS = "false";
+  };
+
+  systemd.user.services.ngrok = {
+    Unit = {
+      Description = "ngrok for rails";
+      After = [ "network.target" ];
+    };
+    Service = {
+      ExecStart = "${pkgs.ngrok}/bin/ngrok http 3000 --url paholg.ngrok.app";
+      Restart = "on-failure";
+      RestartSec = "5s";
+    };
+    Install.WantedBy = [ "default.target" ];
   };
 
   programs.obs-studio = {
