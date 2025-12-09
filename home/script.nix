@@ -37,6 +37,21 @@ let
         gh pr edit "$pr" --title "$title" --body "$body"
       '';
   };
+  git-pr = pkgs.writeShellApplication {
+    name = "git-pr";
+    runtimeInputs = with pkgs; [
+      gh
+      git
+    ];
+    text = # bash
+      ''
+        title=$(git log -1 --pretty=%s)
+        body=$(git log -1 --pretty=%b)
+
+        git push -f
+        gh pr create --fill --web || gh pr edit --title "$title" --body "$body"
+      '';
+  };
   git-clean-merged = pkgs.writeShellApplication {
     name = "git-clean-merged";
     runtimeInputs = with pkgs; [
@@ -106,6 +121,7 @@ in
     cam
     fix-permissions
     gh-update
+    git-pr
     git-clean-merged
     mkfile
     play
