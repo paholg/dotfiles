@@ -99,6 +99,8 @@
     };
 
     programs.dconf.enable = true;
+    programs.nix-ld.enable = true;
+
     services.fwupd.enable = true;
 
     services.kanidm = {
