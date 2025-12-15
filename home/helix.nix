@@ -127,6 +127,13 @@
             auto-format = true;
           }
           {
+            name = "typst";
+            auto-format = true;
+            formatter = {
+              command = lib.getExe pkgs.typstyle;
+            };
+          }
+          {
             name = "xml";
             auto-format = true;
             language-servers = [ "xml" ];
@@ -140,6 +147,18 @@
           sqls = {
             command = lib.getExe pkgs.sqls;
           };
+          tinymist = {
+            command = "tinymist";
+            config = {
+              exportPdf = "onType";
+              outputPath = "$root/target/$dir/$name";
+              preview.background = {
+                enabled = true;
+                args = [ "--open" ];
+              };
+            };
+          };
+
           xml = {
             command = lib.getExe pkgs.lemminx;
           };

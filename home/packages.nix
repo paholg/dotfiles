@@ -146,6 +146,7 @@ let
     tinymist # typst language server
     tlrc # Shorter man-pages
     typst
+    typstyle # typst formatter
     tokei
     unzip
     vscode-langservers-extracted # css, html, json, markdown, eslint
