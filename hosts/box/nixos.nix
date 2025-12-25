@@ -3,8 +3,9 @@
   imports = [
     ./auth.nix
     ./ddns.nix
-    ./hardware-configuration.nix
     ./foundry-vtt.nix
+    ./hardware-configuration.nix
+    ./home-assistant.nix
     ./media.nix
     ./playlister.nix
     ./vpn.nix
@@ -30,15 +31,18 @@
         container = "10.233.1.2";
       };
       ports = {
-        jellyfin = 8096;
         foundry = 8907;
+        jellyfin = 8096;
         kanidm = 8443;
         kanidm_ldap = 3636;
+        mqtt = 1833;
         oauth2_proxy = 4180;
         prowlarr = 9696;
         radarr = 7878;
         sonarr = 8989;
         transmission = 9091;
+        zigbee_frontend = 8099;
+        home_assistant = 8123;
       };
       uids = {
         foundry = 982;
