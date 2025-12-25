@@ -4,6 +4,7 @@
     ./auth.nix
     ./ddns.nix
     ./hardware-configuration.nix
+    ./foundry-vtt.nix
     ./media.nix
     ./playlister.nix
     ./vpn.nix
@@ -14,6 +15,7 @@
   options.custom = {
     ips = lib.mkOption { type = lib.types.attrsOf lib.types.str; };
     ports = lib.mkOption { type = lib.types.attrsOf lib.types.int; };
+    uids = lib.mkOption { type = lib.types.attrsOf lib.types.int; };
     groups = lib.mkOption { type = lib.types.attrsOf lib.types.int; };
     drives = lib.mkOption { type = lib.types.attrsOf lib.types.str; };
   };
@@ -28,16 +30,21 @@
         container = "10.233.1.2";
       };
       ports = {
+        jellyfin = 8096;
+        foundry = 8907;
         kanidm = 8443;
         kanidm_ldap = 3636;
-        transmission = 9091;
+        oauth2_proxy = 4180;
         prowlarr = 9696;
         radarr = 7878;
         sonarr = 8989;
-        jellyfin = 8096;
-        oauth2_proxy = 4180;
+        transmission = 9091;
+      };
+      uids = {
+        foundry = 982;
       };
       groups = {
+        foundry = 981;
         media = 1100;
       };
       drives = {

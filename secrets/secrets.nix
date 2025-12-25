@@ -10,6 +10,7 @@ in
 {
   "porkbun_api.json".publicKeys = boxKeys;
   playlister_env.publicKeys = boxKeys;
+  foundry_env.publicKeys = boxKeys;
   vpn_config.publicKeys = boxKeys;
   oauth2_proxy.publicKeys = boxKeys;
 }
