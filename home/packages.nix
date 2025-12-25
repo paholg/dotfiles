@@ -14,6 +14,7 @@ let
         jc
         kcov
         lshw
+        net-tools
         outils # sha256, etc.
         psmisc # killall, fuser, etc.
         sparse
