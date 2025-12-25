@@ -54,16 +54,56 @@
       font-size: 0.9em;
       margin-top: 5px;
     }
+
+    .user-bar {
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      gap: 15px;
+      margin-bottom: 20px;
+      color: #aaa;
+      font-size: 0.9em;
+    }
+
+    .logout-btn {
+      padding: 6px 12px;
+      background: #333;
+      border: 1px solid #555;
+      border-radius: 4px;
+      color: #e0e0e0;
+      text-decoration: none;
+      font-size: 0.85em;
+    }
+
+    .logout-btn:hover {
+      background: #444;
+      border-color: #666;
+    }
   </style>
 </head>
 
 <body>
+  <div class="user-bar">
+    <span><!--# echo var="email" --></span>
+    <a href="/oauth2/sign_out?rd=https://auth.paholg.com/ui/logout" class="logout-btn">Logout</a>
+  </div>
   <h1>Home Services</h1>
   <div class="services">
+    <!--# if expr="$groups = /home_assistant_admin/ || $groups = /home_assistant_user/" -->
     <a href="https://ha.paholg.com/auth/oidc/redirect" class="service-link">
       <div class="service-name">Home Assistant</div>
       <div class="service-desc">Smart home automation</div>
     </a>
+    <!--# endif -->
+
+    <!--# if expr="$groups = /jellyfin/ || $groups = /jellyfin_admin/" -->
+    <a href="https://tv.paholg.com" class="service-link">
+      <div class="service-name">Jellyfin</div>
+      <div class="service-desc">Media server</div>
+    </a>
+    <!--# endif -->
+
+    <!--# if expr="$groups = /arr_admin/" -->
     <a href="/sonarr" class="service-link">
       <div class="service-name">Sonarr</div>
       <div class="service-desc">TV series management</div>
@@ -76,14 +116,12 @@
       <div class="service-name">Transmission</div>
       <div class="service-desc">Torrent management</div>
     </a>
-    <a href="https://tv.paholg.com" class="service-link">
-      <div class="service-name">Jellyfin</div>
-      <div class="service-desc">Media server</div>
-    </a>
     <a href="/prowlarr" class="service-link">
       <div class="service-name">Prowlarr</div>
       <div class="service-desc">Indexer manager</div>
     </a>
+    <!--# endif -->
+
     <a href="https://auth.paholg.com" class="service-link">
       <div class="service-name">Kanidm</div>
       <div class="service-desc">Authentication & identity management</div>
