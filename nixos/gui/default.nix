@@ -49,10 +49,6 @@
     services = {
       blueman.enable = true;
 
-      gnome = {
-        gnome-keyring.enable = true;
-      };
-
       libinput = {
         enable = true;
         touchpad = {
