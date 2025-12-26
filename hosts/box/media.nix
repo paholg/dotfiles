@@ -70,21 +70,10 @@ in
     members = [ "paho" ];
   };
 
-  security.acme = {
-    acceptTerms = true;
-    defaults.email = "paho@paholg.com";
-  };
-
   environment.systemPackages = with pkgs; [ recyclarr ];
 
   services = {
     nginx = {
-      enable = true;
-      recommendedProxySettings = true;
-      recommendedTlsSettings = true;
-      recommendedGzipSettings = true;
-      recommendedOptimisation = true;
-
       virtualHosts."tv.paholg.com" = {
         enableACME = true;
         forceSSL = true;

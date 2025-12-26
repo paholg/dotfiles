@@ -46,8 +46,4 @@
       '';
     };
   };
-
-  networking.firewall.allowedTCPPorts = [
-    config.custom.ports.kanidm
-  ];
 }

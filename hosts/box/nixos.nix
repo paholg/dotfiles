@@ -7,6 +7,7 @@
     ./hardware-configuration.nix
     ./home-assistant.nix
     ./media.nix
+    ./nginx.nix
     ./playlister.nix
     ./vpn.nix
     # TODO: Get working
