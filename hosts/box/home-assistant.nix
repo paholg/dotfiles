@@ -14,6 +14,8 @@
     ];
   };
 
+  users.users.zigbee2mqtt.extraGroups = [ "dialout" ];
+
   services.zigbee2mqtt = {
     enable = true;
     dataDir = config.custom.drives.storage + "/zigbee2mqtt";
@@ -23,12 +25,16 @@
         server = "mqtt://127.0.0.1:${toString config.custom.ports.mqtt}";
       };
       serial = {
-        adapter = "zstack";
+        adapter = "ember";
         port = "/dev/serial/by-id/usb-Nabu_Casa_ZBT-2_DCB4D90C0A64-if00";
+        # See https://www.zigbee2mqtt.io/guide/adapters/emberznet.html
+        baudrate = 460800;
+        rtscts = true;
       };
       frontend = {
         enabled = true;
         port = config.custom.ports.zigbee_frontend;
+        base_url = "/zigbee";
       };
     };
   };
@@ -38,6 +44,7 @@
     extraComponents = [
       "esphome"
       "met"
+      "mqtt"
       "radio_browser"
     ];
     customComponents = [
@@ -85,9 +92,4 @@
       '';
     };
   };
-
-  # FIXME
-  networking.firewall.allowedTCPPorts = [
-    config.custom.ports.zigbee_frontend
-  ];
 }

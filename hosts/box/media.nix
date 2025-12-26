@@ -42,6 +42,7 @@ let
       };
       ${location} = {
         inherit proxyPass;
+        proxyWebsockets = true;
         extraConfig = authExtraConfig internalAuthLocation;
       };
     };
@@ -138,6 +139,9 @@ in
           (mkAuthLocation "/transmission"
             "http://${config.custom.ips.container}:${toString config.custom.ports.transmission}"
             [ "arr_admin@auth.paholg.com" ]
+          )
+          (mkAuthLocation "/zigbee" "http://127.0.0.1:${toString config.custom.ports.zigbee_frontend}/zigbee"
+            [ "home_assistant_admin@auth.paholg.com" ]
           )
         ];
       };
