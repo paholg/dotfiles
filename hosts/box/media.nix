@@ -9,11 +9,11 @@
     porkbun_api = {
       file = ../../secrets/porkbun_api.json;
     };
-    vpn_config = {
-      file = ../../secrets/vpn_config;
-    };
     oauth2_proxy = {
       file = ../../secrets/oauth2_proxy;
+    };
+    tmdb_api_key = {
+      file = ../../secrets/tmdb_api_key;
     };
   };
 
@@ -32,8 +32,18 @@
   services = {
     postgresql = {
       enable = true;
-      package = pkgs.postgresql_16;
+      package = pkgs.postgresql_18;
       dataDir = config.custom.drives.storage + "/postgres";
+      ensureDatabases = [ "bitmagnet" ];
+      ensureUsers = [
+        {
+          name = "bitmagnet";
+          ensureDBOwnership = true;
+        }
+      ];
+      authentication = ''
+        local bitmagnet bitmagnet peer
+      '';
     };
 
     jellyfin = {

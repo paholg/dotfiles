@@ -15,7 +15,6 @@
   ];
 
   options.custom = {
-    ips = lib.mkOption { type = lib.types.attrsOf lib.types.str; };
     ports = lib.mkOption { type = lib.types.attrsOf lib.types.int; };
     uids = lib.mkOption { type = lib.types.attrsOf lib.types.int; };
     groups = lib.mkOption { type = lib.types.attrsOf lib.types.int; };
@@ -27,11 +26,8 @@
     networking.hostName = "box";
 
     custom = {
-      ips = {
-        host = "10.233.1.1";
-        container = "10.233.1.2";
-      };
       ports = {
+        bitmagnet = 3333;
         foundry = 8907;
         home_assistant = 8123;
         flaresolverr = 8191;
@@ -44,6 +40,7 @@
         radarr = 7878;
         sonarr = 8989;
         transmission = 9091;
+        transmission_peer = 23014;
         zigbee_frontend = 8099;
       };
       uids = {

@@ -7,6 +7,9 @@
 let
   oauth2Port = toString config.custom.ports.oauth2_proxy;
 
+  # VPN namespace veth IP (services in namespace bind here)
+  vethVpnIP = "10.200.1.2";
+
   authExtraConfig = internalAuthLocation: ''
     auth_request ${internalAuthLocation};
     error_page 401 = /oauth2/sign_in;
@@ -76,7 +79,8 @@ let
           ${extraConfig}
         '';
       };
-    } // lib.optionalAttrs isCrossDomain {
+    }
+    // lib.optionalAttrs isCrossDomain {
       "${errorDirective}" = {
         extraConfig = ''
           return 302 ${signInUrl}?rd=$scheme://$host$request_uri;
@@ -180,22 +184,22 @@ in
         }
         (mkAuthLocation {
           location = "/prowlarr";
-          proxyPass = "http://localhost:${toString config.custom.ports.prowlarr}/prowlarr";
+          proxyPass = "http://127.0.0.1:${toString config.custom.ports.prowlarr}/prowlarr";
           groups = [ "arr_admin@auth.paholg.com" ];
         })
         (mkAuthLocation {
           location = "/radarr";
-          proxyPass = "http://localhost:${toString config.custom.ports.radarr}/radarr";
+          proxyPass = "http://127.0.0.1:${toString config.custom.ports.radarr}/radarr";
           groups = [ "arr_admin@auth.paholg.com" ];
         })
         (mkAuthLocation {
           location = "/sonarr";
-          proxyPass = "http://localhost:${toString config.custom.ports.sonarr}/sonarr";
+          proxyPass = "http://127.0.0.1:${toString config.custom.ports.sonarr}/sonarr";
           groups = [ "arr_admin@auth.paholg.com" ];
         })
         (mkAuthLocation {
           location = "/transmission";
-          proxyPass = "http://${config.custom.ips.container}:${toString config.custom.ports.transmission}";
+          proxyPass = "http://${vethVpnIP}:${toString config.custom.ports.transmission}";
           groups = [ "arr_admin@auth.paholg.com" ];
         })
         (mkAuthLocation {
@@ -204,6 +208,17 @@ in
           groups = [ "home_assistant_admin@auth.paholg.com" ];
         })
       ];
+    };
+
+    virtualHosts."bitmagnet.paholg.com" = {
+      enableACME = true;
+      forceSSL = true;
+
+      locations = mkAuthLocation {
+        location = "/";
+        proxyPass = "http://${vethVpnIP}:${toString config.custom.ports.bitmagnet}";
+        groups = [ "arr_admin@auth.paholg.com" ];
+      };
     };
   };
 }
