@@ -48,22 +48,24 @@
       dataDir = config.custom.drives.storage + "/plex";
     };
 
+    flaresolverr = {
+      enable = true;
+      port = config.custom.ports.flaresolverr;
+    };
+
     prowlarr = {
       enable = true;
-      openFirewall = false;
     };
 
     radarr = {
       enable = true;
       group = "media";
-      openFirewall = false;
       dataDir = config.custom.drives.storage + "/radarr";
     };
 
     sonarr = {
       enable = true;
       group = "media";
-      openFirewall = false;
       dataDir = config.custom.drives.storage + "/sonarr";
     };
 

@@ -33,6 +33,8 @@
       };
       ports = {
         foundry = 8907;
+        home_assistant = 8123;
+        flaresolverr = 8191;
         jellyfin = 8096;
         kanidm = 8443;
         kanidm_ldap = 3636;
@@ -43,7 +45,6 @@
         sonarr = 8989;
         transmission = 9091;
         zigbee_frontend = 8099;
-        home_assistant = 8123;
       };
       uids = {
         foundry = 982;
