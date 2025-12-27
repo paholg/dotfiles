@@ -89,17 +89,24 @@
   </div>
   <h1>Home Services</h1>
   <div class="services">
-    <!--# if expr="$groups = /home_assistant_admin/ || $groups = /home_assistant_user/" -->
+    <!--# if expr="$groups = /home_assistant_admin|home_assistant_user/" -->
     <a href="https://ha.paholg.com/auth/oidc/redirect" class="service-link">
       <div class="service-name">Home Assistant</div>
       <div class="service-desc">Smart home automation</div>
     </a>
     <!--# endif -->
 
-    <!--# if expr="$groups = /jellyfin/ || $groups = /jellyfin_admin/" -->
+    <!--# if expr="$groups = /jellyfin|jellyfin_admin/" -->
     <a href="https://tv.paholg.com" class="service-link">
       <div class="service-name">Jellyfin</div>
       <div class="service-desc">Media server</div>
+    </a>
+    <!--# endif -->
+
+    <!--# if expr="$groups = /foundry_vtt_player|foundry_vtt_admin/" -->
+    <a href="https://vtt.paholg.com" class="service-link">
+      <div class="service-name">Foundry VTT</div>
+      <div class="service-desc">Virtual Table Top</div>
     </a>
     <!--# endif -->
 
@@ -129,9 +136,9 @@
     </a>
     <!--# endif -->
 
-    <a href="https://auth.paholg.com" class="service-link">
-      <div class="service-name">Kanidm</div>
-      <div class="service-desc">Authentication & identity management</div>
+    <a href="https://auth.paholg.com/ui/profile" class="service-link">
+      <div class="service-name">Profile</div>
+      <div class="service-desc">Profile Management</div>
     </a>
   </div>
 </body>

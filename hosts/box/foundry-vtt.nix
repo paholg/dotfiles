@@ -12,7 +12,13 @@
     uid = config.custom.uids.foundry;
   };
 
-  users.users.paho.extraGroups = [ "foundry" ];
+  users.users.paho.extraGroups = [
+    "foundry"
+    "docker"
+  ];
+
+  # Old stateVersions default to docker for oci-containers :(
+  virtualisation.docker.enable = true;
 
   virtualisation.oci-containers.containers.foundry = {
     user = "${toString config.custom.uids.foundry}:${toString config.custom.groups.foundry}";
@@ -24,6 +30,13 @@
       FOUNDRY_HOSTNAME = "vtt.paholg.com";
       FOUNDRY_PROXY_SSL = "true";
       FOUNDRY_PROXY_PORT = "443";
+
+      DEBUG = "*";
+
+      # Header-based authentication via oauth2-proxy
+      CONTAINER_PATCH_URLS = "https://github.com/MaienM/foundry-vtt-header-auth/releases/download/v13.348.0/patches.sh";
+      ROLE_PLAYER = "foundry_vtt_player@auth.paholg.com";
+      ROLE_ADMIN = "foundry_vtt_admin@auth.paholg.com";
     };
     volumes = [
       "${config.custom.drives.storage}/foundry:/data"
@@ -31,21 +44,5 @@
       # https://github.com/felddy/foundryvtt-docker/issues/1333
       "${config.custom.drives.storage}/foundry/resources:/home/node/resources"
     ];
-  };
-
-  services.nginx.virtualHosts."vtt.paholg.com" = {
-    enableACME = true;
-    forceSSL = true;
-    locations."/" = {
-      proxyPass = "http://localhost:${toString config.custom.ports.foundry}";
-      proxyWebsockets = true;
-      extraConfig = ''
-        # Disable proxy buffering for faster streaming
-        proxy_buffering off;
-
-        # Increase max body size for asset uploads
-        client_max_body_size 300M;
-      '';
-    };
   };
 }
