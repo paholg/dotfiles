@@ -2,6 +2,7 @@
 {
   imports = [
     ./auth.nix
+    ./authit.nix
     ./ddns.nix
     ./foundry-vtt.nix
     ./hardware-configuration.nix
@@ -27,6 +28,7 @@
 
     custom = {
       ports = {
+        authit = 43717;
         bitmagnet = 3333;
         foundry = 8907;
         home_assistant = 8123;

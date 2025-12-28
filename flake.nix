@@ -10,6 +10,12 @@
       inputs.home-manager.follows = "home-manager";
       inputs.systems.follows = "systems";
     };
+    authit = {
+      url = "github:paholg/authit";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.flake-utils.follows = "flake-utils";
+      inputs.rust-overlay.follows = "rust-overlay";
+    };
     display-switch = {
       url = "github:paholg/display-switch/flake";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -152,7 +158,8 @@
               }
               registry
             ]
-            ++ (if config.gui then [ inputs.niri.nixosModules.niri ] else [ ]);
+            ++ (if config.gui then [ inputs.niri.nixosModules.niri ] else [ ])
+            ++ (if config.authit or false then [ inputs.authit.nixosModules.default ] else [ ]);
           }
         ) hosts;
     in
@@ -170,6 +177,7 @@
       nixosConfigurations = nixos {
         box = {
           gui = false;
+          authit = true;
           users = [ "paho" ];
         };
         fractal = {

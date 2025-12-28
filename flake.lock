@@ -27,6 +27,32 @@
         "type": "github"
       }
     },
+    "authit": {
+      "inputs": {
+        "flake-utils": [
+          "flake-utils"
+        ],
+        "nixpkgs": [
+          "nixpkgs"
+        ],
+        "rust-overlay": [
+          "rust-overlay"
+        ]
+      },
+      "locked": {
+        "lastModified": 1766963211,
+        "narHash": "sha256-dPGYXf/9EpTP954G5Fo1C+0i+NI4yT5Gr8iBMSj0sc4=",
+        "owner": "paholg",
+        "repo": "authit",
+        "rev": "cb6e6c24dabdd37c5a0d8983faf2e9c3fc7f5a2a",
+        "type": "github"
+      },
+      "original": {
+        "owner": "paholg",
+        "repo": "authit",
+        "type": "github"
+      }
+    },
     "base16": {
       "inputs": {
         "fromYaml": "fromYaml"
@@ -557,6 +583,7 @@
     "root": {
       "inputs": {
         "agenix": "agenix",
+        "authit": "authit",
         "crane": "crane",
         "display-switch": "display-switch",
         "envswitch": "envswitch",
