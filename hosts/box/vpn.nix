@@ -185,6 +185,7 @@ in
     useLocalPostgresDB = false;
     settings = {
       http_server.port = ":${toString config.custom.ports.bitmagnet}";
+      processor.concurrency = 4;
       postgres = {
         host = vethHostIP;
         name = "bitmagnet";
