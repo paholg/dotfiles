@@ -199,7 +199,10 @@ in
       "wireguard-vpn.service"
       "postgresql.service"
     ];
-    requires = [ "wireguard-vpn.service" ];
+    requires = [
+      "wireguard-vpn.service"
+      "postgresql.service"
+    ];
     serviceConfig = {
       NetworkNamespacePath = "/var/run/netns/${vpnNamespace}";
       BindReadOnlyPaths = [ "/etc/resolv-vpn.conf:/etc/resolv.conf" ];

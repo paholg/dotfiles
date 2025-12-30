@@ -55,7 +55,7 @@
     plex = {
       enable = true;
       group = "media";
-      openFirewall = false;
+      openFirewall = true; # Allows direct connection.
       dataDir = config.custom.drives.storage + "/plex";
     };
 

@@ -38,6 +38,7 @@
         kanidm_ldap = 3636;
         mqtt = 1833;
         oauth2_proxy = 4180;
+        plex = 32400;
         prowlarr = 9696;
         radarr = 7878;
         sonarr = 8989;
