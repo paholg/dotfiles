@@ -7,9 +7,6 @@
 let
   oauth2Port = toString config.custom.ports.oauth2_proxy;
 
-  # VPN namespace veth IP (services in namespace bind here)
-  vethVpnIP = "10.200.1.2";
-
   authExtraConfig = internalAuthLocation: ''
     auth_request ${internalAuthLocation};
     error_page 401 = /oauth2/sign_in;
@@ -199,7 +196,7 @@ in
         })
         (mkAuthLocation {
           location = "/transmission";
-          proxyPass = "http://${vethVpnIP}:${toString config.custom.ports.transmission}";
+          proxyPass = "http://${config.custom.ips.vpn_veth}:${toString config.custom.ports.transmission}";
           groups = [ "arr_admin@auth.paholg.com" ];
         })
         (mkAuthLocation {
@@ -216,7 +213,7 @@ in
 
       locations = mkAuthLocation {
         location = "/";
-        proxyPass = "http://${vethVpnIP}:${toString config.custom.ports.bitmagnet}";
+        proxyPass = "http://${config.custom.ips.vpn_veth}:${toString config.custom.ports.bitmagnet}";
         groups = [ "arr_admin@auth.paholg.com" ];
       };
     };

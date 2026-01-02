@@ -20,6 +20,7 @@
     uids = lib.mkOption { type = lib.types.attrsOf lib.types.int; };
     groups = lib.mkOption { type = lib.types.attrsOf lib.types.int; };
     drives = lib.mkOption { type = lib.types.attrsOf lib.types.str; };
+    ips = lib.mkOption { type = lib.types.attrsOf lib.types.str; };
   };
 
   config = {
@@ -55,6 +56,9 @@
       };
       drives = {
         storage = "/mnt/storage";
+      };
+      ips = {
+        vpn_veth = "10.200.1.2";
       };
     };
 

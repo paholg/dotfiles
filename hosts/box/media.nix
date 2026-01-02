@@ -43,6 +43,8 @@
       ];
       authentication = ''
         local bitmagnet bitmagnet peer
+        host bitmagnet bitmagnet 127.0.0.1/32 trust
+        host bitmagnet bitmagnet ::1/128 trust
       '';
     };
 
