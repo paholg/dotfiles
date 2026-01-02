@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ lib, pkgs, ... }:
 let
   # Lock the session, running swayidle on a fast loop to turn off displays while
   # locked.
@@ -25,12 +25,9 @@ let
     name = "idler";
     runtimeInputs = with pkgs; [
       swayidle
-      niri
+      locker
     ];
-    text = # bash
-      ''
-        swayidle timeout 180 'niri msg action power-off-monitors'
-      '';
+    text = "swayidle timeout 300 'locker'";
   };
 in
 {
@@ -105,7 +102,7 @@ in
                 "waybar.service"
               ];
             }
-            # { command = [ (lib.getExe idler) ]; }
+            { command = [ (lib.getExe idler) ]; }
           ];
           window-rules = [
             {
