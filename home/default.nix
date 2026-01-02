@@ -211,10 +211,6 @@ in
         interactiveShellInit = # fish
         ''
           set fish_greeting # disable
-          # TODO: Temporary fix for fish completions.
-          # Remove once this is merged:
-          # https://github.com/nix-community/home-manager/pull/5199
-          set fish_complete_path "${config.home.path}/share/fish/vendor_completions.d" $fish_complete_path
 
           batman --export-env | source
           eval (batpipe)

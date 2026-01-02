@@ -100,6 +100,9 @@
 
     programs.dconf.enable = true;
     programs.nix-ld.enable = true;
+    # Ensure completetions are sourced.
+    # See: https://github.com/nix-community/home-manager/issues/5119#issuecomment-3704377290
+    programs.fish.enable = true;
 
     services.fwupd.enable = true;
 
