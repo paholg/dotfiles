@@ -4,24 +4,6 @@
   pkgs,
   ...
 }:
-let
-  # Services that depend on /mnt/storage and must stop before ZFS unmounts
-  storageServices = [
-    "bitmagnet"
-    "jellyfin"
-    "plex"
-    "postgresql"
-    "radarr"
-    "sonarr"
-    "transmission"
-  ];
-
-  # Generate systemd service configs with proper mount dependencies
-  storageServiceConfigs = lib.genAttrs storageServices (_: {
-    bindsTo = [ "mnt-storage.mount" ];
-    after = [ "mnt-storage.mount" ];
-  });
-in
 {
   age.secrets = {
     porkbun_api = {
@@ -129,10 +111,8 @@ in
     };
   };
 
-  systemd.services = storageServiceConfigs // {
-    jellyfin = storageServiceConfigs.jellyfin // {
-      # Override UMask so that the `media` group gets file permissions
-      serviceConfig.UMask = lib.mkForce "0002";
-    };
+  systemd.services.jellyfin = {
+    # Override UMask so that the `media` group gets file permissions
+    serviceConfig.UMask = lib.mkForce "0002";
   };
 }
