@@ -44,13 +44,19 @@
     configDir = config.custom.drives.storage + "/home-assistant";
     extraComponents = [
       "esphome"
-      "met"
-      "mqtt"
+      "local_calendar"
+      "met" # Forecast
+      "mqtt" # For Zigbee
       "radio_browser"
+      "roborock"
     ];
     customComponents = [
       pkgs.home-assistant-custom-components.auth_oidc
     ];
+    customLovelaceModules = with pkgs.home-assistant-custom-lovelace-modules; [
+      auto-entities
+    ];
+    lovelaceConfig = { };
 
     config = {
       default_config = { };
