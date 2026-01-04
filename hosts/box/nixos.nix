@@ -45,6 +45,9 @@
         sonarr = 8989;
         transmission = 9091;
         transmission_peer = 23014;
+        rtorrent = 8384;
+        rtorrent_scgi = 9092;
+        rtorrent_peer = 18279;
         zigbee_frontend = 8099;
       };
       uids = {

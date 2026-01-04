@@ -7,6 +7,7 @@ let
   downloads = config.custom.drives.storage + "/downloads";
   completed = config.custom.drives.storage + "/completed";
   transmission = config.custom.drives.storage + "/transmission";
+  rtorrent = config.custom.drives.storage + "/rtorrent";
 
   wgIP = "10.185.49.0";
   wgIP6 = "fd7d:76ee:e68f:a993:64ab:d868:53d:f267";
@@ -80,8 +81,12 @@ in
   # ****************************************************************************
 
   networking.firewall = {
-    allowedTCPPorts = [ config.custom.ports.transmission_peer ];
-    allowedUDPPorts = [ config.custom.ports.transmission_peer ];
+    allowedTCPPorts = [
+      config.custom.ports.transmission_peer
+    ];
+    allowedUDPPorts = [
+      config.custom.ports.transmission_peer
+    ];
     trustedInterfaces = [ "veth-host" ];
   };
 
@@ -160,6 +165,138 @@ in
     serviceConfig = {
       NetworkNamespacePath = "/var/run/netns/${namespace}";
       BindReadOnlyPaths = [ "/etc/resolv-vpn.conf:/etc/resolv.conf" ];
+    };
+  };
+
+  # ****************************************************************************
+  # rTorrent Service
+  # ****************************************************************************
+
+  services.rtorrent = {
+    enable = true;
+    port = config.custom.ports.rtorrent_peer;
+    group = "media";
+    dataDir = rtorrent;
+    downloadDir = downloads;
+    openFirewall = true;
+    configText = ''
+      # See https://github.com/rakshasa/rtorrent/wiki/Performance-Tuning
+      # TERMINOLOGY:
+      # A "slot" is a peer that is transferring data.
+
+      # Global upload and download rate in KiB, `0` for unlimited (`download_rate`, `upload_rate`)
+      throttle.global_down.max_rate.set_kb = 0
+      throttle.global_up.max_rate.set_kb   = 350000
+
+      # Maximum number of simultaneous downloads and uploads slots (global slots!) (`max_downloads_global`, `max_uploads_global`)
+      throttle.max_downloads.global.set = 2000
+      throttle.max_uploads.global.set   = 2000
+
+      # Maximum and minimum number of peers to connect to per torrent while downloading (`min_peers`, `max_peers`) Default: `100` and `200` respectively
+      throttle.min_peers.normal.set = 99
+      throttle.max_peers.normal.set = 100
+
+      # Same as above but for seeding completed torrents (seeds per torrent), `-1` for same as downloading (`min_peers_seed`, `max_peers_seed`) Default: `-1` for both
+      throttle.min_peers.seed.set = -1
+      throttle.max_peers.seed.set = -1
+
+      # Maximum number of simultaneous downloads and uploads slots per torrent (`max_uploads`) Default: `50` for both
+      throttle.max_downloads.set = 50
+      throttle.max_uploads.set = 50
+
+      # Set the numwant field sent to the tracker, which indicates how many peers we want. 
+      #  A negative value disables this feature. Default: `-1`
+      trackers.numwant.set = 100
+
+      # Set the max amount of memory address space used to mapping file chunks. This refers to memory mapping, not
+      #  physical memory allocation. Default: `1GB` (`max_memory_usage`) 
+      # This may also be set using ulimit -m where 3/4 will be allocated to file chunks.
+      pieces.memory.max.set = 8192M
+
+      # Maximum number of connections rtorrent can accept/make
+      network.max_open_sockets.set = 5000
+
+      # Maximum number of open files rtorrent can keep open (you have to modify the system wide settings with ulimit!)
+      network.max_open_files.set = 10240
+
+      # Maximum number of simultaneous HTTP request (used by announce or scrape requests) Default: `32`
+      network.http.max_open.set = 99
+
+      # Send and receive buffer size for socket. Disabled by default (`0`), this means the default is used by OS 
+      #  (you have to modify the system wide settings!)
+      # Increasing buffer sizes may help reduce disk seeking, connection polling as more data is buffered each time
+      #  the socket is written to. It will result higher memory usage (not visible in rtorrent process!).
+      network.receive_buffer.size.set =  4M
+      network.send_buffer.size.set    = 12M
+
+      # Preloading a piece of a file. Default: `0` Possible values: `0` (Off) , `1` (Madvise) , `2` (Direct paging).
+      pieces.preload.type.set = 2
+      #pieces.preload.min_size.set = 262144
+      #pieces.preload.min_rate.set = 5120
+
+      # TOS of peer connections. Default: `throughput`. If the option is set to `default` then the system default TOS
+      #  is used. A hex value may be used for non-standard settings.
+      # Possible values: `[default|lowdelay|throughput|reliability|mincost]` or a hex value.
+      #network.tos.set = throughput
+
+      # CURL options to add skip TLS verification (for nonofficial SSL trackers)
+      network.http.ssl_verify_host.set = 0
+      network.http.ssl_verify_peer.set = 0
+
+      # CURL option to lower DNS timeout. Default: `60`.
+      network.http.dns_cache_timeout.set = 25
+
+      # Max packet size using xmlrpc. Default: `524288`
+      network.xmlrpc.size_limit.set = 2M
+
+      # Save all the sessions in every 12 hours instead of the default 20 minutes.
+      schedule2 = session_save, 1200, 43200, ((session.save))
+
+      # Prune file status in every 24 hours, this is the default setting.
+      #schedule2 = prune_file_status, 3600, 86400, ((system.file_status_cache.prune))
+
+      # Whether to allocate disk space for a new torrent. Default: `0`
+      #system.file.allocate.set = 1
+    '';
+  };
+
+  systemd.services.rtorrent = {
+    after = [ "wireguard-wg0.service" ];
+    requires = [ "wireguard-wg0.service" ];
+    serviceConfig = {
+      NetworkNamespacePath = "/var/run/netns/${namespace}";
+      BindReadOnlyPaths = [ "/etc/resolv-vpn.conf:/etc/resolv.conf" ];
+      UMask = "0002";
+      LimitNOFILE = 100000;
+      # Allow chown for socket permission setup (blocked by default @privileged filter)
+      SystemCallFilter = [ "fchownat" ];
+    };
+  };
+
+  services.flood = {
+    enable = true;
+    host = "0.0.0.0";
+    port = config.custom.ports.rtorrent;
+    extraArgs = [
+      "--auth=none"
+      "--baseuri=/rtorrent"
+      "--rtsocket=${config.services.rtorrent.rpcSocket}"
+    ];
+  };
+
+  systemd.services.flood = {
+    after = [
+      "wireguard-wg0.service"
+      "rtorrent.service"
+    ];
+    requires = [
+      "wireguard-wg0.service"
+      "rtorrent.service"
+    ];
+    serviceConfig = {
+      NetworkNamespacePath = "/var/run/netns/${namespace}";
+      BindReadOnlyPaths = [ "/etc/resolv-vpn.conf:/etc/resolv.conf" ];
+      SupplementaryGroups = [ config.services.rtorrent.group ];
     };
   };
 

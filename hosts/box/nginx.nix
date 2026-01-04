@@ -200,6 +200,11 @@ in
           groups = [ "arr_admin@auth.paholg.com" ];
         })
         (mkAuthLocation {
+          location = "/rtorrent/";
+          proxyPass = "http://${config.custom.ips.vpn_veth}:${toString config.custom.ports.rtorrent}/rtorrent/";
+          groups = [ "arr_admin@auth.paholg.com" ];
+        })
+        (mkAuthLocation {
           location = "/zigbee";
           proxyPass = "http://127.0.0.1:${toString config.custom.ports.zigbee_frontend}/zigbee";
           groups = [ "home_assistant_admin@auth.paholg.com" ];
@@ -216,6 +221,15 @@ in
         proxyPass = "http://${config.custom.ips.vpn_veth}:${toString config.custom.ports.bitmagnet}";
         groups = [ "arr_admin@auth.paholg.com" ];
       };
+    };
+
+    # Internal rtorrent RPC for sonarr/radarr
+    virtualHosts."localhost:${toString config.custom.ports.rtorrent_scgi}" = {
+      listen = [{ addr = "127.0.0.1"; port = config.custom.ports.rtorrent_scgi; }];
+      locations."/".extraConfig = ''
+        scgi_pass unix:${config.services.rtorrent.rpcSocket};
+        include ${pkgs.nginx}/conf/scgi_params;
+      '';
     };
   };
 }

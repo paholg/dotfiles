@@ -24,7 +24,7 @@
 
   users.groups.media = {
     gid = config.custom.groups.media;
-    members = [ "paho" ];
+    members = [ "paho" "nginx" ];
   };
 
   environment.systemPackages = with pkgs; [ recyclarr ];
