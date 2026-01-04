@@ -83,9 +83,13 @@ in
   networking.firewall = {
     allowedTCPPorts = [
       config.custom.ports.transmission_peer
+      config.custom.ports.rtorrent_peer
     ];
     allowedUDPPorts = [
       config.custom.ports.transmission_peer
+      config.custom.ports.rtorrent_peer
+      config.custom.ports.rtorrent_dht
+      config.custom.ports.bitmagnet_dht
     ];
     trustedInterfaces = [ "veth-host" ];
   };
@@ -100,6 +104,7 @@ in
     useLocalPostgresDB = false;
     settings = {
       http_server.port = ":${toString config.custom.ports.bitmagnet}";
+      dht_server.port = config.custom.ports.bitmagnet_dht;
       processor.concurrency = 4;
       postgres = {
         host = "localhost";
@@ -257,6 +262,12 @@ in
 
       # Whether to allocate disk space for a new torrent. Default: `0`
       #system.file.allocate.set = 1
+
+      dht.mode.set = auto
+      dht.port.set = ${toString config.custom.ports.rtorrent_dht}
+      protocol.pex.set = yes
+
+      trackers.use_udp.set = yes
     '';
   };
 

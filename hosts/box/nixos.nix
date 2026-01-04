@@ -31,6 +31,7 @@
       ports = {
         authit = 43717;
         bitmagnet = 3333;
+        bitmagnet_dht = 7405;
         foundry = 8907;
         home_assistant = 8123;
         flaresolverr = 8191;
@@ -48,6 +49,7 @@
         rtorrent = 8384;
         rtorrent_scgi = 9092;
         rtorrent_peer = 18279;
+        rtorrent_dht = 53228;
         zigbee_frontend = 8099;
       };
       uids = {
