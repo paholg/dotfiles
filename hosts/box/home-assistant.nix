@@ -49,12 +49,14 @@
       "mqtt" # For Zigbee
       "radio_browser"
       "roborock"
+      "timer"
     ];
     customComponents = [
       pkgs.home-assistant-custom-components.auth_oidc
     ];
     customLovelaceModules = with pkgs.home-assistant-custom-lovelace-modules; [
       auto-entities
+      card-mod
     ];
     lovelaceConfig = { };
 
