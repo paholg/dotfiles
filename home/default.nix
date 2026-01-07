@@ -104,6 +104,7 @@ in
           ''
             fd --no-ignore-vcs -Ho root | xargs -d'
             ' sudo chown -h ${config.custom.username}:${config.custom.username}'';
+        y = "yazi";
       };
     };
 

@@ -46,11 +46,20 @@
             X = "extend_line_above";
             space = {
               c = "file_picker_in_current_buffer_directory";
+              e = [
+                '':sh rm -f /tmp/helix-yazi-file-h21a434''
+                '':insert-output yazi "%{buffer_name}" --chooser-file=/tmp/helix-yazi-file-h21a434''
+                '':sh printf "\x1b[?1049h\x1b[?2004h" > /dev/tty''
+                '':open %sh{cat /tmp/helix-yazi-file-h21a434}''
+                '':redraw''
+                '':set mouse false''
+                '':set mouse true''
+              ];
               l = [
-                ":new"
-                ":insert-output lazygit"
-                ":buffer-close!"
+                ":write-all"
+                ":insert-output lazygit >/dev/tty"
                 ":redraw"
+                ":reload-all"
               ];
             };
             A-h = ":toggle-option lsp.display-inlay-hints";

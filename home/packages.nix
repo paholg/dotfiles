@@ -156,6 +156,7 @@ let
     xan
     xh
     yaml-language-server
+    yazi
     yq-go
     zellij
     zip
