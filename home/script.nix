@@ -52,8 +52,8 @@ let
         gh pr create --fill || gh pr edit --title "$title" --body "$body"
       '';
   };
-  git-clean-merged = pkgs.writeShellApplication {
-    name = "git-clean-merged";
+  git-prune-branches = pkgs.writeShellApplication {
+    name = "git-pb";
     runtimeInputs = with pkgs; [
       git
     ];
@@ -122,7 +122,7 @@ in
     fix-permissions
     gh-update
     git-pr
-    git-clean-merged
+    git-prune-branches
     mkfile
     play
   ];
