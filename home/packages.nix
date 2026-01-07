@@ -118,6 +118,7 @@ let
     marksman # markdown lsp
     ncdu # interactive disk-usage
     nh # nix helper
+    nil
     nix-output-monitor
     nix-search
     nixd

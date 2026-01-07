@@ -101,6 +101,7 @@
               command = lib.getExe pkgs.nixfmt-rfc-style;
               args = [ ];
             };
+            language-servers = [ "nil" ];
           }
           {
             name = "python";
