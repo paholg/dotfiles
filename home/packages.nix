@@ -28,7 +28,6 @@ let
     if gui then
       with pkgs;
       [
-        inlyne # markdown viewer
         kdePackages.kdenlive # video editing
         krita
         libreoffice
