@@ -27,6 +27,24 @@
     system.stateVersion = "20.03";
     networking.hostName = "box";
 
+    # Enable graphics for transcoding.
+    hardware.graphics = {
+      enable = true;
+      extraPackages = with pkgs; [
+        intel-media-driver
+        vpl-gpu-rt
+        intel-compute-runtime
+      ];
+    };
+
+    # Useful for debugging VA-API
+    environment.systemPackages = with pkgs; [ libva-utils intel-gpu-tools ];
+
+    environment.sessionVariables = {
+      LIBVA_DRIVER_NAME = "iHD";
+    };
+    systemd.services.jellyfin.environment.LIBVA_DRIVER_NAME = "iHD";
+
     custom = {
       ports = {
         authit = 43717;

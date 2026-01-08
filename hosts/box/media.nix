@@ -24,8 +24,20 @@
 
   users.groups.media = {
     gid = config.custom.groups.media;
-    members = [ "paho" "nginx" ];
+    members = [
+      "paho"
+      "nginx"
+    ];
   };
+
+  users.users.jellyfin.extraGroups = [
+    "video"
+    "render"
+  ];
+  users.users.plex.extraGroups = [
+    "video"
+    "render"
+  ];
 
   environment.systemPackages = with pkgs; [ recyclarr ];
 
