@@ -76,10 +76,22 @@
     services.zfs.autoScrub.enable = true;
     boot.supportedFilesystems = [ "zfs" ];
     boot.zfs.forceImportRoot = false;
-    # ZFS tuning taken from https://jrs-s.net/2018/08/17/zfs-tuning-cheat-sheet/
-    boot.extraModprobeConfig = ''
-      options zfs ashift=12 xattr=sa compression=lz4 atime=off recordsize=1M
-    '';
+    boot.extraModprobeConfig =
+      # ZFS tuning initially taken from: https://jrs-s.net/2018/08/17/zfs-tuning-cheat-sheet/
+      # Tweaks:
+      # * Limit ARC to 16 GiB to leave memory for applications
+      let
+        zfsOptions = {
+          ashift = 12;
+          atime = "off";
+          compression = "lz4";
+          recordsize = "1M";
+          xattr = "sa";
+          zfs_arc_max = 17179869184;
+        };
+        optionsStr = lib.concatStringsSep " " (lib.mapAttrsToList (k: v: "${k}=${toString v}") zfsOptions);
+      in
+      "options zfs ${optionsStr}";
     networking.hostId = "b0c5b0c5";
     boot.zfs.extraPools = [ "storage" ];
 
