@@ -189,17 +189,23 @@ in
       # TERMINOLOGY:
       # A "slot" is a peer that is transferring data.
 
+      network.bind_address.set = 0.0.0.0
+
       # Global upload and download rate in KiB, `0` for unlimited (`download_rate`, `upload_rate`)
       throttle.global_down.max_rate.set_kb = 0
       throttle.global_up.max_rate.set_kb   = 350000
 
       # Maximum number of simultaneous downloads and uploads slots (global slots!) (`max_downloads_global`, `max_uploads_global`)
-      throttle.max_downloads.global.set = 2000
-      throttle.max_uploads.global.set   = 2000
+      throttle.max_downloads.global.set = 300
+      throttle.max_uploads.global.set   = 300
+
+      throttle.max_downloads.div.set = 100
+      throttle.max_uploads.div.set   = 100
+      network.http.max_open.set = 100
 
       # Maximum and minimum number of peers to connect to per torrent while downloading (`min_peers`, `max_peers`) Default: `100` and `200` respectively
-      throttle.min_peers.normal.set = 99
-      throttle.max_peers.normal.set = 100
+      throttle.min_peers.normal.set = 49
+      throttle.max_peers.normal.set = 50
 
       # Same as above but for seeding completed torrents (seeds per torrent), `-1` for same as downloading (`min_peers_seed`, `max_peers_seed`) Default: `-1` for both
       throttle.min_peers.seed.set = -1
@@ -211,7 +217,7 @@ in
 
       # Set the numwant field sent to the tracker, which indicates how many peers we want. 
       #  A negative value disables this feature. Default: `-1`
-      trackers.numwant.set = 100
+      trackers.numwant.set = 50
 
       # Set the max amount of memory address space used to mapping file chunks. This refers to memory mapping, not
       #  physical memory allocation. Default: `1GB` (`max_memory_usage`) 
