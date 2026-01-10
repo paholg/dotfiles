@@ -22,10 +22,8 @@
   services.samba.enable = true;
 
   virtualisation.podman = {
-    enable = true;
     # This deletes distrobox images :(
     autoPrune.enable = false;
-    dockerCompat = true;
     defaultNetwork.settings.dns_enabled = true;
   };
 
