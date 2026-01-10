@@ -38,7 +38,10 @@
     };
 
     # Useful for debugging VA-API
-    environment.systemPackages = with pkgs; [ libva-utils intel-gpu-tools ];
+    environment.systemPackages = with pkgs; [
+      libva-utils
+      intel-gpu-tools
+    ];
 
     environment.sessionVariables = {
       LIBVA_DRIVER_NAME = "iHD";
@@ -86,6 +89,9 @@
     };
 
     programs.niri.enable = false;
+
+    # Disable USB autosuspend for the Zigbee adapter.
+    boot.kernelParams = [ "usbcore.autosuspend=-1" ];
 
     # ZFS
     # We don't want to use the latest kernel due to ZFS compatibility, which is
