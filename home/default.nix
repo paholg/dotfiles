@@ -269,15 +269,17 @@ in
       git = lib.mkIf (config.custom.username == "paho") {
         enable = true;
         settings = {
+          brannch.autoSetupMerge = "always";
           core.pager = "delta";
-          interactive.diffFilter = "delta --color-only";
+          credential.helper = "store";
           diff.external = "difft";
+          init.defaultBranch = "main";
+          interactive.diffFilter = "delta --color-only";
+          log.date = "local";
           pull.rebase = true;
+          push.autoSetupRemote = "true";
           push.default = "current";
           rebase.autosquash = true;
-          init.defaultBranch = "main";
-          credential.helper = "store";
-          log.date = "local";
 
           user = {
             name = "Paho Lurie-Gregg";
