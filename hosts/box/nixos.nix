@@ -112,6 +112,9 @@
           recordsize = "1M";
           xattr = "sa";
           zfs_arc_max = 17179869184;
+          # Handle write bursts better
+          zfs_dirty_data_max = 6442450944; # 6 GiB
+          zfs_txg_timeout = 10; # seconds
         };
         optionsStr = lib.concatStringsSep " " (lib.mapAttrsToList (k: v: "${k}=${toString v}") zfsOptions);
       in

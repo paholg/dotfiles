@@ -46,6 +46,11 @@
       enable = true;
       package = pkgs.postgresql_18;
       dataDir = config.custom.drives.storage + "/postgres";
+      # WAL tuning to reduce I/O pressure on ZFS
+      settings = {
+        wal_writer_delay = "500ms";
+        wal_writer_flush_after = "4MB";
+      };
       ensureDatabases = [ "bitmagnet" ];
       ensureUsers = [
         {

@@ -196,8 +196,8 @@ in
       throttle.global_up.max_rate.set_kb   = 350000
 
       # Maximum number of simultaneous downloads and uploads slots (global slots!) (`max_downloads_global`, `max_uploads_global`)
-      throttle.max_downloads.global.set = 300
-      throttle.max_uploads.global.set   = 300
+      throttle.max_downloads.global.set = 100
+      throttle.max_uploads.global.set   = 100
 
       throttle.max_downloads.div.set = 100
       throttle.max_uploads.div.set   = 100
