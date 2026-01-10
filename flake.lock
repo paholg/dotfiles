@@ -361,11 +361,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1767818306,
-        "narHash": "sha256-20PH/5rRT0nqJOjcE3sinVeqyy+HADlBFyfk3t/83v4=",
+        "lastModified": 1768084638,
+        "narHash": "sha256-tS0yfmx5CHB7hz6HRi4o0+BmxTR/Ral52Tlw6pz+Xv0=",
         "owner": "paholg",
         "repo": "helix",
-        "rev": "423bedbd3e0a51077690bb4e23f208f78a460795",
+        "rev": "ee3e534df46c81c159fbf66eeb43d696c9144dba",
         "type": "github"
       },
       "original": {
