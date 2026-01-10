@@ -36,6 +36,7 @@
         port = config.custom.ports.zigbee_frontend;
         base_url = "/zigbee";
       };
+      advanced.log_level = "debug";
     };
   };
 
