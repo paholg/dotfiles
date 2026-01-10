@@ -17,9 +17,7 @@
     "docker"
   ];
 
-  # Old stateVersions default to docker for oci-containers :(
-  virtualisation.docker.enable = true;
-
+  virtualisation.oci-containers.backend = "podman";
   virtualisation.oci-containers.containers.foundry = {
     user = "${toString config.custom.uids.foundry}:${toString config.custom.groups.foundry}";
     image = "felddy/foundryvtt:13.351";
