@@ -191,8 +191,8 @@ in
       network.bind_address.set = 0.0.0.0
 
       # Global upload and download rate in KiB, `0` for unlimited (`download_rate`, `upload_rate`)
-      throttle.global_down.max_rate.set_kb = 0
-      throttle.global_up.max_rate.set_kb   = 350000
+      throttle.global_down.max_rate.set_kb = 81920
+      throttle.global_up.max_rate.set_kb   = 51200
 
       # Maximum number of simultaneous downloads and uploads slots (global slots!) (`max_downloads_global`, `max_uploads_global`)
       throttle.max_downloads.global.set = 100
