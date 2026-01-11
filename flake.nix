@@ -59,6 +59,12 @@
       inputs.flake-utils.follows = "flake-utils";
       inputs.rust-overlay.follows = "rust-overlay";
     };
+    rustybar = {
+      url = "github:paholg/rustybar";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.flake-utils.follows = "flake-utils";
+      inputs.rust-overlay.follows = "rust-overlay";
+    };
     stylix = {
       url = "github:danth/stylix";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -116,6 +122,7 @@
           envswitch = inputs.envswitch.packages.${system}.default;
           helix = inputs.helix.packages.${system}.default;
           playlister = inputs.playlister.packages.${system}.default;
+          rustybar = inputs.rustybar.packages.${system}.default;
         };
       };
 

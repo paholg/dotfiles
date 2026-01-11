@@ -1,45 +1,14 @@
-{ lib, pkgs, ... }:
-let
-  # Lock the session, running swayidle on a fast loop to turn off displays while
-  # locked.
-  locker = pkgs.writeShellApplication {
-    name = "locker";
-    runtimeInputs = with pkgs; [
-      swayidle
-      swaylock
-      niri
-    ];
-    text = # bash
-      ''
-        cleanup() {
-          kill "$SWAY_IDLE"
-        }
-        trap cleanup EXIT
-
-        swayidle timeout 10 'niri msg action power-off-monitors' &
-        SWAY_IDLE=$!
-        swaylock
-      '';
-  };
-  idler = pkgs.writeShellApplication {
-    name = "idler";
-    runtimeInputs = with pkgs; [
-      swayidle
-      locker
-    ];
-    text = "swayidle timeout 300 'locker'";
-  };
-in
+{ pkgs, ... }:
 {
   imports = [
     ./binds.nix
     ./background.nix
-    ./waybar.nix
+    ./locker.nix
+    ./rustybar.nix
   ];
 
   config = {
     home.packages = [
-      locker
       pkgs.nautilus # File-picker used by our desktop portal
       pkgs.wl-clipboard-rs
       pkgs.xwayland-satellite
@@ -93,17 +62,6 @@ in
             "01-main".name = "main";
             "02-chat".name = "chat";
           };
-          spawn-at-startup = [
-            {
-              command = [
-                "systemctl"
-                "--user"
-                "restart"
-                "waybar.service"
-              ];
-            }
-            { command = [ (lib.getExe idler) ]; }
-          ];
           window-rules = [
             {
               matches = [

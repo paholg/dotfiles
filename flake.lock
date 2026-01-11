@@ -597,6 +597,7 @@
         "nixpkgs": "nixpkgs",
         "playlister": "playlister",
         "rust-overlay": "rust-overlay",
+        "rustybar": "rustybar",
         "stylix": "stylix",
         "systems": "systems"
       }
@@ -635,6 +636,32 @@
       "original": {
         "owner": "oxalica",
         "repo": "rust-overlay",
+        "type": "github"
+      }
+    },
+    "rustybar": {
+      "inputs": {
+        "flake-utils": [
+          "flake-utils"
+        ],
+        "nixpkgs": [
+          "nixpkgs"
+        ],
+        "rust-overlay": [
+          "rust-overlay"
+        ]
+      },
+      "locked": {
+        "lastModified": 1768158469,
+        "narHash": "sha256-dcTPlPoWNrFKwCStvyjtHTFyJG9p3RWGco/y9uJMJCM=",
+        "owner": "paholg",
+        "repo": "rustybar",
+        "rev": "42967f4d3f1c2fe861ad4d0dc6f34232e55f319e",
+        "type": "github"
+      },
+      "original": {
+        "owner": "paholg",
+        "repo": "rustybar",
         "type": "github"
       }
     },
