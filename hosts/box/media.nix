@@ -90,7 +90,7 @@
     radarr = {
       enable = true;
       group = "media";
-      dataDir = config.custom.drives.storage + "/radarr";
+      dataDir = config.custom.drives.data + "/radarr";
     };
 
     sonarr = {
