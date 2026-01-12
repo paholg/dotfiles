@@ -7,7 +7,6 @@ let
   downloads = config.custom.drives.storage + "/downloads";
   completed = config.custom.drives.storage + "/completed";
   transmission = config.custom.drives.storage + "/transmission";
-  rtorrent = config.custom.drives.storage + "/rtorrent";
 
   wgIP = "10.185.49.0";
   wgIP6 = "fd7d:76ee:e68f:a993:64ab:d868:53d:f267";
@@ -180,7 +179,7 @@ in
     enable = true;
     port = config.custom.ports.rtorrent_peer;
     group = "media";
-    dataDir = rtorrent;
+    dataDir = config.custom.drives.data + "/rtorrent";
     downloadDir = downloads;
     openFirewall = true;
     configText = ''
