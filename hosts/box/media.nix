@@ -96,7 +96,7 @@
     sonarr = {
       enable = true;
       group = "media";
-      dataDir = config.custom.drives.storage + "/sonarr";
+      dataDir = config.custom.drives.data + "/sonarr";
     };
 
     oauth2-proxy = {

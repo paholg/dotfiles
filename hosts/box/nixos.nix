@@ -82,6 +82,7 @@
       };
       drives = {
         storage = "/mnt/storage";
+        data = "/data";
       };
       ips = {
         vpn_veth = "10.200.1.2";
