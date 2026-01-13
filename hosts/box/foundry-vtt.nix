@@ -37,10 +37,10 @@
       ROLE_ADMIN = "foundry_vtt_admin@auth.paholg.com";
     };
     volumes = [
-      "${config.custom.drives.storage}/foundry:/data"
+      "${config.custom.drives.data}/foundry:/data"
       # Keep the install until the cache is fixed:
       # https://github.com/felddy/foundryvtt-docker/issues/1333
-      "${config.custom.drives.storage}/foundry/resources:/home/node/resources"
+      "${config.custom.drives.data}/foundry/resources:/home/node/resources"
     ];
   };
 }
