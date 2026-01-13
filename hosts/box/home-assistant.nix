@@ -18,7 +18,7 @@
 
   services.zigbee2mqtt = {
     enable = true;
-    dataDir = config.custom.drives.storage + "/zigbee2mqtt";
+    dataDir = config.custom.drives.data + "/zigbee2mqtt";
     settings = {
       mqtt = {
         base_topic = "zigbee2mqtt";
@@ -36,7 +36,6 @@
         port = config.custom.ports.zigbee_frontend;
         base_url = "/zigbee";
       };
-      advanced.log_level = "debug";
     };
   };
 
