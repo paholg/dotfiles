@@ -70,7 +70,7 @@
       enable = true;
       group = "media";
       openFirewall = true; # Allows direct connection.
-      dataDir = config.custom.drives.storage + "/plex";
+      dataDir = config.custom.drives.data + "/plex";
     };
 
     flaresolverr = {
