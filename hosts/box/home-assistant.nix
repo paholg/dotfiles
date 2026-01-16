@@ -2,7 +2,7 @@
 {
   services.mosquitto = {
     enable = true;
-    dataDir = config.custom.drives.storage + "/mosquitto";
+    dataDir = config.custom.drives.data + "/mosquitto";
     listeners = [
       {
         acl = [ "pattern readwrite #" ];
