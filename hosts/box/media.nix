@@ -70,7 +70,7 @@
     jellyfin = {
       enable = true;
       group = "media";
-      dataDir = config.custom.drives.data + "/jellyfin";
+      dataDir = config.custom.drives.data_old + "/jellyfin";
     };
 
     plex = {
@@ -92,13 +92,13 @@
     radarr = {
       enable = true;
       group = "media";
-      dataDir = config.custom.drives.data + "/radarr";
+      dataDir = config.custom.drives.data_old + "/radarr";
     };
 
     sonarr = {
       enable = true;
       group = "media";
-      dataDir = config.custom.drives.data + "/sonarr";
+      dataDir = config.custom.drives.data_old + "/sonarr";
     };
 
     oauth2-proxy = {

@@ -179,7 +179,7 @@ in
     enable = true;
     port = config.custom.ports.rtorrent_peer;
     group = "media";
-    dataDir = config.custom.drives.data + "/rtorrent";
+    dataDir = config.custom.drives.data_old + "/rtorrent";
     downloadDir = downloads;
     openFirewall = true;
     configText = ''
