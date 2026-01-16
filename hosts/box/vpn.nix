@@ -6,7 +6,7 @@
 let
   downloads = config.custom.drives.storage + "/downloads";
   completed = config.custom.drives.storage + "/completed";
-  transmission = config.custom.drives.storage + "/transmission";
+  transmission = config.custom.drives.data + "/transmission";
 
   wgIP = "10.185.49.0";
   wgIP6 = "fd7d:76ee:e68f:a993:64ab:d868:53d:f267";
