@@ -45,14 +45,7 @@
     postgresql = {
       enable = true;
       package = pkgs.postgresql_18;
-      # NOTE: This is pretty big, and ZFS's compression helps a ton. We should
-      # probably set up a SSD with ZFS if we want to migrate it.
-      dataDir = config.custom.drives.storage + "/postgres";
-      # WAL tuning to reduce I/O pressure on ZFS
-      settings = {
-        wal_writer_delay = "500ms";
-        wal_writer_flush_after = "4MB";
-      };
+      dataDir = config.custom.drives.data + "/postgres";
       ensureDatabases = [ "bitmagnet" ];
       ensureUsers = [
         {
