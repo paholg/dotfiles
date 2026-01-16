@@ -85,13 +85,13 @@
     radarr = {
       enable = true;
       group = "media";
-      dataDir = config.custom.drives.data_old + "/radarr";
+      dataDir = config.custom.drives.data + "/radarr";
     };
 
     sonarr = {
       enable = true;
       group = "media";
-      dataDir = config.custom.drives.data_old + "/sonarr";
+      dataDir = config.custom.drives.data + "/sonarr";
     };
 
     oauth2-proxy = {
