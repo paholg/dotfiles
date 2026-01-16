@@ -41,7 +41,7 @@
 
   services.home-assistant = {
     enable = true;
-    configDir = config.custom.drives.storage + "/home-assistant";
+    configDir = config.custom.drives.data + "/home-assistant";
     extraComponents = [
       "esphome"
       "local_calendar"
