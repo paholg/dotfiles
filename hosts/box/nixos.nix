@@ -81,9 +81,8 @@
         media = 1100;
       };
       drives = {
-        storage = "/mnt/storage";
         data = "/mnt/data";
-        data_old = "/data";
+        storage = "/mnt/storage";
       };
       ips = {
         vpn_veth = "10.200.1.2";

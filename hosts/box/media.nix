@@ -63,7 +63,7 @@
     jellyfin = {
       enable = true;
       group = "media";
-      dataDir = config.custom.drives.data_old + "/jellyfin";
+      dataDir = config.custom.drives.data + "/jellyfin";
     };
 
     plex = {
