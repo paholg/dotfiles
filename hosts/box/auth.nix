@@ -28,7 +28,7 @@
 
   # The kanidm module won't let us set the db_path directly.
   systemd.services.kanidm.serviceConfig.BindPaths = [
-    "${config.custom.drives.storage}/kanidm:/var/lib/kanidm"
+    "${config.custom.drives.data}/kanidm:/var/lib/kanidm"
   ];
 
   # Grant kanidm access to ACME certificates
