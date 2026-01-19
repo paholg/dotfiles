@@ -57,6 +57,9 @@
     customLovelaceModules = with pkgs.home-assistant-custom-lovelace-modules; [
       auto-entities
       card-mod
+      clock-weather-card
+      hourly-weather
+      mushroom
     ];
     lovelaceConfig = { };
 
