@@ -121,7 +121,10 @@
       in
       "options zfs ${optionsStr}";
     networking.hostId = "b0c5b0c5";
-    boot.zfs.extraPools = [ "storage" ];
+    boot.zfs.extraPools = [
+      "data"
+      "storage"
+    ];
 
     # Michael Perlin SSH access
     users.users.perlinm = {
