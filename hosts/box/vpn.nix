@@ -187,6 +187,8 @@ in
       # TERMINOLOGY:
       # A "slot" is a peer that is transferring data.
 
+      system.umask.set = 0002
+
       network.bind_address.set = 0.0.0.0
 
       # Global upload and download rate in KiB, `0` for unlimited (`download_rate`, `upload_rate`)
