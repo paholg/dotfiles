@@ -54,9 +54,11 @@ in
       FOUNDRY_HOSTNAME = "vtt.paholg.com";
       FOUNDRY_PROXY_SSL = "true";
       FOUNDRY_PROXY_PORT = "443";
+      FOUNDRY_TELEMETRY = "true";
 
       # Header-based authentication via oauth2-proxy
-      CONTAINER_PATCH_URLS = "https://github.com/MaienM/foundry-vtt-header-auth/releases/download/v13.348.0/patches.sh";
+      CONTAINER_PATCH_URLS = "https://raw.githubusercontent.com/paholg/foundry-vtt-header-auth/refs/heads/autoprovision/patches.sh";
+      AUTO_PROVISION = "true";
       ROLE_PLAYER = "foundry_vtt_player@auth.paholg.com";
       ROLE_ADMIN = "foundry_vtt_admin@auth.paholg.com";
     };
