@@ -1,4 +1,14 @@
-{ config, ... }:
+{ config, pkgs, ... }:
+let
+  foundryCommitHash = "f265e09";
+  foundryVttSrc = pkgs.fetchFromGitHub {
+    owner = "paholg";
+    repo = "foundryvtt-docker";
+    rev = foundryCommitHash;
+    hash = "sha256-DsQrKIL0yLOHKnNizhioOp37v/P51RFJh7bl6O9+d6c=";
+  };
+  foundryVttImage = "localhost/foundryvtt:${foundryCommitHash}";
+in
 {
   age.secrets.foundry_env.file = ../../secrets/foundry_env;
 
@@ -17,10 +27,26 @@
     "docker"
   ];
 
+  # Build the foundry image from fork
+  systemd.services.foundry-image-build = {
+    description = "Build Foundry VTT Docker image from source";
+    wantedBy = [ "multi-user.target" ];
+    before = [ "podman-foundry.service" ];
+    requiredBy = [ "podman-foundry.service" ];
+    serviceConfig = {
+      Type = "oneshot";
+      RemainAfterExit = true;
+    };
+    path = [ pkgs.podman ];
+    script = ''
+      podman build -t ${foundryVttImage} ${foundryVttSrc}
+    '';
+  };
+
   virtualisation.oci-containers.backend = "podman";
   virtualisation.oci-containers.containers.foundry = {
     user = "${toString config.custom.uids.foundry}:${toString config.custom.groups.foundry}";
-    image = "felddy/foundryvtt:13.351";
+    image = foundryVttImage;
     hostname = "vtt.paholg.com";
     ports = [ "0.0.0.0:${toString config.custom.ports.foundry}:30000" ];
     environmentFiles = [ config.age.secrets.foundry_env.path ];
@@ -29,8 +55,6 @@
       FOUNDRY_PROXY_SSL = "true";
       FOUNDRY_PROXY_PORT = "443";
 
-      DEBUG = "*";
-
       # Header-based authentication via oauth2-proxy
       CONTAINER_PATCH_URLS = "https://github.com/MaienM/foundry-vtt-header-auth/releases/download/v13.348.0/patches.sh";
       ROLE_PLAYER = "foundry_vtt_player@auth.paholg.com";
@@ -38,9 +62,6 @@
     };
     volumes = [
       "${config.custom.drives.data}/foundry:/data"
-      # Keep the install until the cache is fixed:
-      # https://github.com/felddy/foundryvtt-docker/issues/1333
-      "${config.custom.drives.data}/foundry/resources:/home/node/resources"
     ];
   };
 }
