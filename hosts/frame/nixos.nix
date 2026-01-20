@@ -4,6 +4,11 @@
     ./hardware-configuration.nix
   ];
 
+  age.secrets."frame_shell_init.sh" = {
+    file = ../../secrets/frame_shell_init.sh;
+    owner = "paho";
+  };
+
   system.stateVersion = "23.11";
   networking.hostName = "frame";
 

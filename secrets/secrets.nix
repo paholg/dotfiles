@@ -2,9 +2,15 @@ with builtins;
 let
   keys = (import ../keys.nix);
   # allKeys = concatLists (attrValues (mapAttrs (name: value: attrValues value) keys));
+
   boxKeys = with keys; [
     box.system
     box.paho
+  ];
+
+  frameKeys = with keys; [
+    frame.system
+    frame.paho
   ];
 in
 {
@@ -18,4 +24,6 @@ in
   wireguard_config.publicKeys = boxKeys;
   wireguard_preshared_key.publicKeys = boxKeys;
   wireguard_private_key.publicKeys = boxKeys;
+
+  "frame_shell_init.sh".publicKeys = frameKeys;
 }
