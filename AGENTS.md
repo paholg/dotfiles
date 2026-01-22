@@ -24,5 +24,6 @@ Use `just` for common operations:
   (`journalctl`, `systemctl status`) before proposing a solution.
 - When proposing configuration changes, find documentation for those options
   and provide references (e.g., NixOS options search, Home Manager manual).
-- Privileged commands (`sudo`, access to `/mnt/storage`) will fail. Ask me to
-  run them and share the output instead.
+- Privileged commands like `sudo` will fail. Ask me to run them and share the
+  output instead. Commands like `journalctl` and `systemctl status` are NOT
+  privileged; please run them yourself.

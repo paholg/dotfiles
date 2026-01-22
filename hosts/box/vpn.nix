@@ -104,6 +104,7 @@ in
     settings = {
       http_server.port = ":${toString config.custom.ports.bitmagnet}";
       dht_server.port = config.custom.ports.bitmagnet_dht;
+      processor.concurrency = 4;
       postgres = {
         host = "localhost";
         name = "bitmagnet";
