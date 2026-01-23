@@ -28,8 +28,10 @@ in
     "Super+Shift+K".action.focus-monitor-up = { };
     "Super+Shift+L".action.focus-monitor-right = { };
 
-    "Super+I".action.focus-workspace-up = { };
-    "Super+U".action.focus-workspace-down = { };
+    "Super+U".action.focus-workspace-up = { };
+    "Super+I".action.focus-workspace-down = { };
+    "Super+Shift+U".action.move-workspace-up = { };
+    "Super+Shift+I".action.move-workspace-down = { };
 
     "Super+Tab".action.switch-focus-between-floating-and-tiling = { };
 
