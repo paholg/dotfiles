@@ -46,8 +46,8 @@ in
     "Super+Shift+Ctrl+K".action.move-workspace-to-monitor-up = { };
     "Super+Shift+Ctrl+L".action.move-workspace-to-monitor-right = { };
 
-    "Super+Ctrl+I".action.move-column-to-workspace-up = { };
-    "Super+Ctrl+U".action.move-column-to-workspace-down = { };
+    "Super+Ctrl+U".action.move-column-to-workspace-up = { };
+    "Super+Ctrl+I".action.move-column-to-workspace-down = { };
 
     "Super+BracketLeft".action.consume-or-expel-window-left = { };
     "Super+BracketRight".action.consume-or-expel-window-right = { };
