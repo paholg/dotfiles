@@ -60,7 +60,7 @@
       inputs.rust-overlay.follows = "rust-overlay";
     };
     rustybar = {
-      url = "github:paholg/rustybar";
+      url = "github:paholg/rustybar/icons";
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.flake-utils.follows = "flake-utils";
       inputs.rust-overlay.follows = "rust-overlay";
