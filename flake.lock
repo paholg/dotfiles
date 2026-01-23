@@ -652,11 +652,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1769139498,
-        "narHash": "sha256-GlUWV41O07uLNf5Bxrnx0KgILCEHUMwUDhfWtiA2EoQ=",
+        "lastModified": 1769145384,
+        "narHash": "sha256-WXQRPCKQev/80w4TRsl9nEKuk6+N/LA+Akj/6RKVQ9g=",
         "owner": "paholg",
         "repo": "rustybar",
-        "rev": "af345474b0da03924e037dd054ce9b7b1aa68123",
+        "rev": "84e8191980bb70562a3563ad924233c6dd042879",
         "type": "github"
       },
       "original": {
