@@ -68,10 +68,6 @@ in
     workspaces = {
       "01-main".open-on-output = "DP-3";
       "02-chat".open-on-output = "eDP-1";
-      "99-zoom" = {
-        name = "zoom";
-        open-on-output = "eDP-1";
-      };
     };
     window-rules = [
       {
