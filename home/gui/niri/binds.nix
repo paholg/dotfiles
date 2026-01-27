@@ -28,10 +28,10 @@ in
     "Super+Shift+K".action.focus-monitor-up = { };
     "Super+Shift+L".action.focus-monitor-right = { };
 
-    "Super+U".action.focus-workspace-up = { };
-    "Super+I".action.focus-workspace-down = { };
-    "Super+Shift+U".action.move-workspace-up = { };
-    "Super+Shift+I".action.move-workspace-down = { };
+    "Super+I".action.focus-workspace-up = { };
+    "Super+U".action.focus-workspace-down = { };
+    "Super+Shift+I".action.move-workspace-up = { };
+    "Super+Shift+U".action.move-workspace-down = { };
 
     "Super+Tab".action.switch-focus-between-floating-and-tiling = { };
 
@@ -46,8 +46,8 @@ in
     "Super+Shift+Ctrl+K".action.move-workspace-to-monitor-up = { };
     "Super+Shift+Ctrl+L".action.move-workspace-to-monitor-right = { };
 
-    "Super+Ctrl+U".action.move-column-to-workspace-up = { };
-    "Super+Ctrl+I".action.move-column-to-workspace-down = { };
+    "Super+Ctrl+I".action.move-column-to-workspace-up = { };
+    "Super+Ctrl+U".action.move-column-to-workspace-down = { };
 
     "Super+BracketLeft".action.consume-or-expel-window-left = { };
     "Super+BracketRight".action.consume-or-expel-window-right = { };
