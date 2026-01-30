@@ -28,7 +28,7 @@ let
     if gui then
       with pkgs;
       [
-        kdePackages.kdenlive # video editing
+        # kdePackages.kdenlive # video editing, broken 2026-01-29
         krita
         libreoffice
         mdbook
