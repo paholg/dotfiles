@@ -12,9 +12,6 @@
     };
     authit = {
       url = "github:paholg/authit";
-      inputs.nixpkgs.follows = "nixpkgs";
-      inputs.flake-utils.follows = "flake-utils";
-      inputs.rust-overlay.follows = "rust-overlay";
     };
     display-switch = {
       url = "github:paholg/display-switch/flake";
