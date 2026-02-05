@@ -22,6 +22,8 @@
         };
         efi.canTouchEfiVariables = true;
       };
+
+      tmp.useTmpfs = true;
     };
 
     # Enable all firmware regardless of license.
@@ -43,8 +45,8 @@
 
       gc = {
         automatic = true;
-        dates = "weekly";
-        options = "--delete-older-than 30d";
+        dates = "daily";
+        options = "--delete-older-than 7d";
         persistent = true;
       };
     };
