@@ -110,7 +110,10 @@ in
     virtualHosts."tv.paholg.com" = {
       enableACME = true;
       forceSSL = true;
-      locations."/".proxyPass = "http://localhost:${toString config.custom.ports.jellyfin}";
+      locations."/" = {
+        proxyPass = "http://localhost:${toString config.custom.ports.jellyfin}";
+        proxyWebsockets = true;
+      };
     };
 
     virtualHosts."vtt.paholg.com" = {
