@@ -86,7 +86,8 @@ in
   home.sessionVariables = {
     NGROK_URL = "paholg.ngrok.app";
     REMOTE_HOST = "paholg.ngrok.app";
-    PODMAN_COMPOSE_WARNING_LOGS = "false";
+    DOCKER_HOST = "unix://$XDG_RUNTIME_DIR/podman/podman.sock";
+    BUILDAH_FORMAT = "docker";
   };
 
   systemd.user.services.ngrok = {
@@ -110,6 +111,10 @@ in
   home.packages =
     (with pkgs; [
       csvtool
+      (devcontainer.override {
+        docker = podman;
+        docker-compose = podman-compose;
+      })
       distrobox
       dive # look into docker image layers
       framework-tool
@@ -130,8 +135,6 @@ in
     ++ [
       zoomWc
     ];
-
-  # home.file.".config/zoomus.conf".source = ./zoom.conf;
 
   # Vanta stuff
   home.shellAliases.vanta_create = # bash
@@ -156,5 +159,4 @@ in
     executable = true;
     text = "sudo /var/vanta/vanta-cli doctor";
   };
-
 }
