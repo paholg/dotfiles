@@ -17,6 +17,7 @@ in
     ./script.nix
     ./starship.nix
     ./stylix.nix
+    ./zed.nix
   ]
   ++ (if gui then [ ./gui ] else [ ]);
 

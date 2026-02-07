@@ -33,6 +33,7 @@ let
         libreoffice
         mdbook
         pinta # paint
+        zed-editor
       ]
     else
       [ ];

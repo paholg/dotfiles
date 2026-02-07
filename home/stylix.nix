@@ -31,6 +31,7 @@
       };
       targets = {
         helix.enable = false;
+        zed.enable = false;
         # Stylix does not do a good job with GTK.
         gtk.enable = false;
         kitty.variant256Colors = true;
