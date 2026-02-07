@@ -88,7 +88,10 @@
               open-on-workspace = "chat";
             }
             {
-              matches = [ { app-id = "Zoom Workplace"; } ];
+              matches = [
+                { app-id = "Zoom Workplace"; }
+                { app-id = "zoom"; }
+              ];
               excludes = [
                 { title = "Zoom Meeting"; }
                 { title = "Meeting"; }
