@@ -44,6 +44,10 @@
     };
   };
 
+  systemd.tmpfiles.rules = [
+    "L /tmp/mysql.sock - - - - /run/mysqld/mysqld.sock"
+  ];
+
   services.power-profiles-daemon.enable = true;
 
   services.redis.servers."" = {
