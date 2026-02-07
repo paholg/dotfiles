@@ -67,6 +67,11 @@
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.systems.follows = "systems";
     };
+    claude-code = {
+      url = "github:sadjow/claude-code-nix";
+      inputs.flake-utils.follows = "flake-utils";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
     # Dependencies to minimize duplicates in `flake.lock`:
     crane = {
@@ -115,6 +120,7 @@
         });
         external = {
           agenix = inputs.agenix.packages.${system}.default;
+          claude-code = inputs.claude-code.packages.${system}.default;
           display-switch = inputs.display-switch.defaultPackage.${system};
           envswitch = inputs.envswitch.packages.${system}.default;
           helix = inputs.helix.packages.${system}.default;
