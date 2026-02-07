@@ -64,6 +64,9 @@ in
     "Super+E".action.set-column-width = "75%";
     "Super+R".action.set-column-width = "100%";
 
+    "Super+1".action.set-column-width = "33.333333333333333%";
+    "Super+2".action.set-column-width = "66.666666666666667%";
+
     "Super+F".action.fullscreen-window = { };
 
     "Super+Ctrl+E".action.set-window-height = "+10%";
