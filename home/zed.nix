@@ -20,6 +20,7 @@
 
       userSettings = {
         auto_update = false;
+        autosave.after_delay.milliseconds = 100;
         buffer_font_family = "Monaspace Neon";
         calls.mute_on_join = true;
         cursor_blink = false;
@@ -28,7 +29,7 @@
         helix_mode = true;
         soft_wrap = "editor_width";
         telemetry.metrics = false;
-        theme = "Pigs in Space";
+        theme = "XY Zed";
         ui_font_family = "Monaspace Neon";
         which_key.enabled = true;
 
