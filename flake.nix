@@ -13,6 +13,13 @@
     authit = {
       url = "github:paholg/authit";
     };
+    dc = {
+      url = "github:paholg/dc";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.crane.follows = "crane";
+      inputs.flake-utils.follows = "flake-utils";
+      inputs.rust-overlay.follows = "rust-overlay";
+    };
     display-switch = {
       url = "github:paholg/display-switch/flake";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -121,6 +128,7 @@
         external = {
           agenix = inputs.agenix.packages.${system}.default;
           claude-code = inputs.claude-code.packages.${system}.default;
+          dc = inputs.dc.packages.${system}.default;
           display-switch = inputs.display-switch.defaultPackage.${system};
           envswitch = inputs.envswitch.packages.${system}.default;
           helix = inputs.helix.packages.${system}.default;

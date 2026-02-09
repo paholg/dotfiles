@@ -114,10 +114,10 @@
     services.fwupd.enable = true;
 
     services.kanidm = {
-      enableClient = true;
+      client.enable = true;
       package = pkgs.kanidm_1_8;
 
-      clientSettings = {
+      client.settings = {
         uri = "https://auth.paholg.com";
       };
     };

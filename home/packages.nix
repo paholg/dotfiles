@@ -142,7 +142,7 @@ let
     shellcheck
     socat
     sshfs-fuse
-    superhtml # html lsp
+    # superhtml # html lsp, broken
     tabiew
     taplo # toml language server
     tinymist # typst language server

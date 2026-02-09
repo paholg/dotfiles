@@ -113,6 +113,7 @@ in
       docker
       distrobox
       dive # look into docker image layers
+      external.dc
       framework-tool
       heroku
       # iredis
