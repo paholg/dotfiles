@@ -86,8 +86,6 @@ in
   home.sessionVariables = {
     NGROK_URL = "paholg.ngrok.app";
     REMOTE_HOST = "paholg.ngrok.app";
-    DOCKER_HOST = "unix://$XDG_RUNTIME_DIR/podman/podman.sock";
-    BUILDAH_FORMAT = "docker";
   };
 
   systemd.user.services.ngrok = {
@@ -111,10 +109,8 @@ in
   home.packages =
     (with pkgs; [
       csvtool
-      (devcontainer.override {
-        docker = podman;
-        docker-compose = podman-compose;
-      })
+      devcontainer
+      docker
       distrobox
       dive # look into docker image layers
       framework-tool
@@ -123,8 +119,6 @@ in
       mermaid-cli
       mycli
       mysql80
-      podman-compose
-      podman-tui
       pscale
       redis
       terraform

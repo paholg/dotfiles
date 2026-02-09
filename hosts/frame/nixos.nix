@@ -27,10 +27,17 @@
   services.samba.enable = true;
 
   virtualisation.podman = {
-    # This deletes distrobox images :(
-    autoPrune.enable = false;
-    defaultNetwork.settings.dns_enabled = true;
+    enable = false;
+    dockerCompat = false;
   };
+
+  # virtualisation.podman = {
+  #   # This deletes distrobox images :(
+  #   autoPrune.enable = false;
+  #   defaultNetwork.settings.dns_enabled = true;
+  # };
+  virtualisation.docker.enable = true;
+  users.users.paho.extraGroups = [ "docker" ];
 
   services.mysql = {
     enable = true;

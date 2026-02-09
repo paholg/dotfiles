@@ -52,8 +52,8 @@
     };
 
     virtualisation.podman = {
-      enable = true;
-      dockerCompat = true;
+      enable = lib.mkDefault true;
+      dockerCompat = lib.mkDefault true;
     };
 
     i18n.defaultLocale = "en_US.UTF-8";
