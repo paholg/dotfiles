@@ -125,11 +125,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1770687088,
-        "narHash": "sha256-WM353TQnhVCbgMGUqoPIsLEdF8HHtMo/dFryzBSEswI=",
+        "lastModified": 1770765142,
+        "narHash": "sha256-OsjeMZWNbfltDS4hlT4sWCWIjAhXyVqatCc6NH0mV6c=",
         "owner": "sadjow",
         "repo": "claude-code-nix",
-        "rev": "5fb242d2c746009f9fa3b63e9f346e8ea64328ea",
+        "rev": "fc5359e6ec89edfaaebfbd53780841808f2261b5",
         "type": "github"
       },
       "original": {
@@ -191,11 +191,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1770728469,
-        "narHash": "sha256-E/J/7WTKSpxLVqK/d4EdUQBVzHi/ioA7HwqMQBK0qp4=",
+        "lastModified": 1770770241,
+        "narHash": "sha256-CVfB8+jwJFrCNU3Y5kBo2A48F8sP74z/NTMy83iwGr0=",
         "owner": "paholg",
         "repo": "dc",
-        "rev": "571853c5f115d4357b4029f0c57cd302d0b1f8c7",
+        "rev": "9b75dbbf8735893aec983d089e693d6730f4d3a0",
         "type": "github"
       },
       "original": {
@@ -492,11 +492,11 @@
         "xwayland-satellite-unstable": "xwayland-satellite-unstable"
       },
       "locked": {
-        "lastModified": 1770711897,
-        "narHash": "sha256-4AuDKj9YuKBoTujHBgHw2oOWcUOHBrsOsaQJACVvO4g=",
+        "lastModified": 1770739738,
+        "narHash": "sha256-sLpvik461SjSY1b23gHhNbM9aMJF9iU4h2vPepi9JoM=",
         "owner": "sodiboo",
         "repo": "niri-flake",
-        "rev": "f3e8b107569bcfea172699820466c873e757f688",
+        "rev": "9e23010320cfe4012adc2d8810495bad0fe2d4a6",
         "type": "github"
       },
       "original": {
@@ -525,11 +525,11 @@
     "niri-unstable": {
       "flake": false,
       "locked": {
-        "lastModified": 1770702949,
-        "narHash": "sha256-/h+1O4xbOy7j/t8NIfKEUH/mi+2GsvYKAv2beOZ7hS4=",
+        "lastModified": 1770735554,
+        "narHash": "sha256-8GzUa8bCyQ688jYW2waXrOqetTr7oV8UPTO2He+5Hsg=",
         "owner": "YaLTeR",
         "repo": "niri",
-        "rev": "6d5c5f12b2a6ed39cf750eb67aea72f50e00fa1f",
+        "rev": "41b5de87692b8262fbdbff7faab93f04ff0be453",
         "type": "github"
       },
       "original": {
@@ -754,11 +754,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1769156975,
-        "narHash": "sha256-pFFSL4J7vX7DhyGyl7CjsD8Q1RWW1829jDRaeFo1muA=",
+        "lastModified": 1770771631,
+        "narHash": "sha256-M0XaPwZUD93pWz8NkgUFi1gt6iGskpgiwCamWfHl8ws=",
         "owner": "paholg",
         "repo": "rustybar",
-        "rev": "cf449d0db51e64daea38b9eb3ca55792da704d8c",
+        "rev": "a907a8ae072bf919c9577c6d1313b45da574978e",
         "type": "github"
       },
       "original": {

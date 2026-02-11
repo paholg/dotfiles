@@ -37,6 +37,8 @@ in
         set TTY (tty)
         [ "$TTY" = "/dev/tty1" ] && exec "niri-session"
         source /run/agenix/frame_shell_init.sh
+
+        COMPLETE=fish dc | source
       '';
   };
 
