@@ -126,12 +126,16 @@ in
       redis
       terraform
       terraform-ls
-      vscodium-fhs
       zoom-us
     ])
     ++ [
       zoomWc
     ];
+
+  programs.vscode = {
+    enable = true;
+    package = pkgs.vscode.fhs;
+  };
 
   # Vanta stuff
   home.shellAliases.vanta_create = # bash
