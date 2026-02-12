@@ -44,6 +44,14 @@
             format = "[($symbol $output )]($style)";
             symbol = "";
           };
+          dc_ports = {
+            description = "Show dc forwarded ports for this workspace";
+            command = "${lib.getExe pkgs.external.dc} show ports";
+            when = "${lib.getExe pkgs.external.dc} show workspace";
+            style = "blue";
+            format = "[($symbol $output )]($style)";
+            symbol = "󰖟";
+          };
         };
         # custom = {
         #   jj = {
