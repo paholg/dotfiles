@@ -42,6 +42,42 @@ in
       '';
   };
 
+  programs.fish.functions = {
+    dc_exec_in_ws = {
+      body = # fish
+        ''
+          niri msg action move-window-to-workspace --focus=false $argv[1]; or return
+          dc exec $argv[1] /bin/zsh -lc 'TRAPINT() { return 0 }; bin/dev; exec /bin/zsh -l'
+          exec fish
+        '';
+    };
+
+    newws = {
+      wraps = "dc up";
+      body = # fish
+        ''
+          niri msg action set-workspace-name $argv[1]; or return
+          dc up $argv; or return
+          cd ~/src/scholarly/.worktrees/$argv[1]; or return
+          direnv allow; or return
+          eval (direnv export fish); or return
+          kitty --detach fish -c "dc_exec_in_ws $argv[1]"; or return
+          notify-send "workspace $argv[1] ready"
+        '';
+    };
+
+    killws = {
+      wraps = "dc kill";
+      body = # fish
+        ''
+          niri msg action focus-workspace $argv[1]; or return
+          niri msg action unset-workspace-name; or return
+          niri msg action focus-workspace-previous; or return
+          dc kill $argv
+        '';
+    };
+  };
+
   programs.niri.settings = {
     binds = {
       "Super+Ctrl+W".action.spawn = "zoom-watercooler";

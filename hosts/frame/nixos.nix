@@ -31,35 +31,10 @@
     dockerCompat = false;
   };
 
-  # virtualisation.podman = {
-  #   # This deletes distrobox images :(
-  #   autoPrune.enable = false;
-  #   defaultNetwork.settings.dns_enabled = true;
-  # };
   virtualisation.docker.enable = true;
   users.users.paho.extraGroups = [ "docker" ];
 
-  services.mysql = {
-    enable = true;
-    package = pkgs.mysql80;
-    settings = {
-      mysqld = {
-        expire_logs_days = 7;
-        max_binlog_size = "100M";
-        # sort_buffer_size = "512k";
-      };
-    };
-  };
-
-  systemd.tmpfiles.rules = [
-    "L /tmp/mysql.sock - - - - /run/mysqld/mysqld.sock"
-  ];
-
   services.power-profiles-daemon.enable = true;
-
-  services.redis.servers."" = {
-    enable = true;
-  };
 
   # ****************************************************************************
   # Fingerprint
