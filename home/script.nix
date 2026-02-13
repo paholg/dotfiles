@@ -87,6 +87,18 @@
         '';
     })
     (pkgs.writeShellApplication {
+      name = "niri-focus-urgent";
+      runtimeInputs = with pkgs; [
+        jq
+        niri
+      ];
+      text = # bash
+        ''
+          id="$(niri msg --json windows | jq -r '[.[] | select(.is_urgent)][0].id // empty')"
+          [ -n "$id" ] && niri msg action focus-window --id "$id"
+        '';
+    })
+    (pkgs.writeShellApplication {
       name = "play";
       text = # bash
         ''

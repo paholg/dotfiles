@@ -35,6 +35,9 @@ in
 
     "Super+Tab".action.switch-focus-between-floating-and-tiling = { };
 
+    "Super+X".action.spawn = "niri-focus-urgent";
+    "Super+V".action.focus-workspace = "main";
+
     # Window Movement
     "Super+Ctrl+H".action.move-column-left = { };
     "Super+Ctrl+J".action.move-window-down = { };
