@@ -191,11 +191,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1770930690,
-        "narHash": "sha256-i1uinPs7FY4oNOPKV1FLq95cPfoccB8h3IEbKXTDH+E=",
+        "lastModified": 1770946275,
+        "narHash": "sha256-DSFfzpOWVO8ta6qvJZiMGifUSJIAvcmmVxiE9AHhgVk=",
         "owner": "paholg",
         "repo": "dc",
-        "rev": "55d2ab2262a5784b7e7efa5223f96a5b48d7fa44",
+        "rev": "da4f9d60f2b23f0fe6c2ea4e9b3c07525b9b6be9",
         "type": "github"
       },
       "original": {
