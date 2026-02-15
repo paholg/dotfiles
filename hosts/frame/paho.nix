@@ -72,7 +72,6 @@ in
         ''
           niri msg action focus-workspace $argv[1]; or return
           niri msg action unset-workspace-name; or return
-          niri msg action focus-workspace-previous; or return
           dc kill $argv
         '';
     };
@@ -118,7 +117,7 @@ in
 
   home.shellAliases = {
     charge-limit = "sudo framework_tool --charge-limit";
-    my = "mycli --socket /tmp/mysql.sock -uroot -D scholarly_development";
+    my = "mysql --socket sockets/mysql/mysqld.sock -uroot -D scholarly_development";
   };
 
   home.sessionVariables = {

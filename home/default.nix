@@ -295,7 +295,8 @@ in
             d = "diff";
             dc = "diff --cached";
             fixup = "!git commit -a --amend --no-edit && git push -f";
-            l = ''!l() { git log "$@" | bat -n; }; l'';
+            l = ''!l() { git log "$@" | bat -p; }; l'';
+            refresh = "!git add . && git stash && git fetch && git rebase -i origin/main && git stash pop && git reset";
             rs = "restore --staged";
             rsw = "restore --staged --worktree";
             s = "status";

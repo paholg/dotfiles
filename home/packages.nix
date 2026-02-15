@@ -29,6 +29,7 @@ let
       with pkgs;
       [
         # kdePackages.kdenlive # video editing, broken 2026-01-29
+        kitty.terminfo
         krita
         libreoffice
         mdbook
@@ -111,7 +112,6 @@ let
     jq
     just
     just-lsp
-    kitty.terminfo
     lazygit
     litecli # sqlite cli
     markdown-oxide

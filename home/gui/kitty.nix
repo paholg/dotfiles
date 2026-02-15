@@ -11,6 +11,7 @@
         enable_audio_bell = false;
         visual_bell_duration = 0.1;
         hide_window_decorations = "yes";
+        notify_on_cmd_finish = "unfocused 5 notify-bell";
       };
     };
   };
