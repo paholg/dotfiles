@@ -293,7 +293,6 @@ in
 
   services.flood = {
     enable = true;
-    host = "0.0.0.0";
     port = config.custom.ports.rtorrent;
     extraArgs = [
       "--auth=none"
@@ -303,17 +302,9 @@ in
   };
 
   systemd.services.flood = {
-    after = [
-      "wireguard-wg0.service"
-      "rtorrent.service"
-    ];
-    requires = [
-      "wireguard-wg0.service"
-      "rtorrent.service"
-    ];
+    after = [ "rtorrent.service" ];
+    requires = [ "rtorrent.service" ];
     serviceConfig = {
-      NetworkNamespacePath = "/var/run/netns/${namespace}";
-      BindReadOnlyPaths = [ "/etc/resolv-vpn.conf:/etc/resolv.conf" ];
       SupplementaryGroups = [ config.services.rtorrent.group ];
     };
   };

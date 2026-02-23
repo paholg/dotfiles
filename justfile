@@ -45,6 +45,10 @@ up-fw:
 	fwupdmgr get-updates || exit 0
 	fwupdmgr update
 
+# Sho failed or crash-looping services
+show-failures:
+	systemctl list-units --type=service --state=failed,auto-restart
+
 # Switch nixos and home-manager
 sw: switch-nix switch-hm
 

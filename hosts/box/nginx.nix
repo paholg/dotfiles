@@ -204,7 +204,7 @@ in
         })
         (mkAuthLocation {
           location = "/rtorrent/";
-          proxyPass = "http://${config.custom.ips.vpn_veth}:${toString config.custom.ports.rtorrent}/rtorrent/";
+          proxyPass = "http://127.0.0.1:${toString config.custom.ports.rtorrent}/rtorrent/";
           groups = [ "arr_admin@auth.paholg.com" ];
         })
         (mkAuthLocation {
