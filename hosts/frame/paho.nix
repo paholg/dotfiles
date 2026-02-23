@@ -38,6 +38,7 @@ in
         [ "$TTY" = "/dev/tty1" ] && exec "niri-session"
         source /run/agenix/frame_shell_init.sh
 
+        envswitch setup fish | source
         COMPLETE=fish dc | source
       '';
   };

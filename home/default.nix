@@ -216,8 +216,6 @@ in
 
           batman --export-env | source
           eval (batpipe)
-
-          envswitch setup fish | source
         ''
         + config.custom.fish_extra_init;
 
