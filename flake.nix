@@ -103,6 +103,7 @@
       linux = "x86_64-linux";
 
       pkgs_overlay = system: final: prev: {
+        # NOTE: This is likely fixed once a version above 0.16.6 releases.
         libtorrent-rakshasa = prev.libtorrent-rakshasa.overrideAttrs (old: rec {
           version = "0.15.6";
           src = prev.fetchFromGitHub {
@@ -125,7 +126,7 @@
           agenix = inputs.agenix.packages.${system}.default;
           claude-code = inputs.claude-code.packages.${system}.default;
           dc = inputs.dc.packages.${system}.default;
-          display-switch = inputs.display-switch.defaultPackage.${system};
+          display-switch = inputs.display-switch.packages.${system}.default;
           envswitch = inputs.envswitch.packages.${system}.default;
           helix = inputs.helix.packages.${system}.default;
           playlister = inputs.playlister.packages.${system}.default;

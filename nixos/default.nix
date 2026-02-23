@@ -100,6 +100,7 @@
       shell = pkgs.bash;
       isNormalUser = true;
       extraGroups = [
+        "i2c"
         "networkmanager"
         "wheel"
       ];
