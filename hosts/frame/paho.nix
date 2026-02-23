@@ -115,6 +115,33 @@ in
     ];
   };
 
+  programs.starship.settings.custom = {
+    heroku = {
+      command = "echo $HEROKU_APP";
+      when = ''[ -n "$HEROKU_APP" ]'';
+      format = "[$symbol $output]($style) ";
+      style = "#D7BFF2 italic";
+      symbol = "";
+      shell = "bash";
+    };
+    envswitch = {
+      description = "Show which envswitch environment is currently active.";
+      command = "envswitch get";
+      when = "envswitch get";
+      style = "yellow";
+      format = "[($symbol $output )]($style)";
+      symbol = "";
+    };
+    dc_ports = {
+      description = "Show dc forwarded ports for this workspace";
+      command = "dc show ports";
+      when = "dc show workspace";
+      style = "blue";
+      format = "[($symbol $output )]($style)";
+      symbol = "󰖟";
+    };
+  };
+
   home.shellAliases = {
     charge-limit = "sudo framework_tool --charge-limit";
     my = "mysql --socket sockets/mysql/mysqld.sock -uroot -D scholarly_development";
@@ -151,6 +178,7 @@ in
       distrobox
       dive # look into docker image layers
       external.dc
+      external.envswitch
       framework-tool
       heroku
       # iredis

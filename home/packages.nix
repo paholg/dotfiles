@@ -96,7 +96,6 @@ let
     dust
     dysk
     entr # Watch for file changes
-    external.envswitch
     erdtree # pretty tree
     eza
     fd

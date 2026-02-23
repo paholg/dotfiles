@@ -1,7 +1,6 @@
 {
   config,
   lib,
-  pkgs,
   ...
 }:
 {
@@ -25,32 +24,6 @@
             us-east-2 = "use2";
             us-west-1 = "usw1";
             us-west-2 = "usw2";
-          };
-        };
-        custom = {
-          heroku = {
-            command = "echo $HEROKU_APP";
-            when = ''[ -n "$HEROKU_APP" ]'';
-            format = "[$symbol $output]($style) ";
-            style = "#D7BFF2 italic";
-            symbol = "";
-            shell = "bash";
-          };
-          envswitch = {
-            description = "Show which envswitch environment is currently active.";
-            command = "${lib.getExe pkgs.external.envswitch} get";
-            when = "${lib.getExe pkgs.external.envswitch} get";
-            style = "yellow";
-            format = "[($symbol $output )]($style)";
-            symbol = "";
-          };
-          dc_ports = {
-            description = "Show dc forwarded ports for this workspace";
-            command = "${lib.getExe pkgs.external.dc} show ports";
-            when = "${lib.getExe pkgs.external.dc} show workspace";
-            style = "blue";
-            format = "[($symbol $output )]($style)";
-            symbol = "󰖟";
           };
         };
         # custom = {
