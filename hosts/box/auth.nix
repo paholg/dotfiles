@@ -3,9 +3,9 @@
   # Grant nginx access to kanidm group for ACME certificates
   users.users.nginx.extraGroups = [ "kanidm" ];
 
-  services.kanidm = {
-    enableServer = true;
-    serverSettings = {
+  services.kanidm.server = {
+    enable = true;
+    settings = {
       version = "2";
       bindaddress = "0.0.0.0:${toString config.custom.ports.kanidm}";
       ldapbindaddress = "0.0.0.0:${toString config.custom.ports.kanidm_ldap}";
