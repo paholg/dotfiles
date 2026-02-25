@@ -34,6 +34,7 @@ let
         libreoffice
         mdbook
         pinta # paint
+        yubikey-manager
         zed-editor
       ]
     else
