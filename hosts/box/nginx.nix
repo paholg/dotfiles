@@ -226,9 +226,25 @@ in
       };
     };
 
+    virtualHosts."elegoo.paholg.com" = {
+      enableACME = true;
+      forceSSL = true;
+
+      locations = mkAuthLocation {
+        location = "/";
+        proxyPass = "http://10.0.0.9:80";
+        groups = [ "elegoo@auth.paholg.com" ];
+      };
+    };
+
     # Internal rtorrent RPC for sonarr/radarr
     virtualHosts."localhost:${toString config.custom.ports.rtorrent_scgi}" = {
-      listen = [{ addr = "127.0.0.1"; port = config.custom.ports.rtorrent_scgi; }];
+      listen = [
+        {
+          addr = "127.0.0.1";
+          port = config.custom.ports.rtorrent_scgi;
+        }
+      ];
       locations."/".extraConfig = ''
         scgi_pass unix:${config.services.rtorrent.rpcSocket};
         include ${pkgs.nginx}/conf/scgi_params;
