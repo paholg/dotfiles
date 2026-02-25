@@ -47,13 +47,13 @@
             space = {
               c = "file_picker_in_current_buffer_directory";
               e = [
-                '':sh rm -f /tmp/helix-yazi-file-h21a434''
+                ":sh rm -f /tmp/helix-yazi-file-h21a434"
                 '':insert-output yazi "%{buffer_name}" --chooser-file=/tmp/helix-yazi-file-h21a434''
                 '':sh printf "\x1b[?1049h\x1b[?2004h" > /dev/tty''
-                '':open %sh{cat /tmp/helix-yazi-file-h21a434}''
-                '':redraw''
-                '':set mouse false''
-                '':set mouse true''
+                ":open %sh{cat /tmp/helix-yazi-file-h21a434}"
+                ":redraw"
+                ":set mouse false"
+                ":set mouse true"
               ];
               l = [
                 ":write-all"
@@ -125,7 +125,11 @@
           }
           {
             name = "ruby";
-            language-servers = [ "ruby-lsp" ];
+            auto-format = true;
+            language-servers = [
+              "ruby-lsp"
+              "standardrb"
+            ];
           }
           {
             name = "sql";
@@ -167,8 +171,18 @@
           ruby-lsp = {
             command = lib.getExe pkgs.ruby-lsp;
           };
+
           sqls = {
             command = lib.getExe pkgs.sqls;
+          };
+
+          standardrb = {
+            command = "bundle";
+            args = [
+              "exec"
+              "standardrb"
+              "--lsp"
+            ];
           };
           tinymist = {
             command = "tinymist";

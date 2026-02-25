@@ -53,27 +53,31 @@ in
         '';
     };
 
-    newws = {
-      wraps = "dc up";
+    ws = {
+      wraps = "dc";
       body = # fish
         ''
-          niri msg action set-workspace-name $argv[1]; or return
-          dc up $argv; or return
-          cd ~/src/scholarly/.worktrees/$argv[1]; or return
-          direnv allow; or return
-          eval (direnv export fish); or return
-          kitty --detach fish -c "dc_exec_in_ws $argv[1]"; or return
-          notify-send "workspace $argv[1] ready"
-        '';
-    };
+          set -l cmd $argv[1]
+          set -l name $argv[2]
 
-    killws = {
-      wraps = "dc kill";
-      body = # fish
-        ''
-          niri msg action focus-workspace $argv[1]; or return
-          niri msg action unset-workspace-name; or return
-          dc kill $argv
+          switch $cmd
+            case up
+              niri msg action set-workspace-name $name; or return
+              dc $argv; or return
+              cd ~/src/scholarly/.worktrees/$name; or return
+              direnv allow; or return
+              eval (direnv export fish); or return
+              kitty --detach fish -c "dc_exec_in_ws $name"; or return
+              notify-send "workspace $name ready"
+              terminal-mark-urgent
+            case destroy
+              niri msg action focus-workspace $name; or return
+              niri msg action unset-workspace-name; or return
+              dc $argv
+            case '*'
+              echo "Usage: ws {up|destroy} NAME [ARGS...]"
+              return 1
+          end
         '';
     };
   };
