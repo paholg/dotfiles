@@ -13,8 +13,8 @@
     authit = {
       url = "github:paholg/authit";
     };
-    dc = {
-      url = "github:paholg/dc";
+    devconcurrent = {
+      url = "github:paholg/devconcurrent";
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.crane.follows = "crane";
       inputs.flake-utils.follows = "flake-utils";
@@ -125,7 +125,7 @@
         external = {
           agenix = inputs.agenix.packages.${system}.default;
           claude-code = inputs.claude-code.packages.${system}.default;
-          dc = inputs.dc.packages.${system}.default;
+          devconcurrent = inputs.devconcurrent.packages.${system}.default;
           display-switch = inputs.display-switch.packages.${system}.default;
           envswitch = inputs.envswitch.packages.${system}.default;
           helix = inputs.helix.packages.${system}.default;

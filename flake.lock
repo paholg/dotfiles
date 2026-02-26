@@ -175,7 +175,7 @@
         "type": "github"
       }
     },
-    "dc": {
+    "devconcurrent": {
       "inputs": {
         "crane": [
           "crane"
@@ -191,16 +191,16 @@
         ]
       },
       "locked": {
-        "lastModified": 1771978211,
-        "narHash": "sha256-b6O+agQujdBq7SWyfTbsW42qd3yrb2HsO0FW3RZfJNA=",
+        "lastModified": 1772137475,
+        "narHash": "sha256-S4g49QSPCaQormWy4rL7VdqbOgDTHG6HOMiFWt/XCRY=",
         "owner": "paholg",
-        "repo": "dc",
-        "rev": "541e737a4265e96848927c60a64fdf5c153f7d16",
+        "repo": "devconcurrent",
+        "rev": "454d1f540a8ec8e9c93dc1f5cef1fab3726d95da",
         "type": "github"
       },
       "original": {
         "owner": "paholg",
-        "repo": "dc",
+        "repo": "devconcurrent",
         "type": "github"
       }
     },
@@ -622,7 +622,7 @@
         "authit": "authit",
         "claude-code": "claude-code",
         "crane": "crane",
-        "dc": "dc",
+        "devconcurrent": "devconcurrent",
         "display-switch": "display-switch",
         "envswitch": "envswitch",
         "flake-utils": "flake-utils_2",

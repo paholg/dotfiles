@@ -39,7 +39,7 @@ in
         source /run/agenix/frame_shell_init.sh
 
         envswitch setup fish | source
-        COMPLETE=fish dc | source
+        COMPLETE=fish devconcurrent | source
       '';
   };
 
@@ -182,7 +182,7 @@ in
       docker
       distrobox
       dive # look into docker image layers
-      external.dc
+      external.devconcurrent
       external.envswitch
       framework-tool
       heroku
