@@ -250,6 +250,16 @@ in
                 nix shell $pkgs --command fish
               '';
           };
+          wname = {
+            body = # fish
+              ''
+                if set -q argv[1]
+                  niri msg action set-workspace-name "$argv[1]"
+                else
+                  niri msg action unset-workspace-name
+                end
+              '';
+          };
         };
       };
 
