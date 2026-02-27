@@ -1,4 +1,9 @@
-{ lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 {
   imports = [
     ./hardware-configuration.nix
@@ -34,6 +39,8 @@
   virtualisation.docker.enable = true;
   users.users.paho.extraGroups = [ "docker" ];
 
+  services.flatpak.enable = true;
+
   services.power-profiles-daemon.enable = true;
 
   # ****************************************************************************
@@ -66,4 +73,11 @@
   # ****************************************************************************
   # Seeing display freezes; testing settings to fix.
   boot.kernelPackages = pkgs.linuxPackages_6_6;
+
+  # ****************************************************************************
+  # v4l2loopback for OBS virtual camera
+  programs.obs-studio = {
+    enable = true;
+    enableVirtualCamera = true;
+  };
 }

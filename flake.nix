@@ -103,6 +103,7 @@
       linux = "x86_64-linux";
 
       pkgs_overlay = system: final: prev: {
+        niri = final.niri-unstable;
         # NOTE: This is likely fixed once a version above 0.16.6 releases.
         libtorrent-rakshasa = prev.libtorrent-rakshasa.overrideAttrs (old: rec {
           version = "0.15.6";
@@ -139,6 +140,7 @@
         import inputs.nixpkgs {
           overlays = [
             (pkgs_overlay system)
+            inputs.niri.overlays.niri
           ];
           inherit system;
           config.allowUnfree = true;

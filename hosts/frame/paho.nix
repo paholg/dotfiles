@@ -4,39 +4,18 @@
   ...
 }:
 let
-  zoomWc = pkgs.writeShellApplication {
-    name = "zoom-watercooler";
-    runtimeInputs = with pkgs; [
-      jq
-      niri
-    ];
-    text = # bash
-      ''
-        niri msg -j windows \
-          | jq '.[] | select(.app_id == "Zoom Workplace") | .pid' \
-          | head -n1 \
-          | xargs kill || true
-
-        xargs xdg-open < "$HOME/docs/watercooler_link"
-      '';
-  };
-
   zoomSettings = {
-    enableWaylandShare = false;
-    xwayland = true;
+    enableWaylandShare = true;
+    xwayland = false;
     enableMiniWindow = false;
-    autoScale = true;
     captureHDCamera = true;
-    enableAlphaBuffer = true;
-    playSoundForNewMessage = false;
     showSystemTitlebar = false;
-    noSandbox = true;
   };
 
   zoomActivationScript = lib.concatStringsSep "\n" (
-    lib.mapAttrsToList
-      (key: value: ''set_zoom General ${key} ${lib.generators.mkValueStringDefault { } value}'')
-      zoomSettings
+    lib.mapAttrsToList (
+      key: value: "set_zoom General ${key} ${lib.generators.mkValueStringDefault { } value}"
+    ) zoomSettings
   );
 in
 {
@@ -195,16 +174,24 @@ in
   };
 
   home.activation.zoomConfig = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
-    conf="$HOME/.config/zoomus.conf"
+    conf="$HOME/.var/app/us.zoom.Zoom/config/zoomus.conf"
     if [ ! -f "$conf" ]; then
+      mkdir -p "$(dirname "$conf")"
       touch "$conf"
     fi
     set_zoom() { ${pkgs.crudini}/bin/crudini --set "$conf" "$@"; }
     ${zoomActivationScript}
   '';
 
-  home.packages =
-    (with pkgs; [
+  xdg.mimeApps.defaultApplications = {
+    "x-scheme-handler/zoommtg" = "us.zoom.Zoom.desktop";
+    "x-scheme-handler/zoomus" = "us.zoom.Zoom.desktop";
+    "x-scheme-handler/zoomphonecall" = "us.zoom.Zoom.desktop";
+  };
+
+  home.packages = (
+    with pkgs;
+    [
       csvtool
       devcontainer
       docker
@@ -222,11 +209,8 @@ in
       redis
       terraform
       terraform-ls
-      zoom-us
-    ])
-    ++ [
-      zoomWc
-    ];
+    ]
+  );
 
   programs.vscode = {
     enable = true;

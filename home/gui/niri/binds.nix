@@ -36,7 +36,10 @@ in
     "Super+Tab".action.switch-focus-between-floating-and-tiling = { };
 
     "Super+X".action.spawn = "niri-focus-urgent";
-    "Super+D".action.spawn = ["makoctl" "dismiss"];
+    "Super+D".action.spawn = [
+      "makoctl"
+      "dismiss"
+    ];
     "Super+V".action.focus-workspace = "main";
 
     # Window Movement

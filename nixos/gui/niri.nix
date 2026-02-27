@@ -2,6 +2,7 @@
 {
   config = {
     programs.niri.enable = true;
+    programs.niri.package = pkgs.niri;
 
     # Workaround for swaylock not accepting password.
     security.pam.services.swaylock = { };
