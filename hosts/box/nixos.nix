@@ -94,6 +94,9 @@
     # Disable USB autosuspend for the Zigbee adapter.
     boot.kernelParams = [ "usbcore.autosuspend=-1" ];
 
+    # Ensure we can shutdown in 2 minutes.
+    systemd.settings.Manager.RebootWatchdogSec = "120";
+
     # ZFS
     # We don't want to use the latest kernel due to ZFS compatibility, which is
     # our default.

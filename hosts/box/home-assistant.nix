@@ -43,6 +43,7 @@
     enable = true;
     configDir = config.custom.drives.data + "/home-assistant";
     extraComponents = [
+      "cast" # Google Cast / Chromecast
       "esphome"
       "local_calendar"
       "met" # Forecast
