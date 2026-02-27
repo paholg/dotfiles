@@ -139,8 +139,8 @@ in
     };
     dc_ports = {
       description = "Show dc forwarded ports for this workspace";
-      command = "dc show ports";
-      when = "dc show workspace";
+      command = "devconcurrent show ports";
+      when = "devconcurrent show workspace";
       style = "blue";
       format = "[($symbol $output )]($style)";
       symbol = "󰖟";
