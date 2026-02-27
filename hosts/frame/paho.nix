@@ -1,4 +1,5 @@
 {
+  lib,
   pkgs,
   ...
 }:
@@ -19,6 +20,24 @@ let
         xargs xdg-open < "$HOME/docs/watercooler_link"
       '';
   };
+
+  zoomSettings = {
+    enableWaylandShare = false;
+    xwayland = true;
+    enableMiniWindow = false;
+    autoScale = true;
+    captureHDCamera = true;
+    enableAlphaBuffer = true;
+    playSoundForNewMessage = false;
+    showSystemTitlebar = false;
+    noSandbox = true;
+  };
+
+  zoomActivationScript = lib.concatStringsSep "\n" (
+    lib.mapAttrsToList
+      (key: value: ''set_zoom General ${key} ${lib.generators.mkValueStringDefault { } value}'')
+      zoomSettings
+  );
 in
 {
   imports = [
@@ -174,6 +193,15 @@ in
     enable = true;
     plugins = [ pkgs.obs-studio-plugins.obs-backgroundremoval ];
   };
+
+  home.activation.zoomConfig = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
+    conf="$HOME/.config/zoomus.conf"
+    if [ ! -f "$conf" ]; then
+      touch "$conf"
+    fi
+    set_zoom() { ${pkgs.crudini}/bin/crudini --set "$conf" "$@"; }
+    ${zoomActivationScript}
+  '';
 
   home.packages =
     (with pkgs; [
