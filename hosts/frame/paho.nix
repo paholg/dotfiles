@@ -65,8 +65,6 @@ in
               cd ~/src/scholarly/.worktrees/$name; or return
               direnv allow; or return
               eval (direnv export fish); or return
-              kitty --detach fish -c "dc_exec_in_ws $name"; or return
-              notify-send "workspace $name ready"
               terminal-mark-urgent
             case destroy
               niri msg action focus-workspace $name; or return

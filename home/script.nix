@@ -51,7 +51,7 @@
           body=$(git log -1 --pretty=%b)
 
           git push -f
-          gh pr create --fill || gh pr edit --title "$title" --body "$body"
+          gh pr create --fill "$@" || gh pr edit --title "$title" --body "$body"
         '';
     })
     (pkgs.writeShellApplication {
