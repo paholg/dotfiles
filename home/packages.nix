@@ -30,7 +30,7 @@ let
       [
         # kdePackages.kdenlive # video editing, broken 2026-01-29
         kitty.terminfo
-        krita
+        # krita # broken :(
         libreoffice
         mdbook
         pinta # paint
