@@ -45,9 +45,33 @@ up-fw:
 	fwupdmgr get-updates || exit 0
 	fwupdmgr update
 
-# Sho failed or crash-looping services
-show-failures:
-	systemctl list-units --type=service --state=failed,auto-restart
+# Show failed or crash-looping services
+healthcheck:
+	#!/usr/bin/env bash
+	set -euo pipefail
+	echo "=== Failed/stuck services ==="
+	systemctl list-units --type=service --state=failed,auto-restart,deactivating --no-pager
+	echo "=== Services with excessive restarts (>10) ==="
+	systemctl show --property=Id,NRestarts -- \
+		$(systemctl list-units --type=service --no-legend --no-pager | awk '{print $1}') \
+		2>/dev/null | \
+		awk -F= '/^Id=/{id=$2} /^NRestarts=/{if ($2+0>10) print id": "$2" restarts"}'
+	echo "=== Application health checks ==="
+	curl -sf --connect-timeout 3 --max-time 5 http://localhost:8099/zigbee/ > /dev/null 2>&1 \
+		|| echo "  zigbee2mqtt: frontend not responding (port 8099)"
+	echo "=== ZFS pool health ==="
+	zpool status -x
+	echo "=== Drive health (smartd alerts, past 7 days) ==="
+	if systemctl is-active --quiet smartd; then
+		alerts=$(journalctl -u smartd --since "7 days ago" --priority=warning --no-pager 2>/dev/null || true)
+		if [[ -n "$alerts" ]]; then
+			echo "$alerts"
+		else
+			echo "  No recent drive alerts"
+		fi
+	else
+		echo "  smartd not running"
+	fi
 
 # Switch nixos and home-manager
 sw: switch-nix switch-hm

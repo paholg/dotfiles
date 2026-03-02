@@ -17,6 +17,7 @@ let
         net-tools
         outils # sha256, etc.
         psmisc # killall, fuser, etc.
+        smartmontools
         sparse
         strace
         usbutils

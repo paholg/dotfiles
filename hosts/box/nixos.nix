@@ -41,6 +41,7 @@
     environment.systemPackages = with pkgs; [
       libva-utils
       intel-gpu-tools
+      smartmontools
     ];
 
     environment.sessionVariables = {
@@ -94,14 +95,35 @@
     # Disable USB autosuspend for the Zigbee adapter.
     boot.kernelParams = [ "usbcore.autosuspend=-1" ];
 
+    # Disable SATA link power management (ALPM/DIPM) to prevent drives from
+    # initiating low-power link transitions that cause COMWAKE link resets.
+    # The Exos X16 (ST16000NM001G) has 140 command timeouts from this.
+    services.udev.extraRules = ''
+      ACTION=="add", SUBSYSTEM=="scsi_host", KERNEL=="host*", \
+        ATTR{link_power_management_policy}="max_performance"
+    '';
+
     # Ensure we can shutdown in 2 minutes.
     systemd.settings.Manager.RebootWatchdogSec = "120";
 
-    # ZFS
+    # Swap to prevent OOM kills under heavy transcoding load.
+    swapDevices = [ { device = "/var/swapfile"; size = 32768; } ];
+
+    # ZFS + drive health monitoring
     # We don't want to use the latest kernel due to ZFS compatibility, which is
     # our default.
     boot.kernelPackages = pkgs.linuxPackages;
     services.zfs.autoScrub.enable = true;
+
+    # Monitor all drives: track all SMART attributes (-a), enable automatic
+    # offline data collection (-o on), and schedule self-tests:
+    #   S/../.././02  = short test daily at 02:00
+    #   L/../../6/03  = long test on Saturdays at 03:00
+    # Alerts appear in `journalctl -u smartd`.
+    services.smartd = {
+      enable = true;
+      defaults.monitored = "-a -o on -s (S/../.././02|L/../../6/03)";
+    };
     boot.supportedFilesystems = [ "zfs" ];
     boot.zfs.forceImportRoot = false;
     boot.extraModprobeConfig =

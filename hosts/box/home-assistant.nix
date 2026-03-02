@@ -16,6 +16,31 @@
 
   users.users.zigbee2mqtt.extraGroups = [ "dialout" ];
 
+  # Watchdog: zigbee2mqtt can freeze after an MQTT connack timeout while still
+  # appearing active to systemd. Restart it if the HTTP frontend stops responding.
+  systemd.services.zigbee2mqtt-watchdog = {
+    description = "Zigbee2MQTT watchdog";
+    serviceConfig = {
+      Type = "oneshot";
+      ExecStart = pkgs.writeShellScript "z2m-watchdog" ''
+        if ! ${pkgs.curl}/bin/curl -sf \
+            --connect-timeout 5 --max-time 10 \
+            http://localhost:${toString config.custom.ports.zigbee_frontend}/zigbee/ \
+            > /dev/null 2>&1; then
+          echo "zigbee2mqtt health check failed, restarting"
+          systemctl restart zigbee2mqtt.service
+        fi
+      '';
+    };
+  };
+  systemd.timers.zigbee2mqtt-watchdog = {
+    wantedBy = [ "timers.target" ];
+    timerConfig = {
+      OnBootSec = "5min";
+      OnUnitActiveSec = "5min";
+    };
+  };
+
   services.zigbee2mqtt = {
     enable = true;
     dataDir = config.custom.drives.data + "/zigbee2mqtt";

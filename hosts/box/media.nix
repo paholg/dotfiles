@@ -126,5 +126,9 @@
   systemd.services.jellyfin = {
     # Override UMask so that the `media` group gets file permissions
     serviceConfig.UMask = lib.mkForce "0002";
+    # Throttle at 12 GB, hard-kill at 16 GB via cgroup OOM (better than
+    # the system-wide OOM killer picking a random victim).
+    serviceConfig.MemoryHigh = "12G";
+    serviceConfig.MemoryMax = "16G";
   };
 }
