@@ -191,7 +191,6 @@ in
     with pkgs;
     [
       csvtool
-      devcontainer
       docker
       distrobox
       dive # look into docker image layers
@@ -199,14 +198,9 @@ in
       external.envswitch
       framework-tool
       heroku
-      # iredis
-      mermaid-cli
-      mycli
+      # mycli # broken :(
       mysql80
       pscale
-      redis
-      terraform
-      terraform-ls
     ]
   );
 

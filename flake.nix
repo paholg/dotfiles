@@ -15,24 +15,12 @@
     };
     devconcurrent = {
       url = "github:paholg/devconcurrent";
-      inputs.nixpkgs.follows = "nixpkgs";
-      inputs.crane.follows = "crane";
-      inputs.flake-utils.follows = "flake-utils";
-      inputs.rust-overlay.follows = "rust-overlay";
     };
     display-switch = {
       url = "github:paholg/display-switch/flake";
-      inputs.nixpkgs.follows = "nixpkgs";
-      inputs.crane.follows = "crane";
-      inputs.flake-utils.follows = "flake-utils";
-      inputs.rust-overlay.follows = "rust-overlay";
     };
     envswitch = {
       url = "github:paholg/envswitch";
-      inputs.nixpkgs.follows = "nixpkgs";
-      inputs.crane.follows = "crane";
-      inputs.flake-utils.follows = "flake-utils";
-      inputs.rust-overlay.follows = "rust-overlay";
     };
     home-manager = {
       url = "github:nix-community/home-manager";
@@ -40,9 +28,6 @@
     };
     helix = {
       url = "github:paholg/helix/driver";
-
-      inputs.nixpkgs.follows = "nixpkgs";
-      inputs.rust-overlay.follows = "rust-overlay";
     };
     niri = {
       url = "github:sodiboo/niri-flake";
@@ -54,16 +39,9 @@
     };
     playlister = {
       url = "github:paholg/playlister";
-      inputs.nixpkgs.follows = "nixpkgs";
-      inputs.crane.follows = "crane";
-      inputs.flake-utils.follows = "flake-utils";
-      inputs.rust-overlay.follows = "rust-overlay";
     };
     rustybar = {
       url = "github:paholg/rustybar/icons";
-      inputs.nixpkgs.follows = "nixpkgs";
-      inputs.flake-utils.follows = "flake-utils";
-      inputs.rust-overlay.follows = "rust-overlay";
     };
     stylix = {
       url = "github:danth/stylix";

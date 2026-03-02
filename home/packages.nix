@@ -31,10 +31,8 @@ let
       [
         # kdePackages.kdenlive # video editing, broken 2026-01-29
         kitty.terminfo
-        # krita # broken :(
+        krita
         libreoffice
-        mdbook
-        pinta # paint
         yubikey-manager
         zed-editor
       ]
@@ -53,7 +51,6 @@ let
         discord
         eog
         evince
-        # gimp # broken
         guvcview
         kdePackages.dolphin
         kdePackages.okular
@@ -71,25 +68,12 @@ let
 
   defaultPackages = with pkgs; [
     external.agenix
-    angle-grinder
     ast-grep
     aws-rotate-key
     bash-language-server
-    # TODO: broken
-    # bitwarden-cli
     bottom
-    broot
     btop-rocm
     cachix
-    cargo-deny
-    cargo-duplicates
-    cargo-edit
-    cargo-expand
-    cargo-flamegraph
-    cargo-generate
-    cargo-machete
-    cargo-nextest
-    cargo-outdated
     choose
     external.claude-code
     curl
@@ -101,21 +85,17 @@ let
     erdtree # pretty tree
     eza
     fd
-    feh
     fzf
     gh # GitHub CLI
     git
-    github-cli
     fastfetch
     htop
     hyperfine
-    jless
     jq
     just
     just-lsp
-    lazygit
     litecli # sqlite cli
-    markdown-oxide
+    markdown-oxide # markdown lsp
     marksman # markdown lsp
     ncdu # interactive disk-usage
     nh # nix helper
@@ -143,7 +123,6 @@ let
     shellcheck
     socat
     sshfs-fuse
-    # superhtml # html lsp, broken
     tabiew
     taplo # toml language server
     tinymist # typst language server
