@@ -118,11 +118,11 @@
     # Monitor all drives: track all SMART attributes (-a), enable automatic
     # offline data collection (-o on), and schedule self-tests:
     #   S/../.././02  = short test daily at 02:00
-    #   L/../../6/03  = long test on Saturdays at 03:00
+    #   L/../../1/03  = long test on Mondays at 03:00
     # Alerts appear in `journalctl -u smartd`.
     services.smartd = {
       enable = true;
-      defaults.monitored = "-a -o on -s (S/../.././02|L/../../6/03)";
+      defaults.monitored = "-a -o on -s (S/../.././02|L/../../1/03)";
     };
     boot.supportedFilesystems = [ "zfs" ];
     boot.zfs.forceImportRoot = false;
