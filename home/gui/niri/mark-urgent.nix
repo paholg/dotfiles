@@ -22,7 +22,7 @@ let
       echo "PID $1 -> window $pid"
       niri msg action set-window-urgent --id "$id"
 
-      [ -n "''${2:-}" ] && notify-send "$2"
+      [ -n "''${2:-}" ] && notify-send -t 5000 "$2"
     '';
   };
 
