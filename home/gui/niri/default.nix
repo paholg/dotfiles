@@ -4,6 +4,7 @@
     ./binds.nix
     ./background.nix
     ./locker.nix
+    ./mark-urgent.nix
     ./rustybar.nix
   ];
 

@@ -34,7 +34,6 @@ let
         krita
         libreoffice
         yubikey-manager
-        zed-editor
       ]
     else
       [ ];
@@ -59,7 +58,7 @@ let
         mesa-demos
         pavucontrol
         pulseaudioFull
-        signal-desktop-bin
+        signal-desktop
         slack
         vlc
       ]

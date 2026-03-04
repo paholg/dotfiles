@@ -65,7 +65,7 @@ in
               cd ~/src/scholarly/.worktrees/$name; or return
               direnv allow; or return
               eval (direnv export fish); or return
-              terminal-mark-urgent
+              echo "" | nc -U /run/user/1000/mark-urgent.sock
             case destroy
               niri msg action focus-workspace $name; or return
               niri msg action unset-workspace-name; or return

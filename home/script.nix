@@ -124,13 +124,5 @@
           printf "\n\nTo continue working on this project:\ncd %s\n" "$PROJECT_DIR"
         '';
     })
-    (pkgs.writeShellApplication {
-      name = "terminal-mark-urgent";
-      text = # bash
-        ''
-          id=$(niri msg -j windows | jq -r ".[] | select(.pid == $KITTY_PID) | .id")
-          niri msg action set-window-urgent --id "$id"
-        '';
-    })
   ];
 }
