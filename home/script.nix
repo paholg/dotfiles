@@ -56,9 +56,7 @@
     })
     (pkgs.writeShellApplication {
       name = "git-pb";
-      runtimeInputs = with pkgs; [
-        git
-      ];
+      runtimeInputs = with pkgs; [ git ];
       text = # bash
         ''
           # Source: https://github.com/not-an-aardvark/git-delete-squashed
@@ -76,6 +74,20 @@
             cherry=$(git cherry $TARGET_BRANCH "$commit_tree")
             [[ "$cherry" == "-"* ]] && (echo "Branch merged: $branch" && git branch -D "$branch") || echo "Not merged: $branch"
           done
+        '';
+    })
+    (pkgs.writeShellApplication {
+      name = "git-refresh";
+      runtimeInputs = with pkgs; [ git ];
+      text = # bash
+        ''
+          n=$(git stash list | wc -l)
+          git add .
+          git stash
+          git fetch
+          git rebase -i origin/main
+          [ "$(git stash list | wc -l)" -gt "$n" ] && git stash pop
+          git reset
         '';
     })
     (pkgs.writeShellApplication {
