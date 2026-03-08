@@ -320,4 +320,30 @@ in
       NetworkNamespacePath = "/var/run/netns/${namespace}";
     };
   };
+
+  systemd.services.wireguard-status = {
+    description = "Write WireGuard handshake time to world-readable file";
+    after = [ "wireguard-wg0.service" ];
+    serviceConfig = {
+      Type = "oneshot";
+      ExecStart = "${pkgs.writeShellApplication {
+        name = "wireguard-status";
+        runtimeInputs = [ pkgs.iproute2 pkgs.gawk pkgs.wireguard-tools ];
+        text = ''
+          ts=$(ip netns exec ${namespace} wg show wg0 latest-handshakes | awk '{print $2}')
+          echo "''${ts:-0}" > /run/wireguard-handshake
+          chmod 644 /run/wireguard-handshake
+        '';
+      }}/bin/wireguard-status";
+    };
+  };
+
+  systemd.timers.wireguard-status = {
+    description = "Periodically update WireGuard handshake status";
+    wantedBy = [ "timers.target" ];
+    timerConfig = {
+      OnBootSec = "1min";
+      OnUnitActiveSec = "1min";
+    };
+  };
 }

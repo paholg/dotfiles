@@ -36,6 +36,22 @@
         else
           echo "  smartd not running"
         fi
+
+        echo "=== VPN health ==="
+        if [[ -f /run/wireguard-handshake ]]; then
+          last=$(cat /run/wireguard-handshake)
+          now=$(date +%s)
+          age=$((now - last))
+          if [[ "$last" -eq 0 ]]; then
+            echo "  VPN: no handshake recorded"
+          elif [[ $age -gt 300 ]]; then
+            echo "  VPN: tunnel DOWN (last handshake ''${age}s ago)"
+          else
+            echo "  VPN: tunnel up (last handshake ''${age}s ago)"
+          fi
+        else
+          echo "  VPN: status file missing (wireguard-status timer not running?)"
+        fi
       '';
     })
   ];
