@@ -6,7 +6,6 @@
 let
   downloads = config.custom.drives.storage + "/downloads";
   completed = config.custom.drives.storage + "/completed";
-  transmission = config.custom.drives.data + "/transmission";
 
   wgIP = "10.185.49.0";
   wgIP6 = "fd7d:76ee:e68f:a993:64ab:d868:53d:f267";
@@ -81,11 +80,9 @@ in
 
   networking.firewall = {
     allowedTCPPorts = [
-      config.custom.ports.transmission_peer
       config.custom.ports.rtorrent_peer
     ];
     allowedUDPPorts = [
-      config.custom.ports.transmission_peer
       config.custom.ports.rtorrent_peer
       config.custom.ports.rtorrent_dht
       config.custom.ports.bitmagnet_dht
@@ -127,48 +124,6 @@ in
       NetworkNamespacePath = "/var/run/netns/${namespace}";
       BindReadOnlyPaths = [ "/etc/resolv-vpn.conf:/etc/resolv.conf" ];
       EnvironmentFile = config.age.secrets.tmdb_api_key.path;
-    };
-  };
-
-  # ****************************************************************************
-  # Transmission Service
-  # ****************************************************************************
-
-  services.transmission = {
-    enable = true;
-    package = pkgs.transmission_4;
-    group = "media";
-    home = transmission;
-    webHome = pkgs.flood-for-transmission;
-    openRPCPort = true;
-    openPeerPorts = true;
-    downloadDirPermissions = "770";
-    settings = {
-      download-dir = completed;
-      incomplete-dir = downloads;
-      incomplete-dir-enabled = true;
-      rpc-bind-address = "0.0.0.0";
-      rpc-host-whitelist-enabled = true;
-      rpc-host-whitelist = "home.paholg.com";
-      rpc-whitelist-enabled = false;
-      download-queue-enabled = false;
-      seed-queue-enabled = true;
-      ratio-limit = 2.0;
-      # NOTE: This mask needs to be specified in base 10 instead of octal.
-      umask = 7; # 0o007 == 7
-      cache-size-mb = 1024;
-      peer-limit-per-torrent = 250;
-      peer-limit-global = 10000;
-      peer-port = config.custom.ports.transmission_peer;
-    };
-  };
-
-  systemd.services.transmission = {
-    after = [ "wireguard-wg0.service" ];
-    requires = [ "wireguard-wg0.service" ];
-    serviceConfig = {
-      NetworkNamespacePath = "/var/run/netns/${namespace}";
-      BindReadOnlyPaths = [ "/etc/resolv-vpn.conf:/etc/resolv.conf" ];
     };
   };
 
@@ -326,15 +281,21 @@ in
     after = [ "wireguard-wg0.service" ];
     serviceConfig = {
       Type = "oneshot";
-      ExecStart = "${pkgs.writeShellApplication {
-        name = "wireguard-status";
-        runtimeInputs = [ pkgs.iproute2 pkgs.gawk pkgs.wireguard-tools ];
-        text = ''
-          ts=$(ip netns exec ${namespace} wg show wg0 latest-handshakes | awk '{print $2}')
-          echo "''${ts:-0}" > /run/wireguard-handshake
-          chmod 644 /run/wireguard-handshake
-        '';
-      }}/bin/wireguard-status";
+      ExecStart = "${
+        pkgs.writeShellApplication {
+          name = "wireguard-status";
+          runtimeInputs = [
+            pkgs.iproute2
+            pkgs.gawk
+            pkgs.wireguard-tools
+          ];
+          text = ''
+            ts=$(ip netns exec ${namespace} wg show wg0 latest-handshakes | awk '{print $2}')
+            echo "''${ts:-0}" > /run/wireguard-handshake
+            chmod 644 /run/wireguard-handshake
+          '';
+        }
+      }/bin/wireguard-status";
     };
   };
 

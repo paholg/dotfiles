@@ -198,11 +198,6 @@ in
           groups = [ "arr_admin@auth.paholg.com" ];
         })
         (mkAuthLocation {
-          location = "/transmission";
-          proxyPass = "http://${config.custom.ips.vpn_veth}:${toString config.custom.ports.transmission}";
-          groups = [ "arr_admin@auth.paholg.com" ];
-        })
-        (mkAuthLocation {
           location = "/rtorrent/";
           proxyPass = "http://127.0.0.1:${toString config.custom.ports.rtorrent}/rtorrent/";
           groups = [ "arr_admin@auth.paholg.com" ];

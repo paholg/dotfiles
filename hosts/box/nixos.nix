@@ -66,8 +66,6 @@
         prowlarr = 9696;
         radarr = 7878;
         sonarr = 8989;
-        transmission = 9091;
-        transmission_peer = 23014;
         rtorrent = 8384;
         rtorrent_scgi = 9092;
         rtorrent_peer = 18279;
@@ -107,7 +105,12 @@
     systemd.settings.Manager.RebootWatchdogSec = "120";
 
     # Swap to prevent OOM kills under heavy transcoding load.
-    swapDevices = [ { device = "/var/swapfile"; size = 32768; } ];
+    swapDevices = [
+      {
+        device = "/var/swapfile";
+        size = 32768;
+      }
+    ];
 
     # ZFS + drive health monitoring
     # We don't want to use the latest kernel due to ZFS compatibility, which is
