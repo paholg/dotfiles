@@ -85,7 +85,7 @@
           git add .
           git stash
           git fetch
-          git rebase -i origin/main
+          git rebase origin/main "$@"
           [ "$(git stash list | wc -l)" -gt "$n" ] && git stash pop
           git reset
         '';
