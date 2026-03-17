@@ -63,9 +63,18 @@
 
           TARGET_BRANCH=main
 
-          git checkout -q $TARGET_BRANCH
+          worktree_branches=$(git worktree list --porcelain | sed -n 's/^branch refs\/heads\///p')
           branches=$(git for-each-ref refs/heads/ "--format=%(refname:short)")
           for branch in $branches; do
+            [[ "$branch" == "$TARGET_BRANCH" ]] && continue
+            if echo "$worktree_branches" | grep -qx "$branch"; then
+              echo "In worktree: $branch"
+              continue
+            fi
+            if git merge-base --is-ancestor "$branch" $TARGET_BRANCH; then
+              echo "Branch empty: $branch" && git branch -D "$branch"
+              continue
+            fi
             mergeBase=$(git merge-base $TARGET_BRANCH "$branch")
             # Want the symbols to be literal
             # shellcheck disable=SC1083,SC1001
