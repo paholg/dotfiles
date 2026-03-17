@@ -21,6 +21,20 @@
     "/dev/disk/by-uuid/0f2fe45b-6e0e-4cb6-b9ee-87b639fb04cb";
 
   networking.networkmanager.enable = true;
+  networking.networkmanager.wifi.powersave = false;
+
+  boot.extraModprobeConfig = ''
+    options btusb enable_autosuspend=n
+  '';
+
+  services.pipewire.wireplumber.extraConfig."10-bluez" = {
+    "monitor.bluez.properties" = {
+      "bluez5.enable-sbc-xq" = true;
+      "bluez5.enable-msbc" = true;
+      "bluez5.enable-hw-volume" = true;
+      "bluez5.hfphsp-backend" = "native";
+    };
+  };
   services.logind.settings.Login = {
     HandlePowerKey = "suspend";
   };
