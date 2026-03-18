@@ -61,27 +61,45 @@
         ''
           # Source: https://github.com/not-an-aardvark/git-delete-squashed
 
-          TARGET_BRANCH=main
+          git fetch
 
           worktree_branches=$(git worktree list --porcelain | sed -n 's/^branch refs\/heads\///p')
           branches=$(git for-each-ref refs/heads/ "--format=%(refname:short)")
+          declare -A groups
           for branch in $branches; do
-            [[ "$branch" == "$TARGET_BRANCH" ]] && continue
+            [[ "$branch" == "main" ]] && continue
+
             if echo "$worktree_branches" | grep -qx "$branch"; then
-              echo "In worktree: $branch"
+              groups["In worktree"]+="  $branch"$'\n'
               continue
             fi
-            if git merge-base --is-ancestor "$branch" $TARGET_BRANCH; then
-              echo "Branch empty: $branch" && git branch -D "$branch"
+
+            if git merge-base --is-ancestor "$branch" origin/main; then
+              git branch -D "$branch" > /dev/null
+              groups["Deleted (empty)"]+="  $branch"$'\n'
               continue
             fi
-            mergeBase=$(git merge-base $TARGET_BRANCH "$branch")
+
+            mergeBase=$(git merge-base origin/main "$branch")
             # Want the symbols to be literal
             # shellcheck disable=SC1083,SC1001
             tree=$(git rev-parse "$branch"\^{tree})
             commit_tree=$(git commit-tree "$tree" -p "$mergeBase" -m _)
-            cherry=$(git cherry $TARGET_BRANCH "$commit_tree")
-            [[ "$cherry" == "-"* ]] && (echo "Branch merged: $branch" && git branch -D "$branch") || echo "Not merged: $branch"
+            cherry=$(git cherry origin/main "$commit_tree")
+            if [[ "$cherry" == "-"* ]]; then
+              git branch -D "$branch" > /dev/null
+              groups["Deleted (merged)"]+="  $branch"$'\n'
+            else
+              groups["Not merged"]+="  $branch"$'\n'
+            fi
+          done
+
+          for group in "Deleted (merged)" "Deleted (empty)" "Not merged" "In worktree"; do
+            if [[ -n "''${groups[$group]:-}" ]]; then
+              echo "$group:"
+              echo -n "''${groups[$group]}"
+              echo
+            fi
           done
         '';
     })
