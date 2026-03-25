@@ -36,6 +36,7 @@ in
     "Super+Tab".action.switch-focus-between-floating-and-tiling = { };
 
     "Super+X".action.spawn = "niri-focus-urgent";
+    "Super+Ctrl+X".action.focus-window-previous = { };
     "Super+D".action.spawn = [
       "makoctl"
       "dismiss"
@@ -82,8 +83,13 @@ in
     "Super+Ctrl+F".action.set-column-width = "+10%";
 
     # Misc
+    "Super+Ctrl+Alt+B".action.quit = { };
     "Super+Ctrl+Q".action.close-window = { };
-    "Super+Alt+Q".action.quit = { };
+    "Super+Alt+Q".action.spawn = [ nkill ];
+    "Super+Ctrl+Alt+Q".action.spawn = [
+      nkill
+      "-9"
+    ];
     "Super+Shift+Slash".action.show-hotkey-overlay = { };
 
     "Super+Z".action.toggle-window-floating = { };
@@ -107,11 +113,6 @@ in
       "bash"
       "-c" # bash
       ''notify-send "$(niri msg focused-window)"''
-    ];
-    "Super+Ctrl+X".action.spawn = [ nkill ];
-    "Super+Ctrl+Alt+X".action.spawn = [
-      nkill
-      "-9"
     ];
 
     # System settings
