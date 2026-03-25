@@ -216,6 +216,8 @@ in
 
           batman --export-env | source
           eval (batpipe)
+
+          COMPLETE=fish devconcurrent | source
         ''
         + config.custom.fish_extra_init;
 

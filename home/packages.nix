@@ -75,6 +75,7 @@ let
     cachix
     choose
     external.claude-code
+    external.devconcurrent
     curl
     difftastic
     dig
