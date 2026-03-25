@@ -17,6 +17,12 @@ let
       key: value: "set_zoom General ${key} ${lib.generators.mkValueStringDefault { } value}"
     ) zoomSettings
   );
+
+  monitors = {
+    pg42uq = "ASUSTek COMPUTER INC PG42UQ";
+    portable = "Invalid Vendor Codename - RTK 0x0101 0x01010101";
+  };
+
 in
 {
   imports = [
@@ -68,9 +74,9 @@ in
               echo "$KITTY_PID" | nc -U /run/user/1000/mark-urgent.sock
               dc x
             case destroy
-              niri msg action focus-workspace $name; or return
               niri msg action unset-workspace-name; or return
-              dc $argv
+              dc $argv; or return
+              exit
             case '*'
               echo "Usage: ws {up|destroy} NAME [ARGS...]"
               return 1
@@ -84,13 +90,6 @@ in
       "Super+Ctrl+W".action.spawn = "zoom-watercooler";
     };
     outputs = {
-      "DP-3" = {
-        enable = true;
-        position = {
-          x = 1735;
-          y = 0;
-        };
-      };
       "eDP-1" = {
         enable = true;
         position = {
@@ -99,13 +98,27 @@ in
         };
         scale = 1.3;
       };
+      ${monitors.portable} = {
+        enable = true;
+        position = {
+          x = 0;
+          y = 0;
+        };
+        transform.rotation = 90;
+        scale = 1.2;
+      };
+      ${monitors.pg42uq} = {
+        enable = true;
+        # Without a set position, niri will place this to the right, which is
+        # where we want it.
+      };
     };
     spawn-at-startup = [
       { command = [ "firefox" ]; }
       { command = [ "slack" ]; }
     ];
     workspaces = {
-      "01-main".open-on-output = "DP-3";
+      "01-main".open-on-output = monitors.pg42uq;
       "02-chat".open-on-output = "eDP-1";
     };
     window-rules = [
