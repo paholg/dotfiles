@@ -74,6 +74,15 @@ in
 
   programs.niri.settings = {
     outputs = {
+      "HDMI-A-1" = {
+        enable = false;
+        position = {
+          x = 0;
+          y = 0;
+        };
+        scale = 1.2;
+        transform.rotation = 90;
+      };
       "DP-1" = {
         enable = false;
         mode = {

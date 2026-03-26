@@ -83,10 +83,15 @@
             {
               matches = [
                 { app-id = "discord"; }
-                { app-id = "steam"; }
                 { app-id = "Slack"; }
               ];
               open-on-workspace = "chat";
+            }
+            {
+              matches = [
+                { app-id = "steam"; }
+              ];
+              open-on-workspace = "steam";
             }
             {
               matches = [
