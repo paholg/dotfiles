@@ -60,6 +60,7 @@ let
 in
 {
   age.secrets.foundry_env.file = ../../secrets/foundry_env;
+  age.secrets.foundry_docker_env.file = ../../secrets/foundry_docker_env;
 
   users.groups.foundry = {
     gid = config.custom.groups.foundry;
@@ -82,6 +83,7 @@ in
     image = foundryVttImage;
     hostname = "vtt.paholg.com";
     ports = [ "0.0.0.0:${toString config.custom.ports.foundry}:30000" ];
+    environmentFiles = [ config.age.secrets.foundry_docker_env.path ];
     environment = {
       FOUNDRY_HOSTNAME = "vtt.paholg.com";
       FOUNDRY_PROXY_SSL = "true";

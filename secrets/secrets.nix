@@ -16,6 +16,7 @@ in
 {
   "authit_config.toml".publicKeys = boxKeys;
   "porkbun_api.json".publicKeys = boxKeys;
+  foundry_docker_env.publicKeys = boxKeys;
   foundry_env.publicKeys = boxKeys;
   oauth2_proxy.publicKeys = boxKeys;
   playlister_env.publicKeys = boxKeys;
