@@ -37,10 +37,11 @@ in
     targets.genericLinux.enable = !nixos;
 
     fonts.fontconfig.enable = true;
-
     xdg.userDirs = {
       enable = true;
+      setSessionVariables = false;
       createDirectories = false;
+
       desktop = "${homeDir}/.";
       documents = "${homeDir}/docs";
       download = "${homeDir}/downloads";
@@ -279,6 +280,7 @@ in
 
       git = lib.mkIf (config.custom.username == "paho") {
         enable = true;
+        signing.format = "openpgp";
         settings = {
           brannch.autoSetupMerge = "always";
           core.pager = "delta";

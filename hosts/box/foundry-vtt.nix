@@ -27,6 +27,7 @@ let
         exit 0
       fi
 
+      # shellcheck source=/dev/null
       source /run/agenix/foundry_env
 
       SESSION=$(mktemp -u)
@@ -35,7 +36,7 @@ let
       csrf=$(xh --check-status --session "$SESSION" GET https://foundryvtt.com/ | \
         rg -om1 'name="csrfmiddlewaretoken" value="([^"]+)"' -r '$1')
 
-      xh --check-status --follow --session "$SESSION" --form --quiet POST \ 
+      xh --check-status --follow --session "$SESSION" --form --quiet POST \
         https://foundryvtt.com/auth/login/ \
         Referer:https://foundryvtt.com/ \
         csrfmiddlewaretoken="''${csrf}" \

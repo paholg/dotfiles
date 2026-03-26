@@ -46,6 +46,7 @@
         name = "Adwaita-dark";
         package = pkgs.gnome-themes-extra;
       };
+      gtk4.theme = null;
     };
 
     # Program overrides

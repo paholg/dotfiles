@@ -48,15 +48,10 @@ up-fw:
 # Switch nixos and home-manager
 sw: switch-nix switch-hm
 
-# Switch, accepting warnings
-force-sw:
-	@just run nixos-rebuild "nh os switch . -- --extra-experimental-features 'nix-command flakes'"
-	
-
 # Switch NixOs
 [private]
 switch-nix:
-	@NIX_ABORT_ON_WARN=true just force-sw
+	@just run nixos-rebuild "nh os switch . -- --extra-experimental-features 'nix-command flakes'"
 
 # Switch home-manager
 [private]
