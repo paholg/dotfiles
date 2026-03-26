@@ -10,7 +10,6 @@
   };
 
   home.packages = [
-
     (pkgs.writeShellApplication {
       name = "healthcheck";
       text = ''
