@@ -35,6 +35,7 @@
       "bluez5.hfphsp-backend" = "native";
     };
   };
+
   services.logind.settings.Login = {
     HandlePowerKey = "suspend";
   };
@@ -56,6 +57,11 @@
   services.flatpak.enable = true;
 
   services.power-profiles-daemon.enable = true;
+
+  # Allow any USB device to wake from suspend.
+  services.udev.extraRules = ''
+    ACTION=="add", SUBSYSTEM=="usb", DRIVERS=="usb", ATTR{power/wakeup}="enabled"
+  '';
 
   # ****************************************************************************
   # Fingerprint
@@ -86,7 +92,7 @@
 
   # ****************************************************************************
   # Seeing display freezes; testing settings to fix.
-  boot.kernelPackages = pkgs.linuxPackages_6_6;
+  # boot.kernelPackages = pkgs.linuxPackages_6_6;
 
   # ****************************************************************************
   # v4l2loopback for OBS virtual camera
