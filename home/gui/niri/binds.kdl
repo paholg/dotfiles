@@ -1,0 +1,209 @@
+binds {
+    // Navigation
+    Super+C {
+        center-column
+    }
+    Super+H {
+        focus-column-left
+    }
+    Super+J {
+        focus-window-down
+    }
+    Super+K {
+        focus-window-up
+    }
+    Super+L {
+        focus-column-right
+    }
+    Super+Shift+H {
+        focus-monitor-left
+    }
+    Super+Shift+J {
+        focus-monitor-down
+    }
+    Super+Shift+K {
+        focus-monitor-up
+    }
+    Super+Shift+L {
+        focus-monitor-right
+    }
+    Super+I {
+        focus-workspace-up
+    }
+    Super+U {
+        focus-workspace-down
+    }
+    Super+Shift+I {
+        move-workspace-up
+    }
+    Super+Shift+U {
+        move-workspace-down
+    }
+    Super+Tab {
+        switch-focus-between-floating-and-tiling
+    }
+    Super+X {
+        spawn "niri-focus-urgent"
+    }
+    Super+Ctrl+X {
+        focus-window-previous
+    }
+    Super+D {
+        spawn "makoctl" "dismiss"
+    }
+    Super+V {
+        focus-workspace "main"
+    }
+    // Window Movement
+    Super+Ctrl+H {
+        move-column-left
+    }
+    Super+Ctrl+J {
+        move-window-down
+    }
+    Super+Ctrl+K {
+        move-window-up
+    }
+    Super+Ctrl+L {
+        move-column-right
+    }
+    Super+Shift+Ctrl+H {
+        move-workspace-to-monitor-left
+    }
+    Super+Shift+Ctrl+J {
+        move-workspace-to-monitor-down
+    }
+    Super+Shift+Ctrl+K {
+        move-workspace-to-monitor-up
+    }
+    Super+Shift+Ctrl+L {
+        move-workspace-to-monitor-right
+    }
+    Super+Ctrl+I {
+        move-column-to-workspace-up
+    }
+    Super+Ctrl+U {
+        move-column-to-workspace-down
+    }
+    Super+BracketLeft {
+        consume-or-expel-window-left
+    }
+    Super+BracketRight {
+        consume-or-expel-window-right
+    }
+    Super+Comma {
+        consume-window-into-column
+    }
+    Super+Period {
+        expel-window-from-column
+    }
+    // Resize
+    Super+Return {
+        expand-column-to-available-width
+    }
+    Super+Space {
+        reset-window-height
+    }
+    Super+Q {
+        set-column-width "25%"
+    }
+    Super+W {
+        set-column-width "50%"
+    }
+    Super+E {
+        set-column-width "75%"
+    }
+    Super+R {
+        set-column-width "100%"
+    }
+    Super+1 {
+        set-column-width "33.333333333333333%"
+    }
+    Super+2 {
+        set-column-width "66.666666666666667%"
+    }
+    Super+F {
+        fullscreen-window
+    }
+    Super+Ctrl+E {
+        set-window-height "+10%"
+    }
+    Super+Ctrl+S {
+        set-column-width "-10%"
+    }
+    Super+Ctrl+D {
+        set-window-height "-10%"
+    }
+    Super+Ctrl+F {
+        set-column-width "+10%"
+    }
+    // Misc
+    Super+Ctrl+Alt+B {
+        quit
+    }
+    Super+Ctrl+Q {
+        close-window
+    }
+    Super+Alt+Q {
+        spawn "nkill"
+    }
+    Super+Ctrl+Alt+Q {
+        spawn "nkill" "-9"
+    }
+    Super+Shift+Slash {
+        show-hotkey-overlay
+    }
+    Super+Z {
+        toggle-window-floating
+    }
+    Print {
+        screenshot
+    }
+    Alt+Print {
+        screenshot-window
+    }
+    Ctrl+Print {
+        screenshot-screen
+    }
+    // Spawn
+    Super+G {
+        spawn "fuzzel"
+    }
+    Super+T {
+        spawn "kitty"
+    }
+    Super+O {
+        spawn "pavucontrol"
+    }
+    Super+B {
+        spawn "firefox"
+    }
+    Super+Ctrl+N {
+        spawn "locker"
+    }
+    Super+Ctrl+B {
+        spawn "imv" "-f"
+    }
+    Super+Ctrl+R {
+        spawn "/usr/bin/env" "bash" "-c" "notify-send \"$(niri msg focused-window)\""
+    }
+    // System settings
+    XF86MonBrightnessUp {
+        spawn "brightnessctl" "s" "+10%"
+    }
+    XF86MonBrightnessDown {
+        spawn "brightnessctl" "s" "10%-"
+    }
+    XF86AudioLowerVolume {
+        spawn "wpctl" "set-volume" "@DEFAULT_AUDIO_SINK@" "0.1-"
+    }
+    XF86AudioMicMute {
+        spawn "wpctl" "set-mute" "@DEFAULT_AUDIO_SOURCE@" "toggle"
+    }
+    XF86AudioMute {
+        spawn "wpctl" "set-mute" "@DEFAULT_AUDIO_SINK@" "toggle"
+    }
+    XF86AudioRaiseVolume {
+        spawn "wpctl" "set-volume" "@DEFAULT_AUDIO_SINK@" "0.1+"
+    }
+}

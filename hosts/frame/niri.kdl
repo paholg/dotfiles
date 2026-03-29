@@ -1,0 +1,33 @@
+output "eDP-1" {
+    position x=0 y=0
+    scale 1.3
+}
+output "Invalid Vendor Codename - RTK 0x0101 0x01010101" {
+    position x=0 y=0
+    transform "90"
+    scale 1.2
+}
+// Without a set position, niri will place this to the right, which is
+// where we want it.
+output "ASUSTek COMPUTER INC PG42UQ" {
+
+}
+spawn-at-startup "firefox"
+spawn-at-startup "slack"
+workspace "main" {
+    open-on-output "ASUSTek COMPUTER INC PG42UQ"
+}
+workspace "chat" {
+    open-on-output "eDP-1"
+}
+window-rule {
+    // For selenium tests
+    match app-id="chromium-browser"
+    open-floating true
+}
+binds {
+    Super+Ctrl+W {
+        spawn "zoom-watercooler"
+    }
+}
+

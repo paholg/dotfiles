@@ -1,0 +1,29 @@
+workspace "main"
+workspace "chat"
+window-rule {
+    match app-id="Alacritty"
+    match app-id="kitty"
+    draw-border-with-background false
+}
+window-rule {
+    match app-id="pavucontrol"
+    match app-id=".blueman-manager-wrapped"
+    open-floating true
+}
+window-rule {
+    match app-id="discord"
+    match app-id="Slack"
+    open-on-workspace "chat"
+}
+window-rule {
+    match app-id="steam"
+    open-on-workspace "steam"
+}
+window-rule {
+    match app-id="Zoom Workplace"
+    match app-id="zoom"
+    exclude title="Zoom Meeting"
+    exclude title="Meeting"
+    open-floating true
+    open-focused false
+}

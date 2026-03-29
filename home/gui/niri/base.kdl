@@ -1,0 +1,32 @@
+environment {
+    NIXOS_OZONE_WL "1"
+}
+input {
+    focus-follows-mouse max-scroll-amount="0%"
+    keyboard {
+        repeat-delay 200
+        repeat-rate 50
+        xkb {
+            options "caps:backspace"
+        }
+    }
+    touchpad {
+        dwt
+        click-method "clickfinger"
+    }
+}
+screenshot-path "~/screenshots/%F_%H.%M.%S.png"
+layout {
+    always-center-single-column
+    center-focused-column "never"
+    gaps 4
+    empty-workspace-above-first
+    default-column-width {
+        proportion 0.25
+    }
+}
+switch-events {
+    lid-close {
+        spawn "locker"
+    }
+}

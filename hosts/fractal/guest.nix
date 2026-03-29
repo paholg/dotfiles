@@ -51,6 +51,11 @@ in
 {
   imports = [
     ../../home
+    (import ../../home/gui/niri/mkConfig.nix [
+      ../../home/gui/niri/base.kdl
+      ../../home/gui/niri/binds.kdl
+      ./guest-niri.kdl
+    ])
   ];
   home.stateVersion = "24.05";
 
@@ -72,47 +77,4 @@ in
       '';
   };
 
-  programs.niri.settings = {
-    outputs = {
-      "HDMI-A-1" = {
-        enable = false;
-        position = {
-          x = 0;
-          y = 0;
-        };
-        scale = 1.2;
-        transform.rotation = 90;
-      };
-      "DP-1" = {
-        enable = false;
-        mode = {
-          width = 3840;
-          height = 2160;
-          refresh = 138.0;
-        };
-      };
-      "DP-2" = {
-        enable = true;
-        mode = {
-          width = 3840;
-          height = 2160;
-          refresh = 60.0;
-        };
-        scale = 2.0;
-      };
-    };
-    spawn-at-startup = lib.mkForce [
-      { command = [ "steam" ]; }
-    ];
-    binds = {
-      # Override to disable the locker for guest.
-      "Super+Ctrl+N" = lib.mkForce { action.spawn = ""; };
-    };
-    workspaces = lib.mkForce { };
-    window-rules = lib.mkForce [
-      {
-        open-maximized = true;
-      }
-    ];
-  };
 }

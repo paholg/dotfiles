@@ -1,0 +1,24 @@
+output "HDMI-A-1" {
+    off
+    position x=0 y=0
+    scale 1.2
+    transform "90"
+}
+output "DP-1" {
+    off
+    mode "3840x2160@138.0"
+}
+output "DP-2" {
+    mode "3840x2160@60.0"
+    scale 2.0
+}
+spawn-at-startup "steam"
+window-rule {
+    open-maximized true
+}
+binds {
+    // Override to disable the locker for guest.
+    Super+Ctrl+N {
+
+    }
+}

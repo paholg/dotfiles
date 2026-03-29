@@ -89,6 +89,10 @@
             auto-format = false;
           }
           {
+            name = "kdl";
+            auto-format = true;
+          }
+          {
             name = "markdown";
             comment-tokens = [
               "-"

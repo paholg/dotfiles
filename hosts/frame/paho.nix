@@ -18,15 +18,16 @@ let
     ) zoomSettings
   );
 
-  monitors = {
-    pg42uq = "ASUSTek COMPUTER INC PG42UQ";
-    portable = "Invalid Vendor Codename - RTK 0x0101 0x01010101";
-  };
-
 in
 {
   imports = [
     ../../home
+    (import ../../home/gui/niri/mkConfig.nix [
+      ../../home/gui/niri/base.kdl
+      ../../home/gui/niri/paho.kdl
+      ../../home/gui/niri/binds.kdl
+      ./niri.kdl
+    ])
   ];
 
   home.stateVersion = "24.05";
@@ -84,50 +85,6 @@ in
     };
   };
 
-  programs.niri.settings = {
-    binds = {
-      "Super+Ctrl+W".action.spawn = "zoom-watercooler";
-    };
-    outputs = {
-      "eDP-1" = {
-        enable = true;
-        position = {
-          x = 0;
-          y = 0;
-        };
-        scale = 1.3;
-      };
-      ${monitors.portable} = {
-        enable = true;
-        position = {
-          x = 0;
-          y = 0;
-        };
-        transform.rotation = 90;
-        scale = 1.2;
-      };
-      ${monitors.pg42uq} = {
-        enable = true;
-        # Without a set position, niri will place this to the right, which is
-        # where we want it.
-      };
-    };
-    spawn-at-startup = [
-      { command = [ "firefox" ]; }
-      { command = [ "slack" ]; }
-    ];
-    workspaces = {
-      "01-main".open-on-output = monitors.pg42uq;
-      "02-chat".open-on-output = "eDP-1";
-    };
-    window-rules = [
-      {
-        # For selenium tests
-        matches = [ { app-id = "chromium-browser"; } ];
-        open-floating = true;
-      }
-    ];
-  };
 
   programs.starship.settings.custom = {
     heroku = {

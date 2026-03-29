@@ -1,7 +1,19 @@
-{ pkgs, ... }:
+{ lib, pkgs, ... }:
+let
+  nkillPkg = pkgs.writeShellApplication {
+    name = "nkill";
+    runtimeInputs = with pkgs; [
+      niri
+      ripgrep
+    ];
+    text = # bash
+      ''
+        kill "$@" "$(niri msg focused-window | rg --trim -r '$1' "PID: (\d+)")"
+      '';
+  };
+in
 {
   imports = [
-    ./binds.nix
     ./background.nix
     ./locker.nix
     ./mark-urgent.nix
@@ -10,6 +22,8 @@
 
   config = {
     home.packages = [
+      nkillPkg
+      pkgs.imv
       pkgs.nautilus # File-picker used by our desktop portal
       pkgs.wl-clipboard-rs
       pkgs.xwayland-satellite
@@ -21,91 +35,6 @@
         enable = true;
         settings = {
           show-failed-attempts = true;
-        };
-      };
-
-      niri = {
-        settings = {
-          environment = {
-            NIXOS_OZONE_WL = "1";
-          };
-          input = {
-            focus-follows-mouse = {
-              enable = true;
-              max-scroll-amount = "0%";
-            };
-            keyboard = {
-              repeat-delay = 200;
-              repeat-rate = 50;
-              xkb = {
-                options = "caps:backspace";
-              };
-            };
-            touchpad = {
-              natural-scroll = false;
-              tap = false;
-              dwt = true;
-              click-method = "clickfinger";
-            };
-          };
-          screenshot-path = "~/screenshots/%F_%H.%M.%S.png";
-          layout = {
-            always-center-single-column = true;
-            center-focused-column = "never";
-            gaps = 4;
-            empty-workspace-above-first = true;
-            default-column-width = {
-              proportion = 0.25;
-            };
-          };
-          switch-events.lid-close.action.spawn = "locker";
-          workspaces = {
-            "01-main".name = "main";
-            "02-chat".name = "chat";
-          };
-          window-rules = [
-            {
-              matches = [
-                { app-id = "Alacritty"; }
-                { app-id = "kitty"; }
-              ];
-              draw-border-with-background = false;
-            }
-            # Floating
-            {
-              matches = [
-                { app-id = "pavucontrol"; }
-                { app-id = ".blueman-manager-wrapped"; }
-              ];
-              open-floating = true;
-            }
-            # Chat Workspace
-            {
-              matches = [
-                { app-id = "discord"; }
-                { app-id = "Slack"; }
-              ];
-              open-on-workspace = "chat";
-            }
-            {
-              matches = [
-                { app-id = "steam"; }
-              ];
-              open-on-workspace = "steam";
-            }
-            {
-              matches = [
-                { app-id = "Zoom Workplace"; }
-                { app-id = "zoom"; }
-              ];
-              excludes = [
-                { title = "Zoom Meeting"; }
-                { title = "Meeting"; }
-              ];
-              open-floating = true;
-              open-focused = false;
-            }
-          ];
         };
       };
     };
