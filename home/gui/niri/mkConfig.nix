@@ -7,8 +7,6 @@ let
   }) kdlFiles;
 in
 {
-  programs.niri.config = null;
-
   xdg.configFile =
     builtins.listToAttrs (
       map (p: {
