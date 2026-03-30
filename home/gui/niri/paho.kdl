@@ -1,5 +1,3 @@
-workspace "main"
-workspace "chat"
 window-rule {
     match app-id="Alacritty"
     match app-id="kitty"
