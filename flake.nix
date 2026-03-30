@@ -17,7 +17,8 @@
       url = "github:paholg/devconcurrent";
     };
     display-switch = {
-      url = "github:paholg/display-switch/flake";
+      url = "github:haimgel/display-switch";
+      flake = false;
     };
     envswitch = {
       url = "github:paholg/envswitch";
@@ -62,10 +63,6 @@
       url = "github:hercules-ci/gitignore.nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    rust-overlay = {
-      url = "github:oxalica/rust-overlay";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
     systems = {
       url = "github:nix-systems/default";
     };
@@ -100,7 +97,16 @@
           agenix = inputs.agenix.packages.${system}.default;
           claude-code = inputs.claude-code.packages.${system}.default;
           devconcurrent = inputs.devconcurrent.packages.${system}.default;
-          display-switch = inputs.display-switch.packages.${system}.default;
+          display-switch =
+            let
+              craneLib = inputs.crane.mkLib final;
+            in
+            craneLib.buildPackage {
+              src = craneLib.cleanCargoSource inputs.display-switch;
+              nativeBuildInputs = [ final.pkg-config ];
+              buildInputs = [ final.udev final.libxi ];
+              doCheck = false;
+            };
           envswitch = inputs.envswitch.packages.${system}.default;
           helix = inputs.helix.packages.${system}.default;
           playlister = inputs.playlister.packages.${system}.default;

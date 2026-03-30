@@ -20,7 +20,7 @@
 
         Get the monitor ids using `ddcutil detect`.
 
-        The input IDs are Hdmi1, Hdmi2, DisplayPort2, DisplayPort2. For USB-C,
+        The input IDs are Hdmi1, Hdmi2, DisplayPort1, DisplayPort2. For USB-C,
         it will probably be DisplayPort2.
       '';
       example = {

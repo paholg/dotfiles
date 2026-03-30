@@ -12,6 +12,11 @@
           on_usb_connect = "DisplayPort1";
           on_usb_disconnect = "Hdmi1";
         };
+        monitor2 = {
+          monitor_id = "RTK";
+          on_usb_connect = "Hdmi2";
+          on_usb_disconnect = "DisplayPort1";
+        };
       };
     };
   };
