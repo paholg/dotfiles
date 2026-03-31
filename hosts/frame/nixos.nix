@@ -38,6 +38,7 @@
 
   services.logind.settings.Login = {
     HandlePowerKey = "suspend";
+    HandleLidSwitchExternalPower = "ignore";
   };
 
   # Need to install here for polit rules to be picked up.
@@ -92,7 +93,7 @@
 
   # ****************************************************************************
   # Seeing display freezes; testing settings to fix.
-  # boot.kernelPackages = pkgs.linuxPackages_6_6;
+  boot.kernelPackages = pkgs.linuxPackages_6_6;
 
   # ****************************************************************************
   # v4l2loopback for OBS virtual camera
