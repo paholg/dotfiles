@@ -91,6 +91,7 @@ let
     fastfetch
     htop
     hyperfine
+    jnv
     jq
     just
     just-lsp
