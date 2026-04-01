@@ -65,18 +65,21 @@
 
           worktree_branches=$(git worktree list --porcelain | sed -n 's/^branch refs\/heads\///p')
           branches=$(git for-each-ref refs/heads/ "--format=%(refname:short)")
-          declare -A groups
           for branch in $branches; do
             [[ "$branch" == "main" ]] && continue
 
+            in_worktree=false
             if echo "$worktree_branches" | grep -qx "$branch"; then
-              groups["In worktree"]+="  $branch"$'\n'
-              continue
+              in_worktree=true
             fi
 
             if git merge-base --is-ancestor "$branch" origin/main; then
-              git branch -D "$branch" > /dev/null
-              groups["Deleted (empty)"]+="  $branch"$'\n'
+              if $in_worktree; then
+                echo "In worktree:      $branch"
+              else
+                git branch -D "$branch" > /dev/null
+                echo "Deleted (empty):  $branch"
+              fi
               continue
             fi
 
@@ -87,18 +90,14 @@
             commit_tree=$(git commit-tree "$tree" -p "$mergeBase" -m _)
             cherry=$(git cherry origin/main "$commit_tree")
             if [[ "$cherry" == "-"* ]]; then
-              git branch -D "$branch" > /dev/null
-              groups["Deleted (merged)"]+="  $branch"$'\n'
+              if $in_worktree; then
+                echo "In worktree:      $branch"
+              else
+                git branch -D "$branch" > /dev/null
+                echo "Deleted (merged): $branch"
+              fi
             else
-              groups["Not merged"]+="  $branch"$'\n'
-            fi
-          done
-
-          for group in "Deleted (merged)" "Deleted (empty)" "Not merged" "In worktree"; do
-            if [[ -n "''${groups[$group]:-}" ]]; then
-              echo "$group:"
-              echo -n "''${groups[$group]}"
-              echo
+              echo "Not merged:       $branch"
             fi
           done
         '';
