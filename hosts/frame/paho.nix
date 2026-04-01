@@ -85,7 +85,6 @@ in
     };
   };
 
-
   programs.starship.settings.custom = {
     heroku = {
       command = "echo $HEROKU_APP";

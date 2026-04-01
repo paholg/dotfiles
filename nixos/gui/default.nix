@@ -51,6 +51,14 @@
               "device.profile" = "output:analog-stereo";
             };
           }
+          {
+            matches = [
+              { "node.name" = "alsa_output.usb-Audioengine_Audioengine_HD3_B40020170802-00.analog-stereo"; }
+            ];
+            actions.update-props = {
+              "node.force-quantum" = 1024;
+            };
+          }
         ];
       };
     };
@@ -64,11 +72,17 @@
       }
     ];
 
-    # Disable USB autosuspend on audio devices to prevent broken pipe
-    # loops when the device wakes from suspend mid-stream.
-    services.udev.extraRules = ''
-      ACTION=="add", SUBSYSTEM=="usb", ATTR{idVendor}=="0a12", ATTR{idProduct}=="1243", ATTR{power/control}="on", ATTR{power/autosuspend_delay_ms}="-1"
-    '';
+    services.udev.extraRules =
+      # Disable USB autosuspend on Audioengine HD3 to prevent broken pipe
+      # loops when the device wakes from suspend mid-stream.
+      ''
+        ACTION=="add", SUBSYSTEM=="usb", ATTR{idVendor}=="0a12", ATTR{idProduct}=="1243", ATTR{power/control}="on", ATTR{power/autosuspend_delay_ms}="-1"
+      ''
+      # Insta360 Link 2: autosuspend causes EPROTO and USB disconnect mid-stream.
+      # Same fix as upstream kernel applies to Link 1 (UVC_QUIRK_DISABLE_AUTOSUSPEND).
+      + ''
+        ACTION=="add", SUBSYSTEM=="usb", ATTR{idVendor}=="2e1a", ATTR{idProduct}=="4c04", ATTR{power/control}="on", ATTR{power/autosuspend_delay_ms}="-1"
+      '';
 
     services = {
       blueman.enable = true;
