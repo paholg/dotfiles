@@ -18,6 +18,10 @@ window-rule {
     open-on-workspace "steam"
 }
 window-rule {
+    match app-id="com.gabm.satty"
+    open-floating true
+}
+window-rule {
     match app-id="Zoom Workplace"
     match app-id="zoom"
     exclude title="Zoom Meeting"

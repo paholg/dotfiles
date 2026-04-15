@@ -1,4 +1,4 @@
-{ lib, pkgs, ... }:
+{ pkgs, ... }:
 let
   nkillPkg = pkgs.writeShellApplication {
     name = "nkill";

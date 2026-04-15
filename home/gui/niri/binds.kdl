@@ -163,7 +163,7 @@ binds {
         screenshot-window
     }
     Ctrl+Print {
-        screenshot-screen
+        spawn "screenshot-edit"
     }
     // Spawn
     Super+G {

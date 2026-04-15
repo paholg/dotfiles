@@ -133,6 +133,19 @@
         '';
     })
     (pkgs.writeShellApplication {
+      name = "screenshot-edit";
+      runtimeInputs = with pkgs; [
+        grim
+        slurp
+        satty
+      ];
+      text = # bash
+        ''
+          grim -t ppm -g "$(slurp -d)" - \
+          | satty -f - --copy-command="wl-copy" --initial-tool="arrow" --actions-on-enter="save-to-clipboard,exit"
+        '';
+    })
+    (pkgs.writeShellApplication {
       name = "play";
       text = # bash
         ''
