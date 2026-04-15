@@ -104,7 +104,6 @@ let
     nix-output-monitor
     nix-search
     nixd
-    nodePackages.typescript-language-server
     onefetch
     openssl
     pciutils # lspci, etc.
@@ -128,6 +127,7 @@ let
     taplo # toml language server
     tinymist # typst language server
     tlrc # Shorter man-pages
+    typescript-language-server
     typst
     typstyle # typst formatter
     tokei
