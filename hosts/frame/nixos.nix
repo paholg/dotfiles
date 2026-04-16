@@ -92,7 +92,14 @@
 
   # ****************************************************************************
   # Seeing display freezes; testing settings to fix.
-  boot.kernelPackages = pkgs.linuxPackages_6_6;
+  # https://lists.freedesktop.org/archives/amd-gfx/2026-February/138842.html
+  boot.kernelPackages = pkgs.linuxPackages_testing;
+  boot.kernelPatches = [
+    {
+      name = "amd-cursor-vblank-fix";
+      patch = ./amd-cursor-vblank-fix.patch;
+    }
+  ];
 
   # ****************************************************************************
   # v4l2loopback for OBS virtual camera

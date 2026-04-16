@@ -1,0 +1,43 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Michele Palazzi <sysdadmin@m1k.cloud>
+Date: Tue, 17 Feb 2026 19:16:32 +0000
+Subject: [PATCH] drm/amd/display: complete cursor vblank events immediately
+
+Intermittent flip_done timeouts have been observed on AMD GPUs
+since kernel 6.12.
+
+Analysis with bpftrace reveals that amdgpu_dm_crtc_handle_vblank() can
+incorrectly consume events meant for plane flips during cursor-only
+updates. This happens because cursor commits defer event delivery to
+the vblank handler, which checks (pflip_status != SUBMITTED). Since
+AMDGPU_FLIP_NONE also matches this, cursor events can "steal" the
+event slot for subsequent plane flips, leading to timeouts.
+
+Fix this by sending cursor-only vblank events immediately in
+amdgpu_dm_commit_planes(). Since cursor updates are committed to
+hardware immediately, deferring the event is unnecessary and
+creates race windows for event stealing or starvation if vblank
+is disabled before the handler runs.
+
+Fixes: 58a261bfc967 ("drm/amd/display: use a more lax vblank enable policy for older ASICs")
+Signed-off-by: Michele Palazzi <sysdadmin@m1k.cloud>
+---
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 3 +--
+ 1 file changed, 1 insertion(+), 2 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+index a8a59126b2d2..35987ce80c71 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+@@ -10168,8 +10168,7 @@ static void amdgpu_dm_commit_planes(struct drm_atomic_state *state,
+ 	} else if (cursor_update && acrtc_state->active_planes > 0) {
+ 		spin_lock_irqsave(&pcrtc->dev->event_lock, flags);
+ 		if (acrtc_attach->base.state->event) {
+-			drm_crtc_vblank_get(pcrtc);
+-			acrtc_attach->event = acrtc_attach->base.state->event;
++			drm_crtc_send_vblank_event(pcrtc, acrtc_attach->base.state->event);
+ 			acrtc_attach->base.state->event = NULL;
+ 		}
+ 		spin_unlock_irqrestore(&pcrtc->dev->event_lock, flags);
+--
+2.53.0
