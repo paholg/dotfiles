@@ -114,7 +114,6 @@ in
 
   home.shellAliases = {
     charge-limit = "sudo framework_tool --charge-limit";
-    my = "mysql --socket sockets/mysql/mysqld.sock -uroot -D scholarly_development";
   };
 
   home.sessionVariables = {
@@ -166,8 +165,6 @@ in
       external.envswitch
       framework-tool
       heroku
-      # mycli # broken :(
-      mysql80
       pscale
     ]
   );
