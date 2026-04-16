@@ -5,11 +5,8 @@ default:
 	@just --list
 
 # Update system
-up: \
-	up-git \
-	up-host \
-	up-fw \
-	sw
+up *args: up-git up-host up-fw
+	@just sw {{args}}
 
 swother host:
 	nixos-rebuild switch --flake . --target-host {{host}} --use-remote-sudo
@@ -25,12 +22,6 @@ secret-rekey:
 up-git:
 	git pull
 
-
-# Update rust
-[private]
-up-rust:
-	rustup update
-
 # Run any host-specific updates
 [private]
 up-host:
@@ -45,20 +36,10 @@ up-fw:
 	fwupdmgr get-updates || exit 0
 	fwupdmgr update
 
-# Switch nixos and home-manager
-sw: switch-nix switch-hm
+# Switch NixOS
+sw *args:
+	nh os switch . -- --extra-experimental-features 'nix-command flakes' {{args}}
 
-# Switch NixOs
-[private]
-switch-nix:
-	@just run nixos-rebuild "nh os switch . -- --extra-experimental-features 'nix-command flakes'"
-
-# Switch home-manager
-[private]
-switch-hm:
-	@just run home-manager "nh home switch ."
-
-# Run `cmd` if `bin` exists
-[private]
-run bin cmd:
-	if command -v {{bin}}; then {{cmd}}; fi
+# Switch NixOS, building on fractal
+sw-remote *args:
+	nh os switch . --build-host paho@fractal -- --extra-experimental-features 'nix-command flakes' --cores 0 {{args}}
