@@ -45,6 +45,9 @@
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.systems.follows = "systems";
     };
+    niri = {
+      url = "github:niri-wm/niri";
+    };
     claude-code = {
       url = "github:sadjow/claude-code-nix";
       inputs.flake-utils.follows = "flake-utils";
@@ -109,6 +112,7 @@
             };
           envswitch = inputs.envswitch.packages.${system}.default;
           helix = inputs.helix.packages.${system}.default;
+          niri = inputs.niri.packages.${system}.default;
           playlister = inputs.playlister.packages.${system}.default;
           rustybar = inputs.rustybar.packages.${system}.default;
         };
