@@ -14,6 +14,7 @@
 
       settings = {
         editor = {
+          insecure = true;
           auto-pairs = false;
           color-modes = true;
           completion-replace = true;
