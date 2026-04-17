@@ -57,6 +57,7 @@
             ];
             actions.update-props = {
               "node.force-quantum" = 1024;
+              "session.suspend-timeout-seconds" = 0;
             };
           }
         ];
