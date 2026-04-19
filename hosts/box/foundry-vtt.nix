@@ -7,6 +7,7 @@ let
   version = "13";
   build = "351";
   fullVersion = "${version}.${build}";
+  headerAuthRelease = "v13.351.0";
 
   foundryVttImage = "felddy/foundryvtt:${fullVersion}";
   foundryDownloadScript = pkgs.writeShellApplication {
@@ -91,7 +92,7 @@ in
       FOUNDRY_TELEMETRY = "true";
 
       # Header-based authentication via oauth2-proxy
-      CONTAINER_PATCH_URLS = "https://raw.githubusercontent.com/paholg/foundry-vtt-header-auth/refs/heads/autoprovision/patches.sh";
+      CONTAINER_PATCH_URLS = "https://raw.githubusercontent.com/MaienM/foundry-vtt-header-auth/${headerAuthRelease}/patches.sh";
       AUTO_PROVISION = "true";
       ROLE_PLAYER = "foundry_vtt_player@auth.paholg.com";
       ROLE_ADMIN = "foundry_vtt_admin@auth.paholg.com";
