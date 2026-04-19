@@ -31,5 +31,6 @@
     # blender-hip
     discover-overlay
     ffmpeg
+    obsidian
   ];
 }
