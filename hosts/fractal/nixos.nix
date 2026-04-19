@@ -22,8 +22,9 @@
   # For rebinding mouse
   services.ratbagd.enable = true;
 
-  services.lact.enable = true;
-  hardware.amdgpu.overdrive.enable = true;
+  # Might be causing amdgpu page faults?
+  # services.lact.enable = true;
+  # hardware.amdgpu.overdrive.enable = true;
 
   programs.gamemode.enable = true;
 
