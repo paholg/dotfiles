@@ -18,6 +18,39 @@ let
     ) zoomSettings
   );
 
+  fixWs = pkgs.writeShellApplication {
+    name = "fix-ws";
+    runtimeInputs = with pkgs; [
+      niri
+      jq
+    ];
+    text = ''
+      connected_outputs=$(niri msg --json outputs | jq '[to_entries[] | select(.value.logical != null)]')
+
+      # Chat lives on the RTK 0x0101 monitor if present, else the laptop's internal panel.
+      # (make + " " + model is matched together; stringifying the whole value inserts JSON
+      # punctuation between the two fields and breaks the "RTK 0x0101" match.)
+      chat_monitor=$(echo "$connected_outputs" | jq -r '
+        [ .[] | select((.value.make // "") + " " + (.value.model // "") | contains("RTK 0x0101")) ][0].key
+        // "eDP-1"
+      ')
+
+      main_monitor=$(echo "$connected_outputs" | jq -er --arg chat "$chat_monitor" '
+        [ .[] | select(.key != $chat) ][0].key
+      ')
+
+      named_workspaces=$(niri msg --json workspaces | jq -r '.[] | select(.name != null) | .name')
+
+      for workspace in $named_workspaces; do
+        case "$workspace" in
+          chat) target=$chat_monitor ;;
+          *)    target=$main_monitor ;;
+        esac
+        niri msg action move-workspace-to-monitor --reference "$workspace" "$target"
+      done
+    '';
+  };
+
 in
 {
   imports = [
@@ -163,6 +196,7 @@ in
       dive # look into docker image layers
       docker
       external.envswitch
+      fixWs
       framework-tool
       mysql84
       heroku
