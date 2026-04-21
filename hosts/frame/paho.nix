@@ -159,11 +159,12 @@ in
     with pkgs;
     [
       csvtool
-      docker
       distrobox
       dive # look into docker image layers
+      docker
       external.envswitch
       framework-tool
+      mysql84
       heroku
       pscale
     ]
