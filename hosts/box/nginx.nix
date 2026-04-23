@@ -125,7 +125,7 @@ in
         add_header Content-Security-Policy "default-src https: data: blob: ; img-src 'self' https://* ; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline' https://www.gstatic.com https://www.youtube.com blob:; worker-src 'self' blob:; connect-src 'self'; object-src 'none'; font-src 'self'";
       '';
       locations."/" = {
-        proxyPass = "http://localhost:${toString config.custom.ports.jellyfin}";
+        proxyPass = "http://127.0.0.1:${toString config.custom.ports.jellyfin}";
         proxyWebsockets = true;
         extraConfig = ''
           # Disable buffering when the nginx proxy gets very resource heavy upon streaming
@@ -139,7 +139,7 @@ in
       forceSSL = true;
       locations = mkAuthLocation {
         location = "/";
-        proxyPass = "http://localhost:${toString config.custom.ports.foundry}";
+        proxyPass = "http://127.0.0.1:${toString config.custom.ports.foundry}";
         groups = [
           "foundry_vtt_player@auth.paholg.com"
           "foundry_vtt_admin@auth.paholg.com"
