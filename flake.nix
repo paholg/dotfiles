@@ -107,7 +107,10 @@
             craneLib.buildPackage {
               src = craneLib.cleanCargoSource inputs.display-switch;
               nativeBuildInputs = [ final.pkg-config ];
-              buildInputs = [ final.udev final.libxi ];
+              buildInputs = [
+                final.udev
+                final.libxi
+              ];
               doCheck = false;
             };
           envswitch = inputs.envswitch.packages.${system}.default;
