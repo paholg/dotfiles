@@ -218,7 +218,7 @@ in
           batman --export-env | source
           eval (batpipe)
 
-          COMPLETE=fish devconcurrent | source
+          COMPLETE=fish devconcurrent | source 
         ''
         + config.custom.fish_extra_init;
 
@@ -308,6 +308,14 @@ in
             dc = "diff --cached";
             fixup = "!git commit -a --amend --no-edit && git push -f";
             l = ''!l() { git log "$@" | bat -p; }; l'';
+            push-remote = ''
+              !push-remote() {
+                # Hack to push to a remote branch when using `gh pr checkout`.
+                branch=$(git branch --show-current)
+                git push $(git config branch."$branch".pushremote) HEAD:$(git config branch."$branch".merge | sd "refs/heads/" "")
+              }
+              push-remote
+            '';
             rs = "restore --staged";
             rsw = "restore --staged --worktree";
             s = "status";
