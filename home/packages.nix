@@ -61,6 +61,7 @@ let
         signal-desktop
         slack
         vlc
+        wl-screenrec
       ]
     else
       [ ];

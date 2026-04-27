@@ -133,6 +133,31 @@
         '';
     })
     (pkgs.writeShellApplication {
+      name = "screenrec";
+      runtimeInputs = with pkgs; [
+        coreutils
+        libnotify
+        slurp
+        wl-screenrec
+      ];
+      text = # bash
+        ''
+          pidfile="''${XDG_RUNTIME_DIR:-/tmp}/wl-screenrec.pid"
+          if [ -f "$pidfile" ] && kill -0 "$(cat "$pidfile")" 2>/dev/null; then
+              kill -INT "$(cat "$pidfile")"
+              rm -f "$pidfile"
+              notify-send "Recording stopped"
+          else
+              geometry=$(slurp) || exit 0
+              mkdir -p ~/recordings
+              out="$HOME/recordings/$(date +%F_%H.%M.%S).mp4"
+              wl-screenrec -g "$geometry" -f "$out" &
+              echo "$!" > "$pidfile"
+              notify-send "Recording started" "$out"
+          fi
+        '';
+    })
+    (pkgs.writeShellApplication {
       name = "screenshot-edit";
       runtimeInputs = with pkgs; [
         grim

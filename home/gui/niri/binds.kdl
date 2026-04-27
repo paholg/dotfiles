@@ -165,6 +165,9 @@ binds {
     Ctrl+Print {
         spawn "screenshot-edit"
     }
+    Shift+Print {
+        spawn "screenrec"
+    }
     // Spawn
     Super+G {
         spawn "fuzzel"
