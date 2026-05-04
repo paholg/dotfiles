@@ -1,43 +1,64 @@
-From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
-From: Michele Palazzi <sysdadmin@m1k.cloud>
-Date: Tue, 17 Feb 2026 19:16:32 +0000
-Subject: [PATCH] drm/amd/display: complete cursor vblank events immediately
+From: <sunpeng.li@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+Cc: <Harry.Wentland@amd.com>, <Aurabindo.Pillai@amd.com>,
+	<mario.limonciello@amd.com>, <wiagn233@outlook.com>,
+	<sysdadmin@m1k.cloud>, <stable@vger.kernel.org>,
+	Leo Li <sunpeng.li@amd.com>
+Subject: [PATCH] drm/amd/display: Restore 5s vbl offdelay for NV3x+ DGPUs
+Date: Wed, 22 Apr 2026 12:29:56 -0400	[thread overview]
+Message-ID: <20260422162956.620362-1-sunpeng.li@amd.com> (raw)
 
-Intermittent flip_done timeouts have been observed on AMD GPUs
-since kernel 6.12.
+From: Leo Li <sunpeng.li@amd.com>
 
-Analysis with bpftrace reveals that amdgpu_dm_crtc_handle_vblank() can
-incorrectly consume events meant for plane flips during cursor-only
-updates. This happens because cursor commits defer event delivery to
-the vblank handler, which checks (pflip_status != SUBMITTED). Since
-AMDGPU_FLIP_NONE also matches this, cursor events can "steal" the
-event slot for subsequent plane flips, leading to timeouts.
+[Why]
 
-Fix this by sending cursor-only vblank events immediately in
-amdgpu_dm_commit_planes(). Since cursor updates are committed to
-hardware immediately, deferring the event is unnecessary and
-creates race windows for event stealing or starvation if vblank
-is disabled before the handler runs.
+Rapid vblank off is causing flip-done timeouts for NV3x and newer
+family of GPUs that support more idle optimization features.
 
-Fixes: 58a261bfc967 ("drm/amd/display: use a more lax vblank enable policy for older ASICs")
-Signed-off-by: Michele Palazzi <sysdadmin@m1k.cloud>
+A proper fix requires further investigation. In lieu of it, let's
+workaround it for now.
+
+[How]
+
+For NV3x and newer family of DGPUs, restore the old 5s vblank off timer.
+
+Fixes: 9b47278cec98 ("drm/amd/display: temp w/a for dGPU to enter idle optimizations")
+Link: https://gitlab.freedesktop.org/drm/amd/-/issues/3787
+Link: https://lore.kernel.org/amd-gfx/20260217191632.1243826-1-sysdadmin@m1k.cloud/
+Signed-off-by: Leo Li <sunpeng.li@amd.com>
+Tested-by: Michele Palazzi <sysdadmin@m1k.cloud>
 ---
- drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 3 +--
- 1 file changed, 1 insertion(+), 2 deletions(-)
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c  | 18 +++++++++++++++---
+ 1 file changed, 15 insertions(+), 3 deletions(-)
 
 diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-index a8a59126b2d2..35987ce80c71 100644
+index 3fa4dbda4517c..ce5063928413c 100644
 --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
 +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-@@ -10168,8 +10168,7 @@ static void amdgpu_dm_commit_planes(struct drm_atomic_state *state,
- 	} else if (cursor_update && acrtc_state->active_planes > 0) {
- 		spin_lock_irqsave(&pcrtc->dev->event_lock, flags);
- 		if (acrtc_attach->base.state->event) {
--			drm_crtc_vblank_get(pcrtc);
--			acrtc_attach->event = acrtc_attach->base.state->event;
-+			drm_crtc_send_vblank_event(pcrtc, acrtc_attach->base.state->event);
- 			acrtc_attach->base.state->event = NULL;
- 		}
- 		spin_unlock_irqrestore(&pcrtc->dev->event_lock, flags);
---
+@@ -9511,9 +9511,21 @@ static void manage_dm_interrupts(struct amdgpu_device *adev,
+ 	if (acrtc_state) {
+ 		timing = &acrtc_state->stream->timing;
+ 
+-		if (amdgpu_ip_version(adev, DCE_HWIP, 0) <
+-			   IP_VERSION(3, 5, 0) ||
+-			   !(adev->flags & AMD_IS_APU)) {
++		if (amdgpu_ip_version(adev, DCE_HWIP, 0) >=
++		      IP_VERSION(3, 2, 0) &&
++		      !(adev->flags & AMD_IS_APU)) {
++			/*
++			 * DGPUs NV3x and newer that support idle optimizations
++			 * experience intermittent flip-done timeouts on cursor
++			 * updates. Restore 5s offdelay behavior for now.
++			 *
++			 * Discussion on the issue:
++			 * https://lore.kernel.org/amd-gfx/20260217191632.1243826-1-sysdadmin@m1k.cloud/
++			 */
++			config.offdelay_ms = 5000;
++			config.disable_immediate = false;
++		} else if (amdgpu_ip_version(adev, DCE_HWIP, 0) <
++			     IP_VERSION(3, 5, 0)) {
+ 			/*
+ 			 * Older HW and DGPU have issues with instant off;
+ 			 * use a 2 frame offdelay.
+-- 
 2.53.0

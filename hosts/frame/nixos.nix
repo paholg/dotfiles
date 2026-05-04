@@ -92,8 +92,22 @@
 
   # ****************************************************************************
   # Seeing display freezes; testing settings to fix.
-  # https://lists.freedesktop.org/archives/amd-gfx/2026-February/138842.html
-  boot.kernelPackages = pkgs.linuxPackages_testing;
+  # https://lore.kernel.org/amd-gfx/20260422162956.620362-1-sunpeng.li@amd.com/
+  # nixpkgs linuxPackages_testing currently ships 7.0; the patch targets 7.1-rc1
+  # so override the source until nixpkgs catches up.
+  boot.kernelPackages = pkgs.linuxPackagesFor (pkgs.linux_testing.override {
+    argsOverride = rec {
+      version = "7.1-rc1";
+      modDirVersion = "7.1.0-rc1";
+      src = pkgs.fetchurl {
+        url = "https://git.kernel.org/torvalds/t/linux-${version}.tar.gz";
+        hash = "sha256-G1twFrk0o91FgHOk97yLCkkJIDzyB9sfvInLUiZjB+4=";
+      };
+      # Some options in nixpkgs' common-config no longer exist upstream (AX25,
+      # DMABUF_MOVE_NOTIFY, HAMRADIO, etc). Skip the strict check.
+      ignoreConfigErrors = true;
+    };
+  });
   boot.kernelPatches = [
     {
       name = "amd-cursor-vblank-fix";
