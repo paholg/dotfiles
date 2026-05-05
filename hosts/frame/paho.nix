@@ -81,6 +81,24 @@ in
   };
 
   programs.fish.functions = {
+    _dc_env = {
+      onEvent = "fish_prompt";
+      body = # fish
+        ''
+          set -l workspace (devconcurrent show workspace); or return
+          set -gx REMOTE_HOST "$workspace.app.test"
+
+          set -gx DATABASE_HOST "$workspace.mysql.test"
+
+          set -gx REDIS_URL "redis://$workspace.redis.test/0"
+          set -gx REDIS_ACTION_CABLE_URL "redis://$workspace.redis.test/1"
+          set -gx REDIS_TEST_ACTION_CABLE_URL "redis://$workspace.redis.test/2"
+          set -gx REDIS_RACK_ATTACK_URL "redis://$workspace.redis.test/9"
+
+          set -gx OTEL_EXPORTER_OTLP_ENDPOINT "http://$workspace.jaeger.test:4318"
+        '';
+    };
+
     dc_exec_in_ws = {
       body = # fish
         ''
@@ -104,9 +122,24 @@ in
               cd ~/src/scholarly/.worktrees/$name; or return
               direnv allow; or return
               eval (direnv export fish); or return
+
+              # Set dnsmasq entries
+              set -l ip_output (devconcurrent show ip); or return
+              printf '%s\n' $ip_output | awk -v ws=$name '{print $2, ws"."$1".test"}' > /run/dev-hosts/$name; or return
+
+              _dc_env
+
+              kitty --detach fish -lC "niri msg action move-window-to-workspace $name --focus false --window-id (get-window-id \$KITTY_PID); and x bin/dev"
+              ~/src/scholarly/scratches/worktree-login
+
               echo "$KITTY_PID" | nc -U /run/user/1000/mark-urgent.sock
-              dc x
             case destroy
+              set -l ws_id (niri msg --json workspaces | jq -r ".[] | select(.name == \"$name\") | .id")
+              if test -n "$ws_id"
+                for win_id in (niri msg --json windows | jq -r ".[] | select(.workspace_id == $ws_id and .pid != $KITTY_PID) | .id")
+                  niri msg action close-window --id $win_id
+                end
+              end
               niri msg action unset-workspace-name; or return
               dc $argv; or return
               exit
@@ -129,24 +162,29 @@ in
     };
     envswitch = {
       description = "Show which envswitch environment is currently active.";
+      shell = [
+        "sh"
+        "--norc"
+      ];
+      when = "true";
       command = "envswitch get";
-      when = "envswitch get";
       style = "yellow";
       format = "[($symbol $output )]($style)";
       symbol = "";
     };
-    dc_ports = {
-      description = "Show dc forwarded ports for this workspace";
-      command = "devconcurrent show ports";
-      when = "devconcurrent show workspace";
-      style = "blue";
-      format = "[($symbol $output )]($style)";
-      symbol = "󰖟";
-    };
+    # dc_ports = {
+    #   description = "Show dc forwarded ports for this workspace";
+    #   command = "devconcurrent show ports";
+    #   when = "devconcurrent show workspace";
+    #   style = "blue";
+    #   format = "[($symbol $output )]($style)";
+    #   symbol = "󰖟";
+    # };
   };
 
   home.shellAliases = {
     charge-limit = "sudo framework_tool --charge-limit";
+    my = "mycli -h $DATABASE_HOST -uroot -D scholarly_development";
   };
 
   home.sessionVariables = {
@@ -198,6 +236,8 @@ in
       external.envswitch
       fixWs
       framework-tool
+      geckodriver
+      mycli
       mysql84
       heroku
       pscale
