@@ -146,6 +146,28 @@
         '';
     })
     (pkgs.writeShellApplication {
+      name = "get-window-id";
+      runtimeInputs = with pkgs; [
+        choose
+        jq
+        niri
+      ];
+      text = # bash
+        ''
+          pid=''${1:-}
+          [ -z "$pid" ] && { echo "usage: get-window-id <pid>" >&2; exit 2; }
+
+          windows=$(niri msg -j windows)
+          while [ "$pid" -gt 1 ]; do
+            id=$(echo "$windows" | jq -r ".[] | select(.pid == $pid) | .id")
+            [ -n "$id" ] && { echo "$id"; exit 0; }
+            pid=$(grep '^PPid:' "/proc/$pid/status" | choose 1) || exit 1
+          done
+          echo "No niri window found" >&2
+          exit 1
+        '';
+    })
+    (pkgs.writeShellApplication {
       name = "screenrec";
       runtimeInputs = with pkgs; [
         coreutils
