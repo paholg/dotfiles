@@ -96,7 +96,6 @@ in
         ll = "ls -l";
 
         g = "git";
-        go = "dc go";
         gsw =
           # fish
           ''git switch $(git branch --sort=-committerdate | fzf | cut -c3- | cut -d " " -f1)'';
@@ -111,7 +110,6 @@ in
             fd --no-ignore-vcs -Ho root | xargs -d'
             ' sudo chown -h ${config.custom.username}:${config.custom.username}'';
 
-        x = "dc x";
         y = "yazi";
       };
     };
@@ -229,6 +227,14 @@ in
         + config.custom.fish_extra_init;
 
         functions = {
+          go = {
+            body = "dc go $argv";
+            wraps = "dc go";
+          };
+          x = {
+            body = "dc x $argv";
+            wraps = "dc x";
+          };
           e = {
             description = "Bring to foreground or open helix";
             body = # fish
