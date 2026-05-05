@@ -80,6 +80,9 @@ in
 
         check_sync = "watch grep -e Dirty: -e Writeback: /proc/meminfo";
 
+        dcd = "dc -p devconcurrent";
+        dcdot = "dc -p dotfiles";
+
         icat = "kitten icat";
 
         j = "journalctl -e";
@@ -106,6 +109,8 @@ in
           ''
             fd --no-ignore-vcs -Ho root | xargs -d'
             ' sudo chown -h ${config.custom.username}:${config.custom.username}'';
+
+        x = "dc x";
         y = "yazi";
       };
     };
