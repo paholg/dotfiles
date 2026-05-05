@@ -96,6 +96,7 @@ in
         ll = "ls -l";
 
         g = "git";
+        go = "dc go";
         gsw =
           # fish
           ''git switch $(git branch --sort=-committerdate | fzf | cut -c3- | cut -d " " -f1)'';
