@@ -107,11 +107,24 @@
       runtimeInputs = with pkgs; [ git ];
       text = # bash
         ''
+          branch=origin/main
+          interactive=
+          for arg in "$@"; do
+            if [ "$arg" = "-i" ]; then
+              interactive=1
+            else
+              branch=$arg
+            fi
+          done
           n=$(git stash list | wc -l)
           git add .
           git stash
           git fetch
-          git rebase origin/main "$@"
+          if [ -n "$interactive" ]; then
+            git rebase -i "$branch"
+          else
+            git rebase "$branch"
+          fi
           [ "$(git stash list | wc -l)" -gt "$n" ] && git stash pop
           git reset
         '';
