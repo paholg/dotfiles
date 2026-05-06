@@ -185,6 +185,7 @@ in
   home.shellAliases = {
     charge-limit = "sudo framework_tool --charge-limit";
     my = "mycli -h $DATABASE_HOST -uroot -D scholarly_development";
+    red = ''redis-cli -h "$(devconcurrent show workspace)".redis.test'';
   };
 
   home.sessionVariables = {
@@ -241,6 +242,7 @@ in
       mysql84
       heroku
       pscale
+      redis
     ]
   );
 
