@@ -26,6 +26,8 @@
       tmp.useTmpfs = true;
     };
 
+    boot.kernelPackages = pkgs.linuxPackages_latest;
+
     # Enable all firmware regardless of license.
     hardware.enableAllFirmware = true;
     hardware.enableRedistributableFirmware = true;

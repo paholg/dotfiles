@@ -118,32 +118,10 @@
     };
   };
 
-  # ****************************************************************************
-  # Seeing display freezes; testing settings to fix.
-  # https://lore.kernel.org/amd-gfx/20260422162956.620362-1-sunpeng.li@amd.com/
-  # nixpkgs linuxPackages_testing currently ships 7.0; the patch targets 7.1-rc1
-  # so override the source until nixpkgs catches up.
-  boot.kernelPackages = pkgs.linuxPackagesFor (
-    pkgs.linux_testing.override {
-      argsOverride = rec {
-        version = "7.1-rc1";
-        modDirVersion = "7.1.0-rc1";
-        src = pkgs.fetchurl {
-          url = "https://git.kernel.org/torvalds/t/linux-${version}.tar.gz";
-          hash = "sha256-G1twFrk0o91FgHOk97yLCkkJIDzyB9sfvInLUiZjB+4=";
-        };
-        # Some options in nixpkgs' common-config no longer exist upstream (AX25,
-        # DMABUF_MOVE_NOTIFY, HAMRADIO, etc). Skip the strict check.
-        ignoreConfigErrors = true;
-      };
-    }
-  );
-  boot.kernelPatches = [
-    {
-      name = "amd-cursor-vblank-fix";
-      patch = ./amd-cursor-vblank-fix.patch;
-    }
-  ];
+  # Disable Panel Self Refresh to work around DMCUB / flip_done freezes on
+  # Phoenix DCN 3.1.4. Trades some idle power for stability.
+  # https://community.frame.work/t/dcmub-error-on-bios-3-05-kernel-6-13-1-hit-a-very-nasty-amdgpu-bug-on-framework-laptop-13-amd-ryzen-7-7840u/65371
+  boot.kernelParams = [ "amdgpu.dcdebugmask=0x10" ];
 
   # ****************************************************************************
   # v4l2loopback for OBS virtual camera
