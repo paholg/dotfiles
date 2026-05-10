@@ -45,8 +45,6 @@ let
         extraConfig = ''
           internal;
           proxy_pass http://127.0.0.1:${oauth2Port}/oauth2/auth${groupsParam};
-          proxy_set_header Host $host;
-          proxy_set_header X-Real-IP $remote_addr;
           proxy_set_header X-Scheme $scheme;
           proxy_set_header Content-Length "";
           proxy_pass_request_body off;
@@ -93,6 +91,7 @@ in
 
   services.nginx = {
     enable = true;
+    recommendedBrotliSettings = true;
     recommendedProxySettings = true;
     recommendedTlsSettings = true;
     recommendedGzipSettings = true;
@@ -185,8 +184,6 @@ in
             extraConfig = ''
               internal;
               proxy_pass http://127.0.0.1:${oauth2Port}/oauth2/auth;
-              proxy_set_header Host $host;
-              proxy_set_header X-Real-IP $remote_addr;
               proxy_set_header X-Scheme $scheme;
               proxy_set_header Content-Length "";
               proxy_pass_request_body off;
