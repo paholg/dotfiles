@@ -227,6 +227,13 @@ in
         + config.custom.fish_extra_init;
 
         functions = {
+          fish_user_key_bindings = {
+            body = # fish
+              ''
+                bind \cf forward-bigword
+                bind \cb backward-bigword
+              '';
+          };
           go = {
             body = "dc go $argv";
             wraps = "dc go";
