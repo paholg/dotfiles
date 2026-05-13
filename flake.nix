@@ -15,6 +15,7 @@
     };
     devconcurrent = {
       url = "github:paholg/devconcurrent";
+      # url = "git+file:///home/paho/src/devconcurrent";
     };
     display-switch = {
       url = "github:haimgel/display-switch";

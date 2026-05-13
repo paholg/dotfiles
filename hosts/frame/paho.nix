@@ -124,6 +124,7 @@ in
               eval (direnv export fish); or return
 
               # Set dnsmasq entries
+              set -l name (devconcurrent show workspace)
               set -l ip_output (devconcurrent show ip); or return
               printf '%s\n' $ip_output | awk -v ws=$name '{print $2, ws"."$1".test"}' > /run/dev-hosts/$name; or return
 
