@@ -60,8 +60,5 @@
     home.file.".config/display-switch/display-switch.ini".text =
       lib.generators.toINIWithGlobalSection { }
         config.custom.display-switch.settings;
-
-    # Requires system blueman service
-    services.blueman-applet.enable = true;
   };
 }

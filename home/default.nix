@@ -150,10 +150,6 @@ in
       };
     };
 
-    services.blueman-applet = lib.mkIf gui {
-      enable = true;
-    };
-
     services.ssh-agent.enable = true;
 
     xresources.properties = {
