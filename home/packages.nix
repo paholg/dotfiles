@@ -125,9 +125,9 @@ let
     socat
     sshfs-fuse
     tabiew
-    taplo # toml language server
     tinymist # typst language server
     tlrc # Shorter man-pages
+    tombi # toml language server
     typescript-language-server
     typst
     typstyle # typst formatter

@@ -128,16 +128,6 @@ in
       ".config/inlyne/inlyne.toml".text = ''
         theme = "Dark"
       '';
-
-      ".taplo.toml".source = (pkgs.formats.toml { }).generate "" {
-        formatting = {
-          align_comments = false;
-          align_entries = true;
-          array_auto_collapse = true;
-          array_auto_expand = false;
-          reorder_keys = false;
-        };
-      };
     };
 
     manual = {
