@@ -66,21 +66,11 @@
   # ****************************************************************************
   # Dnsmasq
   services = {
-    dnsmasq = {
-      enable = true;
-      settings = {
-        port = 5353;
-        listen-address = [ "127.0.0.1" ];
-        bind-interfaces = true;
-        hostsdir = [ "/run/dev-hosts" ];
-      };
-    };
-
     resolved = {
       enable = true;
       settings = {
         Resolve = {
-          DNS = "127.0.0.1:5353";
+          DNS = "127.0.0.1:43770";
           Domains = "~test";
         };
       };
