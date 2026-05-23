@@ -112,8 +112,8 @@ let
     procs # ps
     pv
     python3
-    python3Packages.python-lsp-server
-    python3Packages.python-lsp-ruff
+    # python3Packages.python-lsp-server
+    # python3Packages.python-lsp-ruff
     python3Packages.ruff
     ripgrep
     rnr # regex rename
