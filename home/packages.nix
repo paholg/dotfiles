@@ -99,6 +99,7 @@ let
     litecli # sqlite cli
     markdown-oxide # markdown lsp
     marksman # markdown lsp
+    mkcert
     ncdu # interactive disk-usage
     nh # nix helper
     nil

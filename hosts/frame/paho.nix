@@ -256,7 +256,6 @@ in
       fixWs
       framework-tool
       geckodriver
-      mkcert
       mycli
       mysql84
       nss.tools

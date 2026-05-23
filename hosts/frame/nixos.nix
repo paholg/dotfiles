@@ -64,24 +64,6 @@
   '';
 
   # ****************************************************************************
-  # Dnsmasq
-  services = {
-    resolved = {
-      enable = true;
-      settings = {
-        Resolve = {
-          DNS = "127.0.0.1:43770";
-          Domains = "~test";
-        };
-      };
-    };
-  };
-
-  systemd.tmpfiles.rules = [
-    "d /run/dev-hosts 0775 paho users -"
-  ];
-
-  # ****************************************************************************
   # Fingerprint
   services.fprintd = {
     enable = true;
