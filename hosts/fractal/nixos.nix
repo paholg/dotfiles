@@ -19,6 +19,14 @@
     isNormalUser = true;
   };
 
+  # Containers
+  virtualisation.podman = {
+    enable = false;
+    dockerCompat = false;
+  };
+  virtualisation.docker.enable = true;
+  users.users.paho.extraGroups = [ "docker" ];
+
   # For rebinding mouse
   services.ratbagd.enable = true;
 
