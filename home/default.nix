@@ -356,7 +356,7 @@ in
         enable = true;
         enableDefaultConfig = false;
 
-        matchBlocks =
+        settings =
           (lib.mapAttrs
             (name: host: {
               user = config.custom.username;

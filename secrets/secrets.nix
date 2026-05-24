@@ -15,6 +15,8 @@ let
 in
 {
   "authit_config.toml".publicKeys = boxKeys;
+  cookit_client_secret.publicKeys = boxKeys;
+  cookit_session_secret.publicKeys = boxKeys;
   "porkbun_api.json".publicKeys = boxKeys;
   foundry_docker_env.publicKeys = boxKeys;
   foundry_env.publicKeys = boxKeys;

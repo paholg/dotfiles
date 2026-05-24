@@ -3,6 +3,7 @@
   imports = [
     ./auth.nix
     ./authit.nix
+    ./cookit.nix
     ./ddns.nix
     ./foundry-vtt.nix
     ./hardware-configuration.nix
@@ -52,6 +53,7 @@
     custom = {
       ports = {
         authit = 43717;
+        cookit = 30071;
         bitmagnet = 3333;
         bitmagnet_dht = 7405;
         foundry = 8907;

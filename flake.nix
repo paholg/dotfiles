@@ -13,6 +13,9 @@
     authit = {
       url = "github:paholg/authit";
     };
+    cookit = {
+      url = "github:paholg/cookit";
+    };
     devconcurrent = {
       url = "github:paholg/devconcurrent";
       # url = "git+file:///home/paho/src/devconcurrent";
@@ -180,7 +183,8 @@
               }
               registry
             ]
-            ++ (if config.authit or false then [ inputs.authit.nixosModules.default ] else [ ]);
+            ++ (if config.authit or false then [ inputs.authit.nixosModules.default ] else [ ])
+            ++ (if config.cookit or false then [ inputs.cookit.nixosModules.default ] else [ ]);
           }
         ) hosts;
     in
@@ -199,6 +203,7 @@
         box = {
           gui = false;
           authit = true;
+          cookit = true;
           users = [ "paho" ];
         };
         fractal = {

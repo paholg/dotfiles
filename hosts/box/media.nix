@@ -99,6 +99,7 @@
       provider = "oidc";
       httpAddress = "http://127.0.0.1:${toString config.custom.ports.oauth2_proxy}";
       reverseProxy = true;
+      trustedProxyIP = [ "127.0.0.1" ];
 
       redirectURL = "https://home.paholg.com/oauth2/callback";
       oidcIssuerUrl = "https://auth.paholg.com/oauth2/openid/oauth2-proxy";
