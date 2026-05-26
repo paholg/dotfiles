@@ -146,11 +146,11 @@
         "rust-overlay": "rust-overlay_2"
       },
       "locked": {
-        "lastModified": 1779660091,
-        "narHash": "sha256-o6Ewe93XkE8D+Rx1OeLYhsTmg+09scq6Nn8MJFpY1MM=",
+        "lastModified": 1779758949,
+        "narHash": "sha256-Yj5B7WbhniqzvYiM4PLwsPKHuU9OekA1RxnShkmIx4c=",
         "owner": "paholg",
         "repo": "cookit",
-        "rev": "e39d8036de97c8a45b6202ec4db5b6c2da9a4301",
+        "rev": "26674065ccf36126330c3dcd6e24279cf1f5eec1",
         "type": "github"
       },
       "original": {
