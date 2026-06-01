@@ -141,17 +141,7 @@
             auto-format = true;
             language-servers = [ "sqls" ];
             formatter = {
-              command = lib.getExe pkgs.python313Packages.sqlparse;
-              args = [
-                "--reindent"
-                "--indent_width"
-                "2"
-                "--keywords"
-                "upper"
-                "--identifiers"
-                "lower"
-                "-"
-              ];
+              command = lib.getExe pkgs.sleek;
             };
           }
           {
