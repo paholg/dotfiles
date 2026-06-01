@@ -12,6 +12,7 @@ in
   config = {
     programs.firefox = {
       enable = true;
+      configPath = "${config.xdg.configHome}/mozilla/firefox";
 
       profiles.default = {
         isDefault = true;
@@ -27,7 +28,8 @@ in
           "media.videocontrols.picture-in-picture.enabled" = false;
           "signon.rememberSignons" = false;
           "widget.content.gtk-theme-override" = "Adwaita:dark";
-        } // extra_settings;
+        }
+        // extra_settings;
       };
     };
   };
