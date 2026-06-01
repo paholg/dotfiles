@@ -103,8 +103,33 @@
         ATTR{link_power_management_policy}="max_performance"
     '';
 
-    # Ensure we can shutdown in 2 minutes.
-    systemd.settings.Manager.RebootWatchdogSec = "120";
+    # Recovery from kernel/service hangs.
+    #
+    # In May 2026 a ZFS LZ4 oops left tasks stuck in D state; the box couldn't
+    # shut down and needed a physical power cycle. These settings make the
+    # kernel reboot itself rather than limp on with corrupted state:
+    #
+    # - panic_on_oops: turn a kernel oops (like the LZ4 one) into a panic so it
+    #   actually reboots instead of leaving the kernel tainted and ZFS wedged.
+    # - panic=10: reboot 10s after panic so logs flush.
+    # - hung_task_panic + 300s timeout: panic if any task is stuck in D state
+    #   for 5 minutes. 300s (vs the 120s default warning) leaves headroom for
+    #   slow rtorrent/ZFS bursts.
+    # - RuntimeWatchdogSec arms the hardware watchdog (intel_oc_wdt) so a
+    #   fully hung PID 1 still reboots.
+    # - DefaultTimeoutStopSec shortens shutdown when services misbehave so
+    #   we don't sit on 90s × N service stop timeouts.
+    boot.kernel.sysctl = {
+      "kernel.panic_on_oops" = 1;
+      "kernel.panic" = 10;
+      "kernel.hung_task_panic" = 1;
+      "kernel.hung_task_timeout_secs" = 300;
+    };
+    systemd.settings.Manager = {
+      RuntimeWatchdogSec = "60";
+      RebootWatchdogSec = "120";
+      DefaultTimeoutStopSec = "30s";
+    };
 
     # Swap to prevent OOM kills under heavy transcoding load.
     swapDevices = [
@@ -115,9 +140,10 @@
     ];
 
     # ZFS + drive health monitoring
-    # We don't want to use the latest kernel due to ZFS compatibility, which is
-    # our default.
-    boot.kernelPackages = pkgs.linuxPackages;
+    # Pin to the 6.12 LTS kernel. The latest stable (6.18 in May 2026) hit a
+    # ZFS LZ4 decompression oops on this host; LTS + ZFS is a better-tested
+    # combination for a 24/7 storage server.
+    boot.kernelPackages = pkgs.linuxPackages_6_12;
     services.zfs.autoScrub.enable = true;
 
     # Monitor all drives: track all SMART attributes (-a), enable automatic
