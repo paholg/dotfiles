@@ -28,21 +28,14 @@
 
     boot.kernelPackages = lib.mkDefault pkgs.linuxPackages_latest;
 
+    boot.zswap.enable = true;
+
     # Enable all firmware regardless of license.
     hardware.enableAllFirmware = true;
     hardware.enableRedistributableFirmware = true;
 
     networking.useDHCP = lib.mkDefault true;
     nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
-
-    # zram should give much faster oom experiences. We'll see.
-    # The NixOs wiki says to always pair it with systemd.oomd.
-    zramSwap.enable = true;
-    systemd.oomd = {
-      enable = true;
-      enableRootSlice = true;
-      enableSystemSlice = true;
-    };
 
     nix = {
       package = lib.mkDefault pkgs.nix;

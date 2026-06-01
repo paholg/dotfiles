@@ -4,6 +4,13 @@
   system.stateVersion = "23.11";
   networking.hostName = "fractal";
 
+  swapDevices = [
+    {
+      device = "/var/lib/swapfile";
+      size = 65 * 1024;
+    }
+  ];
+
   # Need to install here for polit rules to be picked up.
   environment.systemPackages = [ pkgs.quickemu ];
   virtualisation.spiceUSBRedirection.enable = true;
