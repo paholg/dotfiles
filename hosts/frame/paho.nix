@@ -128,19 +128,6 @@ in
           set -l name $argv[2]
 
           switch $cmd
-            case ups
-              niri msg action set-workspace-name $name; or return
-              dc $argv; or return
-              dc go $name; or return
-              direnv allow; or return
-              eval (direnv export fish); or return
-
-              _dc_env
-
-              kitty --detach fish -lC "niri msg action move-window-to-workspace $name --focus false --window-id (get-window-id \$KITTY_PID); and x bin/dev"
-              ~/src/scholarly/scratches/worktree-login
-
-              echo "$KITTY_PID" | nc -U /run/user/1000/mark-urgent.sock
             case up
               niri msg action set-workspace-name $name; or return
               dc $argv; or return
