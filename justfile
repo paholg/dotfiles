@@ -36,6 +36,12 @@ up-fw:
 	fwupdmgr get-updates || exit 0
 	fwupdmgr update
 
+build *args: 
+	nh os build . -- --extra-experimental-features 'nix-command flakes' {{args}}
+
+build-remote *args:
+	nh os build . --build-host paho@fractal -- --extra-experimental-features 'nix-command flakes' --cores 0 {{args}}
+	
 # Switch NixOS
 sw *args:
 	nh os switch . -- --extra-experimental-features 'nix-command flakes' {{args}}
