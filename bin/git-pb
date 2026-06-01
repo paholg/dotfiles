@@ -1,0 +1,45 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+# Original Source: https://github.com/not-an-aardvark/git-delete-squashed
+
+git fetch
+
+worktree_branches=$(git worktree list --porcelain | sed -n 's/^branch refs\/heads\///p')
+branches=$(git for-each-ref refs/heads/ "--format=%(refname:short)")
+for branch in $branches; do
+  [[ "$branch" == "main" ]] && continue
+
+  in_worktree=false
+  if echo "$worktree_branches" | grep -qx "$branch"; then
+    in_worktree=true
+  fi
+
+  if git merge-base --is-ancestor "$branch" origin/main; then
+    if $in_worktree; then
+      echo "In worktree:      $branch"
+    else
+      git branch -D "$branch" > /dev/null
+      echo "Deleted (empty):  $branch"
+    fi
+    continue
+  fi
+
+  mergeBase=$(git merge-base origin/main "$branch")
+  # Want the symbols to be literal
+  # shellcheck disable=SC1083,SC1001
+  tree=$(git rev-parse "$branch"\^{tree})
+  commit_tree=$(git commit-tree "$tree" -p "$mergeBase" -m _)
+  cherry=$(git cherry origin/main "$commit_tree")
+  if [[ "$cherry" == "-"* ]]; then
+    if $in_worktree; then
+      echo "In worktree:      $branch"
+    else
+      git branch -D "$branch" > /dev/null
+      echo "Deleted (merged): $branch"
+    fi
+  else
+    echo "Not merged:       $branch"
+  fi
+done
+

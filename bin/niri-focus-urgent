@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+id="$(niri msg --json windows | jq -r '[.[] | select(.is_urgent)][0].id // empty')"
+[ -n "$id" ] && niri msg action focus-window --id "$id"

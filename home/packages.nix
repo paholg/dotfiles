@@ -50,6 +50,7 @@ let
         discord
         eog
         evince
+        grim
         guvcview
         kdePackages.dolphin
         kdePackages.okular
@@ -58,8 +59,10 @@ let
         mesa-demos
         pavucontrol
         pulseaudioFull
+        satty
         signal-desktop
         slack
+        slurp
         vlc
         wl-screenrec
       ]

@@ -14,7 +14,6 @@ in
     ./bacon.nix
     ./helix.nix
     ./packages.nix
-    ./script.nix
     ./starship.nix
     ./stylix.nix
     ./zed.nix
@@ -67,6 +66,7 @@ in
       };
 
       sessionPath = [
+        "$HOME/dotfiles/bin"
         "$HOME/.cargo/bin"
       ];
 

@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+title=$(git log -1 --pretty=%s)
+body=$(git log -1 --pretty=%b)
+
+git push -f
+gh pr create --fill "$@" || gh pr edit --title "$title" --body "$body"
+
