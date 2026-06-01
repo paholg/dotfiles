@@ -14,7 +14,8 @@
       url = "github:paholg/authit";
     };
     cookit = {
-      url = "github:paholg/cookit";
+      # Pinned because new versions break everything.
+      url = "github:paholg/cookit/365e59ca29f9087f256a557a346633af1b145679";
     };
     devconcurrent = {
       url = "github:paholg/devconcurrent";
