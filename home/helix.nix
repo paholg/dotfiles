@@ -1,11 +1,12 @@
 {
   lib,
   pkgs,
+  symlink,
   ...
 }:
 {
   config = {
-    home.file.".config/helix/themes/paho-theme.toml".source = ./helix-theme.toml;
+    home.file.".config/helix/themes/paho-theme.toml".source = symlink "helix-theme.toml";
 
     programs.helix = {
       enable = true;

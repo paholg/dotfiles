@@ -33,6 +33,9 @@ in
   };
 
   config = {
+    _module.args.symlink =
+      path: config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/dotfiles/symlink/${path}";
+
     targets.genericLinux.enable = !nixos;
 
     fonts.fontconfig.enable = true;
