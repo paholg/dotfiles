@@ -56,10 +56,10 @@ in
   imports = [
     ../../home
     (import ../../home/gui/niri/mkConfig.nix [
-      ../../home/gui/niri/base.kdl
-      ../../home/gui/niri/paho.kdl
-      ../../home/gui/niri/binds.kdl
-      ./niri.kdl
+      "base.kdl"
+      "paho.kdl"
+      "binds.kdl"
+      "frame.kdl"
     ])
   ];
 

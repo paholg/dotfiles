@@ -52,9 +52,9 @@ in
   imports = [
     ../../home
     (import ../../home/gui/niri/mkConfig.nix [
-      ../../home/gui/niri/base.kdl
-      ../../home/gui/niri/binds.kdl
-      ./guest-niri.kdl
+      "base.kdl"
+      "binds.kdl"
+      "guest.kdl"
     ])
   ];
   home.stateVersion = "24.05";

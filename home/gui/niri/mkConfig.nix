@@ -1,20 +1,14 @@
-kdlFiles:
-{ config, lib, ... }:
-let
-  paths = map (f: {
-    path = f;
-    base = builtins.baseNameOf (builtins.toString f);
-  }) kdlFiles;
-in
+names:
+{ symlink, lib, ... }:
 {
   xdg.configFile =
     builtins.listToAttrs (
-      map (p: {
-        name = "niri/${p.base}";
-        value.source = p.path;
-      }) paths
+      map (name: {
+        name = "niri/${name}";
+        value.source = symlink "niri/${name}";
+      }) names
     )
     // {
-      "niri/config.kdl".text = lib.concatMapStringsSep "\n" (p: ''include "${p.base}"'') paths;
+      "niri/config.kdl".text = lib.concatMapStringsSep "\n" (name: ''include "${name}"'') names;
     };
 }
