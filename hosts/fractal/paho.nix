@@ -26,6 +26,13 @@
 
   programs.obs-studio.enable = true;
 
+  programs.fish.functions = {
+    _dc_env = {
+      onEvent = "fish_prompt";
+      body = "";
+    };
+  };
+
   home.packages = with pkgs; [
     # TODO: broken
     # blender-hip

@@ -99,15 +99,6 @@ in
         '';
     };
 
-    dc_exec_in_ws = {
-      body = # fish
-        ''
-          niri msg action move-window-to-workspace --focus=false $argv[1]; or return
-          dc exec $argv[1] /bin/zsh -lc 'TRAPINT() { return 0 }; bin/dev; exec /bin/zsh -l'
-          exec fish
-        '';
-    };
-
     serve = {
       body = # fish
         ''
@@ -117,41 +108,6 @@ in
           ~/src/scholarly/scratches/worktree-login
 
           echo "$KITTY_PID" | nc -U /run/user/1000/mark-urgent.sock
-        '';
-    };
-
-    ws = {
-      wraps = "dc";
-      body = # fish
-        ''
-          set -l cmd $argv[1]
-          set -l name $argv[2]
-
-          switch $cmd
-            case up
-              niri msg action set-workspace-name $name; or return
-              dc $argv; or return
-              dc go $name; or return
-              direnv allow; or return
-              eval (direnv export fish); or return
-
-              _dc_env
-
-              echo "$KITTY_PID" | nc -U /run/user/1000/mark-urgent.sock
-            case destroy
-              set -l ws_id (niri msg --json workspaces | jq -r ".[] | select(.name == \"$name\") | .id")
-              if test -n "$ws_id"
-                for win_id in (niri msg --json windows | jq -r ".[] | select(.workspace_id == $ws_id and .pid != $KITTY_PID) | .id")
-                  niri msg action close-window --id $win_id
-                end
-              end
-              niri msg action unset-workspace-name; or return
-              dc $argv; or return
-              exit
-            case '*'
-              echo "Usage: ws {up|destroy} NAME [ARGS...]"
-              return 1
-          end
         '';
     };
   };
@@ -165,26 +121,6 @@ in
       symbol = "";
       shell = "bash";
     };
-    envswitch = {
-      description = "Show which envswitch environment is currently active.";
-      shell = [
-        "sh"
-        "--norc"
-      ];
-      when = "true";
-      command = "envswitch get";
-      style = "yellow";
-      format = "[($symbol $output )]($style)";
-      symbol = "";
-    };
-    # dc_ports = {
-    #   description = "Show dc forwarded ports for this workspace";
-    #   command = "devconcurrent show ports";
-    #   when = "devconcurrent show workspace";
-    #   style = "blue";
-    #   format = "[($symbol $output )]($style)";
-    #   symbol = "󰖟";
-    # };
   };
 
   home.shellAliases = {
