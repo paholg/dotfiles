@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-pid=''${1:-}
+pid=${1:-}
 [ -z "$pid" ] && { echo "usage: get-window-id <pid>" >&2; exit 2; }
 
 windows=$(niri msg -j windows)

@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-pidfile="''${XDG_RUNTIME_DIR:-/tmp}/wl-screenrec.pid"
+pidfile="${XDG_RUNTIME_DIR:-/tmp}/wl-screenrec.pid"
 if [ -f "$pidfile" ] && kill -0 "$(cat "$pidfile")" 2>/dev/null; then
     kill -INT "$(cat "$pidfile")"
     rm -f "$pidfile"
