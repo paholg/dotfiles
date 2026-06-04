@@ -29,6 +29,11 @@
     boot.kernelPackages = lib.mkDefault pkgs.linuxPackages_latest;
 
     boot.zswap.enable = true;
+    systemd.oomd = {
+      enable = true;
+      enableRootSlice = true;
+      enableSystemSlice = true;
+    };
 
     # Enable all firmware regardless of license.
     hardware.enableAllFirmware = true;
