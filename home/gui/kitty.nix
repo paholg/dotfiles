@@ -13,6 +13,11 @@
         hide_window_decorations = "yes";
         notify_on_cmd_finish = "unfocused 5 notify-bell";
         confirm_os_window_close = 0;
+        # This seems to be broken on nixos, causing kitty to try to watch the
+        # full nix store.
+        #
+        # TODO: Will be fixed in version > 0.47.1.
+        auto_reload_config = -1;
       };
     };
   };
