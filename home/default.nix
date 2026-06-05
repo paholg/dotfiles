@@ -291,14 +291,16 @@ in
 
                     echo "$KITTY_PID" | nc -U /run/user/1000/mark-urgent.sock
                   case destroy
+                    dc $argv; or return
+
                     set -l ws_id (niri msg --json workspaces | jq -r ".[] | select(.name == \"$name\") | .id")
                     if test -n "$ws_id"
                       for win_id in (niri msg --json windows | jq -r ".[] | select(.workspace_id == $ws_id and .pid != $KITTY_PID) | .id")
                         niri msg action close-window --id $win_id
                       end
                     end
+
                     niri msg action unset-workspace-name; or return
-                    dc $argv; or return
                     exit
                   case '*'
                     echo "Usage: ws {up|destroy} NAME [ARGS...]"
