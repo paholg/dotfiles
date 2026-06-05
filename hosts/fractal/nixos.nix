@@ -15,6 +15,14 @@
   environment.systemPackages = [ pkgs.quickemu ];
   virtualisation.spiceUSBRedirection.enable = true;
 
+  # HP EX920 (SM2262, fw SVN163) has a broken NVMe FLUSH: ~240ms/fsync.
+  # Its volatile write cache is already disabled (WCE=0), so writes are
+  # durable on completion and FLUSH is unnecessary — tell the kernel to stop
+  # issuing it. ~2000x faster fsync, no durability loss, no throughput cost.
+  services.udev.extraRules = ''
+    ACTION=="add|change", SUBSYSTEM=="block", ATTRS{model}=="HP SSD EX920 1TB*", ATTR{queue/write_cache}="write through"
+  '';
+
   # For display-switch
   hardware.i2c.enable = true;
 
