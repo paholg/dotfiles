@@ -80,6 +80,13 @@
             ];
           }
           {
+            name = "css";
+            formatter = {
+              command = lib.getExe pkgs.prettierd;
+              args = [ "file.css" ];
+            };
+          }
+          {
             name = "git-commit";
             rulers = [
               51
