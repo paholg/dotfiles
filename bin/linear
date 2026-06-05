@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+: "${LINEAR_API_KEY:?set LINEAR_API_KEY (Linear > Settings > Security & access > Personal API keys)}"
+
+query='{ viewer { assignedIssues(first: 10, orderBy: updatedAt, filter: { state: { type: { nin: ["completed", "canceled"] } } }) { nodes { identifier title } } } }'
+
+curl -fsS https://api.linear.app/graphql \
+  -H "Authorization: $LINEAR_API_KEY" \
+  -H "Content-Type: application/json" \
+  -d "$(jq -nc --arg q "$query" '{query: $q}')" \
+  | jq -r '.data.viewer.assignedIssues.nodes[] | "\(.identifier)\t\(.title)"' \
+  | fzf --with-nth=1.. --delimiter='\t' --height ~100%\
+  | cut -f1 \
+  | tr -d '\n' \
+  | tr '[:upper:]' '[:lower:]' \
+  | wl-copy >/dev/null 2>&1
