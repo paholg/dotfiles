@@ -278,6 +278,9 @@ in
               ''
                 set -l cmd $argv[1]
                 set -l name $argv[2]
+                if not set -q argv[2]
+                  set name (devconcurrent show workspace)
+                end
 
                 switch $cmd
                   case up
