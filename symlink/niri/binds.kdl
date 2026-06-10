@@ -176,10 +176,10 @@ binds {
     }
     // Spawn
     Super+G {
-        spawn "rofi" "-show" "drun"
+        spawn "niri-workspace-switcher"
     }
     Super+Ctrl+G {
-        spawn "niri-workspace-switcher"
+        spawn "rofi" "-show" "drun"
     }
     Super+T {
         spawn "kitty"
