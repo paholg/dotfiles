@@ -1,7 +1,7 @@
 { lib, pkgs, ... }:
 let
-  mark-urgent = pkgs.writeShellApplication {
-    name = "mark-urgent";
+  niri-mark-urgent = pkgs.writeShellApplication {
+    name = "niri-mark-urgent";
     runtimeInputs = with pkgs; [
       choose
       jq
@@ -29,9 +29,9 @@ let
 
 in
 {
-  home.packages = [ mark-urgent ];
-  systemd.user.sockets.mark-urgent = {
-    Unit.Description = "mark-urgent activation socket";
+  home.packages = [ niri-mark-urgent ];
+  systemd.user.sockets.niri-mark-urgent = {
+    Unit.Description = "niri-mark-urgent activation socket";
     Socket = {
       ListenStream = "%t/mark-urgent.sock";
       SocketMode = "0666";
@@ -40,10 +40,10 @@ in
     Install.WantedBy = [ "graphical-session.target" ];
   };
 
-  systemd.user.services."mark-urgent@" = {
+  systemd.user.services."niri-mark-urgent@" = {
     Unit.Description = "Mark the calling terminal's niri window as urgent";
     Service = {
-      ExecStart = lib.getExe mark-urgent;
+      ExecStart = lib.getExe niri-mark-urgent;
       StandardInput = "socket";
     };
   };

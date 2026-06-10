@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+echo "$KITTY_PID" | nc -U /run/user/1000/mark-urgent.sock
