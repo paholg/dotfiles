@@ -221,6 +221,9 @@ in
               ''
                 bind \cf forward-bigword
                 bind \cb backward-bigword
+                # Erase fzf's shift-tab binding
+                bind --erase shift-tab
+                bind --erase -M insert shift-tab
               '';
           };
           go = {
