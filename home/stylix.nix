@@ -55,6 +55,19 @@
       kitty.extraConfig = ''
         font_family family='Monaspace Neon' style=Light features="+calt +liga +ss01 +ss03 +ss04 +ss02 +ss05 +ss07 +ss09 +ss10"
       '';
+      rofi = {
+        font = lib.mkForce "Monaspace Neon 14";
+        theme = {
+          window.width = config.lib.formats.rasi.mkLiteral "600px";
+          prompt.enabled = false;
+          "element alternate.normal".background-color =
+            lib.mkForce (config.lib.formats.rasi.mkLiteral "@background");
+          "element selected.normal" = {
+            background-color = lib.mkForce (config.lib.formats.rasi.mkLiteral "#41535b");
+            text-color = lib.mkForce (config.lib.formats.rasi.mkLiteral "@foreground");
+          };
+        };
+      };
       swaylock.settings.color = lib.mkForce config.custom.swaylock.color;
     };
   };

@@ -1,0 +1,22 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+out="$(niri msg --json focused-output | jq -r '.name')"
+wins="$(niri msg --json windows)"
+ws="$(niri msg --json workspaces | jq -c --arg out "$out" 'map(select(.output == $out)) | sort_by(.idx)')"
+
+menu="$(jq -r --argjson wins "$wins" '.[]
+  | . as $w
+  | ($wins | any(.workspace_id == $w.id)) as $has_win
+  | (if $w.is_urgent then "#ffbf00"
+     elif $w.is_focused then "#2d9574"
+     elif ($has_win | not) then "#666666"
+     else "#aaaaaa" end) as $color
+  | (if $w.name then "\($w.idx): \($w.name | @html)" else "\($w.idx)" end) as $label
+  | "<span color=\"\($color)\">\($label)</span>"
+' <<<"$ws")"
+
+i="$(rofi -dmenu -markup-rows -format i <<<"$menu")" || exit 0
+
+idx="$(jq -r ".[$i].idx" <<<"$ws")"
+[ -n "$idx" ] && niri msg action focus-workspace "$idx"

@@ -30,7 +30,7 @@ in
     ];
 
     programs = {
-      fuzzel.enable = true;
+      rofi.enable = true;
       swaylock = {
         enable = true;
         settings = {
