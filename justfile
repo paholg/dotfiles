@@ -46,6 +46,11 @@ build-remote *args:
 sw *args:
 	nh os switch . -- --extra-experimental-features 'nix-command flakes' {{args}}
 
+swr:
+	just build-remote
+	mark-urgent
+	just sw
+
 # Switch NixOS, building on fractal
 sw-remote *args:
 	nh os switch . --build-host paho@fractal -- --extra-experimental-features 'nix-command flakes' --cores 0 {{args}}
