@@ -300,7 +300,7 @@ in
                       end
                     end
 
-                    niri msg action unset-workspace-name; or return
+                    niri msg action unset-workspace-name $name; or return
                     exit
                   case '*'
                     echo "Usage: ws {up|destroy} NAME [ARGS...]"
