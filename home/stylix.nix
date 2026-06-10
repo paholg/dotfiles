@@ -58,10 +58,22 @@
       rofi = {
         font = lib.mkForce "Monaspace Neon 14";
         theme = {
-          window.width = config.lib.formats.rasi.mkLiteral "600px";
+          window = {
+            width = config.lib.formats.rasi.mkLiteral "600px";
+            border = config.lib.formats.rasi.mkLiteral "2px";
+            border-color = config.lib.formats.rasi.mkLiteral "#2d9574";
+            border-radius = config.lib.formats.rasi.mkLiteral "6px";
+          };
+          mainbox.padding = config.lib.formats.rasi.mkLiteral "8px";
+          element.padding = config.lib.formats.rasi.mkLiteral "4px 8px";
+          listview = {
+            lines = 18;
+            fixed-height = false;
+          };
           prompt.enabled = false;
-          "element alternate.normal".background-color =
-            lib.mkForce (config.lib.formats.rasi.mkLiteral "@background");
+          "element alternate.normal".background-color = lib.mkForce (
+            config.lib.formats.rasi.mkLiteral "@background"
+          );
           "element selected.normal" = {
             background-color = lib.mkForce (config.lib.formats.rasi.mkLiteral "#41535b");
             text-color = lib.mkForce (config.lib.formats.rasi.mkLiteral "@foreground");
