@@ -34,7 +34,6 @@
       enableRootSlice = true;
       enableSystemSlice = true;
     };
-    services.earlyoom.enable = true;
 
     # Enable all firmware regardless of license.
     hardware.enableAllFirmware = true;

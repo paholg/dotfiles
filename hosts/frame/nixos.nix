@@ -54,6 +54,15 @@
   virtualisation.docker.enable = true;
   users.users.paho.extraGroups = [ "docker" ];
 
+  # Cap aggregate container memory so a runaway pile of devcontainers gets
+  # OOM-killed within the slice instead of thrashing swap and hanging the host.
+  virtualisation.docker.daemon.settings."cgroup-parent" = "docker.slice";
+  systemd.slices.docker.sliceConfig = {
+    MemoryHigh = "16G"; # throttle + reclaim
+    MemoryMax = "20G"; # hard cap, scoped OOM-kill
+    MemorySwapMax = "4G"; # bound swap to avoid thrash
+  };
+
   services.flatpak.enable = true;
 
   services.power-profiles-daemon.enable = true;
