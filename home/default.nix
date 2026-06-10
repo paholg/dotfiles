@@ -12,6 +12,7 @@ in
 {
   imports = [
     ./bacon.nix
+    ./claude
     ./helix.nix
     ./packages.nix
     ./starship.nix
