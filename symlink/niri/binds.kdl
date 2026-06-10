@@ -3,6 +3,12 @@ binds {
     Super+C {
         center-column
     }
+    Super+Ctrl+C {
+        center-visible-columns
+    }
+    Super+Alt+C {
+        spawn "niri-center-pair"
+    }
     Super+H {
         focus-column-left
     }

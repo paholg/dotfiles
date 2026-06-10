@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+width="33.333333333333333%"
+
+before="$(niri msg --json focused-window | jq -r '.id')"
+niri msg action set-column-width "$width"
+niri msg action focus-column-right
+after="$(niri msg --json focused-window | jq -r '.id')"
+if [ "$after" != "$before" ]; then
+    niri msg action set-column-width "$width"
+    niri msg action focus-column-left
+fi
+niri msg action center-visible-columns
