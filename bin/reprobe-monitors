@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+# Reading a connector's status forces the kernel to re-probe it; the udev
+# trigger then makes niri rescan.
+#
+# This did not succesfully let niri detect the monitor when I ran it once, but
+# maybe it will next time.
+
+cat /sys/class/drm/card*-*/status > /dev/null
+sudo udevadm trigger --subsystem-match=drm --action=change
