@@ -104,7 +104,7 @@ in
         ''
           set -l name (dc show workspace); or return
 
-          kitty --detach fish -lC "niri msg action move-window-to-workspace $name --focus false --window-id (get-window-id \$KITTY_PID); and x bin/dev"
+          kitty --detach fish -lC "niri msg action move-window-to-workspace $name --focus false --window-id (get-window-id \$KITTY_PID); and x setup && dev"
           ~/src/scholarly/scratches/worktree-login
 
           echo "$KITTY_PID" | nc -U /run/user/1000/mark-urgent.sock
