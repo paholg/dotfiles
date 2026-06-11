@@ -201,7 +201,7 @@ in
         -r \
         --home "$HOME/vanta/" \
         --init \
-        --additional-packages "systemd libpam-systemd pipewire-audio-client-libraries" \
+        --additional-packages "systemd libpam-systemd" \
         --additional-flags "--label keep-true" && \
         vanta_enter \
     '';

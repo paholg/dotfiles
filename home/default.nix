@@ -75,7 +75,7 @@ in
       ];
 
       shellAliases = {
-        audio = "systemctl --user restart pipewire";
+        audio = "systemctl --user restart wireplumber";
 
         bathelp = "bat --plain --language help";
         batlog = "bat -pp -l log";
