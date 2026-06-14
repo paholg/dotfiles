@@ -3,7 +3,7 @@ set -euo pipefail
 
 input=$(cat)
 model=$(echo "$input" | jq -r '.model.display_name // empty')
-used=$(echo "$input" | jq -r '.context_window.used_percentage // empty')
+used=$(echo "$input" | jq -r 'if .context_window.total_input_tokens then ((.context_window.total_input_tokens / 1000) | round | tostring) + "k" else empty end')
 session=$(echo "$input" | jq -r '.rate_limits.five_hour.used_percentage // empty | round')
 session_reset=$(echo "$input" | jq -r '.rate_limits.five_hour.resets_at // empty | strflocaltime("%H:%M")')
 week=$(echo "$input" | jq -r '.rate_limits.seven_day.used_percentage // empty | round')
@@ -19,7 +19,7 @@ if [ -n "$model" ]; then
 fi
 
 if [ -n "$used" ]; then
-  parts+=("ctx: ${used}%")
+  parts+=("ctx: ${used}")
 fi
 
 if [ -n "$session" ]; then
