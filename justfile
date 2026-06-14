@@ -8,6 +8,9 @@ default:
 up *args: up-git up-host up-fw
 	@just sw {{args}}
 
+upr *args: up-git up-host up-fw
+	@just swr {{args}}
+
 swother host:
 	nixos-rebuild switch --flake . --target-host {{host}} --use-remote-sudo
 
