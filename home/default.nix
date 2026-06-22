@@ -227,7 +227,7 @@ in
                 bind --erase -M insert shift-tab
               '';
           };
-          go = {
+          d = {
             body = "dc go $argv";
             wraps = "dc go";
           };
