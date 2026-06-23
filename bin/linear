@@ -13,5 +13,4 @@ curl -fsS https://api.linear.app/graphql \
   | fzf --with-nth=1.. --delimiter='\t' --height ~100%\
   | cut -f1 \
   | tr -d '\n' \
-  | tr '[:upper:]' '[:lower:]' \
   | wl-copy >/dev/null 2>&1
