@@ -8,6 +8,14 @@ if [ -f "$pidfile" ] && kill -0 "$(cat "$pidfile")" 2>/dev/null; then
     notify-send "Recording stopped"
 else
     geometry=$(slurp) || exit 0
+
+    # The VAAPI H.264 encoder requires both dimensions >= 128px.
+    wh=${geometry##* }
+    if [ "${wh%x*}" -lt 128 ] || [ "${wh#*x}" -lt 128 ]; then
+        notify-send "Recording failed" "Region too small ($wh); both dimensions must be >= 128px"
+        exit 1
+    fi
+
     mkdir -p ~/recordings
     out="$HOME/recordings/$(date +%F_%H.%M.%S).mp4"
     wl-screenrec -g "$geometry" -f "$out" &
