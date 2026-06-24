@@ -12,7 +12,7 @@
       # Incompatible with useGlobalPkgs:
       overlays.enable = false;
       polarity = "dark";
-      base16Scheme = "${pkgs.base16-schemes}/share/themes/seti.yaml";
+      base16Scheme = ./paho.yaml;
       fonts = {
         sizes.terminal = 12;
         monospace = {

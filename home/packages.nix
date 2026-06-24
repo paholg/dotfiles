@@ -99,6 +99,7 @@ let
     jq
     just
     just-lsp
+    lazygit
     litecli # sqlite cli
     markdown-oxide # markdown lsp
     marksman # markdown lsp

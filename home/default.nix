@@ -134,6 +134,18 @@ in
       '';
     };
 
+    xdg.configFile = lib.listToAttrs (
+      map (
+        f:
+        let
+          rel = lib.removePrefix (toString ../config + "/") (toString f);
+        in
+        lib.nameValuePair rel {
+          source = config.lib.file.mkOutOfStoreSymlink "${homeDir}/dotfiles/config/${rel}";
+        }
+      ) (lib.filesystem.listFilesRecursive ../config)
+    );
+
     manual = {
       html.enable = true;
       json.enable = true;
@@ -334,7 +346,7 @@ in
         enable = true;
         signing.format = "openpgp";
         settings = {
-          brannch.autoSetupMerge = "always";
+          branch.autoSetupMerge = "true";
           core.pager = "delta";
           credential.helper = "store";
           diff.external = "difft";

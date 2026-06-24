@@ -1,0 +1,28 @@
+# Derived from helix paho-theme.toml. Slot -> helix source:
+#   base00 bg=act1/bg3   base01 panel=bg1     base02 selection=highlight
+#   base03 dim=base-dim  base04 ttip          base05 fg=variable(warm)
+#   base06 cursor        base07 text.focus    base08 red=noche
+#   base09 orange=attribute  base0A yellow=DERIVED (theme has no bright yellow)
+#   base0B green=noche       base0C teal=str/aqua  base0D blue=keyword
+#   base0E purple=func/comp   base0F brown=meta
+system: "base16"
+name: "Paho"
+author: "Paho Lurie-Gregg (derived from helix paho-theme)"
+variant: "dark"
+palette:
+  base00: "#121212"
+  base01: "#262626"
+  base02: "#444444"
+  base03: "#585858"
+  base04: "#888888"
+  base05: "#c6b8ad"
+  base06: "#d0d0d0"
+  base07: "#e5ded6"
+  base08: "#e2727e"
+  base09: "#dc7759"
+  base0A: "#c9a554"
+  base0B: "#7cc596"
+  base0C: "#2aa198"
+  base0D: "#268bd2"
+  base0E: "#d75fd7"
+  base0F: "#af875f"

@@ -1,0 +1,13 @@
+promptToReturnFromSubprocess: false
+os:
+  editPreset: "helix (hx)"
+gui:
+  theme:
+    selectedLineBgColor:
+      - "#444444"
+    inactiveViewSelectedLineBgColor:
+      - "#262626"
+git:
+  pagers:
+    - pager: delta --dark --paging=never
+    - externalDiffCommand: difft --color=always
