@@ -299,7 +299,20 @@ in
                 end
 
                 switch $cmd
-                  case up
+                  case up up-claude
+                    set -l prompt
+                    if test "$cmd" = up-claude
+                      if test -z "$name"
+                        echo "ws up-claude: no workspace name"
+                        return 1
+                      end
+                      set -l tmpfile (mktemp)
+                      $EDITOR $tmpfile; or begin; rm -f $tmpfile; return; end
+                      set prompt (cat $tmpfile | string collect)
+                      rm -f $tmpfile
+                      set argv[1] up
+                    end
+
                     niri msg action set-workspace-name $name; or return
                     dc $argv; or return
                     dc go $name; or return
@@ -309,6 +322,10 @@ in
                     _dc_env
 
                     echo "$KITTY_PID" | nc -U /run/user/1000/mark-urgent.sock
+
+                    if test "$cmd" = up-claude
+                      dc x -w $name claude "$prompt"
+                    end
                   case destroy
                     dc $argv; or return
 
@@ -322,7 +339,7 @@ in
                     niri msg action unset-workspace-name $name; or return
                     exit
                   case '*'
-                    echo "Usage: ws {up|destroy} NAME [ARGS...]"
+                    echo "Usage: ws {up|up-claude|destroy} NAME [ARGS...]"
                     return 1
                 end
               '';
