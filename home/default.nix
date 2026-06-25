@@ -212,6 +212,12 @@ in
       direnv = {
         enable = true;
         nix-direnv.enable = true;
+        config = {
+          whitelist.prefix = [
+            "${config.home.homeDirectory}/src/"
+            "${config.xdg.dataHome}/devconcurrent/"
+          ];
+        };
       };
 
       fish = {
