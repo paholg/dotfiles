@@ -102,12 +102,8 @@ in
     serve = {
       body = # fish
         ''
-          set -l name (dc show workspace); or return
-
-          kitty --detach fish -lC "niri msg action move-window-to-workspace $name --focus false --window-id (get-window-id \$KITTY_PID); and x dev"
-          ~/src/scholarly/scratches/worktree-login
-
-          echo "$KITTY_PID" | nc -U /run/user/1000/mark-urgent.sock
+          ~/src/scholarly/scratches/worktree-login &
+          x dev
         '';
     };
   };
