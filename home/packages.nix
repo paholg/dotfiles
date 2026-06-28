@@ -101,14 +101,11 @@ let
     just-lsp
     lazygit
     litecli # sqlite cli
-    markdown-oxide # markdown lsp
-    marksman # markdown lsp
     mkcert
     ncdu # interactive disk-usage
     nh # nix helper
     nil
     nix-output-monitor
-    nix-search
     nixd
     onefetch
     openssl
@@ -123,6 +120,7 @@ let
     ripgrep
     rnr # regex rename
     ruby_3_4
+    rumdl
     rustup
     sd
     serpl # search and replace

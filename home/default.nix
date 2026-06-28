@@ -119,7 +119,7 @@ in
 
         ipinfo = "curl ipinfo.io 2> /dev/null | jq .";
 
-        ns = "nix-search";
+        ns = "nix search nixpkgs";
 
         own =
           # fish
