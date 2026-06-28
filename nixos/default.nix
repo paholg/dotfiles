@@ -67,13 +67,11 @@
 
     # ****************************************************************************
     # DNS - for devconcurrent
-    services = {
-      resolved = {
-        enable = true;
-        settings.Resolve = {
-          DNS = "127.0.0.1:43770";
-          Domains = "~test";
-        };
+    services.resolved = {
+      enable = true;
+      settings.Resolve = {
+        DNS = "127.0.0.1:43770";
+        Domains = "~test";
       };
     };
 

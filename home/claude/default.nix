@@ -1,4 +1,9 @@
-{ lib, pkgs, ... }:
+{
+  lib,
+  pkgs,
+  symlink,
+  ...
+}:
 let
   jsonFormat = pkgs.formats.json { };
 
@@ -29,6 +34,8 @@ let
   staticSettings = jsonFormat.generate "claude-managed-settings.json" managedSettings;
 in
 {
+  home.file.".claude/CLAUDE.md".source = symlink "CLAUDE.md";
+
   home.activation.claudeSettings =
     lib.hm.dag.entryAfter [ "writeBoundary" ] # bash
       ''

@@ -40,6 +40,7 @@ in
     targets.genericLinux.enable = !nixos;
 
     fonts.fontconfig.enable = true;
+
     xdg.userDirs = {
       enable = true;
       setSessionVariables = false;
@@ -54,6 +55,18 @@ in
       templates = "${homeDir}/docs/templates";
       videos = "${homeDir}/docs/videos";
     };
+
+    xdg.configFile = lib.listToAttrs (
+      map (
+        f:
+        let
+          rel = lib.removePrefix (toString ../config + "/") (toString f);
+        in
+        lib.nameValuePair rel {
+          source = config.lib.file.mkOutOfStoreSymlink "${homeDir}/dotfiles/config/${rel}";
+        }
+      ) (lib.filesystem.listFilesRecursive ../config)
+    );
 
     home = {
       username = config.custom.username;
@@ -133,18 +146,6 @@ in
         theme = "Dark"
       '';
     };
-
-    xdg.configFile = lib.listToAttrs (
-      map (
-        f:
-        let
-          rel = lib.removePrefix (toString ../config + "/") (toString f);
-        in
-        lib.nameValuePair rel {
-          source = config.lib.file.mkOutOfStoreSymlink "${homeDir}/dotfiles/config/${rel}";
-        }
-      ) (lib.filesystem.listFilesRecursive ../config)
-    );
 
     manual = {
       html.enable = true;
