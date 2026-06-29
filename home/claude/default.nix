@@ -37,8 +37,8 @@ in
     lib.hm.dag.entryAfter [ "writeBoundary" ] # bash
       ''
         mkdir -p "$HOME/.claude"
-        install -m 644 ${./statusline-command.sh} "$HOME/.claude/statusline-command.sh"
-        install ${./CLAUDE.md} "$HOME/.claude/CLAUDE.md"
+        install -m 555 ${./statusline-command.sh} "$HOME/.claude/statusline-command.sh"
+        install -m 444 ${./CLAUDE.md} "$HOME/.claude/CLAUDE.md"
 
         settings="$HOME/.claude/settings.json"
         if [ ! -e "$settings" ]; then
