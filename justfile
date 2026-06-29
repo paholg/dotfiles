@@ -51,7 +51,7 @@ sw *args:
 
 swr:
 	just build-remote
-	mark-urgent
+	mark-urgent || true
 	just sw
 
 # Switch NixOS, building on fractal
