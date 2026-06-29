@@ -306,11 +306,11 @@ in
                 end
 
                 switch $cmd
-                  case up up-claude
+                  case up upc
                     set -l prompt
-                    if test "$cmd" = up-claude
+                    if test "$cmd" = upc
                       if test -z "$name"
-                        echo "ws up-claude: no workspace name"
+                        echo "ws upc: no workspace name"
                         return 1
                       end
                       set -l tmpfile (mktemp)
@@ -330,7 +330,7 @@ in
 
                     echo "$KITTY_PID" | nc -U /run/user/1000/mark-urgent.sock
 
-                    if test "$cmd" = up-claude
+                    if test "$cmd" = upc
                       dc x -w $name claude "$prompt"
                     end
                   case destroy
@@ -346,7 +346,7 @@ in
                     niri msg action unset-workspace-name $name; or return
                     exit
                   case '*'
-                    echo "Usage: ws {up|up-claude|destroy} NAME [ARGS...]"
+                    echo "Usage: ws {up|upc|destroy} NAME [ARGS...]"
                     return 1
                 end
               '';
