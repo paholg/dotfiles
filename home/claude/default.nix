@@ -1,7 +1,6 @@
 {
   lib,
   pkgs,
-  symlink,
   ...
 }:
 let
@@ -34,17 +33,18 @@ let
   staticSettings = jsonFormat.generate "claude-managed-settings.json" managedSettings;
 in
 {
-  home.file.".claude/CLAUDE.md".source = symlink "CLAUDE.md";
-
   home.activation.claudeSettings =
     lib.hm.dag.entryAfter [ "writeBoundary" ] # bash
       ''
-        settings="$HOME/.claude/settings.json"
         mkdir -p "$HOME/.claude"
         install -m 644 ${./statusline-command.sh} "$HOME/.claude/statusline-command.sh"
+        install ${./CLAUDE.md} "$HOME/.claude/CLAUDE.md"
+
+        settings="$HOME/.claude/settings.json"
         if [ ! -e "$settings" ]; then
           echo '{}' > "$settings"
         fi
+
         merged="$(${lib.getExe pkgs.jq} -n '$dynamic[0] * $static[0]' \
           --slurpfile dynamic "$settings" --slurpfile static ${staticSettings})"
         printf '%s\n' "$merged" > "$settings"
