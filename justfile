@@ -9,7 +9,7 @@ up *args: up-git up-host up-fw
 	@just sw {{args}}
 
 upr *args: up-git up-host up-fw
-	@just sw-remote {{args}}
+	@just swr {{args}}
 
 swother host:
 	nixos-rebuild switch --flake . --target-host {{host}} --use-remote-sudo
@@ -49,11 +49,5 @@ build-remote *args:
 sw *args:
 	nh os switch . -- --extra-experimental-features 'nix-command flakes' {{args}}
 
-swr:
-	just build-remote
-	mark-urgent || true
-	just sw
-
-# Switch NixOS, building on fractal
-sw-remote *args:
+swr *args:
 	nh os switch . --build-host paho@fractal -- --extra-experimental-features 'nix-command flakes' --cores 0 {{args}}
