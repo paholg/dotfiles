@@ -120,7 +120,6 @@ let
     ripgrep
     rnr # regex rename
     ruby_3_4
-    rumdl
     rustup
     sd
     serpl # search and replace
