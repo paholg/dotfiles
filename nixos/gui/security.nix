@@ -3,20 +3,24 @@ let
   lidCheck = pkgs.writeShellScript "pam-lid-check" ''
     ${pkgs.gnugrep}/bin/grep -q open /proc/acpi/button/lid/*/state
   '';
+
   # $PPID is the sudo process.
   markUrgent = pkgs.writeShellScript "pam-mark-urgent" ''
     echo "$PPID sudo password" | ${pkgs.netcat-openbsd}/bin/nc -UN /run/user/1000/mark-urgent.sock || true
     exit 0
   '';
+
+  unixOrder = service: config.security.pam.services.${service}.rules.auth.unix.order;
+
   setOrder = service: {
     ${service}.rules.auth =
       let
-        unixOrder = config.security.pam.services.${service}.rules.auth.unix.order;
+        serviceUnixOrder = unixOrder service;
       in
       {
-        u2f.order = unixOrder + 1;
+        u2f.order = serviceUnixOrder + 1;
         lid_check = {
-          order = unixOrder + 2;
+          order = serviceUnixOrder + 2;
           control = "[success=ignore default=die]";
           modulePath = "pam_exec.so";
           args = [
@@ -24,7 +28,7 @@ let
             "${lidCheck}"
           ];
         };
-        fprintd.order = unixOrder + 3;
+        fprintd.order = serviceUnixOrder + 3;
       };
   };
 in
@@ -45,7 +49,7 @@ in
       u2fAuth = false;
       fprintAuth = false;
       rules.auth.mark_urgent = {
-        order = config.security.pam.services.sudo.rules.auth.unix.order - 1;
+        order = unixOrder "sudo" - 1;
         control = "optional";
         modulePath = "pam_exec.so";
         args = [

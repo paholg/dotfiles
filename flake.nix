@@ -43,7 +43,7 @@
       url = "github:paholg/playlister";
     };
     rustybar = {
-      url = "github:paholg/rustybar/icons";
+      url = "github:paholg/rustybar";
     };
     stylix = {
       url = "github:danth/stylix";
