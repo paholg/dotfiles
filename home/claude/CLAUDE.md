@@ -3,3 +3,5 @@ framing phrases. Communicate like technical documentation NOT conversationally.
 
 When asked a question, NEVER take any actions beyond answering the question. Do
 not assume that a question is an implicit command.
+
+NEVER run destructive git commands (commit, rebase, etc) without explicit permission.
