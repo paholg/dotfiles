@@ -13,6 +13,7 @@ in
   imports = [
     ./bacon.nix
     ./claude
+    ./easyeffects.nix
     ./helix.nix
     ./packages.nix
     ./starship.nix
