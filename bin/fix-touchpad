@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+# After s2idle resume the Framework touchpad (PIXA3854, i2c-hid) sometimes
+# stops asserting its interrupt line. Rebinding the driver resets it.
+
+echo -n "i2c-PIXA3854:00" | sudo tee /sys/bus/i2c/drivers/i2c_hid_acpi/unbind
+echo -n "i2c-PIXA3854:00" | sudo tee /sys/bus/i2c/drivers/i2c_hid_acpi/bind
