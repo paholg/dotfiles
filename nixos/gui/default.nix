@@ -35,33 +35,6 @@
       alsa.support32Bit = true;
       pulse.enable = true;
       jack.enable = true;
-
-      # The Audioengine HD3 uses a CSR Bluetooth chip (0a12:1243) whose USB
-      # product string resolves to "CSRA64210 [TaoTronics Headset BH-22 ...]"
-      # in the USB ID database. Override so apps show the real name.
-      wireplumber.extraConfig."50-audioengine-hd3" = {
-        "monitor.alsa.rules" = [
-          {
-            matches = [
-              { "device.bus-id" = "usb-Audioengine_Audioengine_HD3_B40020170802-00"; }
-            ];
-            actions.update-props = {
-              "device.description" = "Audioengine HD3";
-              "api.acp.auto-profile" = false;
-              "device.profile" = "output:analog-stereo";
-            };
-          }
-          {
-            matches = [
-              { "node.name" = "alsa_output.usb-Audioengine_Audioengine_HD3_B40020170802-00.analog-stereo"; }
-            ];
-            actions.update-props = {
-              "node.force-quantum" = 1024;
-              "session.suspend-timeout-seconds" = 0;
-            };
-          }
-        ];
-      };
     };
 
     hardware.printers.ensurePrinters = [
