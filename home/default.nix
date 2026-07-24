@@ -335,7 +335,7 @@ in
                     echo "$KITTY_PID" | nc -U /run/user/1000/mark-urgent.sock
 
                     if test "$cmd" = upc
-                      dc x -w $name claude "$prompt"
+                      dc x -w $name claude --model opus "$prompt"
                     end
                   case destroy
                     dc $argv; or return
