@@ -63,6 +63,9 @@
     MemorySwapMax = "4G"; # bound swap to avoid thrash
   };
 
+  # Keep exec sessions live when switching.
+  systemd.services.docker.restartIfChanged = false;
+
   services.flatpak.enable = true;
 
   services.power-profiles-daemon.enable = true;

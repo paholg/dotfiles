@@ -42,6 +42,9 @@
   virtualisation.docker.enable = true;
   users.users.paho.extraGroups = [ "docker" ];
 
+  # Keep exec sessions live when switching.
+  systemd.services.docker.restartIfChanged = false;
+
   # For rebinding mouse
   services.ratbagd.enable = true;
 
