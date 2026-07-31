@@ -66,8 +66,6 @@
   # Keep exec sessions live when switching.
   systemd.services.docker.restartIfChanged = false;
 
-  services.flatpak.enable = true;
-
   services.power-profiles-daemon.enable = true;
 
   # Allow any USB device to wake from suspend.

@@ -24,6 +24,7 @@ window-rule {
 window-rule {
     match app-id="Zoom Workplace"
     match app-id="zoom"
+    match app-id="Zoom"
     exclude title="Zoom Meeting"
     exclude title="Meeting"
     open-floating true

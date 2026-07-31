@@ -10,6 +10,8 @@ let
     enableMiniWindow = false;
     captureHDCamera = true;
     showSystemTitlebar = false;
+    # Skip the embedded Chromium.
+    disableCef = true;
   };
 
   zoomActivationScript = lib.concatStringsSep "\n" (
@@ -149,20 +151,13 @@ in
   };
 
   home.activation.zoomConfig = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
-    conf="$HOME/.var/app/us.zoom.Zoom/config/zoomus.conf"
+    conf="$HOME/.config/zoomus.conf"
     if [ ! -f "$conf" ]; then
-      mkdir -p "$(dirname "$conf")"
       touch "$conf"
     fi
     set_zoom() { ${pkgs.crudini}/bin/crudini --set "$conf" "$@"; }
     ${zoomActivationScript}
   '';
-
-  xdg.mimeApps.defaultApplications = {
-    "x-scheme-handler/zoommtg" = "us.zoom.Zoom.desktop";
-    "x-scheme-handler/zoomus" = "us.zoom.Zoom.desktop";
-    "x-scheme-handler/zoomphonecall" = "us.zoom.Zoom.desktop";
-  };
 
   home.packages = (
     with pkgs;
@@ -181,6 +176,7 @@ in
       heroku
       pscale
       redis
+      (zoom-us.override { gnomeXdgDesktopPortalSupport = true; })
     ]
   );
 
