@@ -52,7 +52,6 @@
     };
     niri = {
       url = "github:niri-wm/niri";
-      inputs.nixpkgs.follows = "nixpkgs";
     };
     claude-code = {
       url = "github:sadjow/claude-code-nix";
