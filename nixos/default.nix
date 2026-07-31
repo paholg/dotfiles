@@ -28,7 +28,11 @@
 
     boot.kernelPackages = lib.mkDefault pkgs.linuxPackages_latest;
 
-    boot.zswap.enable = true;
+    boot.zswap = {
+      enable = true;
+      # lz4 uses less CPU than the zstd default
+      compressor = "lz4";
+    };
     systemd.oomd = {
       enable = true;
       enableRootSlice = true;
