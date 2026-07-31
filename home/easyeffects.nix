@@ -11,6 +11,9 @@
     preset = "zoom-voice";
   };
 
+  # Prevent the GUI from opening on exit.
+  systemd.user.services.easyeffects.Service.ExecStop = lib.mkForce "";
+
   # EasyEffects has only a blocklist, no allowlist. So, we turn it off for all
   # inputs and outputs. Only programs that select it specifically will use it.
   home.activation.easyeffectsRouting = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
