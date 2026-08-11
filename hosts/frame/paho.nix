@@ -162,6 +162,7 @@ in
   home.packages = (
     with pkgs;
     [
+      awscli2
       csvtool
       distrobox
       dive # look into docker image layers
@@ -176,6 +177,7 @@ in
       heroku
       pscale
       redis
+      ssm-session-manager-plugin # AWS plugin
       (zoom-us.override { gnomeXdgDesktopPortalSupport = true; })
     ]
   );
