@@ -58,6 +58,10 @@
       inputs.flake-utils.follows = "flake-utils";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    claude-desktop = {
+      url = "github:poeck/claude-desktop-nix-flake";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
     # Dependencies to minimize duplicates in `flake.lock`:
     crane = {
@@ -104,6 +108,7 @@
         external = {
           agenix = inputs.agenix.packages.${system}.default;
           claude-code = inputs.claude-code.packages.${system}.default;
+          claude-desktop = inputs.claude-desktop.packages.${system}.default;
           devconcurrent = inputs.devconcurrent.packages.${system}.default;
           display-switch =
             let

@@ -163,6 +163,7 @@ in
     with pkgs;
     [
       awscli2
+      external.claude-desktop
       csvtool
       distrobox
       dive # look into docker image layers
@@ -178,6 +179,7 @@ in
       pscale
       redis
       ssm-session-manager-plugin # AWS plugin
+      terraform
       (zoom-us.override { gnomeXdgDesktopPortalSupport = true; })
     ]
   );
