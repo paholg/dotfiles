@@ -358,16 +358,18 @@ in
         };
       };
 
-      fzf = {
-        enable = true;
-        enableFishIntegration = true;
-      };
-
       delta = {
         enable = true;
         options = {
           line-numbers = true;
         };
+      };
+
+      fzf = {
+        enable = true;
+        enableFishIntegration = true;
+
+        historyWidget.command = "";
       };
 
       git = lib.mkIf (config.custom.username == "paho") {

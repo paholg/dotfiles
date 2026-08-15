@@ -13,6 +13,9 @@ in
     programs.firefox = {
       enable = true;
 
+      # Default on new stateVersions
+      configPath = "${config.xdg.configHome}/mozilla/firefox";
+
       profiles.default = {
         isDefault = true;
         settings = {
