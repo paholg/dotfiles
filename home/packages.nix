@@ -33,6 +33,7 @@ let
         kitty.terminfo
         krita
         libreoffice
+        tidal-hifi
         yubikey-manager
       ]
     else
