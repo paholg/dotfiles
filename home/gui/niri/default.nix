@@ -56,5 +56,6 @@ in
         settings.default-timeout = 60000;
       };
     };
+    systemd.user.packages = [ pkgs.mako ];
   };
 }
