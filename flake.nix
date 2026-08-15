@@ -86,25 +86,6 @@
       linux = "x86_64-linux";
 
       pkgs_overlay = system: final: prev: {
-        # NOTE: This is likely fixed once a version above 0.16.6 releases.
-        libtorrent-rakshasa = prev.libtorrent-rakshasa.overrideAttrs (old: rec {
-          version = "0.15.6";
-          src = prev.fetchFromGitHub {
-            owner = "rakshasa";
-            repo = "libtorrent";
-            rev = "v${version}";
-            hash = "sha256-udEe9VyUzPXuCTrB3U3+XCbVWvfTT7xNvJJkLSQrRt4=";
-          };
-        });
-        rtorrent = prev.rtorrent.overrideAttrs (old: rec {
-          version = "0.15.6";
-          src = prev.fetchFromGitHub {
-            owner = "rakshasa";
-            repo = "rtorrent";
-            rev = "v${version}";
-            hash = "sha256-B/5m1JXdUpczUMNN4cy5p6YurjmRFxMQHG3cQFSmZSs=";
-          };
-        });
         external = {
           agenix = inputs.agenix.packages.${system}.default;
           claude-code = inputs.claude-code.packages.${system}.default;

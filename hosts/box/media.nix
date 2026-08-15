@@ -96,6 +96,7 @@
 
     oauth2-proxy = {
       enable = true;
+
       provider = "oidc";
       httpAddress = "http://127.0.0.1:${toString config.custom.ports.oauth2_proxy}";
       reverseProxy = true;
@@ -123,6 +124,23 @@
       };
     };
   };
+
+  systemd.services.oauth2-proxy = {
+    # Wait for kanidm (Type=notify) so OIDC discovery via nginx doesn't 502
+    # during activation.
+    after = [
+      "kanidm.service"
+      "nginx.service"
+    ];
+    wants = [ "kanidm.service" ];
+    # Default 100ms restarts exhaust the start limit (5 in 10s) before
+    # kanidm is up if the ordering ever doesn't cover it.
+    serviceConfig.RestartSec = 2;
+  };
+
+  # Override UMask so that the `media` group gets file permissions
+  systemd.services.sonarr.serviceConfig.UMask = lib.mkForce "0002";
+  systemd.services.radarr.serviceConfig.UMask = lib.mkForce "0002";
 
   systemd.services.jellyfin = {
     # Override UMask so that the `media` group gets file permissions

@@ -55,6 +55,9 @@ in
           "::/0"
         ];
         persistentKeepalive = 15;
+        # The AirVPN endpoint is a rotating DNS name; re-resolve so the
+        # tunnel survives IP changes.
+        dynamicEndpointRefreshSeconds = 60;
       }
     ];
 
@@ -156,7 +159,6 @@ in
 
       throttle.max_downloads.div.set = 100
       throttle.max_uploads.div.set   = 100
-      network.http.max_open.set = 100
 
       # Maximum and minimum number of peers to connect to per torrent while downloading (`min_peers`, `max_peers`) Default: `100` and `200` respectively
       throttle.min_peers.normal.set = 49
@@ -184,9 +186,6 @@ in
 
       # Maximum number of open files rtorrent can keep open (you have to modify the system wide settings with ulimit!)
       network.max_open_files.set = 10240
-
-      # Maximum number of simultaneous HTTP request (used by announce or scrape requests) Default: `32`
-      network.http.max_open.set = 99
 
       # Send and receive buffer size for socket. Disabled by default (`0`), this means the default is used by OS 
       #  (you have to modify the system wide settings!)
@@ -216,10 +215,10 @@ in
       network.xmlrpc.size_limit.set = 2M
 
       # Save all the sessions in every 12 hours instead of the default 20 minutes.
-      schedule2 = session_save, 1200, 43200, ((session.save))
+      schedule = session_save, 1200, 43200, ((session.save))
 
       # Prune file status in every 24 hours, this is the default setting.
-      #schedule2 = prune_file_status, 3600, 86400, ((system.file_status_cache.prune))
+      #schedule = prune_file_status, 3600, 86400, ((system.file_status_cache.prune))
 
       # Whether to allocate disk space for a new torrent. Default: `0`
       #system.file.allocate.set = 1
@@ -289,7 +288,12 @@ in
             pkgs.wireguard-tools
           ];
           text = ''
-            ts=$(ip netns exec ${namespace} wg show wg0 latest-handshakes | awk '{print $2}')
+            if ip netns list | grep -q '^${namespace}\b'; then
+              ts=$(ip netns exec ${namespace} wg show wg0 latest-handshakes | awk '{print $2}')
+            else
+              # Namespace doesn't exist (e.g. mid nixos-rebuild switch); report no handshake.
+              ts=0
+            fi
             echo "''${ts:-0}" > /run/wireguard-handshake
             chmod 644 /run/wireguard-handshake
           '';

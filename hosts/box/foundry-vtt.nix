@@ -100,6 +100,10 @@ in
     volumes = [
       "${config.custom.drives.data}/foundry:/data"
     ];
+    # The image's built-in healthcheck fails while Foundry boots, leaving a
+    # failed transient unit that makes every nixos-rebuild switch report
+    # failure. Nothing consumes the health status.
+    extraOptions = [ "--no-healthcheck" ];
   };
 
   environment.systemPackages = [ foundryDownloadScript ];
