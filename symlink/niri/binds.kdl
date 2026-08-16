@@ -57,6 +57,9 @@ binds {
     Super+D {
         spawn "makoctl" "dismiss"
     }
+    Super+A {
+        spawn "niri-workspace-switcher"
+    }
     Super+V {
         focus-workspace "main"
     }
@@ -176,9 +179,6 @@ binds {
     }
     // Spawn
     Super+G {
-        spawn "niri-workspace-switcher"
-    }
-    Super+Ctrl+G {
         spawn "rofi" "-show" "drun"
     }
     Super+T {
