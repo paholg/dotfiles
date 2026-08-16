@@ -39,14 +39,6 @@
             format = "[($symbol $output )]($style)";
             symbol = "";
           };
-          dc_ports = {
-            description = "Show dc forwarded ports for this workspace";
-            command = "devconcurrent show ports";
-            when = "devconcurrent show workspace";
-            style = "blue";
-            format = "[($symbol $output )]($style)";
-            symbol = "󰖟";
-          };
           #   jj = {
           #     when = true;
           #     description = "current jj status";
