@@ -122,6 +122,7 @@ let
     rnr # regex rename
     ruby_3_4
     rustup
+    sccache
     sd
     serpl # search and replace
     shellcheck

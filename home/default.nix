@@ -80,7 +80,8 @@ in
         CARGO_HOME = "$HOME/.cargo";
         MANROFFOPT = "-c";
 
-        CARGO_TARGET_DIR = "$HOME/.cargo/cache";
+        SCCACHE_DIR = "$HOME/.cache/sccache";
+        SCCACHE_CACHE_SIZE = "100G";
       };
 
       sessionPath = [
@@ -137,6 +138,7 @@ in
 
     home.file = {
       ".cargo/config.toml".source = (pkgs.formats.toml { }).generate "" {
+        build.rustc-wrapper = lib.getExe pkgs.sccache;
         target.x86_64-unknown-linux-gnu = {
           # linker = "clang";
           linker = "${lib.getExe pkgs.clang}";
