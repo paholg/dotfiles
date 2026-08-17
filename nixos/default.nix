@@ -135,6 +135,10 @@
     # See: https://github.com/nix-community/home-manager/issues/5119#issuecomment-3704377290
     programs.fish.enable = true;
 
+    # Default "weekly" runs Monday 00:00; TRIM saturates the NVMe while it
+    # runs, so do it while asleep. RandomizedDelaySec=100min still applies.
+    services.fstrim.interval = "Mon *-*-* 03:00:00";
+
     services.fwupd.enable = true;
 
     services.kanidm = {
