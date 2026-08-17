@@ -124,8 +124,6 @@ in
 
         ipinfo = "curl ipinfo.io 2> /dev/null | jq .";
 
-        ns = "nix search nixpkgs";
-
         own =
           # fish
           ''
@@ -280,6 +278,13 @@ in
                 else
                   $argv --help 2>&1 | bathelp
                 end
+              '';
+          };
+          ns = {
+            description = "Fuzzy search nix packages and options";
+            body = # fish
+              ''
+                nix-search-tv print | fzf --preview 'nix-search-tv preview {}' --scheme history
               '';
           };
           nshell = {
@@ -442,6 +447,15 @@ in
       };
 
       home-manager.enable = true;
+
+      nix-search-tv = {
+        enable = true;
+        settings.indexes = [
+          "nixpkgs"
+          "home-manager"
+          "nixos"
+        ];
+      };
 
       ssh = {
         enable = true;
