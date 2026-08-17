@@ -83,24 +83,6 @@ in
   };
 
   programs.fish.functions = {
-    _dc_env = {
-      onEvent = "fish_prompt";
-      body = # fish
-        ''
-          set -l workspace (devconcurrent show workspace); or return
-          set -gx REMOTE_HOST $workspace.app.test
-
-          set -gx DATABASE_HOST $workspace.mysql.test
-
-          set -gx REDIS_URL redis://$workspace.redis.test/0
-          set -gx REDIS_ACTION_CABLE_URL redis://$workspace.redis.test/1
-          set -gx REDIS_TEST_ACTION_CABLE_URL redis://$workspace.redis.test/2
-          set -gx REDIS_RACK_ATTACK_URL redis://$workspace.redis.test/9
-
-          set -gx OTEL_EXPORTER_OTLP_ENDPOINT http://$workspace.jaeger.test:4318
-        '';
-    };
-
     serve = {
       body = # fish
         ''

@@ -338,8 +338,6 @@ in
                     direnv allow; or return
                     eval (direnv export fish); or return
 
-                    _dc_env
-
                     echo "$KITTY_PID" | nc -U /run/user/1000/mark-urgent.sock
 
                     if test "$cmd" = upc
