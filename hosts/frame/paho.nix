@@ -111,7 +111,6 @@ in
 
   home.sessionVariables = {
     NGROK_URL = "paholg.ngrok.app";
-    REMOTE_HOST = "paholg.ngrok.app";
   };
 
   systemd.user.services.ngrok = {
