@@ -33,7 +33,18 @@ let
         kitty.terminfo
         krita
         libreoffice
-        tidal-hifi
+        # tidal-hifi's in-app "disable sandbox" flag is applied too late: the
+        # renderer still spawns sandboxed and aborts on /dev/shm, which shows up
+        # as a grey screen on DataDome's login device check.
+        # https://github.com/Mastermindzh/tidal-hifi/issues/958
+        (symlinkJoin {
+          name = "tidal-hifi-no-sandbox";
+          paths = [ tidal-hifi ];
+          nativeBuildInputs = [ makeWrapper ];
+          postBuild = ''
+            wrapProgram $out/bin/tidal-hifi --add-flags "--no-sandbox"
+          '';
+        })
         yubikey-manager
       ]
     else
