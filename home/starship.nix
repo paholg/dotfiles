@@ -17,14 +17,8 @@
         git_branch.format = "[$symbol$branch]($style) ";
         status.disabled = false;
         aws = {
-          disabled = false;
-          format = ''[$symbol($profile )(\($region\) )(\[$duration\] )]($style)'';
-          region_aliases = {
-            us-east-1 = "use1";
-            us-east-2 = "use2";
-            us-west-1 = "usw1";
-            us-west-2 = "usw2";
-          };
+          disabled = true;
+          format = "[$symbol$duration]($style) ";
         };
         custom = {
           envswitch = {
