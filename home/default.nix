@@ -97,8 +97,8 @@ in
 
         bg = "systemctl --user restart background";
 
-        clo = "x claude --model opus --dangerously-skip-permissions";
-        clf = "x claude --model fable --dangerously-skip-permissions";
+        clo = "x claude --model opus";
+        clf = "x claude --model fable";
 
         check_sync = "watch grep -e Dirty: -e Writeback: /proc/meminfo";
 
