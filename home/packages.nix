@@ -76,6 +76,7 @@ let
         slack
         slurp
         vlc
+        wdisplays
         wl-screenrec
       ]
     else
