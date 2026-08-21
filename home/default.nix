@@ -383,11 +383,11 @@ in
         signing.format = "openpgp";
         settings = {
           branch.autoSetupMerge = "true";
-          core.pager = "delta";
+          core.pager = lib.getExe pkgs.delta;
           credential.helper = "store";
-          diff.external = "difft";
+          diff.external = lib.getExe pkgs.difftastic;
           init.defaultBranch = "main";
-          interactive.diffFilter = "delta --color-only";
+          interactive.diffFilter = "${lib.getExe pkgs.delta} --color-only";
           log.date = "local";
           pull.rebase = true;
           push.autoSetupRemote = "true";
@@ -434,7 +434,7 @@ in
 
           ui = {
             diff.tool = [
-              "difft"
+              (lib.getExe pkgs.difftastic)
               "--color=always"
               "$left"
               "$right"
