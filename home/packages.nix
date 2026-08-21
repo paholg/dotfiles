@@ -1,57 +1,27 @@
 {
   gui,
-  linux,
   pkgs,
   ...
 }:
 let
-  linuxPackages =
-    if linux then
-      with pkgs;
-      [
-        acpi
-        dmidecode
-        jc
-        kcov
-        lshw
-        net-tools
-        outils # sha256, etc.
-        psmisc # killall, fuser, etc.
-        smartmontools
-        sparse
-        strace
-        usbutils
-      ]
-    else
-      [ ];
+  tidal-hifi =
+    # tidal-hifi's in-app "disable sandbox" flag is applied too late: the
+    # renderer still spawns sandboxed and aborts on /dev/shm, which shows up
+    # as a grey screen on DataDome's login device check.
+    # https://github.com/Mastermindzh/tidal-hifi/issues/958
+    (
+      pkgs.symlinkJoin {
+        name = "tidal-hifi-no-sandbox";
+        paths = [ tidal-hifi ];
+        nativeBuildInputs = [ pkgs.makeWrapper ];
+        postBuild = ''
+          wrapProgram $out/bin/tidal-hifi --add-flags "--no-sandbox"
+        '';
+      }
+    );
 
   guiPackages =
     if gui then
-      with pkgs;
-      [
-        # kdePackages.kdenlive # video editing, broken 2026-01-29
-        kitty.terminfo
-        krita
-        libreoffice
-        # tidal-hifi's in-app "disable sandbox" flag is applied too late: the
-        # renderer still spawns sandboxed and aborts on /dev/shm, which shows up
-        # as a grey screen on DataDome's login device check.
-        # https://github.com/Mastermindzh/tidal-hifi/issues/958
-        (symlinkJoin {
-          name = "tidal-hifi-no-sandbox";
-          paths = [ tidal-hifi ];
-          nativeBuildInputs = [ makeWrapper ];
-          postBuild = ''
-            wrapProgram $out/bin/tidal-hifi --add-flags "--no-sandbox"
-          '';
-        })
-        yubikey-manager
-      ]
-    else
-      [ ];
-
-  linuxGuiPackages =
-    if linux && gui then
       with pkgs;
       [
         audacity
@@ -66,7 +36,10 @@ let
         guvcview
         kdePackages.dolphin
         kdePackages.okular
+        kitty.terminfo
+        krita
         libnotify
+        libreoffice
         lxqt.lxqt-policykit
         mesa-demos
         pavucontrol
@@ -75,15 +48,18 @@ let
         signal-desktop
         slack
         slurp
+        tidal-hifi
         vlc
         wdisplays
         wl-screenrec
+        wtype
+        yubikey-manager
       ]
     else
       [ ];
 
   defaultPackages = with pkgs; [
-    external.agenix
+    acpi
     ast-grep
     aws-rotate-key
     bash-language-server
@@ -91,44 +67,50 @@ let
     btop-rocm
     cachix
     choose
-    external.claude-code
-    external.devconcurrent
     curl
     difftastic
     dig
+    dmidecode
     dust
     dysk
     entr # Watch for file changes
     erdtree # pretty tree
+    external.agenix
+    external.claude-code
+    external.devconcurrent
     eza
+    fastfetch
     fd
     fzf
     gh # GitHub CLI
     git
-    fastfetch
     htop
     hyperfine
+    jc
     jnv
     jq
     just
     just-lsp
+    kcov
     lazygit
     litecli # sqlite cli
+    lshw
     mkcert
     ncdu # interactive disk-usage
+    net-tools
     nh # nix helper
     nil
     nix-output-monitor
     nixd
     onefetch
     openssl
+    outils # sha256, etc.
     pciutils # lspci, etc.
     pgcli
     procs # ps
+    psmisc # killall, fuser, etc.
     pv
     python3
-    # python3Packages.python-lsp-server
-    # python3Packages.python-lsp-ruff
     python3Packages.ruff
     ripgrep
     rnr # regex rename
@@ -138,17 +120,21 @@ let
     sd
     serpl # search and replace
     shellcheck
+    smartmontools
     socat
+    sparse
     sshfs-fuse
+    strace
     tabiew
     tinymist # typst language server
     tlrc # Shorter man-pages
+    tokei
     tombi # toml language server
     typescript-language-server
     typst
     typstyle # typst formatter
-    tokei
     unzip
+    usbutils
     vscode-langservers-extracted # css, html, json, markdown, eslint
     wget
     xan
@@ -162,6 +148,6 @@ let
 in
 {
   config = {
-    home.packages = defaultPackages ++ linuxPackages ++ guiPackages ++ linuxGuiPackages;
+    home.packages = defaultPackages ++ guiPackages;
   };
 }
