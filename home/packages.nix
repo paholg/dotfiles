@@ -12,7 +12,7 @@ let
     (
       pkgs.symlinkJoin {
         name = "tidal-hifi-no-sandbox";
-        paths = [ tidal-hifi ];
+        paths = [ pkgs.tidal-hifi ];
         nativeBuildInputs = [ pkgs.makeWrapper ];
         postBuild = ''
           wrapProgram $out/bin/tidal-hifi --add-flags "--no-sandbox"
