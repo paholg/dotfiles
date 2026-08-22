@@ -51,6 +51,8 @@
     dockerCompat = false;
   };
 
+  security.pki.certificateFiles = [ ./devconcurrentCA.pem ];
+
   virtualisation.docker.enable = true;
   users.users.paho.extraGroups = [ "docker" ];
 
