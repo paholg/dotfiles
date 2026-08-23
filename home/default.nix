@@ -109,8 +109,6 @@ in
 
         j = "journalctl -e";
         ju = "journalctl -e --user";
-        s = "systemctl";
-        su = "systemctl --user";
         just = "${lib.getExe pkgs.just} --command-color=blue";
 
         ls = "eza";
@@ -129,6 +127,8 @@ in
           ''
             fd --no-ignore-vcs -Ho root | xargs -d'
             ' sudo chown -h ${config.custom.username}:${config.custom.username}'';
+
+        s = "kitten ssh";
 
         y = "yazi";
       };
@@ -463,8 +463,8 @@ in
         settings =
           (lib.mapAttrs
             (name: host: {
-              user = config.custom.username;
-              hostname = host;
+              User = config.custom.username;
+              HostName = host;
             })
             {
               home = "home.paholg.com";
@@ -476,11 +476,16 @@ in
           )
           // {
             router = {
-              user = "admin";
-              hostname = "10.0.0.1";
+              User = "admin";
+              HostName = "10.0.0.1";
+            };
+            fractal-home = {
+              User = "paho";
+              HostName = "10.0.0.5";
+              ProxyJump = "home";
             };
             "*" = {
-              addKeysToAgent = "yes";
+              AddKeysToAgent = "yes";
             };
           };
       };
