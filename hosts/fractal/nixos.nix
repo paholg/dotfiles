@@ -79,7 +79,7 @@
         "--rt"
         "--hdr-enabled"
         # See /sys/class/drm/card* for output names that gamescope uses.
-        "--prefer-output DP-2"
+        "--prefer-output HDMI-A-1"
       ];
       # SteamOS session flags: required for controller navigation of the Steam
       # UI under embedded gamescope. Same set as ChimeraOS's gamescope-session:
