@@ -1,6 +1,9 @@
-{ pkgs, ... }:
+{ lib, pkgs, ... }:
 {
-  imports = [ ./hardware-configuration.nix ];
+  imports = [
+    ./hardware-configuration.nix
+    ./vt-autopilot.nix
+  ];
   system.stateVersion = "23.11";
   networking.hostName = "fractal";
 
@@ -66,5 +69,50 @@
     localNetworkGameTransfers.openFirewall = true;
 
     protontricks.enable = true;
+
+    gamescopeSession = {
+      enable = true;
+      # Session-specific; NOT programs.gamescope.args, which would apply to
+      # every gamescope invocation (e.g. gamescope-office).
+      args = [
+        "--adaptive-sync" # VRR support
+        "--rt"
+        "--hdr-enabled"
+        # See /sys/class/drm/card* for output names that gamescope uses.
+        "--prefer-output DP-2"
+      ];
+      # SteamOS session flags: required for controller navigation of the Steam
+      # UI under embedded gamescope. Same set as ChimeraOS's gamescope-session:
+      # https://github.com/ChimeraOS/gamescope-session-steam/blob/main/usr/share/gamescope-session-plus/sessions.d/steam
+      steamArgs = [
+        "-pipewire-dmabuf"
+        "-gamepadui"
+        "-steamos3"
+        "-steampal"
+        "-steamdeck"
+      ];
+      env = {
+        STEAM_GAMESCOPE_VRR_SUPPORTED = "1";
+        STEAM_GAMESCOPE_HDR_SUPPORTED = "1";
+        # wireplumber handles audio device switching.
+        STEAM_DISABLE_AUDIO_DEVICE_SWITCHING = "1";
+        # Open URLs in Steam's browser; there is no desktop browser here.
+        SRT_URLOPEN_PREFER_STEAM = "1";
+        # On-screen Steam keyboard.
+        QT_IM_MODULE = "steam";
+        GTK_IM_MODULE = "Steam";
+      };
+    };
   };
+
+  # Run the Steam TV session as guest on VT1.
+  services.greetd = {
+    enable = true;
+    settings.default_session = {
+      command = "steam-gamescope";
+      user = "guest";
+    };
+  };
+  # Module default is on-success; be robust to nonzero exits too.
+  systemd.services.greetd.serviceConfig.Restart = lib.mkForce "always";
 }
