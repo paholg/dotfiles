@@ -4,6 +4,14 @@
   symlink,
   ...
 }:
+let
+  mdformatArgs = [
+    "--wrap"
+    "80"
+    "--number"
+    "-"
+  ];
+in
 {
   config = {
     home.file.".config/helix/themes/paho-theme.toml".source = symlink "helix-theme.toml";
@@ -57,6 +65,7 @@
                 ":redraw"
                 ":reload-all"
               ];
+              m = ":pipe mdformat ${lib.concatStringsSep " " mdformatArgs}";
             };
             A-h = ":toggle-option lsp.display-inlay-hints";
             C-p = ''@"%p"+d''; # Copy path to system clipboard
@@ -105,6 +114,10 @@
               ">"
               "- [ ]"
             ];
+            formatter = {
+              command = "mdformat";
+              args = mdformatArgs;
+            };
           }
           {
             name = "nickel";

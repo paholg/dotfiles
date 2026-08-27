@@ -9,16 +9,16 @@ let
     # renderer still spawns sandboxed and aborts on /dev/shm, which shows up
     # as a grey screen on DataDome's login device check.
     # https://github.com/Mastermindzh/tidal-hifi/issues/958
-    (
-      pkgs.symlinkJoin {
-        name = "tidal-hifi-no-sandbox";
-        paths = [ pkgs.tidal-hifi ];
-        nativeBuildInputs = [ pkgs.makeWrapper ];
-        postBuild = ''
-          wrapProgram $out/bin/tidal-hifi --add-flags "--no-sandbox"
-        '';
-      }
-    );
+    pkgs.symlinkJoin {
+      name = "tidal-hifi-no-sandbox";
+      paths = [ pkgs.tidal-hifi ];
+      nativeBuildInputs = [ pkgs.makeWrapper ];
+      postBuild = ''
+        wrapProgram $out/bin/tidal-hifi --add-flags "--no-sandbox"
+      '';
+    };
+
+  mdformat = (pkgs.mdformat.withPlugins (ps: [ ps.mdformat-gfm ]));
 
   guiPackages =
     if gui then
@@ -95,6 +95,7 @@ let
     lazygit
     litecli # sqlite cli
     lshw
+    (mdformat.withPlugins (ps: [ ps.mdformat-gfm ]))
     mkcert
     ncdu # interactive disk-usage
     net-tools
