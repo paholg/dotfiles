@@ -92,14 +92,10 @@ in
     };
   };
 
-  programs.starship.settings.custom = {
-    heroku = {
-      command = "echo $HEROKU_APP";
-      when = ''[ -n "$HEROKU_APP" ]'';
-      format = "[$symbol $output]($style) ";
-      style = "#D7BFF2 italic";
-      symbol = "";
-      shell = "bash";
+  programs.ssh.settings = {
+    beelink = {
+      User = "pluriegregg@scholarlysoftware.com";
+      HostName = "scholarly-seattle-beelink";
     };
   };
 
@@ -160,6 +156,7 @@ in
       pscale
       redis
       ssm-session-manager-plugin # AWS plugin
+      tailscale
       terraform
       (zoom-us.override { gnomeXdgDesktopPortalSupport = true; })
     ]

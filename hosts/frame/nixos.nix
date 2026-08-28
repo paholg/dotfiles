@@ -40,6 +40,8 @@
     HandleLidSwitchExternalPower = "ignore";
   };
 
+  services.tailscale.enable = true;
+
   # Need to install here for polit rules to be picked up.
   environment.systemPackages = with pkgs; [
     quickemu
