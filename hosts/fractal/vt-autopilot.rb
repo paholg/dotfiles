@@ -3,8 +3,13 @@
 # Rule A: tty1 active and no input for IDLE_SECONDS -> chvt 2.
 # Rule B: gamepad button press while tty2 is active -> chvt 1, but only if paho
 #         is locked or not logged in.
+# Rule C: TV session unused for REFRESH_SECONDS and everything idle ->
+#         restart greetd for a fresh session. steamwebhelper recycles itself
+#         after hours of idling and sometimes comes back as a black screen;
+#         a periodic refresh beats finding it wedged.
 
 IDLE_SECONDS = 10 * 60
+REFRESH_SECONDS = 6 * 60 * 60
 COOLDOWN_SECONDS = 5
 # Fallback only; inotify triggers rescans as soon as devices change.
 RESCAN_SECONDS = 60
@@ -64,6 +69,12 @@ def chvt(vt)
   system("chvt", vt.to_s)
 end
 
+def refresh_guest_session
+  puts "restarting idle guest session"
+  $stdout.flush
+  system("systemctl", "restart", "greetd")
+end
+
 def gamepad?(path)
   # Sysfs exposes EV_KEY capabilities as space-separated hex words, most
   # significant first.
@@ -109,6 +120,8 @@ rescan(devices)
 last_scan = monotonic
 last_activity = monotonic
 last_switch = 0.0
+last_fresh = monotonic
+refresh_deadline = nil
 
 loop do
   # One wake per second regardless of event rate: the kernel buffers events
@@ -165,7 +178,16 @@ loop do
   next if now - last_switch < COOLDOWN_SECONDS
 
   vt = active_vt
-  if vt == "tty1" && now - last_activity > IDLE_SECONDS
+  last_fresh = now if vt == "tty1"
+  refresh_deadline = nil if refresh_deadline && now > refresh_deadline
+  if refresh_deadline && vt == "tty1"
+    # greetd activated its VT when the refreshed session came up; nobody
+    # asked for that switch, so park back.
+    chvt(2)
+    last_switch = now
+    last_activity = now
+    refresh_deadline = nil
+  elsif vt == "tty1" && now - last_activity > IDLE_SECONDS
     chvt(2)
     last_switch = now
     last_activity = now
@@ -173,5 +195,10 @@ loop do
     chvt(1)
     last_switch = now
     last_activity = now
+  elsif vt != "tty1" && now - last_fresh > REFRESH_SECONDS &&
+        now - last_activity > IDLE_SECONDS && paho_interruptible?
+    refresh_guest_session
+    last_fresh = now
+    refresh_deadline = now + 120
   end
 end

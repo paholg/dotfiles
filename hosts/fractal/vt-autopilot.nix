@@ -10,6 +10,7 @@ in
     path = [
       pkgs.kbd # chvt
       pkgs.procps # pgrep
+      pkgs.systemd # systemctl
     ];
     serviceConfig = {
       ExecStart = lib.getExe vt-autopilot;
