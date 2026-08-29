@@ -47,7 +47,7 @@
     nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
 
     nix = {
-      package = lib.mkDefault pkgs.nix;
+      package = lib.mkDefault pkgs.nixVersions.latest;
       settings.auto-optimise-store = true;
       settings.experimental-features = [
         "nix-command"
