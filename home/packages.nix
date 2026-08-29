@@ -84,6 +84,7 @@ let
     fzf
     gh # GitHub CLI
     git
+    git-absorb
     htop
     hyperfine
     jc

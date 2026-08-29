@@ -1,0 +1,79 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+# Review committed changes hunk-by-hunk using the index as the "reviewed" marker.
+#
+#   git review           review the current branch: everything since it diverged
+#                        from origin/main shows as unstaged. Stage hunks as you
+#                        review them; edit or discard freely.
+#   git review pr <num>  checkout a PR with gh, then review it against its base
+#   git review done      return HEAD to the branch, clear the index. Edits and
+#                        discards remain as working-tree changes.
+#   git review absorb    stage those changes and fold them into the reviewed
+#                        commits with git-absorb
+
+state_file=$(git rev-parse --git-path REVIEW_STATE)
+# Survives `done` so `absorb` knows where the reviewed commits start.
+base_file=$(git rev-parse --git-path REVIEW_BASE)
+
+die() { echo "git review: $*" >&2; exit 1; }
+
+start() {
+  local upstream=${1:-origin/main}
+  [ -f "$state_file" ] && die "already in review; run 'git review done'"
+  git update-index -q --refresh
+  git diff-index --quiet HEAD -- || die "working tree or index is dirty"
+
+  local head base
+  head=$(git symbolic-ref -q HEAD || git rev-parse HEAD)
+  base=$(git merge-base "$upstream" HEAD) || die "no merge base with $upstream"
+  [ "$base" = "$(git rev-parse HEAD)" ] && die "no commits since $upstream"
+
+  echo "$head" > "$state_file"
+  echo "$base" > "$base_file"
+  git checkout -q --detach
+  git reset -q "$base"
+  echo "Reviewing $(git rev-list --count "$base..$head") commits. Stage hunks as you review; finish with 'git review done'."
+}
+
+pr() {
+  local num=${1:?usage: git review pr <num>}
+  local base_ref
+  base_ref=$(gh pr view "$num" --json baseRefName -q .baseRefName)
+  gh pr checkout "$num"
+  git fetch -q origin "$base_ref"
+  start "origin/$base_ref"
+}
+
+done_() {
+  [ -f "$state_file" ] || die "not in review"
+  local head
+  head=$(cat "$state_file")
+  # Move HEAD back without touching index or working tree.
+  if [[ "$head" == refs/heads/* ]]; then
+    git symbolic-ref HEAD "$head"
+  else
+    git update-ref --no-deref HEAD "$head"
+  fi
+  rm -f "$state_file"
+  git reset -q
+  if ! git diff --quiet; then
+    echo "Edits left in working tree; fold them in with 'git review absorb'."
+    git diff --stat
+  fi
+}
+
+absorb() {
+  [ -f "$state_file" ] && die "still in review; run 'git review done' first"
+  [ -f "$base_file" ] || die "no review base recorded"
+  git add -u
+  git absorb --and-rebase --base "$(cat "$base_file")"
+}
+
+case "${1:-}" in
+  "") start ;;
+  pr) shift; pr "$@" ;;
+  done) done_ ;;
+  absorb) absorb ;;
+  *) die "usage: git review [pr <num> | done | absorb]" ;;
+esac
