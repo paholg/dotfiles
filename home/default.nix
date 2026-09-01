@@ -119,6 +119,7 @@ in
         gsw =
           # fish
           ''git switch $(git branch --sort=-committerdate | fzf | cut -c3- | cut -d " " -f1)'';
+        gr = "git-review";
 
         ipinfo = "curl ipinfo.io 2> /dev/null | jq .";
 
@@ -237,6 +238,7 @@ in
           eval (batpipe)
 
           COMPLETE=fish devconcurrent | source 
+          argc --argc-completions fish git-review | source
         ''
         + config.custom.fish_extra_init;
 

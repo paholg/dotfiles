@@ -60,6 +60,7 @@ let
 
   defaultPackages = with pkgs; [
     acpi
+    argc
     ast-grep
     aws-rotate-key
     bash-language-server
