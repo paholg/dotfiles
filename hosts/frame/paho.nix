@@ -172,14 +172,13 @@ in
     ''
       distrobox create -i debian:stable \
         -n vanta \
-        -r \
         --home "$HOME/vanta/" \
         --init \
         --additional-packages "systemd libpam-systemd" \
         --additional-flags "--label keep-true" && \
         vanta_enter \
     '';
-  home.shellAliases.vanta_enter = "distrobox enter --root -nw vanta";
+  home.shellAliases.vanta_enter = "distrobox enter -nw vanta";
 
   home.file."vanta/check.sh" = {
     executable = true;

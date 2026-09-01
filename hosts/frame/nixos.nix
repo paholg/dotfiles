@@ -48,6 +48,7 @@
   ];
   services.samba.enable = true;
 
+  # Override the shared-module default; frame uses docker instead.
   virtualisation.podman = {
     enable = false;
     dockerCompat = false;
@@ -94,13 +95,17 @@
   systemd.services.vanta_manager = {
     description = "Start vanta container";
     wantedBy = [ "multi-user.target" ];
-    after = [ "network-online.target" ];
+    after = [
+      "network-online.target"
+      "docker.service"
+    ];
     wants = [ "network-online.target" ];
+    requires = [ "docker.service" ];
     serviceConfig = {
       Type = "oneshot";
       RemainAfterExit = true;
-      ExecStart = "${lib.getExe pkgs.podman} start vanta";
-      ExecStop = "${lib.getExe pkgs.podman} stop vanta";
+      ExecStart = "${lib.getExe pkgs.docker} start vanta";
+      ExecStop = "${lib.getExe pkgs.docker} stop vanta";
     };
   };
 
