@@ -1,17 +1,159 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-title=$(git log -1 --pretty=%s)
-body=$(git log -1 --pretty=%b)
+# @describe Open, update, and rebase stacked PRs.
 
-git push -f
-if [ "$(gh pr view --json state -q .state 2>/dev/null)" = "OPEN" ]; then
-  gh pr edit --title "$title" --body "$body"
-else
-  gh pr create --fill "$@"
-fi
+plan_file=$(git rev-parse --git-path PR_REBASE_PLAN)
+head_file=$(git rev-parse --git-path PR_REBASE_HEAD)
+rebase_dir=$(git rev-parse --git-path rebase-merge)
 
-url=$(gh pr view --json url -q .url)
-printf '%s' "$url" | wl-copy >/dev/null 2>&1
-echo "Copied to clipboard: $url"
+die() { echo "git pr: $*" >&2; exit 1; }
+banner() { printf '\n\033[1;36m==> %s\033[0m\n\n' "$*" >&2; }
 
+default_branch() {
+  git rev-parse --abbrev-ref origin/HEAD 2>/dev/null ||
+    echo "origin/$(gh repo view --json defaultBranchRef -q .defaultBranchRef.name)"
+}
+
+pr_state() { gh pr view "$1" --json state -q .state 2>/dev/null || true; }
+
+# Local branches on $1's history back to the default branch, nearest first.
+# Skips $1's own commit so a branch at the same commit is not its parent.
+ancestor_branches() {
+  local sha
+  for sha in $(git rev-list --skip=1 "$(default_branch)..$1"); do
+    git for-each-ref --points-at="$sha" --format='%(refname:short)' refs/heads/ | grep -vx "$1" || true
+  done
+}
+
+# Local branches strictly after $1, nearest first.
+descendant_branches() {
+  local tip name sha
+  tip=$(git rev-parse "$1")
+  git for-each-ref --contains="$1" --format='%(refname:short) %(objectname)' refs/heads/ |
+    while read -r name sha; do
+      [ "$sha" = "$tip" ] || echo "$(git rev-list --count "$1..$name") $name"
+    done | sort -n | cut -d' ' -f2
+}
+
+# @cmd Push and open a PR, or update the existing one's title and body from HEAD's message.
+# @meta default-subcommand
+# @arg args~ Extra arguments for gh pr create
+# shellcheck disable=SC2154 # argc_args is set by argc
+open() {
+  local title body branch base b
+  title=$(git log -1 --pretty=%s)
+  body=$(git log -1 --pretty=%b)
+  branch=$(git branch --show-current)
+
+  git push -f
+  if [ "$(pr_state "$branch")" = "OPEN" ]; then
+    gh pr edit --title "$title" --body "$body"
+  else
+    # Nearest ancestor branch with an open PR, so stacked PRs target each other.
+    base=
+    for b in $(ancestor_branches "$branch"); do
+      if [ "$(pr_state "$b")" = "OPEN" ]; then base=$b; break; fi
+    done
+    if [ -n "$base" ]; then
+      echo "Targeting $base"
+      gh pr create --fill --base "$base" "${argc_args[@]}"
+    else
+      gh pr create --fill "${argc_args[@]}"
+    fi
+  fi
+
+  local url
+  url=$(gh pr view --json url -q .url)
+  printf '%s' "$url" | wl-copy >/dev/null 2>&1
+  echo "Copied to clipboard: $url"
+}
+
+# Plan lines: "status branch onto upstream old_tip". Each branch is rebased with
+# `git rebase --onto <onto> <upstream> <branch>`, where upstream is its parent's
+# tip before the parent moved, so only the branch's own commits are replayed.
+write_plan() {
+  local cur=$1 parents parent onto upstream d
+  parents=$(ancestor_branches "$cur")
+  parent=${parents%%$'\n'*}
+  if [ -z "$parent" ]; then
+    onto=$(default_branch)
+    upstream=$(git merge-base "$onto" "$cur")
+  elif [ "$(pr_state "$parent")" = "MERGED" ]; then
+    # Parent landed (squashed), so drop its commits rather than replay them.
+    onto=$(default_branch)
+    upstream=$(git rev-parse "$parent")
+  else
+    onto=$parent
+    upstream=$(git rev-parse "$parent")
+  fi
+  echo "todo $cur $onto $upstream $(git rev-parse "$cur")"
+  for d in $(descendant_branches "$cur"); do
+    parents=$(ancestor_branches "$d")
+    parent=${parents%%$'\n'*}
+    echo "todo $d $parent $(git rev-parse "$parent") $(git rev-parse "$d")"
+  done
+}
+
+rebase_one() {
+  local branch=$1 onto=$2 upstream=$3 status=0
+  local -a opts=()
+  banner "Rebasing $branch onto $onto"
+  if [ -n "${argc_interactive:-}" ]; then
+    # Also label the todo list, since the editor hides the banner.
+    local editor
+    editor=$(git var GIT_SEQUENCE_EDITOR)
+    opts+=(-i)
+  fi
+  GIT_SEQUENCE_EDITOR="f() { sed -i '1i # git pr rebase: $branch onto $onto' \"\$1\" && ${editor:-true} \"\$1\"; }; f" \
+    git rebase "${opts[@]}" --onto "$onto" "$upstream" "$branch" || status=$?
+  if [ -d "$rebase_dir" ]; then
+    die "stopped while rebasing $branch. Finish it with 'git rebase --continue', then run 'git pr rebase' again for the rest of the stack, or 'git pr rebase --abort'."
+  fi
+  [ "$status" = 0 ] || die "rebase of $branch failed"
+}
+
+# @cmd Rebase the current branch onto its parent, then every branch after it onto its new parent.
+# @flag -i --interactive Rebase each branch interactively
+# @flag --abort Stop a stack rebase and restore every branch it moved
+rebase() {
+  local cur line st branch onto upstream old
+  if [ -n "${argc_abort:-}" ]; then
+    [ -f "$plan_file" ] || die "no stack rebase in progress"
+    [ -d "$rebase_dir" ] && git rebase --abort
+    while read -r st branch onto upstream old; do
+      [ "$st" = "done" ] && git branch -f "$branch" "$old"
+    done < "$plan_file"
+    git checkout -q "$(cat "$head_file")"
+    rm -f "$plan_file" "$head_file"
+    echo "Aborted; all branches restored."
+    return
+  fi
+  [ -d "$rebase_dir" ] && die "a rebase is in progress; finish or abort it first"
+
+  if [ -f "$plan_file" ]; then
+    echo "Resuming stack rebase"
+    # The branch that stopped is finished if the user ran 'git rebase --continue'.
+    if line=$(grep -m1 '^todo ' "$plan_file"); then
+      read -r _ branch _ _ old <<< "$line"
+      [ "$(git rev-parse "$branch")" = "$old" ] || sed -i "s/^todo $branch /done $branch /" "$plan_file"
+    fi
+  else
+    cur=$(git branch --show-current)
+    [ -n "$cur" ] || die "not on a branch"
+    git fetch -q origin
+    write_plan "$cur" > "$plan_file"
+    echo "$cur" > "$head_file"
+  fi
+
+  while line=$(grep -m1 '^todo ' "$plan_file"); do
+    read -r _ branch onto upstream _ <<< "$line"
+    rebase_one "$branch" "$onto" "$upstream"
+    sed -i "s/^todo $branch /done $branch /" "$plan_file"
+  done
+  git checkout -q "$(cat "$head_file")"
+  rm -f "$plan_file" "$head_file"
+  banner "Stack rebased"
+}
+
+eval "$(argc --argc-eval "$0" "$@")"
