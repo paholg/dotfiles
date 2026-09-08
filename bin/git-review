@@ -9,11 +9,28 @@ base_file=$(git rev-parse --git-path REVIEW_BASE)
 
 die() { echo "git review: $*" >&2; exit 1; }
 
+default_branch() {
+  git rev-parse --abbrev-ref origin/HEAD 2>/dev/null ||
+    echo "origin/$(gh repo view --json defaultBranchRef -q .defaultBranchRef.name)"
+}
+
+# Nearest local branch on HEAD's history back to the default branch, i.e. the
+# base of a stacked PR. Skips HEAD's own commit so a branch at the same commit
+# is not its parent. Falls back to the default branch.
+parent_branch() {
+  local sha found
+  for sha in $(git rev-list --skip=1 "$(default_branch)..HEAD"); do
+    found=$(git for-each-ref --points-at="$sha" --format='%(refname:short)' refs/heads/ | grep -vx "$(git branch --show-current)" | head -1) || true
+    if [ -n "$found" ]; then echo "$found"; return; fi
+  done
+  default_branch
+}
+
 # @cmd Start a review: everything since HEAD diverged from the upstream shows as unstaged. Stage hunks as you review them; edit or discard freely.
 # @meta default-subcommand
-# @arg upstream=origin/main Ref to review against
+# @arg upstream Ref to review against (default: nearest ancestor branch, else the default branch)
 start() {
-  local upstream=${1:-origin/main}
+  local upstream=${1:-$(parent_branch)}
   [ -f "$state_file" ] && die "already in review; run 'git review done'"
   git update-index -q --refresh
   git diff-index --quiet HEAD -- || die "working tree or index is dirty"
