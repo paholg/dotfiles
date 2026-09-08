@@ -109,7 +109,9 @@
   services.greetd = {
     enable = true;
     settings.default_session = {
-      command = "steam-gamescope";
+      # greetd points the session's stdout/stderr at the VT, so gamescope's
+      # log is lost without systemd-cat.
+      command = "${lib.getExe' pkgs.systemd "systemd-cat"} -t steam-gamescope steam-gamescope";
       user = "guest";
     };
   };
