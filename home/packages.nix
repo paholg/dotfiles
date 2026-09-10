@@ -42,8 +42,8 @@ let
         libreoffice
         lxqt.lxqt-policykit
         mesa-demos
-        pavucontrol
         pulseaudioFull
+        pwvucontrol
         satty
         signal-desktop
         slack

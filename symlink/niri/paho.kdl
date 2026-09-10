@@ -4,7 +4,7 @@ window-rule {
     draw-border-with-background false
 }
 window-rule {
-    match app-id="pavucontrol"
+    match app-id="com.saivert.pwvucontrol"
     match app-id=".blueman-manager-wrapped"
     open-floating true
 }

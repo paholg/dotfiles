@@ -185,7 +185,7 @@ binds {
         spawn "kitty"
     }
     Super+O {
-        spawn "pavucontrol"
+        spawn "pwvucontrol"
     }
     Super+B {
         spawn "firefox"
