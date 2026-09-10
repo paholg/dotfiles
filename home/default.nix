@@ -111,6 +111,8 @@ in
         ju = "journalctl -e --user";
         just = "${lib.getExe pkgs.just} --command-color=blue";
 
+        lg = "lazygit";
+
         ls = "eza";
         la = "ls -la";
         ll = "ls -l";
