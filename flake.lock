@@ -29,16 +29,17 @@
     },
     "authit": {
       "inputs": {
+        "crane": "crane",
         "flake-utils": "flake-utils",
         "nixpkgs": "nixpkgs",
         "rust-overlay": "rust-overlay"
       },
       "locked": {
-        "lastModified": 1789064734,
-        "narHash": "sha256-0gMOg+5AsEl7l5rJccRyudC44dqyJUmpWLMrnc57yic=",
+        "lastModified": 1789075676,
+        "narHash": "sha256-DlBxKmdZ7Z99LBQf5K2Rvk7Bq38wojVDQeUR4EoiaCc=",
         "owner": "paholg",
         "repo": "authit",
-        "rev": "6483bd8f55874849ee8f5c404db506db3e5d494b",
+        "rev": "8b814a19445ebd55e559a27387b80bf44c4f123a",
         "type": "github"
       },
       "original": {
@@ -123,11 +124,11 @@
         "systems": "systems_2"
       },
       "locked": {
-        "lastModified": 1788987690,
-        "narHash": "sha256-/TSj85TBwXmytliESwnhHrlFAIw2pwSOgAmI0MNCGQk=",
+        "lastModified": 1789074092,
+        "narHash": "sha256-QCXTUbd4FuwOHO7LgJws78YTRcco4xgR8RoYgKLvd9w=",
         "owner": "sadjow",
         "repo": "claude-code-nix",
-        "rev": "72091e21c74c14ccb6554a76e4416608039b289d",
+        "rev": "1f88b393ac054378c393f914dc83d08a6ef5daeb",
         "type": "github"
       },
       "original": {
@@ -158,7 +159,7 @@
     },
     "cookit": {
       "inputs": {
-        "crane": "crane",
+        "crane": "crane_2",
         "flake-utils": "flake-utils_2",
         "nixpkgs": "nixpkgs_2",
         "rust-overlay": "rust-overlay_2"
@@ -180,6 +181,21 @@
     },
     "crane": {
       "locked": {
+        "lastModified": 1788465171,
+        "narHash": "sha256-Y1/TTVXjYXGF068IThQH9fPSZ0SIE74PABlUxnWTUH0=",
+        "owner": "ipetkov",
+        "repo": "crane",
+        "rev": "eb35abda9f232cc6610b1d1e3200d15c49b7ac54",
+        "type": "github"
+      },
+      "original": {
+        "owner": "ipetkov",
+        "repo": "crane",
+        "type": "github"
+      }
+    },
+    "crane_2": {
+      "locked": {
         "lastModified": 1779130139,
         "narHash": "sha256-BLrtr42azquO7MdGFU5a7KiMl3YpFlTeIXqy1fT5GlQ=",
         "owner": "ipetkov",
@@ -193,7 +209,7 @@
         "type": "github"
       }
     },
-    "crane_2": {
+    "crane_3": {
       "locked": {
         "lastModified": 1788465171,
         "narHash": "sha256-Y1/TTVXjYXGF068IThQH9fPSZ0SIE74PABlUxnWTUH0=",
@@ -208,7 +224,7 @@
         "type": "github"
       }
     },
-    "crane_3": {
+    "crane_4": {
       "locked": {
         "lastModified": 1785782307,
         "narHash": "sha256-MPaRdVkf6zZP5fCPxYCi8Dr4pZzgmXzg8T9nVEbp3Mw=",
@@ -223,7 +239,7 @@
         "type": "github"
       }
     },
-    "crane_4": {
+    "crane_5": {
       "locked": {
         "lastModified": 1762189950,
         "narHash": "sha256-aotggLUXjlDGqKWibGPQcMZJGgdr79S21ISrv1Wz6RI=",
@@ -238,7 +254,7 @@
         "type": "github"
       }
     },
-    "crane_5": {
+    "crane_6": {
       "locked": {
         "lastModified": 1748047550,
         "narHash": "sha256-t0qLLqb4C1rdtiY8IFRH5KIapTY/n3Lqt57AmxEv9mk=",
@@ -277,7 +293,7 @@
     },
     "devconcurrent": {
       "inputs": {
-        "crane": "crane_3",
+        "crane": "crane_4",
         "flake-utils": "flake-utils_3",
         "nix2container": "nix2container",
         "nixpkgs": "nixpkgs_3",
@@ -315,7 +331,7 @@
     },
     "envswitch": {
       "inputs": {
-        "crane": "crane_4",
+        "crane": "crane_5",
         "flake-utils": "flake-utils_4",
         "nixpkgs": "nixpkgs_4",
         "rust-overlay": "rust-overlay_4"
@@ -581,11 +597,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1789047607,
-        "narHash": "sha256-TvkqeCjWyQvQs7jZ/2WcOWF1GMSgKtAP3qrw7eKpp1k=",
+        "lastModified": 1789071706,
+        "narHash": "sha256-S+oyh2YSP9V5bSjWbbK0N7GxdxxMwgBfUOtUdVcAWc4=",
         "owner": "nix-community",
         "repo": "home-manager",
-        "rev": "f7f333f04ff6e2f94f955642a1b4956d4fcd3010",
+        "rev": "150f9ce4ddd41544ea42eb9d6043a75bd615fa24",
         "type": "github"
       },
       "original": {
@@ -847,7 +863,7 @@
     },
     "playlister": {
       "inputs": {
-        "crane": "crane_5",
+        "crane": "crane_6",
         "flake-utils": "flake-utils_6",
         "nixpkgs": "nixpkgs_8",
         "rust-overlay": "rust-overlay_6"
@@ -873,7 +889,7 @@
         "claude-code": "claude-code",
         "claude-desktop": "claude-desktop",
         "cookit": "cookit",
-        "crane": "crane_2",
+        "crane": "crane_3",
         "devconcurrent": "devconcurrent",
         "display-switch": "display-switch",
         "envswitch": "envswitch",

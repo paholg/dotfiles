@@ -10,7 +10,8 @@
     ./home-assistant.nix
     ./media.nix
     ./nginx.nix
-    ./playlister.nix
+    # TODO: get playlister to use tidal's modern API.
+    # ./playlister.nix
     ./vpn.nix
     # TODO: Get working
     # ./wireguard.nix
