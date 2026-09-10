@@ -25,9 +25,3 @@ window-rule {
     match app-id="chromium-browser"
     open-floating true
 }
-binds {
-    Super+Ctrl+W {
-        spawn "zoom-watercooler"
-    }
-}
-
