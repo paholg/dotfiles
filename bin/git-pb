@@ -3,43 +3,57 @@ set -euo pipefail
 
 # Original Source: https://github.com/not-an-aardvark/git-delete-squashed
 
-git fetch
+git fetch --prune
 
 worktree_branches=$(git worktree list --porcelain | sed -n 's/^branch refs\/heads\///p')
 branches=$(git for-each-ref refs/heads/ "--format=%(refname:short)")
+
+repo=$(gh repo view --json nameWithOwner --jq .nameWithOwner)
+query="query { repository(owner: \"${repo%/*}\", name: \"${repo#*/}\") {"
+i=0
+for branch in $branches; do
+  i=$((i + 1))
+  query+=" b$i: pullRequests(headRefName: \"$branch\", states: MERGED, first: 1) { nodes { headRefName } }"
+done
+query+=" } }"
+merged_pr_branches=$(gh api graphql -F query="$query" --jq '.data.repository[].nodes[].headRefName')
+
 for branch in $branches; do
   [[ "$branch" == "main" ]] && continue
 
   in_worktree=false
-  if echo "$worktree_branches" | grep -qx "$branch"; then
+  if grep -qx "$branch" <<< "$worktree_branches"; then
     in_worktree=true
   fi
 
+  reason=""
+
   if git merge-base --is-ancestor "$branch" origin/main; then
-    if $in_worktree; then
-      echo "In worktree:      $branch"
-    else
-      git branch -D "$branch" > /dev/null
-      echo "Deleted (empty):  $branch"
+    reason="empty"
+  elif ! git cherry origin/main "$branch" | grep -q '^+'; then
+    reason="merged"
+  else
+    mergeBase=$(git merge-base origin/main "$branch")
+    # Want the symbols to be literal
+    # shellcheck disable=SC1083,SC1001
+    tree=$(git rev-parse "$branch"\^{tree})
+    commit_tree=$(git commit-tree "$tree" -p "$mergeBase" -m _)
+    cherry=$(git cherry origin/main "$commit_tree")
+    if [[ "$cherry" == "-"* ]]; then
+      reason="squashed"
+    elif grep -qx "$branch" <<< "$merged_pr_branches"; then
+      reason="pr merged"
     fi
-    continue
   fi
 
-  mergeBase=$(git merge-base origin/main "$branch")
-  # Want the symbols to be literal
-  # shellcheck disable=SC1083,SC1001
-  tree=$(git rev-parse "$branch"\^{tree})
-  commit_tree=$(git commit-tree "$tree" -p "$mergeBase" -m _)
-  cherry=$(git cherry origin/main "$commit_tree")
-  if [[ "$cherry" == "-"* ]]; then
-    if $in_worktree; then
-      echo "In worktree:      $branch"
-    else
-      git branch -D "$branch" > /dev/null
-      echo "Deleted (merged): $branch"
-    fi
+  if [[ -z "$reason" ]]; then
+    echo "Not merged:          $branch"
+  elif $in_worktree; then
+    echo "In worktree:         $branch ($reason)"
   else
-    echo "Not merged:       $branch"
+    if [[ -z "${argc_dry_run:-}" ]]; then
+      git branch -D "$branch" > /dev/null
+    fi
+    printf '%-21s%s\n' "Deleted ($reason):" "$branch"
   fi
 done
-
