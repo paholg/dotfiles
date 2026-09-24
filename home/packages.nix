@@ -105,6 +105,7 @@ let
     nil
     nix-output-monitor
     nixd
+    nodejs
     onefetch
     openssl
     outils # sha256, etc.
