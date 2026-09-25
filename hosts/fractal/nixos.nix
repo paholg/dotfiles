@@ -25,6 +25,25 @@
   services.udev.extraRules = ''
     ACTION=="add|change", SUBSYSTEM=="block", ATTRS{model}=="HP SSD EX920 1TB*", ATTR{queue/write_cache}="write through"
   '';
+  # Everything behind the TV's USB hub belongs to the guest session only.
+  # The Steam udev rules tag controllers `uaccess`, which hands them to
+  # whichever session is active; with tty2 active that is paho, whose desktop
+  # Steam then grabs the TV controllers and acts on every press at the TV
+  # (Big Picture opens, settings change, client restarts). vt-autopilot runs
+  # as root and niri gets input via logind, so neither is affected.
+  # Must sort after 70-uaccess.rules (adds the tag) and before
+  # 73-seat-late.rules (applies the ACL), so it cannot go in extraRules.
+  # Matched by USB port: the hub is on bus 3, port 5.1. Moving the TV's cable
+  # to another port on the PC breaks this.
+  services.udev.packages = [
+    (pkgs.writeTextFile {
+      name = "tv-input-udev-rules";
+      destination = "/etc/udev/rules.d/72-tv-input.rules";
+      text = ''
+        SUBSYSTEM=="hidraw|input|usb", SUBSYSTEMS=="usb", ATTRS{busnum}=="3", ATTRS{devpath}=="5.1.*", OWNER="guest", MODE="0600", TAG-="uaccess"
+      '';
+    })
+  ];
 
   # For display-switch
   hardware.i2c.enable = true;
