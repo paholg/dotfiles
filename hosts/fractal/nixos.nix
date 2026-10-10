@@ -1,4 +1,4 @@
-{ lib, pkgs, ... }:
+{ config, lib, pkgs, ... }:
 {
   imports = [
     ./hardware-configuration.nix
@@ -50,6 +50,58 @@
 
   networking.networkmanager.enable = false;
   networking.wireless.enable = false;
+
+  # Steam keys a logon session on account + public IP + the client's private
+  # LAN IP ("LoginID"), which the client takes from its interfaces, not from
+  # the socket it connected with: a per-user source address via policy
+  # routing changed nothing. Two clients on one host see the same interfaces,
+  # so guest and paho logging into the same account replace each other's
+  # session ("Session Replaced"). Run the guest session in its own network
+  # namespace with a macvlan on the LAN, so its Steam sees a different
+  # address, as the Steam Deck does. macvlan cannot talk to its parent, so
+  # guest and the desktop cannot reach each other over the LAN.
+  # 10.0.0.x is static hosts, 10.0.1.x APs, 10.0.100.x DHCP.
+  # https://github.com/SteamRE/SteamKit/blob/master/SteamKit2/SteamKit2/Steam/Handlers/SteamUser/SteamUser.cs
+  systemd.services.guest-netns = {
+    description = "Network namespace with a LAN macvlan for the guest session";
+    bindsTo = [ "sys-subsystem-net-devices-enp74s0.device" ];
+    after = [
+      "sys-subsystem-net-devices-enp74s0.device"
+      "network-addresses-enp74s0.service"
+    ];
+    wantedBy = [ "multi-user.target" ];
+    path = [ pkgs.iproute2 ];
+    serviceConfig = {
+      Type = "oneshot";
+      RemainAfterExit = true;
+      ExecStop = "${lib.getExe' pkgs.iproute2 "ip"} netns del guest";
+    };
+    script = ''
+      # Clean up after an unclean stop.
+      ip netns del guest 2>/dev/null || true
+      ip link del guest0 2>/dev/null || true
+      ip netns add guest
+      # Fixed MAC so the router sees one stable device across reboots.
+      ip link add guest0 address 02:00:00:0a:00:05 link enp74s0 type macvlan mode bridge
+      ip link set guest0 netns guest
+      ip -n guest link set lo up
+      ip -n guest link set guest0 up
+      ip -n guest addr add 10.0.5.5/16 dev guest0
+      ip -n guest route add default via 10.0.0.1
+    '';
+  };
+  # systemd-resolved listens on loopback, which is per-namespace.
+  environment.etc."resolv.conf.guest".text = lib.concatMapStrings (
+    ns: "nameserver ${ns}\n"
+  ) config.networking.nameservers;
+  systemd.services.greetd = {
+    requires = [ "guest-netns.service" ];
+    after = [ "guest-netns.service" ];
+    serviceConfig = {
+      NetworkNamespacePath = "/run/netns/guest";
+      BindReadOnlyPaths = [ "/etc/resolv.conf.guest:/etc/resolv.conf" ];
+    };
+  };
 
   users.users.guest = {
     description = "Guest";
