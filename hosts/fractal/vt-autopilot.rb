@@ -2,12 +2,13 @@
 #
 # Rule A: tty1 active and no input for IDLE_SECONDS -> chvt 2.
 # Rule B: gamepad button press while tty2 is active -> chvt 1, but only if paho
-#         is locked or not logged in.
+#         is locked or not logged in, and the TV is connected.
 
 IDLE_SECONDS = 10 * 60
 COOLDOWN_SECONDS = 5
 # Fallback only; inotify triggers rescans as soon as devices change.
 RESCAN_SECONDS = 60
+TV_CONNECTOR = "HDMI-A-1"
 
 # See linux/input-event-codes.h.
 EV_KEY = 1
@@ -56,6 +57,28 @@ end
 def paho_interruptible?
   # swaylock does not set logind's LockedHint, so check processes instead.
   pgrep("paho", "swaylock") || !pgrep("paho", "^niri$")
+end
+
+def tv_ready?(dir)
+  # Without an EDID the kernel only offers 640x480. Sysfs reports size 0 for
+  # edid, so read it.
+  File.read("#{dir}/status").strip == "connected" &&
+    !File.binread("#{dir}/edid").empty?
+end
+
+def tv_connected?
+  dir = Dir.glob("/sys/class/drm/card*-#{TV_CONNECTOR}").first
+  return false unless dir
+  return true if tv_ready?(dir)
+
+  # A TV powering on can fail its EDID read and then never pulse HPD again.
+  # amdgpu only reads EDID on HPD (sysfs "detect" returns cached state), so
+  # fake one through debugfs.
+  card = File.basename(dir)[/\Acard(\d+)-/, 1]
+  File.write("/sys/kernel/debug/dri/#{card}/#{TV_CONNECTOR}/trigger_hotplug", "1")
+  tv_ready?(dir)
+rescue SystemCallError
+  false
 end
 
 def chvt(vt)
@@ -169,7 +192,7 @@ loop do
     chvt(2)
     last_switch = now
     last_activity = now
-  elsif vt == "tty2" && gamepad_press && paho_interruptible?
+  elsif vt == "tty2" && gamepad_press && paho_interruptible? && tv_connected?
     chvt(1)
     last_switch = now
     last_activity = now
