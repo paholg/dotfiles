@@ -46,6 +46,24 @@
   # For rebinding mouse
   services.ratbagd.enable = true;
 
+  # GC 11.0.0 firmware after 20260622 hangs Navi31 with "Illegal opcode in
+  # command stream"; AMD reverted it 2026-09-18. Remove once nixpkgs ships a
+  # release containing the revert.
+  # https://github.com/HansKristian-Work/vkd3d-proton/issues/3004
+  nixpkgs.overlays = [
+    (final: prev: {
+      linux-firmware = prev.linux-firmware.overrideAttrs (old: rec {
+        version = "20260622";
+        src = prev.fetchFromGitLab {
+          owner = "kernel-firmware";
+          repo = "linux-firmware";
+          tag = version;
+          hash = "sha256-nSoJhgI4hAxtNmnj5M6ticzuBSt9uNAYcmc1VR/yXxE=";
+        };
+      });
+    })
+  ];
+
   # Might be causing amdgpu page faults?
   # services.lact.enable = true;
   # hardware.amdgpu.overdrive.enable = true;
