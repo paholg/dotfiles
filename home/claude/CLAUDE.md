@@ -9,3 +9,7 @@ NEVER run destructive git commands (commit, rebase, etc) without explicit permis
 Put every comment at the narrowest scope that it describes; don't describe the
 internals of a function on the function, or the internals of a class/module on
 the class/module.
+
+I tend to review code in a detached HEAD state, with the code I'm reviewing as
+uncommitted, and stage it as I go. When you see detached HEAD, this is almost
+certainly the reason.

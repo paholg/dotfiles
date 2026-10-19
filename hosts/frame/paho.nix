@@ -86,8 +86,7 @@ in
     serve = {
       body = # fish
         ''
-          ~/src/scholarly/scratches/worktree-login &
-          x dev
+          DC_SERVE_HOOK=~/src/scholarly/scratches/dc-serve-hook ~/src/scholarly/script/dc-serve pluriegregg@scholarlysoftware.com
         '';
     };
   };
