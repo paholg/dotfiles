@@ -24,6 +24,14 @@ in
     extraOptions = [ "--network=host" ];
   };
 
+  # For YouTube Music. Note: version pin may be important.
+  # https://github.com/music-assistant/home-assistant-addon/blob/main/ytm_po_token_generator/config.yaml
+  # https://www.music-assistant.io/music-providers/youtube-music/
+  virtualisation.oci-containers.containers.ytm-po-token = {
+    image = "docker.io/brainicism/bgutil-ytdlp-pot-provider:2.0.1";
+    ports = [ "127.0.0.1:4416:4416" ];
+  };
+
   # Stream and sendspin ports, as opened by the nixpkgs module's openFirewall.
   networking.firewall.allowedTCPPorts = with config.custom.ports; [
     music_assistant_stream
