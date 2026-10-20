@@ -24,7 +24,7 @@ let
     if gui then
       with pkgs;
       [
-        audacity
+        # audacity
         brightnessctl
         chromium
         dconf

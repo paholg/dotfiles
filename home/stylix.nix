@@ -58,7 +58,7 @@
         font_family family='Monaspace Neon' style=Light features="+calt +liga +ss01 +ss03 +ss04 +ss02 +ss05 +ss07 +ss09 +ss10"
       '';
       rofi = {
-        font = lib.mkForce "Monaspace Neon 14";
+        settings.font = lib.mkForce "Monaspace Neon 14";
         theme = {
           window = {
             width = config.lib.formats.rasi.mkLiteral "600px";
