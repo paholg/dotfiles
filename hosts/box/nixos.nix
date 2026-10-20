@@ -9,6 +9,7 @@
     ./hardware-configuration.nix
     ./home-assistant.nix
     ./media.nix
+    ./music-assistant.nix
     ./nginx.nix
     # TODO: get playlister to use tidal's modern API.
     # ./playlister.nix
@@ -64,6 +65,9 @@
         kanidm = 8443;
         kanidm_ldap = 3636;
         mqtt = 1833;
+        music_assistant = 8095;
+        music_assistant_sendspin = 8927;
+        music_assistant_stream = 8097;
         oauth2_proxy = 4180;
         plex = 32400;
         prowlarr = 9696;
@@ -77,10 +81,12 @@
       };
       uids = {
         foundry = 982;
+        music_assistant = 970;
       };
       groups = {
         foundry = 981;
         media = 1100;
+        music_assistant = 970;
       };
       drives = {
         data = "/mnt/data";
