@@ -155,5 +155,11 @@
       "9.9.9.9"
       "149.112.112.112"
     ];
+
+    # https://emudhra.we-have-a-problem.com/
+    security.pki.caCertificateBlacklist = [
+      "Comodo AAA Services root"
+      "emSign ECC Root CA - G3"
+    ];
   };
 }
