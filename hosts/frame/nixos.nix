@@ -63,7 +63,6 @@
   # OOM-killed within the slice instead of thrashing swap and hanging the host.
   virtualisation.docker.daemon.settings."cgroup-parent" = "docker.slice";
   systemd.slices.docker.sliceConfig = {
-    MemoryHigh = "16G"; # throttle + reclaim
     MemoryMax = "20G"; # hard cap, scoped OOM-kill
     MemorySwapMax = "4G"; # bound swap to avoid thrash
   };
