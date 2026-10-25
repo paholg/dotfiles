@@ -4,7 +4,7 @@ output "DP-2" {
     transform "90"
 }
 output "DP-1" {
-    mode "3840x2160@138.0"
+    mode "3840x2160@120.0"
 }
 output "HDMI-A-1" {
     off

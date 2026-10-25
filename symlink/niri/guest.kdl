@@ -6,7 +6,7 @@ output "DP-2" {
 }
 output "DP-1" {
     off
-    mode "3840x2160@138.0"
+    mode "3840x2160@120.0"
 }
 output "HDMI-A-1" {
     mode "3840x2160@60.0"
