@@ -1,23 +1,33 @@
 { lib, pkgs, ... }:
 let
-  # Lock the session, running swayidle on a fast loop to turn off displays while
-  # locked.
+  lockIdleConf = pkgs.writeText "lock-idle.conf" ''
+    general {
+      ignore_dbus_inhibit = true
+      ignore_systemd_inhibit = true
+    }
+    listener {
+      timeout = 10
+      on-timeout = niri msg action power-off-monitors
+      ignore_inhibit = true
+    }
+  '';
+
   locker = pkgs.writeShellApplication {
     name = "locker";
     runtimeInputs = with pkgs; [
-      swayidle
+      hypridle
       swaylock
       niri
     ];
     text = # bash
       ''
         cleanup() {
-          kill "$SWAY_IDLE"
+          kill "$HYPR_IDLE"
         }
         trap cleanup EXIT
 
-        swayidle timeout 10 'niri msg action power-off-monitors' &
-        SWAY_IDLE=$!
+        hypridle -c ${lockIdleConf} &
+        HYPR_IDLE=$!
         swaylock
       '';
   };
