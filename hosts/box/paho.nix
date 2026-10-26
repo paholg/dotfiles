@@ -53,5 +53,6 @@
         fi
       '';
     })
+    pkgs.npins
   ];
 }

@@ -1,7 +1,10 @@
-{ config, ... }:
+{ config, pkgs, ... }:
 let
   uid = toString config.custom.uids.music_assistant;
   gid = toString config.custom.groups.music_assistant;
+  npins = import ../../npins;
+  image = npins.music-assistant { inherit pkgs; };
+  imageName = "${image.image_name}:${image.image_tag}";
 in
 {
   users.groups.music-assistant = {
@@ -17,7 +20,8 @@ in
   # The official image bundles the Tidal credentials; the nixpkgs build does not.
   virtualisation.oci-containers.containers.music-assistant = {
     user = "${uid}:${gid}";
-    image = "ghcr.io/music-assistant/server:2.10.7";
+    imageFile = image;
+    image = imageName;
     volumes = [ "${config.custom.drives.data}/music-assistant:/data" ];
     # Required for player discovery and streaming:
     # https://www.music-assistant.io/installation/

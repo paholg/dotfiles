@@ -1,0 +1,12 @@
+{
+  "pins": {
+    "music-assistant": {
+      "type": "Container",
+      "image_name": "ghcr.io/music-assistant/server",
+      "image_tag": "latest",
+      "image_digest": "sha256:661e88bea76a9e79f38feca791f6c7373376ab60766ee01f56b66418ca243b68",
+      "hash": "sha256-oibMI0RH48iuxreVSQCQjDb5hGu5amSMAcQs6eXdMvc="
+    }
+  },
+  "version": 8
+}
