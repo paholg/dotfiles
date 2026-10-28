@@ -18,6 +18,10 @@
   environment.systemPackages = [ pkgs.quickemu ];
   virtualisation.spiceUSBRedirection.enable = true;
 
+  # Log every authorization decision, to diagnose intermittent VT switch
+  # failures.
+  security.polkit.extraArgs = [ "--log-level=debug" ];
+
   # HP EX920 (SM2262, fw SVN163) has a broken NVMe FLUSH: ~240ms/fsync.
   # Its volatile write cache is already disabled (WCE=0), so writes are
   # durable on completion and FLUSH is unnecessary — tell the kernel to stop
