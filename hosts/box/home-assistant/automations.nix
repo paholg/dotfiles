@@ -14,9 +14,9 @@ let
   turnOn = act "turn_on";
   toggle = entity: act "toggle" entity { };
   fadeOn =
-    entity: brightness_pct:
+    entity: brightness:
     turnOn entity {
-      inherit brightness_pct;
+      inherit brightness;
       transition = 300;
     };
   fadeOff = entity: act "turn_off" entity { transition = 300; };
@@ -65,9 +65,9 @@ in
           }
         )
         {
-          "Sunset" = when (sunset "-00:05:00") (fadeOn light.porch 52);
+          "Sunset" = when (sunset "-00:05:00") (fadeOn light.porch 133);
           "Sunrise" = when (sunrise "-00:05:00") (fadeOff light.porch);
-          "Bed Sunset" = when (sunset "-05:00:00") (fadeOn light.bed 30);
+          "Bed Sunset" = when (sunset "-05:00:00") (fadeOn light.bed 76);
           "Wake Up Alarm" = when (at "07:00:00" [
             "mon"
             "tue"
@@ -75,7 +75,7 @@ in
             "thu"
             "fri"
             "sat"
-          ]) (fadeOn light.bed 100);
+          ]) (fadeOn light.bed 255);
 
           "Wake Up Button" = when remote.stairs.config (turnOn scene.morning { });
           "Sleepy Time Button" = when remote.stairs.configDouble (turnOn script.sleepyTime { });
