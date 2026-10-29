@@ -7,7 +7,7 @@
     ./ddns.nix
     ./foundry-vtt.nix
     ./hardware-configuration.nix
-    ./home-assistant.nix
+    ./home-assistant
     ./media.nix
     ./music-assistant.nix
     ./nginx.nix
