@@ -4,6 +4,7 @@ let
     slugify
     entity
     act
+    lowerTo
     on
     states
     ;
@@ -131,7 +132,6 @@ let
       with light;
       states [ canNorth canSouth ] (on 153)
       // states [ canNorthEast window ] "off"
-      // states [ dining ] (on 92)
       // states [ tv ] (on 26 // { color_temp_kelvin = 2000; })
     );
   };
@@ -148,6 +148,15 @@ let
     sequence = [
       (act "turn_off" switch.minifridge { })
       (act "start" timer.minifridge { })
+    ];
+  };
+
+  script.tvTime = mkKeyed "script" "tv_time" {
+    alias = "TV Time";
+    icon = "mdi:movie-open";
+    sequence = [
+      (act "turn_on" scene.tv { })
+      (lowerTo light.dining 92)
     ];
   };
 in

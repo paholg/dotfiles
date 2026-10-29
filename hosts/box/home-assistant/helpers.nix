@@ -1,5 +1,5 @@
 { lib }:
-{
+rec {
   # Matches Home Assistant's `slugify` for ASCII names, which it uses to derive
   # entity ids from names.
   slugify =
@@ -17,6 +17,19 @@
     action = "${entity.domain}.${verb}";
     target.entity_id = entity.entity_id;
     inherit data;
+  };
+
+  # Dims a light that is brighter than `brightness`; leaves it alone if off or dimmer.
+  lowerTo = entity: brightness: {
+    "if" = [
+      {
+        condition = "numeric_state";
+        inherit (entity) entity_id;
+        attribute = "brightness";
+        above = brightness;
+      }
+    ];
+    "then" = [ (act "turn_on" entity { inherit brightness; }) ];
   };
 
   on = brightness: {

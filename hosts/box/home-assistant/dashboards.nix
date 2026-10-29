@@ -180,7 +180,7 @@ let
       (grid 3 [
         (sceneButton scene.morning { color = "accent"; })
         (sceneButton scene.sleepy { color = "indigo"; })
-        (sceneButton scene.tv { })
+        (sceneButton script.tvTime { })
       ])
       ((grid 4 (map areaCard rooms)) // { square = true; })
       {
