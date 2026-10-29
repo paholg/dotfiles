@@ -179,7 +179,7 @@ let
       }
       (grid 3 [
         (sceneButton scene.morning { color = "accent"; })
-        (sceneButton scene.sleepy { color = "indigo"; })
+        (sceneButton script.sleepyTime { color = "indigo"; })
         (sceneButton script.tvTime { })
       ])
       ((grid 4 (map areaCard rooms)) // { square = true; })

@@ -78,7 +78,7 @@ in
           ]) (fadeOn light.bed 100);
 
           "Wake Up Button" = when remote.stairs.config (turnOn scene.morning { });
-          "Sleepy Time Button" = when remote.stairs.configDouble (turnOn scene.sleepy { });
+          "Sleepy Time Button" = when remote.stairs.configDouble (turnOn script.sleepyTime { });
           "Dining Room Config Button" = when remote.dining.config (toggle light.window);
           "Buttons 1" = when remote.buttons.one (toggle light.window);
           "Buttons 4" = when remote.buttons.four (toggle switch.espresso);

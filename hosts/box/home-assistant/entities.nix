@@ -135,7 +135,6 @@ let
         canSouth
         switch.espresso
       ]) "off"
-      // states [ light.porch ] (on 51)
     );
     tv = mkScene "TV Time" "mdi:movie-open" (
       with light;
@@ -166,6 +165,15 @@ let
     sequence = [
       (act "turn_on" scene.tv { })
       (lowerTo light.dining 92)
+    ];
+  };
+
+  script.sleepyTime = mkKeyed "script" "sleepy_time" {
+    alias = "Sleepy Time";
+    icon = "mdi:weather-night";
+    sequence = [
+      (act "turn_on" scene.sleepy { })
+      (lowerTo light.porch 51)
     ];
   };
 in
