@@ -1,5 +1,6 @@
 # Builds an M5Stack PaperS3 button panel: a grid of buttons above full-width
-# brightness sliders, drawn portrait.
+# light rows, drawn portrait. Each light row is a title above a square on/off
+# toggle beside a brightness slider.
 #
 # Taps fire `esphome.<name>` events with `control` (and `value` for sliders);
 # the generated Home Assistant automations turn those into actions.
@@ -117,12 +118,9 @@ let
     n: s:
     let
       y = margin + buttonsHeight + gap + n * (sliderHeight + gap);
-      bar = {
-        x = margin;
-        y = y + sliderHeight - barHeight;
-        w = width - 2 * margin;
-        h = barHeight;
-      };
+      barY = y + sliderHeight - barHeight;
+      trackX = margin + barHeight + gap;
+      trackW = width - margin - trackX;
     in
     s
     // {
@@ -132,7 +130,24 @@ let
         w = width - 2 * margin;
         h = sliderHeight;
       };
-      inherit bar;
+      toggle = {
+        x = margin;
+        y = barY;
+        w = barHeight;
+        h = barHeight;
+      };
+      track = {
+        x = trackX;
+        inherit y;
+        w = trackW;
+        h = sliderHeight;
+      };
+      bar = {
+        x = trackX;
+        y = barY;
+        w = trackW;
+        h = barHeight;
+      };
     }
   ) sliders;
 
@@ -163,10 +178,22 @@ let
   drawSlider =
     s:
     let
-      inherit (s) box bar;
+      inherit (s) box toggle bar;
     in
     ''
       if (${overlapsDirty box}) {
+        const bool on = id(${s.id}_on).state;
+        const auto fg = on ? paper : ink;
+        if (on) {
+          ${fill toggle "ink"}
+        } else {
+          ${outline toggle}
+        }
+        it.image(${i (toggle.x + toggle.w / 2)}, ${i (toggle.y + toggle.h / 2)}, id(${s.id}_icon), ImageAlign::CENTER, fg);
+        if (id(${s.id}_pending)) {
+          it.filled_circle(${i (toggle.x + toggle.w - 16)}, ${i (toggle.y + 16)}, 8, fg);
+        }
+
         const float v = id(${s.id}_value);
         it.print(${i box.x}, ${i box.y}, id(label_font), ink, TextAlign::TOP_LEFT, ${str s.label});
         it.printf(${i (box.x + box.w)}, ${i box.y}, id(label_font), ink, TextAlign::TOP_RIGHT, "%.0f%%", v);
@@ -193,7 +220,15 @@ let
   '';
 
   touchSlider = s: ''
-    if (${inside s.box}) {
+    if (${inside s.toggle}) {
+      id(fire).execute(${str "${s.id}_toggle"}, 0.0f);
+      id(${s.id}_pending) = true;
+      ${markDirty s.box}
+      id(redraw).execute();
+      id(expire_pending).execute();
+      return;
+    }
+    if (${inside s.track}) {
       const float v = roundf(std::clamp((x - ${i s.bar.x}) * 100.0f / ${i s.bar.w}, 0.0f, 100.0f));
       id(fire).execute(${str s.id}, v);
       id(${s.id}_target) = v;
@@ -345,22 +380,31 @@ let
       }
     ];
 
-    image = map (b: {
-      platform = "file";
-      file = b.icon;
-      id = "${b.id}_icon";
-      resize = "144x144";
-      type = "binary";
-      transparency = "chroma_key";
-    }) buttons;
+    image =
+      map (b: {
+        platform = "file";
+        file = b.icon;
+        id = "${b.id}_icon";
+        resize = "144x144";
+        type = "binary";
+        transparency = "chroma_key";
+      }) buttons
+      ++ map (s: {
+        platform = "file";
+        file = s.icon or "mdi:lightbulb";
+        id = "${s.id}_icon";
+        resize = "56x56";
+        type = "binary";
+        transparency = "chroma_key";
+      }) sliders;
 
     globals =
       # Taps awaiting a state update from Home Assistant.
-      map (b: {
-        id = "${b.id}_pending";
+      map (c: {
+        id = "${c.id}_pending";
         type = "bool";
         initial_value = "false";
-      }) buttons
+      }) (buttons ++ sliders)
       ++ map (s: {
         id = "${s.id}_target";
         type = "float";
@@ -412,6 +456,7 @@ let
                 const float b = id(${s.id}_brightness).state;
                 id(${s.id}_value) = x && !isnan(b) ? b * 100 / 255 : 0;
                 id(${s.id}_target) = -1;
+                id(${s.id}_pending) = false;
                 ${markDirty s.box}
               '';
             }
@@ -478,8 +523,9 @@ let
                 }
               '') placedButtons}
               ${lib.concatMapStrings (s: ''
-                if (id(${s.id}_target) >= 0) {
+                if (id(${s.id}_target) >= 0 || id(${s.id}_pending)) {
                   id(${s.id}_target) = -1;
+                  id(${s.id}_pending) = false;
                   ${markDirty s.box}
                 }
               '') placedSliders}
@@ -541,5 +587,6 @@ in
       automation s.id s.label (
         act "turn_on" s.light { brightness_pct = "{{ trigger.event.data.value | int }}"; }
       )
-    ) sliders;
+    ) sliders
+    ++ map (s: automation "${s.id}_toggle" "${s.label} Toggle" (act "toggle" s.light { })) sliders;
 }
