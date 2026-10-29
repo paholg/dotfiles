@@ -13,19 +13,6 @@
       "url": "https://github.com/patrick3399/epdiy/archive/caa49bc87d8ef6f0bd6d98eb2d79a0dbd365965d.tar.gz",
       "hash": "sha256-DQNnJVTAqcjptXv8DKfhYkWqox6uLjm3ZollnfCTkrg="
     },
-    "esphome_components": {
-      "type": "Git",
-      "repository": {
-        "type": "GitHub",
-        "owner": "patrick3399",
-        "repo": "esphome_components"
-      },
-      "branch": "main",
-      "submodules": false,
-      "revision": "5a44c9f1764260978440e0548df94f2536a119f9",
-      "url": "https://github.com/patrick3399/esphome_components/archive/5a44c9f1764260978440e0548df94f2536a119f9.tar.gz",
-      "hash": "sha256-99O9tbngyDjvF92RXVQFJD33QG3ER6pbraGDBh8qRRo="
-    },
     "music-assistant": {
       "type": "Container",
       "image_name": "ghcr.io/music-assistant/server",

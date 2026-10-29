@@ -26,7 +26,7 @@ paperS3 {
   sliders = [
     {
       id = "ambient";
-      label = "Ambient";
+      label = "Living Room";
       light = light.livingRoomAmbient;
     }
   ];
