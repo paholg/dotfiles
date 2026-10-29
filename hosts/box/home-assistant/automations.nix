@@ -65,7 +65,7 @@ in
           }
         )
         {
-          "Sunset" = when (sunset "-00:05:00") (fadeOn light.porch 100);
+          "Sunset" = when (sunset "-00:05:00") (fadeOn light.porch 52);
           "Sunrise" = when (sunrise "-00:05:00") (fadeOff light.porch);
           "Bed Sunset" = when (sunset "-05:00:00") (fadeOn light.bed 30);
           "Wake Up Alarm" = when (at "07:00:00" [

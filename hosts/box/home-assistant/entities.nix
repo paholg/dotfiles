@@ -140,7 +140,7 @@ let
       with light;
       states [ canNorth canSouth ] (on 153)
       // states [ canNorthEast window ] "off"
-      // states [ tv ] (on 26 // { color_temp_kelvin = 2000; })
+      // states [ tv ] (on 52 // { color_temp_kelvin = 2000; })
     );
   };
 
@@ -173,7 +173,7 @@ let
     icon = "mdi:weather-night";
     sequence = [
       (act "turn_on" scene.sleepy { })
-      (lowerTo light.porch 51)
+      (lowerTo light.porch 18)
     ];
   };
 in
