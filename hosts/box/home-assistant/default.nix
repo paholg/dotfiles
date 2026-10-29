@@ -107,10 +107,6 @@
 
     config = {
       default_config = { };
-      http = {
-        use_x_forwarded_for = true;
-        trusted_proxies = [ "127.0.0.1" ];
-      };
       auth_oidc = {
         client_id = "home-assistant";
         discovery_url = "https://auth.paholg.com/oauth2/openid/home-assistant/.well-known/openid-configuration";
