@@ -139,12 +139,9 @@ let
     }
   '';
 
-  # Shows the tapped value immediately rather than waiting on Home Assistant.
   touchSlider = s: ''
     if (${inside s.box}) {
       const float v = roundf(std::clamp((x - ${i s.bar.x}) * 100.0f / ${i s.bar.w}, 0.0f, 100.0f));
-      id(${s.id}_value) = v;
-      id(redraw).execute();
       id(fire).execute(${str s.id}, v);
       return;
     }
