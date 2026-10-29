@@ -1,6 +1,9 @@
 { lib, ... }:
 {
-  imports = [ ./dining-paper.nix ];
+  imports = [
+    ./bed-paper.nix
+    ./dining-paper.nix
+  ];
 
   # Generated device config directories, by device name. Flash with `just esphome <device> run`.
   options.custom.esphome = lib.mkOption {
