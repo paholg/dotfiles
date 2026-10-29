@@ -70,6 +70,15 @@ let
         canSouth
       ]
     );
+    livingRoomAmbient = mkLightGroup "Living Room Ambient" (
+      with bulbs;
+      [
+        tv
+        canNorth
+        canNorthEast
+        canSouth
+      ]
+    );
   };
 
   switch = mk "switch" {

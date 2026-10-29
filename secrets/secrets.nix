@@ -1,7 +1,7 @@
 with builtins;
 let
   keys = (import ../keys.nix);
-  # allKeys = concatLists (attrValues (mapAttrs (name: value: attrValues value) keys));
+  allKeys = concatLists (attrValues (mapAttrs (name: value: attrValues value) keys));
 
   boxKeys = with keys; [
     box.system
@@ -29,4 +29,6 @@ in
   wireguard_private_key.publicKeys = boxKeys;
 
   "frame_shell_init.sh".publicKeys = frameKeys;
+
+  esphome_env.publicKeys = allKeys;
 }

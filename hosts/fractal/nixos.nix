@@ -42,7 +42,11 @@
     dockerCompat = false;
   };
   virtualisation.docker.enable = true;
-  users.users.paho.extraGroups = [ "docker" ];
+  users.users.paho.extraGroups = [
+    "docker"
+    # Serial access for flashing ESPHome devices.
+    "dialout"
+  ];
 
   # Keep exec sessions live when switching.
   systemd.services.docker.restartIfChanged = false;

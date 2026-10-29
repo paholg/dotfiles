@@ -51,3 +51,15 @@ sw *args:
 
 swr *args:
 	nh os switch . --build-host paho@fractal -- --extra-experimental-features 'nix-command flakes' --cores 0 {{args}}
+
+# Run an ESPHome command on a device, e.g. `just esphome dining-paper run`
+esphome device cmd *args:
+	#!/usr/bin/env bash
+	set -euo pipefail
+	config=$(nix build --no-link --print-out-paths .#nixosConfigurations.box.config.custom.esphome.{{device}})
+	set -a
+	source <(cd secrets && agenix -d esphome_env)
+	set +a
+	# Build output would otherwise go next to the config, in the read-only store.
+	export ESPHOME_DATA_DIR=~/.cache/esphome
+	nix run --inputs-from . nixpkgs#esphome -- {{cmd}} "$config/{{device}}.yaml" {{args}}

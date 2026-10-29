@@ -8,6 +8,7 @@
   imports = [
     ./automations.nix
     ./dashboards.nix
+    ./esphome
   ];
 
   services.mosquitto = {
