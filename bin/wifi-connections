@@ -1,0 +1,47 @@
+#!/usr/bin/env ruby
+
+require 'json'
+
+RESET = "\e[0m"
+BLUE = "\e[0;34m"
+CYAN = "\e[0;36m"
+YELLOW = "\e[0;33m"
+
+BOLD_BLUE = "\e[1;34m"
+
+def router(cmd)
+  JSON.parse(`ssh router ':put [:serialize [#{cmd} print as-value] to=json]' 2> /dev/null`)
+end
+
+wifi = router('/interface wifi registration-table')
+leases = router('/ip dhcp-server lease').map { [it["mac-address"], it] }.to_h
+radios = router('/interface wifi radio')
+
+# Map interface name -> AP identity (e.g. cap-wifi3 -> "up"). Virtual interfaces
+# like cap-wifi3-virtual1 share their master radio's AP.
+ap_for = radios.map { [it["interface"], it["cap"].split("@").first] }.to_h
+
+data = wifi.map do |w|
+  base = w["interface"].sub(/-virtual\d+$/, '')
+  w.merge(leases[w["mac-address"]] || {}).merge("ap" => ap_for[base] || base)
+end
+
+HEADERS = ["Host", "Address", "Signal", "Band", "SSID"]
+
+def fmt(cells, widths)
+  "| " + cells.each_with_index.map { |c, i| c.ljust(widths[i]) }.join(" | ") + " |"
+end
+
+data.group_by { it["ap"] }.sort_by { it[0] }.each do |ap, group|
+  rows = group
+    .sort_by { it["signal"] || 0 }
+    .map { |o| [o["host-name"], o["address"], o["signal"], o["band"], o["ssid"]].map { it.to_s } }
+
+  widths = HEADERS.each_index.map { |i| (rows.map { it[i].length } + [HEADERS[i].length]).max }
+
+  puts "#{BOLD_BLUE}#{ap}#{RESET}"
+  puts fmt(HEADERS, widths)
+  puts "|" + widths.map { "-" * (it + 2) }.join("|") + "|"
+  rows.each { puts fmt(it, widths) }
+  puts
+end
