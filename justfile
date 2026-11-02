@@ -82,16 +82,6 @@ router *args:
 	nix build -o router/config.tf.json .#router-tf
 	nix run .#router-tofu -- -chdir=router {{args}}
 
-# Write the import blocks that adopt existing router config into state
-router-imports:
-	#!/usr/bin/env bash
-	set -euo pipefail
-	set -a
-	source <(cd secrets && agenix -d router_env)
-	set +a
-	nix build -o router/config.tf.json .#router-tf
-	router/gen-imports
-
 # Run an ESPHome command on a device, e.g. `just esphome dining-paper logs`; picks a device if none is given
 esphome device="" cmd="run" *args:
 	#!/usr/bin/env bash
