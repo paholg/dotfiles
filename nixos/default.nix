@@ -123,6 +123,8 @@
       shell = pkgs.bash;
       isNormalUser = true;
       extraGroups = [
+        # Serial access for flashing ESPHome devices.
+        "dialout"
         "i2c"
         "networkmanager"
         "wheel"

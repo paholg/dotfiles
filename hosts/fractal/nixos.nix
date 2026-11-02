@@ -44,8 +44,6 @@
   virtualisation.docker.enable = true;
   users.users.paho.extraGroups = [
     "docker"
-    # Serial access for flashing ESPHome devices.
-    "dialout"
   ];
 
   # Keep exec sessions live when switching.

@@ -80,10 +80,11 @@ router *args:
 	# Parallel creates would scramble firewall rule order.
 	export TF_CLI_ARGS_apply=-parallelism=1
 	nix build -o router/config.tf.json .#router-tf
+	nix run .#router-tofu -- --chdir=router init -upgrade -input=false
 	nix run .#router-tofu -- -chdir=router {{args}}
 
-# Run an ESPHome command on a device, e.g. `just esphome dining-paper logs`; picks a device if none is given
-esphome device="" cmd="run" *args:
+# Compile and flash an ESPHome device, then show its logs; picks a device if none is given
+esphome device="":
 	#!/usr/bin/env bash
 	set -euo pipefail
 	device={{device}}
@@ -97,4 +98,19 @@ esphome device="" cmd="run" *args:
 	set +a
 	# Build output would otherwise go next to the config, in the read-only store.
 	export ESPHOME_DATA_DIR=~/.cache/esphome
-	nix run --inputs-from . nixpkgs#esphome -- {{cmd}} "$config/$device.yaml" {{args}}
+	# ESP-IDF uses whichever cmake and ninja are on the path.
+	PATH=$(nix shell --inputs-from . nixpkgs#cmake nixpkgs#ninja .#esphome -c printenv PATH)
+	mac=$(nix eval --raw --file router/hosts.nix "$device.mac")
+	# USB if this board is plugged in, otherwise over the air.
+	port() {
+		local ports=(/dev/serial/by-id/usb-Espressif_*_"$mac"-if00)
+		[[ -e ${ports[0]} ]] && echo "${ports[0]}" || echo OTA
+	}
+	esphome compile "$config/$device.yaml"
+	# A blank ESP32-S3 resets every few seconds, taking its serial port with it.
+	attempts=20
+	until esphome upload "$config/$device.yaml" --device "$(port)"; do
+		((--attempts)) || exit 1
+		sleep 0.1
+	done
+	esphome logs "$config/$device.yaml" --device "$(port)"

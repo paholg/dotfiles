@@ -19,6 +19,19 @@
       "image_tag": "latest",
       "image_digest": "sha256:661e88bea76a9e79f38feca791f6c7373376ab60766ee01f56b66418ca243b68",
       "hash": "sha256-oibMI0RH48iuxreVSQCQjDb5hGu5amSMAcQs6eXdMvc="
+    },
+    "sendspin-zero": {
+      "type": "Git",
+      "repository": {
+        "type": "GitHub",
+        "owner": "RealDeco",
+        "repo": "SendspinZero"
+      },
+      "branch": "main",
+      "submodules": false,
+      "revision": "4d3d4eb9608c152e0a133b9fd5e33ae3be164917",
+      "url": "https://github.com/RealDeco/SendspinZero/archive/4d3d4eb9608c152e0a133b9fd5e33ae3be164917.tar.gz",
+      "hash": "sha256-ZwY7/s9R6ra0l+QikoA7WLqolK2lCSl/ex3hdJWoWNo="
     }
   },
   "version": 8

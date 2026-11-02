@@ -1,5 +1,13 @@
 # AP leases are in network.nix, as their MACs are private.
-{
+let
+  lower = builtins.replaceStrings [ "A" "B" "C" "D" "E" "F" ] [ "a" "b" "c" "d" "e" "f" ];
+  audioBoards = builtins.mapAttrs (_: board: {
+    inherit (board) address mac;
+    clientId = "1:${lower board.mac}";
+  }) (import ../hosts/box/home-assistant/esphome/audio-boards.nix);
+in
+audioBoards
+// {
   box = {
     address = "10.0.0.4";
     mac = "B4:2E:99:A1:60:9B";
