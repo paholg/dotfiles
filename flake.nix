@@ -60,6 +60,11 @@
       url = "github:poeck/claude-desktop-nix-flake";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    terranix = {
+      url = "github:terranix/terranix";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.systems.follows = "systems";
+    };
 
     # Dependencies to minimize duplicates in `flake.lock`:
     crane = {
@@ -173,6 +178,14 @@
         ) hosts;
     in
     {
+      packages.${linux} = {
+        router-tf = inputs.terranix.lib.terranixConfiguration {
+          system = linux;
+          modules = [ ./router ];
+        };
+        router-tofu = (pkgs linux).opentofu.withPlugins (p: [ p.terraform-routeros_routeros ]);
+      };
+
       homeConfigurations = {
         "paho@ubuntu" = inputs.home-manager.lib.homeManagerConfiguration {
           pkgs = pkgs linux;

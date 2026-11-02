@@ -1,1 +1,7 @@
 result
+
+router/.terraform*
+router/config.tf.json
+router/imports.tf.json
+router/*.tfplan
+router/*.backup

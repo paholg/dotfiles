@@ -31,4 +31,5 @@ in
   "frame_shell_init.sh".publicKeys = frameKeys;
 
   esphome_env.publicKeys = allKeys;
+  router_env.publicKeys = allKeys;
 }

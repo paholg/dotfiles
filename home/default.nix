@@ -470,13 +470,14 @@ in
               User = config.custom.username;
               HostName = host;
             })
-            {
-              home = "home.paholg.com";
-              box = "10.0.0.4";
-              fractal = "10.0.0.5";
-              frame-eth = "10.0.0.6";
-              frame-wifi = "10.0.0.7";
-            }
+            (
+              {
+                home = "home.paholg.com";
+              }
+              // lib.mapAttrs (_: host: host.address) (
+                lib.getAttrs [ "box" "fractal" "frame-eth" "frame-wifi" ] (import ../router/hosts.nix)
+              )
+            )
           )
           // {
             router = {

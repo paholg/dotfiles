@@ -52,6 +52,46 @@ sw *args:
 swr *args:
 	nh os switch . --build-host paho@fractal -- --extra-experimental-features 'nix-command flakes' --cores 0 {{args}}
 
+# Run an OpenTofu command against the router, e.g. `just router plan`
+router *args:
+	#!/usr/bin/env bash
+	set -euo pipefail
+
+	set -a
+	source <(cd secrets && agenix -d router_env)
+	set +a
+	
+	export TF_ENCRYPTION="
+	key_provider \"pbkdf2\" \"router\" {
+	  passphrase = \"$ROUTER_STATE_PASSPHRASE\"
+	}
+	method \"aes_gcm\" \"router\" {
+	  keys = key_provider.pbkdf2.router
+	}
+	state {
+	  method = method.aes_gcm.router
+	  enforced = true
+	}
+	plan {
+	  method = method.aes_gcm.router
+	  enforced = true
+	}
+	"
+	# Parallel creates would scramble firewall rule order.
+	export TF_CLI_ARGS_apply=-parallelism=1
+	nix build -o router/config.tf.json .#router-tf
+	nix run .#router-tofu -- -chdir=router {{args}}
+
+# Write the import blocks that adopt existing router config into state
+router-imports:
+	#!/usr/bin/env bash
+	set -euo pipefail
+	set -a
+	source <(cd secrets && agenix -d router_env)
+	set +a
+	nix build -o router/config.tf.json .#router-tf
+	router/gen-imports
+
 # Run an ESPHome command on a device, e.g. `just esphome dining-paper logs`; picks a device if none is given
 esphome device="" cmd="run" *args:
 	#!/usr/bin/env bash

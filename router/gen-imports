@@ -1,0 +1,63 @@
+#!/usr/bin/env bash
+# Writes imports.tf.json, adopting existing router entries into state by matching
+# them against config.tf.json. Run through `just router-imports`.
+set -euo pipefail
+
+cd "$(dirname "$0")"
+
+entries=()
+
+# Adopts every entry of a resource type, matched on the given fields.
+import_list() {
+  local type=$1 path=$2
+  shift 2
+  local fields
+  fields=$(printf '%s\n' "$@" | jq -R . | jq -sc .)
+  entries+=("$(
+    curl -fsS --cacert tofu-api.crt -u "$ROS_USERNAME:$ROS_PASSWORD" "https://10.0.0.1/rest$path" |
+      jq -c --arg type "$type" --argjson fields "$fields" --slurpfile config config.tf.json '
+        def key: . as $item | $fields | map($item[.] // $item[gsub("_"; "-")] // "")
+          | map(if type == "array" then join(",") else tostring end) | join("|");
+        (map({(key): .[".id"]}) | add) as $ids
+        | $config[0].resource[$type] | to_entries
+        | map({
+            to: "\($type).\(.key)",
+            id: (.value | key | $ids[.] // error("no router entry for \($type): \(.)"))
+          })'
+  )")
+}
+
+# Adopts a singleton settings resource.
+import_settings() {
+  entries+=("$(jq -nc --arg to "$1.settings" --arg id "${2:-.}" '[{to: $to, id: $id}]')")
+}
+
+import_list routeros_interface_bridge /interface/bridge name
+import_list routeros_interface_bridge_port /interface/bridge/port interface
+import_list routeros_interface_list /interface/list name
+import_list routeros_interface_list_member /interface/list/member comment
+import_list routeros_ip_address /ip/address address
+import_list routeros_ip_dhcp_client /ip/dhcp-client interface
+import_list routeros_ip_dhcp_server /ip/dhcp-server name
+import_list routeros_ip_dhcp_server_lease /ip/dhcp-server/lease comment
+import_list routeros_ip_dhcp_server_network /ip/dhcp-server/network address
+import_list routeros_ip_dns_record /ip/dns/static name
+import_list routeros_ip_firewall_filter /ip/firewall/filter chain comment
+import_list routeros_ip_firewall_nat /ip/firewall/nat chain comment
+import_list routeros_ip_ipsec_profile /ip/ipsec/profile name
+import_list routeros_ip_pool /ip/pool name
+import_list routeros_ipv6_firewall_addr_list /ipv6/firewall/address-list address
+import_list routeros_ipv6_firewall_filter /ipv6/firewall/filter chain comment
+import_list routeros_wifi_configuration /interface/wifi/configuration name
+import_list routeros_wifi_provisioning /interface/wifi/provisioning identity_regexp supported_bands
+
+import_settings routeros_disk_settings
+# This resource's importer looks up any other ID by name, which singletons lack.
+import_settings routeros_ip_neighbor_discovery_settings '*'
+import_settings routeros_system_note
+import_settings routeros_tool_mac_server
+import_settings routeros_tool_mac_server_winbox
+import_settings routeros_wifi_cap
+import_settings routeros_wifi_capsman
+
+printf '%s\n' "${entries[@]}" | jq -s '{import: add}' >imports.tf.json
