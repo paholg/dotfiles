@@ -33,6 +33,26 @@
             format = "[($symbol $output )]($style)";
             symbol = "";
           };
+          # Shows the branch (or commit) under `git review`, from its REVIEW_STATE file.
+          git_review = {
+            description = "Show what git-review is reviewing.";
+            shell = [
+              "sh"
+              "--norc"
+            ];
+            require_repo = true;
+            when = ''test -f "$(git rev-parse --git-path REVIEW_STATE)"'';
+            command = ''
+              head=$(cat "$(git rev-parse --git-path REVIEW_STATE)")
+              case $head in
+                refs/heads/*) echo "''${head#refs/heads/}" ;;
+                *) git rev-parse --short "$head" ;;
+              esac
+            '';
+            style = "bold yellow";
+            format = "[$symbol$output]($style) ";
+            symbol = " ";
+          };
           #   jj = {
           #     when = true;
           #     description = "current jj status";
