@@ -1,42 +1,39 @@
-# Builds a SendspinZero speaker:
-# https://github.com/RealDeco/SendspinZero
+# Builds a SendspinZero speaker without a display, an ESP32-S3 with a PCM5102A
+# DAC: https://github.com/RealDeco/SendspinZero
 #
 # Adding a device to Home Assistant isn't declarative: add it in the ESPHome
 # integration with its API key.
-{ lib, pkgs }:
+{ pkgs }:
 let
-  npins = import ../../../../npins;
   yaml = pkgs.formats.yaml { tags = true; };
   secret = var: { "!env_var" = var; };
-  remove = { "!remove" = null; };
-
+  sampleRate = 48000;
 in
 {
   name,
   friendlyName,
-  # The upstream config to use: Sendspin_Zero-<variant>.yaml.
-  variant,
   # Reserved in DHCP; used for OTA updates and logs.
   address,
   ...
 }:
 let
-  # Removes remote packages, which have no pinned ref.
-  upstream = pkgs.runCommand "sendspin-zero-${lib.toLower variant}.yaml" { } ''
-    sed '/^packages:/,/^      - devices\//d' \
-      ${npins.sendspin-zero}/Sendspin_Zero-${variant}.yaml > $out
-  '';
-
   device = {
-    packages.upstream."!include" = "${upstream}";
-
-    substitutions = {
+    esphome = {
       inherit name;
       friendly_name = friendlyName;
-      ha_weather_entity = (import ../entities.nix { inherit lib; }).weather.home.entity_id;
     };
 
-    esphome.name_add_mac_suffix = false;
+    esp32 = {
+      variant = "esp32s3";
+      framework.type = "esp-idf";
+    };
+
+    psram = {
+      mode = "quad";
+      speed = "80MHz";
+    };
+
+    logger.level = "INFO";
 
     # Read from the environment, which `just esphome` loads from the `esphome_env` secret.
     api.encryption.key = secret "API_KEY";
@@ -51,11 +48,60 @@ let
       password = secret "WIFI_PASSWORD";
       power_save_mode = "none";
       use_address = address;
-      # The credentials are compiled in, so the open fallback hotspot isn't needed.
-      ap = remove;
     };
-    captive_portal = remove;
-    improv_serial = remove;
+
+    # Unpaired access is on by default, so Music Assistant connects without pairing.
+    sendspin = { };
+
+    i2s_audio = [
+      {
+        id = "i2s_bus";
+        i2s_lrclk_pin = "GPIO4";
+        i2s_bclk_pin = "GPIO5";
+      }
+    ];
+
+    speaker = [
+      {
+        platform = "i2s_audio";
+        id = "dac";
+        i2s_audio_id = "i2s_bus";
+        i2s_dout_pin = "GPIO6";
+        dac_type = "external";
+        channel = "stereo";
+      }
+      {
+        platform = "resampler";
+        id = "resampling_dac";
+        output_speaker = "dac";
+        sample_rate = sampleRate;
+        bits_per_sample = 16;
+      }
+    ];
+
+    media_source = [
+      {
+        platform = "sendspin";
+        id = "sendspin_source";
+        # Upstream's value; the default is 1000000.
+        buffer_size = 500000;
+      }
+    ];
+
+    media_player = [
+      {
+        platform = "speaker_source";
+        id = "player";
+        name = "Media Player";
+        media_pipeline = {
+          format = "FLAC";
+          num_channels = 2;
+          sample_rate = sampleRate;
+          speaker = "resampling_dac";
+          sources = [ "sendspin_source" ];
+        };
+      }
+    ];
   };
 in
 {

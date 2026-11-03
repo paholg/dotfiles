@@ -1,6 +1,6 @@
 { lib, pkgs, ... }:
 let
-  sendspinZero = import ./sendspin-zero.nix { inherit lib pkgs; };
+  sendspinZero = import ./sendspin-zero.nix { inherit pkgs; };
 in
 {
   config = lib.mkMerge (
