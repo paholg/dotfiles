@@ -104,23 +104,6 @@ in
     red = ''redis-cli -h "$(devconcurrent show workspace)".redis.test'';
   };
 
-  home.sessionVariables = {
-    NGROK_URL = "paholg.ngrok.app";
-  };
-
-  systemd.user.services.ngrok = {
-    Unit = {
-      Description = "ngrok for rails";
-      After = [ "network.target" ];
-    };
-    Service = {
-      ExecStart = "${pkgs.ngrok}/bin/ngrok http 3000 --url paholg.ngrok.app";
-      Restart = "on-failure";
-      RestartSec = "5s";
-    };
-    Install.WantedBy = [ "default.target" ];
-  };
-
   programs.obs-studio = {
     enable = true;
     plugins = [ pkgs.obs-studio-plugins.obs-backgroundremoval ];
