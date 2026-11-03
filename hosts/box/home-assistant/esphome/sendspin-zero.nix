@@ -7,7 +7,6 @@
 let
   yaml = pkgs.formats.yaml { tags = true; };
   secret = var: { "!env_var" = var; };
-  sampleRate = 48000;
 in
 {
   name,
@@ -70,21 +69,12 @@ let
         dac_type = "external";
         channel = "stereo";
       }
-      {
-        platform = "resampler";
-        id = "resampling_dac";
-        output_speaker = "dac";
-        sample_rate = sampleRate;
-        bits_per_sample = 16;
-      }
     ];
 
     media_source = [
       {
         platform = "sendspin";
         id = "sendspin_source";
-        # Upstream's value; the default is 1000000.
-        buffer_size = 500000;
       }
     ];
 
@@ -94,10 +84,9 @@ let
         id = "player";
         name = "Media Player";
         media_pipeline = {
-          format = "FLAC";
-          num_channels = 2;
-          sample_rate = sampleRate;
-          speaker = "resampling_dac";
+          # Defaults to 16000.
+          sample_rate = 48000;
+          speaker = "dac";
           sources = [ "sendspin_source" ];
         };
       }
