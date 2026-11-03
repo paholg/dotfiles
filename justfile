@@ -14,12 +14,6 @@ upr *args: up-git up-host up-fw
 swother host:
 	nixos-rebuild switch --flake . --target-host {{host}} --use-remote-sudo
 
-secret-edit file:
-	cd secrets && cp template {{file}} && agenix -e {{file}}
-
-secret-rekey:
-	cd secrets && agenix -r
-
 # Update the dotfiles git repo
 [private]
 up-git:
