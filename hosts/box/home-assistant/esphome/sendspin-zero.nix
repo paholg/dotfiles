@@ -1,4 +1,4 @@
-# Builds a SendspinZero analog speaker with a display:
+# Builds a SendspinZero speaker:
 # https://github.com/RealDeco/SendspinZero
 #
 # Adding a device to Home Assistant isn't declarative: add it in the ESPHome
@@ -10,20 +10,23 @@ let
   secret = var: { "!env_var" = var; };
   remove = { "!remove" = null; };
 
-  # Its only package is a remote file with no pinned ref.
-  upstream = pkgs.runCommand "sendspin-zero-display-analog.yaml" { } ''
-    sed '/^packages:/,/^      - devices\//d' \
-      ${npins.sendspin-zero}/Sendspin_Zero-Display-Analog.yaml > $out
-  '';
 in
 {
   name,
   friendlyName,
+  # The upstream config to use: Sendspin_Zero-<variant>.yaml.
+  variant,
   # Reserved in DHCP; used for OTA updates and logs.
   address,
   ...
 }:
 let
+  # Removes remote packages, which have no pinned ref.
+  upstream = pkgs.runCommand "sendspin-zero-${lib.toLower variant}.yaml" { } ''
+    sed '/^packages:/,/^      - devices\//d' \
+      ${npins.sendspin-zero}/Sendspin_Zero-${variant}.yaml > $out
+  '';
+
   device = {
     packages.upstream."!include" = "${upstream}";
 
