@@ -5,7 +5,8 @@ let
   inherit (import ../entities.nix { inherit lib; }) light switch script;
 in
 paperS3 {
-  name = "dining-paper";
+  name = "din-paper";
+  ap = "main";
   friendlyName = "Dining Room Paper";
   address = "10.0.0.10";
   buttons = [

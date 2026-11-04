@@ -39,7 +39,7 @@ audioBoards
     clientId = "ff:35:8d:d6:30:0:1:0:1:2a:71:1a:7f:f2:23:21:ce:82:d8";
     comment = "elegoo printer";
   };
-  dining-paper = {
+  din-paper = {
     address = "10.0.0.10";
     mac = "44:1B:F6:C1:20:3C";
     clientId = "1:44:1b:f6:c1:20:3c";

@@ -14,7 +14,7 @@ let
   npins = import ../../../../npins;
   yaml = pkgs.formats.yaml { tags = true; };
 
-  rotation = 90;
+  rotation = 270;
   width = 540;
   height = 960;
   margin = 24;
@@ -89,6 +89,8 @@ in
   friendlyName,
   # Reserved in DHCP; used for OTA updates and logs.
   address,
+  # Pins the device to an AP's dedicated SSID, read from `WIFI_SSID_<AP>`.
+  ap ? null,
   buttons ? [ ],
   sliders ? [ ],
   columns ? 1,
@@ -292,7 +294,7 @@ let
       }
     ];
     wifi = {
-      ssid = secret "WIFI_SSID";
+      ssid = secret (if ap == null then "WIFI_SSID" else "WIFI_SSID_${lib.toUpper ap}");
       password = secret "WIFI_PASSWORD";
       power_save_mode = "none";
       use_address = address;
@@ -333,10 +335,7 @@ let
         id = "touch";
         display = "epd";
         interrupt_pin = "GPIO48";
-        transform = {
-          mirror_x = true;
-          mirror_y = true;
-        };
+        # Touch ignores the display's rotation; the GT911's axes match it at 270.
         on_touch = [
           {
             lambda = ''

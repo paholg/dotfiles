@@ -3,7 +3,7 @@
   imports = [
     ./audio.nix
     ./bed-paper.nix
-    ./dining-paper.nix
+    ./din-paper.nix
   ];
 
   # Generated device config directories, by device name. Flash with `just esphome <device>`.

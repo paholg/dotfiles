@@ -6,6 +6,7 @@ let
 in
 paperS3 {
   name = "bed-paper";
+  ap = "up";
   friendlyName = "Bedroom Paper";
   address = "10.0.0.11";
   buttons = [
