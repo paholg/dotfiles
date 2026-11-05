@@ -45,8 +45,21 @@ in
       # On-screen Steam keyboard.
       QT_IM_MODULE = "steam";
       GTK_IM_MODULE = "Steam";
+      # Output mode and "Broadcast RGB" per display; gamescope reads it only
+      # without -W/-H/-r. Since kernel 7.3, Automatic sends limited-range RGB
+      # on CTA modes, so force Full (1). The make is the PNP ID or its hwdata
+      # name, depending on whether gamescope finds the PNP database.
+      GAMESCOPE_MODE_SAVE_FILE = "${pkgs.writeText "gamescope-modes" ''
+        GSM LG TV SSCR2:3840x2160@120 1
+        LG Electronics LG TV SSCR2:3840x2160@120 1
+      ''}";
     };
   };
+
+  # HDMI 2.1 FRL (DC_FRL_MASK, 0x400), off by default as of 7.3; 0x2 is the
+  # default mask. Without FRL, 4K120 falls back to YCbCr 4:2:0, which is
+  # always limited range.
+  boot.kernelParams = [ "amdgpu.dcfeaturemask=0x402" ];
 
   services.greetd = {
     enable = true;

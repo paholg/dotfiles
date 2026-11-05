@@ -6,10 +6,11 @@ output "DP-2" {
 }
 output "DP-1" {
     off
-    mode "3840x2160@120.0"
+    // Use a non-tv mode to prevent limited color range.
+    mode "3840x2160@119.999"
 }
 output "HDMI-A-1" {
-    mode "3840x2160@60.0"
+    mode "3840x2160@120"
     scale 2.0
 }
 spawn-at-startup "steam"
