@@ -1,7 +1,7 @@
 # SendspinZero boards, by device name. Also the source of their router leases.
 {
-  bed-audio = {
-    friendlyName = "Bed Audio";
+  bath-audio = {
+    friendlyName = "Bath Audio";
     ap = "up";
     address = "10.0.0.14";
     mac = "1C:29:04:C6:C1:DC";
