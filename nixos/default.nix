@@ -145,7 +145,7 @@
 
     services.kanidm = {
       client.enable = true;
-      package = pkgs.kanidm_1_11;
+      package = pkgs.kanidm_1_12;
 
       client.settings = {
         uri = "https://auth.paholg.com";

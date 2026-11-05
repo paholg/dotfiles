@@ -95,12 +95,12 @@
       "roborock"
       "timer"
     ];
-    customComponents = [
-      pkgs.home-assistant-custom-components.auth_oidc
+    customComponents = with pkgs.home-assistant-custom-components; [
+      auth_oidc
+      uix
     ];
     customLovelaceModules = with pkgs.home-assistant-custom-lovelace-modules; [
       auto-entities
-      card-mod
       clock-weather-card
       hourly-weather
       mushroom
