@@ -73,8 +73,12 @@ router *args:
 	"
 	# Parallel creates would scramble firewall rule order.
 	export TF_CLI_ARGS_apply=-parallelism=1
+
+	# Cleanup
+	trap 'rm -rf router/.terraform router/.terraform.lock.hcl router/config.tf.json' EXIT
+	
 	nix build -o router/config.tf.json .#router-tf
-	nix run .#router-tofu -- --chdir=router init -upgrade -input=false
+	nix run .#router-tofu -- --chdir=router init -input=false
 	nix run .#router-tofu -- -chdir=router {{args}}
 
 # Compile and flash an ESPHome device, then show its logs; picks a device if none is given
@@ -108,3 +112,6 @@ esphome device="":
 		sleep 0.1
 	done
 	esphome logs "$config/$device.yaml" --device "$(port)"
+
+esp-mac:
+	nix run nixpkgs#esptool -- read-mac

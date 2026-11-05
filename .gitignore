@@ -1,6 +1,4 @@
 result
 
-router/.terraform*
-router/config.tf.json
 router/*.tfplan
 router/*.backup
