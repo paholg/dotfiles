@@ -26,10 +26,19 @@
     };
   };
 
-  # The kanidm module won't let us set the db_path directly.
-  systemd.services.kanidm.serviceConfig.BindPaths = [
-    "${config.custom.drives.data}/kanidm:/var/lib/kanidm"
-  ];
+  # The kanidm module won't let us set the db_path directly. A system-wide bind
+  # mount (rather than a per-service BindPaths) keeps every path under
+  # /var/lib/kanidm, including backups and manual kanidmd runs, on the data drive.
+  # https://github.com/NixOS/nixpkgs/pull/407768
+  fileSystems."/var/lib/kanidm" = {
+    device = "${config.custom.drives.data}/kanidm";
+    fsType = "none";
+    options = [
+      "bind"
+      # The data drive is mounted by zfs-mount.service, not fstab.
+      "x-systemd.requires=zfs-mount.service"
+    ];
+  };
 
   # Grant kanidm access to ACME certificates
   security.acme.certs."auth.paholg.com".group = "kanidm";
