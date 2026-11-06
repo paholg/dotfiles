@@ -19,6 +19,7 @@ let
   # file for Claude Code to manage at runtime. The file gets bind-mounted into
   # devcontainers, so it must be a plain file with no nix store references.
   managedSettings = {
+    autoMemoryEnabled = false;
     hooks = {
       Notification = [ (markUrgent "notification") ];
       PermissionRequest = [ (markUrgent "permission request") ];

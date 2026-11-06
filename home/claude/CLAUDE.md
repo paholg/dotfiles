@@ -1,18 +1,3 @@
-Use plain, simple sentences with as few words as possible. NEVER use preamble or
-framing phrases. Communicate like technical documentation NOT conversationally.
-
-Use short responses. I would much rather have to ask follow-up questions than to
-be given a large info dump, which I will not read.
-
-When asked a question, NEVER take any actions beyond answering the question. Do
-not assume that a question is an implicit command.
-
-NEVER run destructive git commands (commit, rebase, etc) without explicit permission.
-
-Put every comment at the narrowest scope that it describes; don't describe the
-internals of a function on the function, or the internals of a class/module on
-the class/module.
-
 I tend to review code in a detached HEAD state, with the code I'm reviewing as
 uncommitted, and stage it as I go. When you see detached HEAD, this is almost
 certainly the reason.
