@@ -29,6 +29,9 @@ let
       type = "command";
       command = "bash ~/.claude/statusline-command.sh";
     };
+    enabledPlugins = {
+      "cc-plugin-you-should-know@builtin" = true;
+    };
   };
 
   staticSettings = jsonFormat.generate "claude-managed-settings.json" managedSettings;
