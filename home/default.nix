@@ -12,6 +12,7 @@ in
 {
   imports = [
     ./bacon.nix
+    ./devconcurrent.nix
     ./claude
     ./easyeffects.nix
     ./helix.nix
@@ -133,6 +134,8 @@ in
 
         s = "kitten ssh";
 
+        u = "dc up --go -p ";
+
         y = "yazi";
       };
     };
@@ -241,6 +244,13 @@ in
 
           COMPLETE=fish devconcurrent | source 
           argc --argc-completions fish git-review | source
+
+          complete -c ws -f -n __fish_use_subcommand -a "track untrack go"
+          complete -c ws -n "__fish_seen_subcommand_from untrack" -fa "(jq -r 'keys[]' $HOME/.local/state/ws.json 2>/dev/null)"
+          complete -c ws -n "__fish_seen_subcommand_from track" -F
+
+          # A fresh terminal starts in ~; move it to its niri workspace's directory.
+          test "$PWD" = "$HOME"; and ws go 2>/dev/null
         ''
         + config.custom.fish_extra_init;
 
@@ -305,62 +315,35 @@ in
               ''
                 if set -q argv[1]
                   niri msg action set-workspace-name "$argv[1]"
+                  ws track
                 else
                   niri msg action unset-workspace-name
+                  ws untrack
                 end
               '';
           };
 
           ws = {
-            wraps = "dc";
+            description = "Track a directory for each niri workspace";
             body = # fish
               ''
-                set -l cmd $argv[1]
-                set -l name $argv[2]
-                if not set -q argv[2]
-                  set name (devconcurrent show workspace)
-                end
+                # Map of niri workspace name -> directory.
+                set -l file ~/.local/state/ws.json
+                test -s $file; or echo '{}' >$file
+                set -l name (niri msg --json workspaces 2>/dev/null | jq -r '.[] | select(.is_focused) | .name // empty')
 
-                switch $cmd
-                  case up upc
-                    set -l prompt
-                    if test "$cmd" = upc
-                      if test -z "$name"
-                        echo "ws upc: no workspace name"
-                        return 1
-                      end
-                      set -l tmpfile (mktemp)
-                      $EDITOR $tmpfile; or begin; rm -f $tmpfile; return; end
-                      set prompt (cat $tmpfile | string collect)
-                      rm -f $tmpfile
-                      set argv[1] up
-                    end
-
-                    niri msg action set-workspace-name $name; or return
-                    dc $argv; or return
-                    dc go $name; or return
-                    direnv allow; or return
-                    eval (direnv export fish); or return
-
-                    echo "$KITTY_PID" | nc -U /run/user/1000/mark-urgent.sock
-
-                    if test "$cmd" = upc
-                      dc x -w $name claude --model opus "$prompt"
-                    end
-                  case destroy
-                    dc $argv; or return
-
-                    set -l ws_id (niri msg --json workspaces | jq -r ".[] | select(.name == \"$name\") | .id")
-                    if test -n "$ws_id"
-                      for win_id in (niri msg --json windows | jq -r ".[] | select(.workspace_id == $ws_id and .pid != $KITTY_PID) | .id")
-                        niri msg action close-window --id $win_id
-                      end
-                    end
-
-                    niri msg action unset-workspace-name $name; or return
-                    exit
+                switch "$argv[1]"
+                  case track
+                    set -l dir $PWD
+                    set -q argv[2]; and set dir (path resolve $argv[2])
+                    jq --arg n "$name" --arg d $dir '.[$n] = $d' $file >$file.tmp; and mv $file.tmp $file
+                  case untrack
+                    set -q argv[2]; and set name $argv[2]
+                    jq --arg n "$name" 'del(.[$n])' $file >$file.tmp; and mv $file.tmp $file
+                  case go
+                    cd (jq -r --arg n "$name" '.[$n]' $file)
                   case '*'
-                    echo "Usage: ws {up|upc|destroy} NAME [ARGS...]"
+                    echo "Usage: ws track [PATH] | ws untrack [NAME] | ws go"
                     return 1
                 end
               '';

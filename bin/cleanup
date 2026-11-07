@@ -1,0 +1,26 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+# Destroy the devconcurrent workspace this terminal is in, then close every
+# window on its niri workspace, this terminal last, and unset its name.
+
+# This terminal's niri workspace and its name.
+ws_id=$(niri msg --json windows | jq --argjson p "${KITTY_PID:-0}" 'first(.[] | select(.pid == $p) | .workspace_id) // -1')
+name=$(niri msg --json workspaces | jq -r --argjson w "$ws_id" '.[] | select(.id == $w) | .name // empty')
+
+# devconcurrent picks the workspace from the cwd, so make sure that is the one
+# this niri workspace is for before destroying anything.
+dc_name=$(devconcurrent show workspace)
+if [ "$dc_name" != "$name" ]; then
+  echo "cleanup: cwd is in workspace '$dc_name', but this niri workspace is '$name'" >&2
+  exit 1
+fi
+
+devconcurrent destroy
+
+niri msg action unset-workspace-name "$name"
+
+niri msg --json windows |
+  jq -r --argjson w "$ws_id" --argjson p "$KITTY_PID" \
+    '[.[] | select(.workspace_id == $w)] | sort_by(.pid == $p) | .[].id' |
+  while read -r id; do niri msg action close-window --id "$id"; done
