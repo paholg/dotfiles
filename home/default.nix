@@ -317,8 +317,8 @@ in
                   niri msg action set-workspace-name "$argv[1]"
                   ws track
                 else
-                  niri msg action unset-workspace-name
                   ws untrack
+                  niri msg action unset-workspace-name
                 end
               '';
           };
