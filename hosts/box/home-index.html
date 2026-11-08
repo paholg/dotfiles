@@ -89,6 +89,14 @@
   </div>
   <h1>Home Services</h1>
   <div class="services">
+    <!--# if expr="$groups = /snapmaker/" -->
+    <a href="https://snapmaker.paholg.com" class="service-link">
+      <div class="service-name">Snapmaker</div>
+      <div class="service-desc">3d printer</div>
+    </a>
+    <!--# endif -->
+
+
     <!--# if expr="$groups = /home_assistant_admin|home_assistant_user/" -->
     <a href="https://ha.paholg.com/auth/oidc/redirect" class="service-link">
       <div class="service-name">Home Assistant</div>
@@ -116,7 +124,6 @@
       <div class="service-desc">3d printer</div>
     </a>
     <!--# endif -->
-
     <!--# if expr="$groups = /jellyfin|jellyfin_admin/" -->
     <a href="https://tv.paholg.com/sso/OID/start/kanidm" class="service-link">
       <div class="service-name">Jellyfin</div>

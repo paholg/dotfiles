@@ -247,6 +247,21 @@ in
       };
     };
 
+    virtualHosts."snapmaker.paholg.com" = {
+      enableACME = true;
+      forceSSL = true;
+
+      locations = mkAuthLocation {
+        location = "/";
+        proxyPass = "http://10.0.0.15:80";
+        groups = [ "snapmaker@auth.paholg.com" ];
+        extraConfig = ''
+          # Allow large gcode uploads
+          client_max_body_size 1G;
+        '';
+      };
+    };
+
     # Internal rtorrent RPC for sonarr/radarr
     virtualHosts."localhost:${toString config.custom.ports.rtorrent_scgi}" = {
       listen = [
