@@ -327,6 +327,8 @@ in
             description = "Track a directory for each niri workspace";
             body = # fish
               ''
+                set -q NIRI_SOCKET; or return 0
+
                 # Map of niri workspace name -> directory.
                 set -l file ~/.local/state/ws.json
                 test -s $file; or echo '{}' >$file
