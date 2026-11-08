@@ -52,5 +52,6 @@ audioBoards
   snapmaker-u1 = {
     address = "10.0.0.15";
     mac = "40:FD:F3:D9:F0:08";
+    clientId = "1:40:fd:f3:d9:f0:8";
   };
 }

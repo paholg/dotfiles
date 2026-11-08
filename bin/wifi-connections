@@ -9,12 +9,15 @@ YELLOW = "\e[0;33m"
 
 BOLD_BLUE = "\e[1;34m"
 
-def router(cmd)
-  JSON.parse(`ssh router ':put [:serialize [#{cmd} print as-value] to=json]' 2> /dev/null`)
+def router(cmd, print = "print")
+  JSON.parse(`ssh router ':put [:serialize [#{cmd} #{print} as-value] to=json]' 2> /dev/null`)
 end
 
 wifi = router('/interface wifi registration-table')
-leases = router('/ip dhcp-server lease').map { [it["mac-address"], it] }.to_h
+# A MAC can have both a static and a dynamic lease; prefer the bound one.
+leases = router('/ip dhcp-server lease', 'print detail')
+  .sort_by { it["status"] == "bound" ? 1 : 0 }
+  .map { [it["mac-address"], it] }.to_h
 radios = router('/interface wifi radio')
 
 # Map interface name -> AP identity (e.g. cap-wifi3 -> "up"). Virtual interfaces
@@ -26,7 +29,7 @@ data = wifi.map do |w|
   w.merge(leases[w["mac-address"]] || {}).merge("ap" => ap_for[base] || base)
 end
 
-HEADERS = ["Host", "Address", "MAC", "Signal", "Band", "SSID"]
+HEADERS = ["Host", "Address", "MAC", "Client ID", "Signal", "Band", "SSID"]
 
 def fmt(cells, widths)
   "| " + cells.each_with_index.map { |c, i| c.ljust(widths[i]) }.join(" | ") + " |"
@@ -35,7 +38,7 @@ end
 data.group_by { it["ap"] }.sort_by { it[0] }.each do |ap, group|
   rows = group
     .sort_by { it["signal"] || 0 }
-    .map { |o| [o["host-name"], o["address"], o["mac-address"], o["signal"], o["band"], o["ssid"]].map { it.to_s } }
+    .map { |o| [o["host-name"], o["address"], o["mac-address"], o["client-id"], o["signal"], o["band"], o["ssid"]].map { it.to_s } }
 
   widths = HEADERS.each_index.map { |i| (rows.map { it[i].length } + [HEADERS[i].length]).max }
 
