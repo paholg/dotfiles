@@ -26,7 +26,7 @@ data = wifi.map do |w|
   w.merge(leases[w["mac-address"]] || {}).merge("ap" => ap_for[base] || base)
 end
 
-HEADERS = ["Host", "Address", "Signal", "Band", "SSID"]
+HEADERS = ["Host", "Address", "MAC", "Signal", "Band", "SSID"]
 
 def fmt(cells, widths)
   "| " + cells.each_with_index.map { |c, i| c.ljust(widths[i]) }.join(" | ") + " |"
@@ -35,7 +35,7 @@ end
 data.group_by { it["ap"] }.sort_by { it[0] }.each do |ap, group|
   rows = group
     .sort_by { it["signal"] || 0 }
-    .map { |o| [o["host-name"], o["address"], o["signal"], o["band"], o["ssid"]].map { it.to_s } }
+    .map { |o| [o["host-name"], o["address"], o["mac-address"], o["signal"], o["band"], o["ssid"]].map { it.to_s } }
 
   widths = HEADERS.each_index.map { |i| (rows.map { it[i].length } + [HEADERS[i].length]).max }
 
