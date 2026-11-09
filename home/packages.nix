@@ -67,6 +67,7 @@ let
     bottom
     btop-rocm
     cachix
+    cargo-clean-all
     choose
     curl
     difftastic
