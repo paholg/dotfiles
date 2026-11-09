@@ -34,7 +34,6 @@
       alsa.enable = true;
       alsa.support32Bit = true;
       pulse.enable = true;
-      jack.enable = true;
       # Zoom requests 480-sample (10 ms) buffers; power-of-two rounding drives
       # the graph at 256 samples (5.3 ms), causing xruns (pops) on the USB DAC.
       # Floor Zoom's streams at 1024 samples (21 ms) — the added ~16 ms is

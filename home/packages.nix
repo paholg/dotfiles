@@ -129,7 +129,7 @@ let
     sparse
     sshfs-fuse
     strace
-    tabiew
+    # tabiew # broken
     tinymist # typst language server
     tlrc # Shorter man-pages
     tokei
@@ -141,7 +141,7 @@ let
     usbutils
     vscode-langservers-extracted # css, html, json, markdown, eslint
     wget
-    xan
+    # xan # broken :(
     xh
     yaml-language-server
     yazi

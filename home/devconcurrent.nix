@@ -51,6 +51,7 @@ in
           hooks = {
             beforeUp = ''
               [ -z "$NIRI_SOCKET" ] && exit
+              niri msg --json workspaces | jq -e '.[] | select(.is_focused) | .name != null' >/dev/null && exit
               niri msg action set-workspace-name "$DEVCONCURRENT_WORKSPACE" &&
                 fish -c 'ws track "$DEVCONCURRENT_WORKSPACE_PATH"'
             '';
