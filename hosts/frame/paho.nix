@@ -80,6 +80,32 @@ in
 
         envswitch setup fish | source
       '';
+    devconcurrent = {
+      worktree.branch = "plg/{{ workspace }}";
+
+      projects = [
+        {
+          name = "scholarly";
+          path = "~/src/scholarly";
+          devcontainer = {
+            remoteEnv.KITTY_PID = "\${localEnv:KITTY_PID}";
+            mounts = [
+              "source=/nix/store,target=/nix/store,type=bind,ro"
+              "source=\${localEnv:HOME}/.config/git,target=/home/vscode/.config/git,type=bind,ro"
+              "source=/run/user/1000/mark-urgent.sock,target=/run/user/1000/mark-urgent.sock,type=bind"
+            ];
+          };
+        }
+        {
+          name = "devconcurrent";
+          path = "~/src/devconcurrent";
+        }
+        {
+          name = "dotfiles";
+          path = "~/src/dotfiles";
+        }
+      ];
+    };
   };
 
   programs.fish.functions = {
