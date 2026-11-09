@@ -69,6 +69,19 @@
       dockerCompat = lib.mkDefault true;
     };
 
+    # No-op on hosts without virtualisation.docker.enable.
+    virtualisation.docker.autoPrune = {
+      enable = true;
+      dates = "weekly";
+      # Unused images, stopped containers, and build cache older than 7 days.
+      # Volumes are not pruned.
+      flags = [
+        "--all"
+        "--filter"
+        "until=168h"
+      ];
+    };
+
     # ****************************************************************************
     # DNS - for devconcurrent
     services.resolved = {
