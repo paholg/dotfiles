@@ -183,6 +183,7 @@ in
         --home "$HOME/vanta/" \
         --init \
         --additional-packages "systemd libpam-systemd" \
+        --init-hooks "ln -sf /dev/null /etc/sysctl.d/10-coredump-debian.conf" \
         --additional-flags "--label keep-true" && \
         vanta_enter \
     '';
