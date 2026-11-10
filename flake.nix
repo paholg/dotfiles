@@ -3,7 +3,6 @@
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
-    nixpkgs-esphome.url = "github:nixos/nixpkgs/pull/581242/head";
     agenix = {
       url = "github:ryantm/agenix";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -184,8 +183,6 @@
           modules = [ ./router ];
         };
         router-tofu = (pkgs linux).opentofu.withPlugins (p: [ p.terraform-routeros_routeros ]);
-        # SendspinZero requires at least 2026.10.0. Remove once nixpkgs has it.
-        esphome = inputs.nixpkgs-esphome.legacyPackages.${linux}.esphome;
       };
 
       homeConfigurations = {

@@ -55,8 +55,6 @@
   programs.obs-studio.enable = true;
 
   home.packages = with pkgs; [
-    # TODO: broken
-    # blender-hip
     discover-overlay
     ffmpeg
     obsidian

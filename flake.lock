@@ -692,22 +692,6 @@
         "type": "indirect"
       }
     },
-    "nixpkgs-esphome": {
-      "locked": {
-        "lastModified": 1793668338,
-        "narHash": "sha256-lLModVRWcELyOBJtZjfWA0Pf/Z/qbJRpHLZ17Gzxnmw=",
-        "owner": "nixos",
-        "repo": "nixpkgs",
-        "rev": "8d0f1c1b278ac862f9192cd1ec21777addec56ce",
-        "type": "github"
-      },
-      "original": {
-        "owner": "nixos",
-        "ref": "pull/581242/head",
-        "repo": "nixpkgs",
-        "type": "github"
-      }
-    },
     "nixpkgs_10": {
       "locked": {
         "lastModified": 1744536153,
@@ -909,7 +893,6 @@
         "niri": "niri",
         "nix-index-database": "nix-index-database",
         "nixpkgs": "nixpkgs_6",
-        "nixpkgs-esphome": "nixpkgs-esphome",
         "playlister": "playlister",
         "rustybar": "rustybar",
         "stylix": "stylix",
