@@ -18,6 +18,39 @@ let
       '';
     };
 
+  orca-slicer =
+    # nixpkgs is still on 2.4.2, and building 2.5.0 from source needs new
+    # dependencies that aren't packaged yet, so wrap the upstream AppImage.
+    # Remove once nixpkgs ships 2.5.0.
+    # https://github.com/NixOS/nixpkgs/issues/585538
+    let
+      pname = "orca-slicer";
+      version = "2.5.0";
+      src = pkgs.fetchurl {
+        url = "https://github.com/OrcaSlicer/OrcaSlicer/releases/download/v${version}/OrcaSlicer_Linux_AppImage_Ubuntu2404_V${version}.AppImage";
+        hash = "sha256-0T6wqc1hjtCAq2uCxkwKYMRQGqyR6I1awsO1JvsUGnw=";
+      };
+      contents = pkgs.appimageTools.extract { inherit pname version src; };
+    in
+    pkgs.appimageTools.wrapType2 {
+      inherit pname version src;
+      extraPkgs = p: [
+        p.webkitgtk_4_1
+        p.libsoup_3
+        p.glib-networking
+        p.gst_all_1.gstreamer
+        p.gst_all_1.gst-plugins-base
+        p.gst_all_1.gst-plugins-good
+        p.gst_all_1.gst-plugins-bad
+      ];
+      extraInstallCommands = ''
+        install -Dm444 ${contents}/*.desktop -t $out/share/applications
+        substituteInPlace $out/share/applications/*.desktop \
+          --replace-fail "Exec=AppRun" "Exec=orca-slicer"
+        cp -r ${contents}/usr/share/icons $out/share/
+      '';
+    };
+
   mdformat = (pkgs.mdformat.withPlugins (ps: [ ps.mdformat-gfm ]));
 
   guiPackages =
@@ -42,6 +75,7 @@ let
         libreoffice
         lxqt.lxqt-policykit
         mesa-demos
+        orca-slicer
         pulseaudioFull
         pwvucontrol
         satty
