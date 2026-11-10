@@ -9,6 +9,7 @@
     ./automations.nix
     ./dashboards.nix
     ./esphome
+    ./snapmaker.nix
   ];
 
   services.mosquitto = {
