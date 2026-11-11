@@ -103,9 +103,6 @@ in
 
         check_sync = "watch grep -e Dirty: -e Writeback: /proc/meminfo";
 
-        dcd = "dc -p devconcurrent";
-        dcdot = "dc -p dotfiles";
-
         icat = "kitten icat";
 
         j = "journalctl -e";
@@ -134,13 +131,18 @@ in
 
         s = "kitten ssh";
 
+        y = "yazi";
+
+        # Devconcurrent aliases
+        d = "dc go";
+
+        x = "dc e";
+
         u = "dc up --go -p ";
-        us = "u scholarly";
-        um = "u models";
         ud = "u dotfiles";
         udev = "u devconcurrent";
-
-        y = "yazi";
+        um = "u models";
+        us = "u scholarly";
       };
     };
 
@@ -268,14 +270,6 @@ in
                 bind --erase shift-tab
                 bind --erase -M insert shift-tab
               '';
-          };
-          d = {
-            body = "dc go $argv";
-            wraps = "dc go";
-          };
-          x = {
-            body = "dc x $argv";
-            wraps = "dc x";
           };
           e = {
             description = "Bring to foreground or open helix";
