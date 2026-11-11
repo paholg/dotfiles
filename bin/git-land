@@ -1,0 +1,32 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+# Land the current worktree's branch on main, without a merge commit: rebase it
+# onto main, then fast-forward main in the root worktree, where it's checked
+# out, and delete the branch.
+#
+# On conflicts, the rebase stops here and main is left untouched.
+
+branch=$(git branch --show-current)
+if [[ -z "$branch" ]]; then
+  echo "Not on a branch" >&2
+  exit 1
+fi
+
+if [[ "$branch" == "main" ]]; then
+  echo "Already on main" >&2
+  exit 1
+fi
+
+# The root worktree is the one that holds the shared .git directory.
+root=$(dirname "$(git rev-parse --path-format=absolute --git-common-dir)")
+
+git rebase main
+
+# When run from a linked worktree, git may export GIT_DIR pointing at this
+# worktree, which would override `-C` and make the merge a no-op.
+env -u GIT_DIR git -C "$root" merge --ff-only "$branch"
+
+# Cleanup the branch
+git switch --quiet --detach main
+git branch -D "$branch"

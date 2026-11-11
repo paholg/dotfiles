@@ -135,6 +135,10 @@ in
         s = "kitten ssh";
 
         u = "dc up --go -p ";
+        us = "u scholarly";
+        um = "u models";
+        ud = "u dotfiles";
+        udev = "u devconcurrent";
 
         y = "yazi";
       };
