@@ -100,10 +100,6 @@ in
           name = "devconcurrent";
           path = "~/src/devconcurrent";
         }
-        {
-          name = "dotfiles";
-          path = "~/src/dotfiles";
-        }
       ];
     };
   };

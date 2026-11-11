@@ -16,6 +16,13 @@ let
     toml.generate "devconcurrent-${project.name}.toml" {
       projects.${project.name} = removeAttrs project [ "name" ];
     };
+
+  projects = cfg.projects ++ [
+    {
+      name = "dotfiles";
+      path = "~/dotfiles";
+    }
+  ];
 in
 {
   options.custom.devconcurrent = {
@@ -35,10 +42,10 @@ in
     };
   };
 
-  config = lib.mkIf (cfg.projects != [ ]) {
+  config = {
     assertions = [
       {
-        assertion = lib.allUnique (map (p: p.name) cfg.projects);
+        assertion = lib.allUnique (map (p: p.name) projects);
         message = "custom.devconcurrent.projects has duplicate names";
       }
     ];
@@ -64,7 +71,7 @@ in
           };
         })
       ]
-      ++ map projectFile cfg.projects
+      ++ map projectFile projects
     );
   };
 }
