@@ -26,6 +26,7 @@ git rebase main
 # When run from a linked worktree, git may export GIT_DIR pointing at this
 # worktree, which would override `-C` and make the merge a no-op.
 env -u GIT_DIR git -C "$root" merge --ff-only "$branch"
+env -u GIT_DIR git -C "$root" push
 
 # Cleanup the branch
 git switch --quiet --detach main
