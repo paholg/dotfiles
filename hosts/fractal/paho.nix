@@ -22,34 +22,27 @@
         set TTY (tty)
         [ "$TTY" = "/dev/tty2" ] && exec "niri-session"
       '';
-    devconcurrent.projects = [
-      {
-        name = "devconcurrent";
-        path = "~/src/devconcurrent";
-      }
-      {
-        name = "cookit";
-        path = "~/src/cookit";
-        devcontainer = {
-          remoteEnv.KITTY_PID = "\${localEnv:KITTY_PID}";
-          mounts = [
-            {
-              type = "bind";
-              source = "/run/user/1000/mark-urgent.sock";
-              target = "/run/user/1000/mark-urgent.sock";
-            }
-          ];
+    devconcurrent = {
+      primaryProject = "devconcurrent";
+      projects = {
+        devconcurrent.path = "~/src/devconcurrent";
+        cookit = {
+          path = "~/src/cookit";
+          devcontainer = {
+            remoteEnv.KITTY_PID = "\${localEnv:KITTY_PID}";
+            mounts = [
+              {
+                type = "bind";
+                source = "/run/user/1000/mark-urgent.sock";
+                target = "/run/user/1000/mark-urgent.sock";
+              }
+            ];
+          };
         };
-      }
-      {
-        name = "models";
-        path = "~/src/models";
-      }
-      {
-        name = "dcex";
-        path = "~/src/dcex";
-      }
-    ];
+        models.path = "~/src/models";
+        dcex.path = "~/src/dcex";
+      };
+    };
   };
 
   programs.obs-studio.enable = true;

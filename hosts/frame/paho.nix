@@ -83,9 +83,9 @@ in
     devconcurrent = {
       worktree.branch = "plg/{{ workspace }}";
 
-      projects = [
-        {
-          name = "scholarly";
+      primaryProject = "scholarly";
+      projects = {
+        scholarly = {
           path = "~/src/scholarly";
           devcontainer = {
             remoteEnv.KITTY_PID = "\${localEnv:KITTY_PID}";
@@ -95,12 +95,9 @@ in
               "source=/run/user/1000/mark-urgent.sock,target=/run/user/1000/mark-urgent.sock,type=bind"
             ];
           };
-        }
-        {
-          name = "devconcurrent";
-          path = "~/src/devconcurrent";
-        }
-      ];
+        };
+        devconcurrent.path = "~/src/devconcurrent";
+      };
     };
   };
 
