@@ -1,10 +1,20 @@
-{ config, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 let
   uid = toString config.custom.uids.music_assistant;
   gid = toString config.custom.groups.music_assistant;
   npins = import ../../npins;
   image = npins.music-assistant { inherit pkgs; };
   imageName = "${image.image_name}:${image.image_tag}";
+
+  # Redirects to the party plugin's current guest join URL.
+  partyRedirect = pkgs.writers.writePython3Bin "party-redirect" {
+    flakeIgnore = [ "E501" ];
+  } (builtins.readFile ./party-redirect.py);
 in
 {
   users.groups.music-assistant = {
@@ -49,5 +59,30 @@ in
       proxyPass = "http://127.0.0.1:${toString config.custom.ports.music_assistant}";
       proxyWebsockets = true;
     };
+  };
+
+  # A long-lived Music Assistant token, used to ask for the party join URL.
+  age.secrets.music_assistant_token.file = ../../secrets/music_assistant_token;
+
+  systemd.services.party-redirect = {
+    description = "Redirect to the current Music Assistant party join URL";
+    wantedBy = [ "multi-user.target" ];
+    after = [ "network.target" ];
+    environment = {
+      MA_URL = "http://127.0.0.1:${toString config.custom.ports.music_assistant}";
+      PORT = toString config.custom.ports.party_redirect;
+    };
+    serviceConfig = {
+      ExecStart = lib.getExe partyRedirect;
+      DynamicUser = true;
+      LoadCredential = "token:${config.age.secrets.music_assistant_token.path}";
+      Restart = "on-failure";
+    };
+  };
+
+  services.nginx.virtualHosts."party.paholg.com" = {
+    enableACME = true;
+    forceSSL = true;
+    locations."/".proxyPass = "http://127.0.0.1:${toString config.custom.ports.party_redirect}";
   };
 }

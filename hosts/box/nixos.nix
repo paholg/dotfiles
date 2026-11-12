@@ -69,6 +69,7 @@
         music_assistant_sendspin = 8927;
         music_assistant_stream = 8097;
         oauth2_proxy = 4180;
+        party_redirect = 8098;
         plex = 32400;
         prowlarr = 9696;
         radarr = 7878;
