@@ -37,7 +37,7 @@ in
   services.home-assistant = {
     config.rest = [
       {
-        resource = "${moonraker}/printer/objects/query?print_stats";
+        resource = "${moonraker}/printer/objects/query?print_stats&exception_manager";
         scan_interval = 60;
         sensor = [
           {
@@ -46,8 +46,8 @@ in
             value_template = "{{ value_json.result.status.print_stats.state }}";
           }
           {
-            name = "Snapmaker U1 Filename";
-            unique_id = "${printer}_filename";
+            name = "Snapmaker U1 Print Filename";
+            unique_id = "${printer}_print_filename";
             value_template = "{{ value_json.result.status.print_stats.filename }}";
           }
           {
@@ -55,13 +55,24 @@ in
             unique_id = "${printer}_print_message";
             value_template = "{{ value_json.result.status.print_stats.message }}";
           }
+          {
+            # Snapmaker firmware extension: why the printer paused itself, e.g.
+            # "detected noodle" for the camera's spaghetti detection.
+            name = "Snapmaker U1 Exception";
+            unique_id = "${printer}_exception";
+            value_template = ''
+              {% set s = value_json.result.status %}
+              {{ ([s.print_stats.exception.message]
+                  + (s.exception_manager.exceptions | map(attribute='message') | list))
+                 | select('string') | select | unique | join(', ') }}'';
+          }
         ];
       }
     ];
 
     config.automation = [
       {
-        alias = "Snapmaker Print Finished";
+        alias = "Snapmaker Print Stopped";
         id = "snapmaker_print_finished";
         triggers = [
           {
@@ -72,6 +83,7 @@ in
               "paused"
             ];
             to = [
+              "paused"
               "complete"
               "cancelled"
               "error"
@@ -81,10 +93,15 @@ in
         actions = [
           (notifyPhones {
             title = ''
-              {{ {'complete': '✅ Print complete',
+              {{ {'paused': '⏸️ Print paused',
+                  'complete': '✅ Print complete',
                   'cancelled': '🛑 Print cancelled',
                   'error': '❌ Print failed'}[trigger.to_state.state] }}'';
-            message = "{{ states('sensor.${printer}_filename') }}{% if trigger.to_state.state == 'error' %}: {{ states('sensor.${printer}_print_message') }}{% endif %}";
+            message = ''
+              {% set sensor = {'paused': 'exception', 'error': 'print_message'}.get(trigger.to_state.state) %}
+              {% set reason = states('sensor.${printer}_' ~ sensor) if sensor else none %}
+              {{ states('sensor.${printer}_print_filename') }}
+              {%- if reason and reason not in ['unknown', 'unavailable'] %}: {{ reason }}{% endif %}'';
             data = {
               tag = "snapmaker-print";
               clickAction = "https://snapmaker.paholg.com";
