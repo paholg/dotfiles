@@ -20,6 +20,7 @@ let
   # devcontainers, so it must be a plain file with no nix store references.
   managedSettings = {
     autoMemoryEnabled = false;
+    outputStyle = "Concise";
     hooks = {
       Notification = [ (markUrgent "notification") ];
       PermissionRequest = [ (markUrgent "permission request") ];
