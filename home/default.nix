@@ -136,9 +136,9 @@ in
         # Devconcurrent aliases
         d = "dc go";
 
-        x = "dc e";
+        x = "dc x";
 
-        u = "dc up --go -p ";
+        u = "dc up --go --from main -p ";
         ud = "u dotfiles";
         udev = "u devconcurrent";
         um = "u models";
