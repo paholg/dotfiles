@@ -42,6 +42,31 @@
 
   services.tailscale.enable = true;
 
+  # Remote builds (`just swb`) are started by the nix daemon, as root. Give it
+  # ssh agent access.
+  systemd.services.nix-daemon.environment = {
+    SSH_AUTH_SOCK = "/run/user/1000/ssh-agent";
+    NIX_SSHOPTS = "-F /home/paho/.ssh/config";
+  };
+  programs.ssh.knownHosts =
+    let
+      keys = import ../../keys.nix;
+      hosts = import ../../router/hosts.nix;
+    in
+    {
+      box = {
+        hostNames = [
+          "home.paholg.com"
+          hosts.box.address
+        ];
+        publicKey = keys.box.system;
+      };
+      fractal = {
+        hostNames = [ hosts.fractal.address ];
+        publicKey = keys.fractal.system;
+      };
+    };
+
   # Need to install here for polit rules to be picked up.
   environment.systemPackages = with pkgs; [
     quickemu

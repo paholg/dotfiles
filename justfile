@@ -46,6 +46,12 @@ sw *args:
 swr *args:
 	nh os switch . --build-host paho@fractal -- --extra-experimental-features 'nix-command flakes' --cores 0 {{args}}
 
+# Switch NixOS, substituting locally and building only what's left on fractal
+swb *args:
+	nh os switch . -- --extra-experimental-features 'nix-command flakes' \
+		--builders 'ssh-ng://fractal-home x86_64-linux - 16 2 big-parallel,kvm,nixos-test,benchmark' \
+		--builders-use-substitutes {{args}}
+
 # Run an OpenTofu command against the router, e.g. `just router plan`
 router *args:
 	#!/usr/bin/env bash
