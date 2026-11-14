@@ -43,4 +43,4 @@ fi
 in_root merge --ff-only "$branch"
 in_root push origin main
 
-git branch -D "$branch"
+git branch -D main
