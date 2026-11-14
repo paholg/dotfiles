@@ -136,7 +136,7 @@ in
               {%- if reason and reason not in ['unknown', 'unavailable'] %}: {{ reason }}{% endif %}'';
             data = {
               tag = "snapmaker-print";
-              clickAction = "https://snapmaker.paholg.com";
+              clickAction = "https://u1.paholg.com";
               priority = "high";
               channel = "Printer";
             };
@@ -213,7 +213,7 @@ in
               {% endif %}'';
             data = {
               tag = "snapmaker-task";
-              clickAction = "https://snapmaker.paholg.com";
+              clickAction = "https://u1.paholg.com";
               priority = "high";
               channel = "Printer";
             };

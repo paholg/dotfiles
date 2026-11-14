@@ -247,7 +247,7 @@ in
       };
     };
 
-    virtualHosts."snapmaker.paholg.com" = {
+    virtualHosts."u1.paholg.com" = {
       enableACME = true;
       forceSSL = true;
 
@@ -256,6 +256,9 @@ in
         proxyPass = "http://10.0.0.15:80";
         groups = [ "snapmaker@auth.paholg.com" ];
         extraConfig = ''
+          # Don't buffer the HTTP camera stream
+          proxy_buffering off;
+
           # Allow large gcode uploads
           client_max_body_size 1G;
         '';
