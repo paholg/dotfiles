@@ -42,6 +42,27 @@
 
     home.pointerCursor.enable = true;
 
+    # Stylix has no options for Kvantum's sizes, so use a copy of its theme with
+    # these settings replaced.
+    qt.kvantum.settings.General.theme = lib.mkForce "Base16KvantumCustom";
+    xdg.configFile."Kvantum/Base16KvantumCustom".source =
+      let
+        overrides = {
+          toolbar_icon_size = 24;
+        };
+        stylixTheme = "${config.xdg.configFile."Kvantum".source}/Base16Kvantum";
+        set = name: value: "sed -i 's/^${name}=.*/${name}=${toString value}/' $config";
+        check = name: value: "grep -qx '${name}=${toString value}' $config";
+      in
+      pkgs.runCommandLocal "base16-kvantum-custom" { } ''
+        mkdir $out
+        config=$out/Base16KvantumCustom.kvconfig
+        cp ${stylixTheme}/Base16Kvantum.kvconfig $config
+        ${lib.concatStringsSep "\n" (lib.mapAttrsToList set overrides)}
+        ${lib.concatStringsSep "\n" (lib.mapAttrsToList check overrides)}
+        ln -s ${stylixTheme}/Base16Kvantum.svg $out/Base16KvantumCustom.svg
+      '';
+
     gtk = {
       enable = true;
       theme = {
