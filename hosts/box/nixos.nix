@@ -14,8 +14,7 @@
     # TODO: get playlister to use tidal's modern API.
     # ./playlister.nix
     ./vpn.nix
-    # TODO: Get working
-    # ./wireguard.nix
+    ./wireguard.nix
   ];
 
   options.custom = {
@@ -73,6 +72,7 @@
         prowlarr = 9696;
         radarr = 7878;
         sonarr = 8989;
+        wireguard_travel = 51820;
         rtorrent = 8384;
         rtorrent_scgi = 9092;
         rtorrent_peer = 18279;

@@ -1,4 +1,5 @@
-# SendspinZero boards, by device name. Also the source of their router leases.
+# SendspinZero boards, by device name. Also the source of their router leases,
+# except for those on the Opal (ap = "travel"), which get theirs from it.
 {
   bath-audio = {
     friendlyName = "Bath Audio";
@@ -17,5 +18,12 @@
     ap = "main";
     address = "10.0.0.13";
     mac = "1C:29:04:C6:D2:34";
+  };
+  travel-audio = {
+    friendlyName = "Travel Audio";
+    ap = "travel";
+    # Reserved on the Opal, whose LAN box routes to over WireGuard.
+    address = "192.168.8.10";
+    mac = "1C:29:04:C8:99:7C";
   };
 }

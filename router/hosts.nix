@@ -1,10 +1,13 @@
 # AP leases are in network.nix, as their MACs are private.
 let
   lower = builtins.replaceStrings [ "A" "B" "C" "D" "E" "F" ] [ "a" "b" "c" "d" "e" "f" ];
+  boards = import ../hosts/box/home-assistant/esphome/audio-boards.nix;
+  # Travel boards get their leases from the Opal.
+  travelBoards = builtins.filter (name: boards.${name}.ap or null == "travel") (builtins.attrNames boards);
   audioBoards = builtins.mapAttrs (_: board: {
     inherit (board) address mac;
     clientId = "1:${lower board.mac}";
-  }) (import ../hosts/box/home-assistant/esphome/audio-boards.nix);
+  }) (builtins.removeAttrs boards travelBoards);
 in
 audioBoards
 // {

@@ -1,60 +1,36 @@
-{ ... }:
+# WireGuard server for remote sites. Peers route their LAN here, so services on
+# box (like Music Assistant) can reach devices behind them.
+#
+# Not named wg0, which vpn.nix creates before moving it into its namespace.
+#
+# https://wiki.nixos.org/wiki/WireGuard
+# https://search.nixos.org/options?query=networking.wireguard.interfaces
+{ config, ... }:
 let
-  port = 51820;
+  port = config.custom.ports.wireguard_travel;
 in
 {
+  age.secrets.box_wireguard_private_key.file = ../../secrets/box_wireguard_private_key;
+
   networking.firewall.allowedUDPPorts = [ port ];
-  systemd.network = {
-    enable = true;
-    netdevs = {
-      "50-wg0" = {
-        netdevConfig = {
-          Kind = "wireguard";
-          Name = "wg0";
-          MTUBytes = "1300";
-        };
-        wireguardConfig = {
-          PrivateKeyFile = "/wireguard.key";
-          ListenPort = port;
-        };
-        wireguardPeers = [
-          # {
-          #   # Ang - 10.100.0.2
-          #   wireguardPeerConfig = {
-          #     PublicKey = "";
-          #     AllowedIPs = ["0.0.0.0/0" "::/0"];
-          #   };
-          # }
-          {
-            # Pixel 5 - 10.100.0.3
-            wireguardPeerConfig = {
-              PublicKey = "M19tsWObxoO35sBuMTUme71+RhoHx0MKphj0UDnArX8=";
-              AllowedIPs = [
-                "0.0.0.0/0"
-                "::/0"
-              ];
-            };
-          }
-          {
-            # Ubuntu - 10.100.0.4
-            wireguardPeerConfig = {
-              PublicKey = "fGW4mrhH1lb63KiITNSpkJMZy6NypbRjDYN/X9xn9gE=";
-              AllowedIPs = [
-                "0.0.0.0/0"
-                "::/0"
-              ];
-            };
-          }
+
+  networking.wireguard.interfaces.wg-travel = {
+    ips = [ "10.100.0.1/24" ];
+    listenPort = port;
+    privateKeyFile = config.age.secrets.box_wireguard_private_key.path;
+    # Leaves room for the outer headers on hotel networks with small MTUs.
+    mtu = 1280;
+    # Each peer's allowedIPs are also added as routes (allowedIPsAsRoutes).
+    peers = [
+      {
+        name = "opal";
+        publicKey = "/YHDHFUC4m+xaba3bAdgYvLzk6HbF7huB8XZxfeaChU=";
+        allowedIPs = [
+          "10.100.0.2/32"
+          # The Opal's LAN; it must not masquerade it, so box can connect in.
+          "192.168.8.0/24"
         ];
-      };
-    };
-    networks.wg0 = {
-      matchConfig.Name = "wg0";
-      address = [ "10.100.0.1/24" ];
-      networkConfig = {
-        IPMasquerade = "ipv4";
-        IPForward = true;
-      };
-    };
+      }
+    ];
   };
 }

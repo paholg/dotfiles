@@ -20,8 +20,8 @@ let
 in
 {
   age.secrets = {
-    wireguard_private_key.file = ../../secrets/wireguard_private_key;
-    wireguard_preshared_key.file = ../../secrets/wireguard_preshared_key;
+    airvpn_wireguard_private_key.file = ../../secrets/airvpn_wireguard_private_key;
+    airvpn_wireguard_preshared_key.file = ../../secrets/airvpn_wireguard_preshared_key;
   };
 
   # VPN DNS for services in namespace
@@ -31,7 +31,7 @@ in
 
   networking.wireguard.interfaces.wg0 = {
     ips = [ "${wgIP}/32" ];
-    privateKeyFile = config.age.secrets.wireguard_private_key.path;
+    privateKeyFile = config.age.secrets.airvpn_wireguard_private_key.path;
     interfaceNamespace = namespace;
     mtu = 1320;
 
@@ -48,7 +48,7 @@ in
     peers = [
       {
         publicKey = wgPeerPublicKey;
-        presharedKeyFile = config.age.secrets.wireguard_preshared_key.path;
+        presharedKeyFile = config.age.secrets.airvpn_wireguard_preshared_key.path;
         endpoint = "${wgEndpointHost}:${wgEndpointPort}";
         allowedIPs = [
           "0.0.0.0/0"

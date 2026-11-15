@@ -89,35 +89,11 @@ router *args:
 
 # Compile and flash an ESPHome device, then show its logs; picks a device if none is given
 esphome device="":
-	#!/usr/bin/env bash
-	set -euo pipefail
-	device={{device}}
-	if [[ -z $device ]]; then
-		device=$(nix eval --raw .#nixosConfigurations.box.config.custom.esphome \
-			--apply 'd: builtins.concatStringsSep "\n" (builtins.attrNames d)' | fzf --height ~40%)
-	fi
-	config=$(nix build --no-link --print-out-paths ".#nixosConfigurations.box.config.custom.esphome.$device")
-	set -a
-	source <(cd secrets && agenix -d esphome_env)
-	set +a
-	# Build output would otherwise go next to the config, in the read-only store.
-	export ESPHOME_DATA_DIR=~/.cache/esphome
-	# ESP-IDF uses whichever cmake and ninja are on the path.
-	PATH=$(nix shell --inputs-from . nixpkgs#cmake nixpkgs#ninja .#esphome -c printenv PATH)
-	mac=$(nix eval --raw --file router/hosts.nix "$device.mac")
-	# USB if this board is plugged in, otherwise over the air.
-	port() {
-		local ports=(/dev/serial/by-id/usb-Espressif_*_"$mac"-if00)
-		[[ -e ${ports[0]} ]] && echo "${ports[0]}" || echo OTA
-	}
-	esphome compile "$config/$device.yaml"
-	# A blank ESP32-S3 resets every few seconds, taking its serial port with it.
-	attempts=20
-	until esphome upload "$config/$device.yaml" --device "$(port)"; do
-		((--attempts)) || exit 1
-		sleep 0.1
-	done
-	esphome logs "$config/$device.yaml" --device "$(port)"
+	bin/esp {{device}}
+
+# Show an ESPHome device's logs, without flashing
+esphome-logs device="":
+	bin/esp --logs {{device}}
 
 esp-mac:
 	nix run nixpkgs#esptool -- read-mac

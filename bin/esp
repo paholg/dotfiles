@@ -1,0 +1,53 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+# @describe Compile and flash an ESPHome device, then show its logs.
+# @flag --logs  Only show logs, without compiling or flashing
+# @arg device   Device name; picked interactively if not given
+
+eval "$(argc --argc-eval "$0" "$@")"
+
+cd "$(dirname "$(readlink -f "$0")")/.."
+
+device=${argc_device:-}
+if [[ -z $device ]]; then
+  device=$(nix eval --raw .#nixosConfigurations.box.config.custom.esphome \
+    --apply 'd: builtins.concatStringsSep "\n" (builtins.attrNames d)' | fzf --height ~40%)
+fi
+config=$(nix build --no-link --print-out-paths ".#nixosConfigurations.box.config.custom.esphome.$device")
+yaml="$config/$device.yaml"
+
+# Decrypted separately, so that a failure stops the script.
+secrets=$(cd secrets && agenix -d esphome_env)
+set -a
+# Decrypted at runtime, so there is nothing for shellcheck to follow.
+# shellcheck source=/dev/null
+source <(echo "$secrets")
+set +a
+
+# Build output would otherwise go next to the config, in the read-only store.
+export ESPHOME_DATA_DIR=~/.cache/esphome
+# ESP-IDF uses whichever cmake and ninja are on the path.
+PATH=$(nix shell --inputs-from . nixpkgs#cmake nixpkgs#ninja nixpkgs#esphome -c printenv PATH)
+
+# Travel boards aren't in the router's hosts.
+mac=$(nix eval --raw --file router/hosts.nix "$device.mac" 2>/dev/null ||
+  nix eval --raw --file hosts/box/home-assistant/esphome/audio-boards.nix "$device.mac")
+
+# USB if this board is plugged in, otherwise over the air.
+port() {
+  local ports=(/dev/serial/by-id/usb-Espressif_*_"$mac"-if00)
+  [[ -e ${ports[0]} ]] && echo "${ports[0]}" || echo OTA
+}
+
+if [[ -z ${argc_logs:-} ]]; then
+  esphome compile "$yaml"
+  # A blank ESP32-S3 resets every few seconds, taking its serial port with it.
+  attempts=20
+  until esphome upload "$yaml" --device "$(port)"; do
+    ((--attempts)) || exit 1
+    sleep 0.1
+  done
+fi
+
+esphome logs "$yaml" --device "$(port)"

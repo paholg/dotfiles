@@ -12,7 +12,9 @@ let
     sequence = map (rule: "\${${type}.${rule.name}.id}") rules;
   };
 
-  forwardToBox = service: port: {
+  forwardToBox = forwardToBoxProto "tcp";
+
+  forwardToBoxProto = protocol: service: port: {
     name = "box-${service}";
     action = "dst-nat";
     chain = "dstnat";
@@ -20,7 +22,7 @@ let
     dst_address = "!10.0.0.1";
     dst_address_type = "local";
     dst_port = toString port;
-    protocol = "tcp";
+    inherit protocol;
     to_addresses = hosts.box.address;
   };
 
@@ -128,6 +130,7 @@ let
     (forwardToBox "http" 80)
     (forwardToBox "https" 443)
     (forwardToBox "plex" 32400)
+    (forwardToBoxProto "udp" "wireguard" 51820)
   ];
 
   badIpv6 = {

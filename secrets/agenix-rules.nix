@@ -23,10 +23,9 @@ in
   oauth2_proxy.publicKeys = boxKeys;
   playlister_env.publicKeys = boxKeys;
   tmdb_api_key.publicKeys = boxKeys;
-  vpn_config.publicKeys = boxKeys;
-  wireguard_config.publicKeys = boxKeys;
-  wireguard_preshared_key.publicKeys = boxKeys;
-  wireguard_private_key.publicKeys = boxKeys;
+  airvpn_wireguard_preshared_key.publicKeys = boxKeys;
+  airvpn_wireguard_private_key.publicKeys = boxKeys;
+  box_wireguard_private_key.publicKeys = boxKeys;
 
   "frame_shell_init.sh".publicKeys = frameKeys;
 
