@@ -28,7 +28,6 @@ let
       proxyPass,
       groups ? [ ],
       extraConfig ? "",
-      signInUrl ? "/oauth2/sign_in",
       headers ? ''
         proxy_set_header X-User $user;
         proxy_set_header X-Email $email;
@@ -37,8 +36,9 @@ let
     let
       groupsParam = if groups == [ ] then "" else "?allowed_groups=${lib.concatStringsSep "," groups}";
       internalAuthLocation = "/internal/auth${location}";
-      isCrossDomain = lib.hasPrefix "http" signInUrl;
-      errorDirective = if isCrossDomain then "@error401${location}" else signInUrl;
+      # Absolute, since only home.paholg.com serves /oauth2/.
+      signInUrl = "https://home.paholg.com/oauth2/sign_in";
+      errorLocation = "@error401${location}";
     in
     {
       ${internalAuthLocation} = {
@@ -60,7 +60,7 @@ let
         proxyWebsockets = true;
         extraConfig = ''
           auth_request ${internalAuthLocation};
-          error_page 401 = ${errorDirective};
+          error_page 401 = ${errorLocation};
 
           auth_request_set $user $upstream_http_x_auth_request_user;
           auth_request_set $preferred_username $upstream_http_x_auth_request_preferred_username;
@@ -74,9 +74,7 @@ let
           ${extraConfig}
         '';
       };
-    }
-    // lib.optionalAttrs isCrossDomain {
-      "${errorDirective}" = {
+      ${errorLocation} = {
         extraConfig = ''
           return 302 ${signInUrl}?rd=$scheme://$host$request_uri;
         '';
@@ -143,7 +141,6 @@ in
           "foundry_vtt_player@auth.paholg.com"
           "foundry_vtt_admin@auth.paholg.com"
         ];
-        signInUrl = "https://home.paholg.com/oauth2/sign_in";
         headers = ''
           proxy_set_header X-Auth-Request-Preferred-Username $username_short;
           proxy_set_header X-Auth-Request-Groups $groups;
