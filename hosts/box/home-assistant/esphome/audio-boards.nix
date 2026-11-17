@@ -23,7 +23,7 @@
     friendlyName = "Travel Audio";
     ap = "travel";
     # Reserved on the Opal, whose LAN box routes to over WireGuard.
-    address = "192.168.8.10";
-    mac = "1C:29:04:C8:99:7C";
+    address = "192.168.8.141";
+    mac = "1C:29:04:C8:9A:B0";
   };
 }
