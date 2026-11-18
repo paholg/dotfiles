@@ -88,7 +88,10 @@ in
         scholarly = {
           path = "~/src/scholarly";
           devcontainer = {
-            remoteEnv.KITTY_PID = "\${localEnv:KITTY_PID}";
+            remoteEnv = {
+              KITTY_PID = "\${localEnv:KITTY_PID}";
+              REMOTE_HOST = "\${containerEnv:WORKSPACE_DIR}.app.test";
+            };
             mounts = [
               "source=/nix/store,target=/nix/store,type=bind,ro"
               "source=\${localEnv:HOME}/.config/git,target=/home/vscode/.config/git,type=bind,ro"
