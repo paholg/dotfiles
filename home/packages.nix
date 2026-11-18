@@ -76,6 +76,7 @@ let
         lxqt.lxqt-policykit
         mesa-demos
         orca-slicer
+        pinta
         pulseaudioFull
         pwvucontrol
         satty
