@@ -162,6 +162,16 @@ in
           {
             name = "toml";
             auto-format = true;
+            # Using tombi's lsp as a formatter causes a deadlock, in 1.10.0 at
+            # least. Helix asks tombi to format, tombi asks Helix for
+            # workspace/workspaceFolders, eventually helix times out.
+            formatter = {
+              command = "tombi";
+              args = [
+                "format"
+                "-"
+              ];
+            };
           }
           {
             name = "typst";
