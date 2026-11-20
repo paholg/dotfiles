@@ -21,26 +21,32 @@ fi
 # The root worktree is the one that holds the shared .git directory.
 root=$(dirname "$(git rev-parse --path-format=absolute --git-common-dir)")
 
+is_root=false
+if [[ "$(git rev-parse --path-format=absolute --show-toplevel)" == "$root" ]]; then
+  is_root=true
+fi
+
 # When run from a linked worktree, git may export GIT_DIR pointing at this
 # worktree, which would override `-C` and make the merge a no-op.
 in_root() { env -u GIT_DIR git -C "$root" "$@"; }
 
-if [[ "$(git rev-parse --path-format=absolute --show-toplevel)" == "$root" ]]; then
-  # The branch is checked out in the root worktree itself: switch it to main
-  # after the rebase, rather than detaching.
-  git rebase main
-  git switch main
-else
+if ! $is_root; then
   root_branch=$(in_root branch --show-current)
   if [[ "$root_branch" != "main" ]]; then
     echo "Root worktree ($root) is on '${root_branch:-detached HEAD}', not main" >&2
     exit 1
   fi
-  git rebase main
+fi
+
+git rebase main
+
+in_root merge --ff-only "$branch"
+
+# Leave a linked worktree detached on the updated main.
+if ! $is_root; then
   git switch --detach main
 fi
 
-in_root merge --ff-only "$branch"
 in_root push origin main
 
 git branch -D "$branch"
