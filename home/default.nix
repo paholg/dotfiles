@@ -8,6 +8,26 @@
 }:
 let
   homeDir = config.home.homeDirectory;
+
+  # Write a prompt in $EDITOR, then `u` with claude running it.
+  upc = model: {
+    description = "Write a prompt in $EDITOR, then `u` with claude ${model} running it";
+    wraps = "dc up";
+    body = # fish
+      ''
+        set -l tmpfile (mktemp --suffix .md)
+        $EDITOR $tmpfile
+        set -l prompt (string collect <$tmpfile)
+        rm -f $tmpfile
+        if test -z "$prompt"
+          echo "upc: empty prompt, aborting"
+          return 1
+        end
+
+        # --exec swallows everything after it, so it must come last.
+        u $argv --exec claude --model ${model} $prompt
+      '';
+  };
 in
 {
   imports = [
@@ -143,6 +163,8 @@ in
         udev = "u devconcurrent";
         um = "u models";
         us = "u scholarly";
+        usclo = "upclo scholarly";
+        usclf = "upclf scholarly";
       };
     };
 
@@ -308,6 +330,8 @@ in
                 nix shell $pkgs --command fish
               '';
           };
+          upclo = upc "opus";
+          upclf = upc "fable";
           wname = {
             body = # fish
               ''
