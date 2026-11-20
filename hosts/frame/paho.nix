@@ -179,11 +179,21 @@ in
         --home "$HOME/vanta/" \
         --init \
         --additional-packages "systemd libpam-systemd" \
-        --init-hooks "ln -sf /dev/null /etc/sysctl.d/10-coredump-debian.conf" \
+        --init-hooks "ln -sf /dev/null /etc/sysctl.d/10-coredump-debian.conf && cp $HOME/vanta/logind.conf /etc/systemd/logind.conf" \
         --additional-flags "--label keep-true" && \
         vanta_enter \
     '';
   home.shellAliases.vanta_enter = "distrobox enter -nw vanta";
+
+  # The container's logind sees the host's lid switch; without this it spins
+  # trying to suspend whenever the lid is closed. Copied into /etc by the init
+  # hook, as logind runs with ProtectHome=yes and can't follow a symlink here.
+  home.file."vanta/logind.conf".text = ''
+    [Login]
+    HandleLidSwitch=ignore
+    HandleLidSwitchExternalPower=ignore
+    HandleLidSwitchDocked=ignore
+  '';
 
   home.file."vanta/check.sh" = {
     executable = true;
