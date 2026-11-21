@@ -1,8 +1,7 @@
 # Spoolman: filament spool inventory.
 #
-# Web access is through nginx + oauth2-proxy (see nginx.nix). Spoolman has no
-# auth of its own, so the port is otherwise only reachable by the Snapmaker U1,
-# whose Moonraker talks to the API directly:
+# Spoolman has no auth of its own, so it only listens on localhost; all access,
+# including the Snapmaker U1's Moonraker, is through nginx (see nginx.nix).
 # https://moonraker.readthedocs.io/en/latest/configuration/#spoolman
 { config, lib, ... }:
 let
@@ -20,11 +19,14 @@ in
 
   services.spoolman = {
     enable = true;
-    listen = "0.0.0.0";
+    listen = "127.0.0.1";
     inherit port;
     environment = {
       SPOOLMAN_DIR_DATA = dataDir;
       SPOOLMAN_AUTOMATIC_BACKUP = "TRUE";
+      # Fluidd opens a websocket to Spoolman straight from the browser, which
+      # Spoolman refuses unless it trusts the page's origin.
+      SPOOLMAN_CORS_ORIGIN = "https://u1.paholg.com,http://${printer}";
     };
   };
 
@@ -39,8 +41,4 @@ in
       Group = "spoolman";
     };
   };
-
-  networking.firewall.extraCommands = ''
-    iptables -A nixos-fw -p tcp -s ${printer} --dport ${toString port} -j nixos-fw-accept
-  '';
 }

@@ -270,6 +270,16 @@ in
         location = "/";
         proxyPass = "http://127.0.0.1:${toString config.custom.ports.spoolman}";
         groups = [ "snapmaker@auth.paholg.com" ];
+        # The printer's Moonraker can't log in, and must use this hostname so
+        # that Fluidd (served over https) can reach Spoolman from the browser.
+        # LAN clients reach us through the router's hairpin NAT, which
+        # masquerades them as the router, so we can't single out the printer;
+        # skip auth for the whole LAN instead.
+        extraConfig = ''
+          satisfy any;
+          allow 10.0.0.1;
+          deny all;
+        '';
       };
     };
 
