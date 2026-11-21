@@ -262,6 +262,17 @@ in
       };
     };
 
+    virtualHosts."spoolman.paholg.com" = {
+      enableACME = true;
+      forceSSL = true;
+
+      locations = mkAuthLocation {
+        location = "/";
+        proxyPass = "http://127.0.0.1:${toString config.custom.ports.spoolman}";
+        groups = [ "snapmaker@auth.paholg.com" ];
+      };
+    };
+
     # Internal rtorrent RPC for sonarr/radarr
     virtualHosts."localhost:${toString config.custom.ports.rtorrent_scgi}" = {
       listen = [
