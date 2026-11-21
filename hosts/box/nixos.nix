@@ -86,11 +86,13 @@
       uids = {
         foundry = 982;
         music_assistant = 970;
+        spoolman = 969;
       };
       groups = {
         foundry = 981;
         media = 1100;
         music_assistant = 970;
+        spoolman = 969;
       };
       drives = {
         data = "/mnt/data";
