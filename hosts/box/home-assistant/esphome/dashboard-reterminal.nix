@@ -1,7 +1,7 @@
 # A Seeed reTerminal E1003 (10.3" e-paper, 1872x1404) wall dashboard: clock,
-# date, current weather, sunrise/sunset, air quality, UV index, and a chart of
-# temperature and chance of rain over the next 12 hours. Meant to stay on USB
-# power, as it redraws every minute.
+# date, current weather, sunrise/sunset, air quality, UV index, upcoming transit
+# departures, and a chart of temperature and chance of rain over the next 12
+# hours. Meant to stay on USB power, as it redraws every minute.
 #
 # The layout follows https://github.com/lmarzen/esp32-weather-epd.
 #
@@ -23,12 +23,29 @@ let
   margin = 80;
   # The chart's plot area, between its axis labels.
   plot = {
-    x = 190;
+    x = 740;
     y = 800;
-    w = 1470;
+    w = 920;
     h = 470;
   };
   chartHours = 12;
+
+  # Departures are listed left of the chart, a row per route.
+  transitRight = 560;
+  transitRow = 130;
+  transitTimes = 2;
+  # The stops themselves are secret: each is the `transit_stop_<n>` in
+  # `home_assistant_secrets.yaml`, as the URL of its departures, which is
+  # https://api.pugetsound.onebusaway.org/api/where/arrivals-and-departures-for-stop/<id>.json,
+  # where the id is the agency's number, an underscore, then the stop's code.
+  stops = [
+    { }
+    {
+      # Too soon to reach.
+      minMinutes = 10;
+    }
+  ];
+  stopSensor = n: "transit_${i (n + 1)}";
 
   i = toString;
   str = builtins.toJSON;
@@ -58,20 +75,26 @@ let
   conditionId = condition: "condition_${slugify condition}";
 
   # Home Assistant sensors made for this device, by ESPHome id.
-  sensors = lib.mapAttrs (_: suffix: "${friendlyName} ${suffix}") {
-    sunrise = "Sunrise";
-    sunset = "Sunset";
-    # Hourly values from the current hour, comma-separated.
-    temperatures = "Temperatures";
-    rain_chances = "Rain Chances";
-    # The hour of day of the first of those.
-    first_hour = "First Hour";
-    uv = "UV Index";
-    temperature = "Temperature";
-    today_high = "High";
-    today_low = "Low";
-    aqi = "AQI";
-  };
+  sensors =
+    lib.mapAttrs (_: suffix: "${friendlyName} ${suffix}") {
+      sunrise = "Sunrise";
+      sunset = "Sunset";
+      # Hourly values from the current hour, comma-separated.
+      temperatures = "Temperatures";
+      rain_chances = "Rain Chances";
+      # The hour of day of the first of those.
+      first_hour = "First Hour";
+      uv = "UV Index";
+      temperature = "Temperature";
+      today_high = "High";
+      today_low = "Low";
+      aqi = "AQI";
+    }
+    # A stop's departures by route, as `type|route:time,time;type|route:time`,
+    # with GTFS route types and times in seconds since the epoch.
+    // lib.listToAttrs (
+      lib.imap0 (n: stop: lib.nameValuePair (stopSensor n) "${friendlyName} Transit ${i (n + 1)}") stops
+    );
   sensorEntity = id: "sensor.${slugify sensors.${id}}";
   haSensor =
     id: attrs:
@@ -258,6 +281,50 @@ let
             it.printf(${i (margin + 420)}, ${i infoY}, id(info_font), ink, TextAlign::CENTER_LEFT, "UV %.0f", id(uv).state);
           }
 
+          {
+            int y = ${i (plot.y + 40)};
+            const auto stop = [&](const std::string &state, int min_minutes) {
+              size_t start = 0;
+              while (start < state.size()) {
+                size_t end = state.find(';', start);
+                if (end == std::string::npos) end = state.size();
+                const std::string route = state.substr(start, end - start);
+                start = end + 1;
+                const size_t bar = route.find('|'), colon = route.find(':');
+                if (bar == std::string::npos || colon == std::string::npos || bar > colon) continue;
+
+                std::string minutes;
+                int shown = 0;
+                const char *p = route.c_str() + colon + 1;
+                while (*p != 0 && shown < ${i transitTimes}) {
+                  char *next;
+                  const long time = strtol(p, &next, 10);
+                  if (next == p) break;
+                  p = *next == ',' ? next + 1 : next;
+                  const int left = (int) floor((time - (long) now.timestamp) / 60.0);
+                  if (left < min_minutes) continue;
+                  if (shown++ > 0) minutes += ", ";
+                  minutes += to_string(left);
+                }
+                if (shown == 0) continue;
+                // GTFS route types: 3 is a bus, 4 a ferry, and the rest mostly rail.
+                const int type = atoi(route.c_str());
+                const std::string name = route.substr(bar + 1, colon - bar - 1);
+                int x, top, w, h;
+                it.get_text_bounds(${i margin}, y, name.c_str(), id(info_font), TextAlign::CENTER_LEFT, &x, &top, &w, &h);
+                it.print(${i margin}, y, id(info_font), ink, TextAlign::CENTER_LEFT, name.c_str());
+                it.image(x + w + 66, y, type == 3 ? id(bus_icon) : type == 4 ? id(ferry_icon) : id(train_icon), ImageAlign::CENTER, ink);
+                it.print(${i transitRight}, y, id(info_font), ink, TextAlign::CENTER_RIGHT, minutes.c_str());
+                y += ${i transitRow};
+              }
+            };
+            ${lib.concatStrings (
+              lib.imap0 (n: s: ''
+                stop(id(${stopSensor n}).state, ${i (s.minMinutes or 0)});
+              '') stops
+            )}
+          }
+
           // Temperature as a line over shaded bars for the chance of rain.
           const auto numbers = [](const std::string &s) {
             std::vector<float> values;
@@ -347,6 +414,9 @@ let
     image = [
       (icon "sunrise_icon" "mdi:weather-sunset-up" 110)
       (icon "sunset_icon" "mdi:weather-sunset-down" 110)
+      (icon "bus_icon" "mdi:bus-stop" 84)
+      (icon "train_icon" "mdi:train-variant" 84)
+      (icon "ferry_icon" "mdi:ferry" 84)
     ]
     ++ lib.mapAttrsToList (condition: file: icon (conditionId condition) file 240) conditions;
 
@@ -368,7 +438,8 @@ let
       (fromSensor "sunset")
       (fromSensor "temperatures")
       (fromSensor "rain_chances")
-    ];
+    ]
+    ++ lib.imap0 (n: _: fromSensor (stopSensor n)) stops;
 
     script = [
       # Coalesces the burst of state updates on connecting into one refresh.
@@ -391,6 +462,31 @@ in
   };
 
   services.home-assistant.config = {
+    # Each stop is fetched once a minute, with the stops spread evenly over
+    # it: OneBusAway rejects requests that arrive together.
+    automation = lib.imap0 (
+      n: _:
+      let
+        alias = "${sensors.${stopSensor n}} Fetch";
+      in
+      {
+        inherit alias;
+        id = slugify alias;
+        triggers = [
+          {
+            trigger = "time_pattern";
+            seconds = i (n * 60 / lib.length stops);
+          }
+        ];
+        actions = [
+          {
+            action = "homeassistant.update_entity";
+            target.entity_id = sensorEntity (stopSensor n);
+          }
+        ];
+      }
+    ) stops;
+
     template = [
       {
         sensor = [
@@ -422,6 +518,47 @@ in
           (restSensor "aqi" "{{ value_json.current.us_aqi }}")
         ];
       }
-    ];
+    ]
+    # https://developer.onebusaway.org/api/where/methods/arrivals-and-departures-for-stop
+    ++ lib.imap0 (n: stop: {
+      resource = "!secret transit_stop_${i (n + 1)}";
+      params = {
+        key = "!secret onebusaway_key";
+        minutesBefore = "0";
+        minutesAfter = "90";
+      };
+      # Fetched by the automations below instead.
+      scan_interval = 86400;
+      sensor = [
+        # A trip can be listed once per vehicle assigned to it. A rejected
+        # request has no data, and keeps the last departures, which the device
+        # drops as they pass.
+        (restSensor (stopSensor n) ''
+          {%- if value_json.data is not defined -%}
+            {{- states(${str (sensorEntity (stopSensor n))}) -}}
+          {%- else -%}
+            {%- set ns = namespace(routes={}, trips=[], types={}) -%}
+            {%- for route in value_json.data.references.routes -%}
+              {%- set ns.types = dict(ns.types, **{route.id: route.type}) -%}
+            {%- endfor -%}
+            {%- for departure in value_json.data.entry.arrivalsAndDepartures -%}
+              {%- if departure.departureEnabled and departure.tripId not in ns.trips -%}
+                {%- set ns.trips = ns.trips + [departure.tripId] -%}
+                {%- set predicted = departure.predicted and departure.predictedDepartureTime -%}
+                {%- set time = ((departure.predictedDepartureTime if predicted else departure.scheduledDepartureTime) / 1000) | int -%}
+                {%- set name = departure.routeShortName or departure.routeLongName -%}
+                {#- The icon already says that "2 Line" is a train. -#}
+                {%- set name = name[:-5] if name.endswith(" Line") else name -%}
+                {%- set route = ns.types.get(departure.routeId, 3) ~ "|" ~ name -%}
+                {%- set ns.routes = dict(ns.routes, **{route: ns.routes.get(route, []) + [time]}) -%}
+              {%- endif -%}
+            {%- endfor -%}
+            {%- for route, times in ns.routes.items() -%}
+              {{- route }}:{{ (times | sort)[:${i (transitTimes + 2)}] | join(",") }}{{ ";" if not loop.last }}
+            {%- endfor -%}
+          {%- endif -%}
+        '')
+      ];
+    }) stops;
   };
 }

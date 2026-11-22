@@ -83,6 +83,13 @@
     };
   };
 
+  # Values for `!secret` in the config below.
+  age.secrets."home_assistant_secrets.yaml" = {
+    file = ../../../secrets/home_assistant_secrets.yaml;
+    path = "${config.services.home-assistant.configDir}/secrets.yaml";
+    owner = "hass";
+  };
+
   services.home-assistant = {
     enable = true;
     configDir = config.custom.drives.data + "/home-assistant";
