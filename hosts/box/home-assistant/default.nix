@@ -89,6 +89,10 @@
     path = "${config.services.home-assistant.configDir}/secrets.yaml";
     owner = "hass";
   };
+  # Home Assistant only reads its secrets as it starts.
+  systemd.services.home-assistant.restartTriggers = [
+    config.age.secrets."home_assistant_secrets.yaml".file
+  ];
 
   services.home-assistant = {
     enable = true;
