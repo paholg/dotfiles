@@ -107,37 +107,7 @@
               doCheck = false;
             };
           envswitch = inputs.envswitch.packages.${system}.default;
-          helix = inputs.helix.packages.${system}.default.override {
-            # Helix fetches GitHub-hosted grammars with the `github` fetcher,
-            # which costs ~0.1s per grammar on every evaluation (~30s total).
-            # The `git` fetcher resolves cached revs almost instantly.
-            grammarOverlays =
-              let
-                sources = builtins.listToAttrs (
-                  map (grammar: {
-                    inherit (grammar) name;
-                    value = grammar.source;
-                  }) (fromTOML (builtins.readFile "${inputs.helix}/languages.toml")).grammar
-                );
-              in
-              [
-                (
-                  _: prev:
-                  builtins.mapAttrs (
-                    name: grammar:
-                    grammar.overrideAttrs {
-                      src = builtins.fetchTree {
-                        type = "git";
-                        url = sources.${name}.git;
-                        rev = sources.${name}.rev;
-                        ref = sources.${name}.ref or "HEAD";
-                        shallow = true;
-                      };
-                    }
-                  ) (final.lib.filterAttrs (_: final.lib.isDerivation) prev)
-                )
-              ];
-          };
+          helix = inputs.helix.packages.${system}.default;
           niri = inputs.niri.packages.${system}.default;
           playlister = inputs.playlister.packages.${system}.default;
           rustybar = inputs.rustybar.packages.${system}.default;
