@@ -414,7 +414,7 @@ let
     image = [
       (icon "sunrise_icon" "mdi:weather-sunset-up" 110)
       (icon "sunset_icon" "mdi:weather-sunset-down" 110)
-      (icon "bus_icon" "mdi:bus-stop" 84)
+      (icon "bus_icon" "mdi:bus-side" 84)
       (icon "train_icon" "mdi:train-variant" 84)
       (icon "ferry_icon" "mdi:ferry" 84)
     ]
