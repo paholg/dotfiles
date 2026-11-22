@@ -20,7 +20,7 @@ in
   "porkbun_api.json".publicKeys = boxKeys;
   foundry_docker_env.publicKeys = boxKeys;
   foundry_env.publicKeys = boxKeys;
-  "home_assistant_secrets.yaml".publicKeys = boxKeys;
+  "home_assistant_secrets.yaml".publicKeys = allKeys;
   music_assistant_token.publicKeys = boxKeys;
   oauth2_proxy.publicKeys = boxKeys;
   playlister_env.publicKeys = boxKeys;

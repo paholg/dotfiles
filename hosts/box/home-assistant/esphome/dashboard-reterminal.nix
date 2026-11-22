@@ -18,6 +18,31 @@ let
   friendlyName = "Dashboard reTerminal";
   address = "10.0.0.16";
 
+  # Where the stops are is secret: each is the `transit_stop_<n>` in
+  # `home_assistant_secrets.yaml`, counting from one in the order here, as the
+  # URL of its departures, which is
+  # https://api.pugetsound.onebusaway.org/api/where/arrivals-and-departures-for-stop/<id>.json,
+  # where the id is the agency's number, an underscore, then the stop's code.
+  #
+  # A stop's `direction` is an icon shown after the names of its routes, and
+  # departures sooner than its `cutoffMinutes` are too soon to reach, so hidden.
+  stops = [
+    {
+      direction = "mdi:chevron-double-right";
+      cutoffMinutes = 10;
+    }
+    {
+      direction = "mdi:chevron-double-left";
+      cutoffMinutes = 10;
+    }
+    {
+      direction = "mdi:chevron-left";
+    }
+    {
+      direction = "mdi:chevron-left";
+    }
+  ];
+
   width = 1872;
   height = 1404;
   margin = 80;
@@ -25,28 +50,45 @@ let
   plot = {
     x = 780;
     y = 700;
-    w = 860;
+    w = 928;
     h = 570;
   };
   chartHours = 12;
+  # The chance of rain at each gridline, from none to certain, as a raindrop
+  # filled clockwise from the top by that fraction. The drop is
+  # `mdi:water-outline`, whose round part is centred on (12, 14.23).
+  rainIcons = map (
+    quarters:
+    let
+      outer = "M12,3.77L11.25,4.61C11.25,4.61 9.97,6.06 8.68,7.94C7.39,9.82 6,12.07 6,14.23A6,6 0 0,0 12,20.23A6,6 0 0,0 18,14.23C18,12.07 16.61,9.82 15.32,7.94C14.03,6.06 12.75,4.61 12.75,4.61L12,3.77";
+      inner = "M12,6.9C12.44,7.42 12.84,7.85 13.68,9.07C14.89,10.83 16,13.07 16,14.23C16,16.45 14.22,18.23 12,18.23C9.78,18.23 8,16.45 8,14.23C8,13.07 9.11,10.83 10.32,9.07C11.16,7.85 11.56,7.42 12,6.9Z";
+      # A wedge reaching well past the drop, which then clips it.
+      wedge = lib.elemAt [
+        ""
+        "M12,14.23V-10A24.23,24.23 0 0,1 36.23,14.23Z"
+        "M12,14.23V-10A24.23,24.23 0 0,1 12,38.46Z"
+        "M12,14.23V-10A24.23,24.23 0 1,1 -12.23,14.23Z"
+        "M-13,-13H37V37H-13Z"
+      ] quarters;
+    in
+    pkgs.writeText "rain-${i quarters}.svg" ''
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+        <clipPath id="drop"><path d="${outer}"/></clipPath>
+        <path d="${outer}${inner}"/>
+        <path d="${wedge}" clip-path="url(#drop)"/>
+      </svg>
+    ''
+  ) (lib.range 0 4);
+  rainIcon = 80;
 
   # Departures are listed left of the chart, a row per route, stacked up from
   # its bottom.
   transitRight = 610;
   transitRow = 130;
   transitTimes = 2;
-  # The stops themselves are secret: each is the `transit_stop_<n>` in
-  # `home_assistant_secrets.yaml`, as the URL of its departures, which is
-  # https://api.pugetsound.onebusaway.org/api/where/arrivals-and-departures-for-stop/<id>.json,
-  # where the id is the agency's number, an underscore, then the stop's code.
-  stops = [
-    { }
-    {
-      # Too soon to reach.
-      minMinutes = 10;
-    }
-  ];
   stopSensor = n: "transit_${i (n + 1)}";
+  stopDirection = n: "direction_${i (n + 1)}";
+  directionIcon = 76;
 
   i = toString;
   str = builtins.toJSON;
@@ -91,10 +133,15 @@ let
       today_low = "Low";
       aqi = "AQI";
     }
-    # A stop's departures by route, as `type|route:time,time;type|route:time`,
-    # with GTFS route types and times in seconds since the epoch.
+    # A stop's departures by route, as
+    # `type|route:time,time;type|route:time`, with GTFS route types and times in
+    # seconds since the epoch.
     // lib.listToAttrs (
-      lib.imap0 (n: stop: lib.nameValuePair (stopSensor n) "${friendlyName} Transit ${i (n + 1)}") stops
+      lib.concatLists (
+        lib.imap0 (n: _: [
+          (lib.nameValuePair (stopSensor n) "${friendlyName} Transit ${i (n + 1)}")
+        ]) stops
+      )
     );
   sensorEntity = id: "sensor.${slugify sensors.${id}}";
   haSensor =
@@ -273,7 +320,7 @@ let
               '') conditions
             )}
             if (!isnan(id(today_high).state) && !isnan(id(today_low).state)) {
-              it.printf(right, 440, id(info_font), ink, TextAlign::CENTER_RIGHT, "%.0f° / %.0f°", id(today_high).state, id(today_low).state);
+              it.printf(right, 330, id(info_font), ink, TextAlign::CENTER_RIGHT, "%.0f° / %.0f°", id(today_high).state, id(today_low).state);
             }
             // UV index against the right edge, with air quality to its left.
             int x = right;
@@ -293,9 +340,10 @@ let
             struct Row {
               int type;
               std::string name, minutes;
+              display::BaseImage *direction;
             };
             std::vector<Row> rows;
-            const auto stop = [&](const std::string &state, int min_minutes) {
+            const auto stop = [&](const std::string &state, int min_minutes, display::BaseImage *direction) {
               size_t start = 0;
               while (start < state.size()) {
                 size_t end = state.find(';', start);
@@ -320,12 +368,12 @@ let
                 }
                 if (shown == 0) continue;
                 // GTFS route types: 3 is a bus, 4 a ferry, and the rest mostly rail.
-                rows.push_back({atoi(route.c_str()), route.substr(bar + 1, colon - bar - 1), minutes});
+                rows.push_back({atoi(route.c_str()), route.substr(bar + 1, colon - bar - 1), minutes, direction});
               }
             };
             ${lib.concatStrings (
               lib.imap0 (n: s: ''
-                stop(id(${stopSensor n}).state, ${i (s.minMinutes or 0)});
+                stop(id(${stopSensor n}).state, ${i (s.cutoffMinutes or 0)}, id(${stopDirection n}));
               '') stops
             )}
             // The last row shares a baseline with the chart's hour labels,
@@ -335,7 +383,8 @@ let
               int x, top, w, h;
               it.get_text_bounds(${i margin}, y, row.name.c_str(), id(info_font), TextAlign::CENTER_LEFT, &x, &top, &w, &h);
               it.print(${i margin}, y, id(info_font), ink, TextAlign::CENTER_LEFT, row.name.c_str());
-              it.image(x + w + 70, y, row.type == 3 ? id(bus_icon) : row.type == 4 ? id(ferry_icon) : id(train_icon), ImageAlign::CENTER, ink);
+              it.image(x + w + ${i (4 + directionIcon / 2)}, y, row.direction, ImageAlign::CENTER, ink);
+              it.image(x + w + ${i (8 + directionIcon + 46)}, y, row.type == 3 ? id(bus_icon) : row.type == 4 ? id(ferry_icon) : id(train_icon), ImageAlign::CENTER, ink);
               it.print(${i transitRight}, y, id(info_font), ink, TextAlign::CENTER_RIGHT, row.minutes.c_str());
               y += ${i transitRow};
             }
@@ -370,7 +419,11 @@ let
           }
           // Four intervals of a round size, so that the gridlines also suit
           // the chance of rain, with room above and below the line.
-          const int ticks = 4;
+          const int ticks = ${i (lib.length rainIcons - 1)};
+          display::BaseImage *const rain[] = {${
+            lib.concatStringsSep ", " (lib.imap0 (n: _: "id(rain_${i n})") rainIcons)
+          }};
+          const int rain_x = px + pw + ${i (24 + rainIcon / 2)};
           int tick = 0, bottom = 0;
           do {
             tick += 5;
@@ -398,14 +451,14 @@ let
               for (int x = px; x < px + pw; x += 16) it.filled_rectangle(x, y, 6, 2, ink);
             }
             it.printf(px - 24, y, id(axis_font), ink, TextAlign::CENTER_RIGHT, "%d°", bottom + n * tick);
-            it.printf(px + pw + 24, y, id(axis_font), ink, TextAlign::CENTER_LEFT, "%d%%", n * 100 / ticks);
+            it.image(rain_x, y, rain[n], ImageAlign::CENTER, ink);
           }
           it.filled_rectangle(px, py + ph, pw, 4, ink);
 
           for (int n = 0; n < points; n += 3) {
             const int hour = ((int) id(first_hour).state + n) % 24;
             it.filled_rectangle(column(n) - 2, py + ph, 4, 16, ink);
-            it.printf(column(n), py + ph + 60, id(axis_font), ink, TextAlign::CENTER, "%02d:00", hour);
+            it.printf(column(n), py + ph + 60, id(axis_font), ink, TextAlign::CENTER, "%02d", hour);
           }
 
           for (int n = 0; n + 1 < points; n++) {
@@ -433,6 +486,8 @@ let
       (icon "train_icon" "mdi:train-variant" 92)
       (icon "ferry_icon" "mdi:ferry" 92)
     ]
+    ++ lib.imap0 (n: s: icon (stopDirection n) s.direction directionIcon) stops
+    ++ lib.imap0 (n: file: icon "rain_${i n}" "${file}" rainIcon) rainIcons
     ++ lib.mapAttrsToList (condition: file: icon (conditionId condition) file 240) conditions;
 
     sensor = [
@@ -552,7 +607,7 @@ in
           {%- if value_json.data is not defined -%}
             {{- states(${str (sensorEntity (stopSensor n))}) -}}
           {%- else -%}
-            {%- set ns = namespace(routes={}, trips=[], types={}) -%}
+            {%- set ns = namespace(routes={}, kinds={}, trips=[], types={}) -%}
             {%- for route in value_json.data.references.routes -%}
               {%- set ns.types = dict(ns.types, **{route.id: route.type}) -%}
             {%- endfor -%}
@@ -564,12 +619,14 @@ in
                 {%- set name = departure.routeShortName or departure.routeLongName -%}
                 {#- The icon already says that "2 Line" is a train. -#}
                 {%- set name = name[:-5] if name.endswith(" Line") else name -%}
-                {%- set route = ns.types.get(departure.routeId, 3) ~ "|" ~ name -%}
+                {#- Padded, so that sorting puts route 8 before route 10. -#}
+                {%- set route = "%8s" | format(name) -%}
+                {%- set ns.kinds = dict(ns.kinds, **{route: ns.types.get(departure.routeId, 3)}) -%}
                 {%- set ns.routes = dict(ns.routes, **{route: ns.routes.get(route, []) + [time]}) -%}
               {%- endif -%}
             {%- endfor -%}
-            {%- for route, times in ns.routes.items() -%}
-              {{- route }}:{{ (times | sort)[:${i (transitTimes + 2)}] | join(",") }}{{ ";" if not loop.last }}
+            {%- for route, times in ns.routes | dictsort -%}
+              {{- ns.kinds[route] }}|{{ route | trim }}:{{ (times | sort)[:${i (transitTimes + 2)}] | join(",") }}{{ ";" if not loop.last }}
             {%- endfor -%}
           {%- endif -%}
         '')
