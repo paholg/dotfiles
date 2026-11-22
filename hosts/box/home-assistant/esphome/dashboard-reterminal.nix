@@ -23,15 +23,16 @@ let
   margin = 80;
   # The chart's plot area, between its axis labels.
   plot = {
-    x = 740;
-    y = 800;
-    w = 920;
-    h = 470;
+    x = 780;
+    y = 700;
+    w = 860;
+    h = 570;
   };
   chartHours = 12;
 
-  # Departures are listed left of the chart, a row per route.
-  transitRight = 560;
+  # Departures are listed left of the chart, a row per route, stacked up from
+  # its bottom.
+  transitRight = 610;
   transitRow = 130;
   transitTimes = 2;
   # The stops themselves are secret: each is the `transit_stop_<n>` in
@@ -145,8 +146,9 @@ let
     }
     // lib.optionalAttrs (glyphs != null) { inherit glyphs; };
 
-  # The row of air quality, UV index, and today's high and low.
-  infoY = 660;
+  # The icon between sunrise and sunset, and the gap either side of it.
+  sunIcon = 130;
+  sunGap = 16;
 
   device = {
     esphome = {
@@ -235,54 +237,64 @@ let
             return;
           }
 
-          it.printf(${i margin}, 370, id(clock_font), ink, TextAlign::CENTER_LEFT, "%02d:%02d", now.hour, now.minute);
-          const std::string date = now.strftime("%A, %B ") + to_string(now.day_of_month);
-          it.print(${i margin}, 90, id(date_font), ink, TextAlign::CENTER_LEFT, date.c_str());
+          it.printf(${i margin}, 180, id(clock_font), ink, TextAlign::CENTER_LEFT, "%02d:%02d", now.hour, now.minute);
 
-          // The right column, from the top: sunrise, sunset, the current
-          // temperature beside its icon, then today's high and low.
+          // Below the clock: sunrise and sunset either side of their icon,
+          // then the date.
+          {
+            const char *rise = id(sunrise).state.c_str(), *set = id(sunset).state.c_str();
+            int x, y, w, h;
+            it.get_text_bounds(${i margin}, 440, rise, id(date_font), TextAlign::CENTER_LEFT, &x, &y, &w, &h);
+            it.print(${i margin}, 440, id(date_font), ink, TextAlign::CENTER_LEFT, rise);
+            it.image(x + w + ${i (sunGap + sunIcon / 2)}, 440, id(sun_icon), ImageAlign::CENTER, ink);
+            it.print(x + w + ${i (2 * sunGap + sunIcon)}, 440, id(date_font), ink, TextAlign::CENTER_LEFT, set);
+
+            const std::string date = now.strftime("%a, %b ") + to_string(now.day_of_month);
+            it.print(${i margin}, 590, id(date_font), ink, TextAlign::CENTER_LEFT, date.c_str());
+          }
+
+          // The right column, from the top: the current temperature beside
+          // its icon, today's high and low, then air quality and UV index.
           {
             const int right = ${i (width - margin)};
-            const char *rise = id(sunrise).state.c_str(), *set = id(sunset).state.c_str();
-            int x0, x1, y, w, h;
-            it.get_text_bounds(right, 70, rise, id(info_font), TextAlign::CENTER_RIGHT, &x0, &y, &w, &h);
-            it.get_text_bounds(right, 180, set, id(info_font), TextAlign::CENTER_RIGHT, &x1, &y, &w, &h);
-            // The icons share a column, against the wider of the two times.
-            const int icons = std::min(x0, x1) - 75;
-            it.print(right, 70, id(info_font), ink, TextAlign::CENTER_RIGHT, rise);
-            it.image(icons, 70, id(sunrise_icon), ImageAlign::CENTER, ink);
-            it.print(right, 180, id(info_font), ink, TextAlign::CENTER_RIGHT, set);
-            it.image(icons, 180, id(sunset_icon), ImageAlign::CENTER, ink);
-
             // The icon sits against the temperature, whatever its width.
-            int icon = right - 420;
+            int icon = right - 420, y, w, h;
             const float current = id(temperature).state;
             if (!isnan(current)) {
               char text[8];
               snprintf(text, sizeof(text), "%.0f°", current);
-              it.get_text_bounds(right, 490, text, id(temperature_font), TextAlign::CENTER_RIGHT, &icon, &y, &w, &h);
-              it.print(right, 490, id(temperature_font), ink, TextAlign::CENTER_RIGHT, text);
+              it.get_text_bounds(right, 180, text, id(temperature_font), TextAlign::CENTER_RIGHT, &icon, &y, &w, &h);
+              it.print(right, 180, id(temperature_font), ink, TextAlign::CENTER_RIGHT, text);
             }
             const std::string condition = id(current_condition).state;
             ${lib.concatStrings (
               lib.mapAttrsToList (condition: _: ''
-                if (condition == ${str condition}) it.image(icon - 150, 490, id(${conditionId condition}), ImageAlign::CENTER, ink);
+                if (condition == ${str condition}) it.image(icon - 150, 180, id(${conditionId condition}), ImageAlign::CENTER, ink);
               '') conditions
             )}
             if (!isnan(id(today_high).state) && !isnan(id(today_low).state)) {
-              it.printf(right, ${i infoY}, id(info_font), ink, TextAlign::CENTER_RIGHT, "%.0f° / %.0f°", id(today_high).state, id(today_low).state);
+              it.printf(right, 440, id(info_font), ink, TextAlign::CENTER_RIGHT, "%.0f° / %.0f°", id(today_high).state, id(today_low).state);
+            }
+            // UV index against the right edge, with air quality to its left.
+            int x = right;
+            if (!isnan(id(uv).state)) {
+              char text[16];
+              snprintf(text, sizeof(text), "UV %.0f", id(uv).state);
+              it.get_text_bounds(right, 590, text, id(info_font), TextAlign::CENTER_RIGHT, &x, &y, &w, &h);
+              it.print(right, 590, id(info_font), ink, TextAlign::CENTER_RIGHT, text);
+              x -= 70;
+            }
+            if (!isnan(id(aqi).state)) {
+              it.printf(x, 590, id(info_font), ink, TextAlign::CENTER_RIGHT, "AQI %.0f", id(aqi).state);
             }
           }
 
-          if (!isnan(id(aqi).state)) {
-            it.printf(${i margin}, ${i infoY}, id(info_font), ink, TextAlign::CENTER_LEFT, "AQI %.0f", id(aqi).state);
-          }
-          if (!isnan(id(uv).state)) {
-            it.printf(${i (margin + 420)}, ${i infoY}, id(info_font), ink, TextAlign::CENTER_LEFT, "UV %.0f", id(uv).state);
-          }
-
           {
-            int y = ${i (plot.y + 40)};
+            struct Row {
+              int type;
+              std::string name, minutes;
+            };
+            std::vector<Row> rows;
             const auto stop = [&](const std::string &state, int min_minutes) {
               size_t start = 0;
               while (start < state.size()) {
@@ -308,14 +320,7 @@ let
                 }
                 if (shown == 0) continue;
                 // GTFS route types: 3 is a bus, 4 a ferry, and the rest mostly rail.
-                const int type = atoi(route.c_str());
-                const std::string name = route.substr(bar + 1, colon - bar - 1);
-                int x, top, w, h;
-                it.get_text_bounds(${i margin}, y, name.c_str(), id(info_font), TextAlign::CENTER_LEFT, &x, &top, &w, &h);
-                it.print(${i margin}, y, id(info_font), ink, TextAlign::CENTER_LEFT, name.c_str());
-                it.image(x + w + 66, y, type == 3 ? id(bus_icon) : type == 4 ? id(ferry_icon) : id(train_icon), ImageAlign::CENTER, ink);
-                it.print(${i transitRight}, y, id(info_font), ink, TextAlign::CENTER_RIGHT, minutes.c_str());
-                y += ${i transitRow};
+                rows.push_back({atoi(route.c_str()), route.substr(bar + 1, colon - bar - 1), minutes});
               }
             };
             ${lib.concatStrings (
@@ -323,6 +328,17 @@ let
                 stop(id(${stopSensor n}).state, ${i (s.minMinutes or 0)});
               '') stops
             )}
+            // The last row shares a baseline with the chart's hour labels,
+            // and the rest stack up from it.
+            int y = ${i (plot.y + plot.h + 52)} - ((int) rows.size() - 1) * ${i transitRow};
+            for (const auto &row : rows) {
+              int x, top, w, h;
+              it.get_text_bounds(${i margin}, y, row.name.c_str(), id(info_font), TextAlign::CENTER_LEFT, &x, &top, &w, &h);
+              it.print(${i margin}, y, id(info_font), ink, TextAlign::CENTER_LEFT, row.name.c_str());
+              it.image(x + w + 70, y, row.type == 3 ? id(bus_icon) : row.type == 4 ? id(ferry_icon) : id(train_icon), ImageAlign::CENTER, ink);
+              it.print(${i transitRight}, y, id(info_font), ink, TextAlign::CENTER_RIGHT, row.minutes.c_str());
+              y += ${i transitRow};
+            }
           }
 
           // Temperature as a line over shaded bars for the chance of rain.
@@ -406,17 +422,16 @@ let
     font = [
       (font "clock_font" 340 "0123456789:")
       (font "temperature_font" 220 "0123456789-°")
-      (font "date_font" 100 null)
-      (font "info_font" 76 null)
-      (font "axis_font" 56 null)
+      (font "date_font" 104 null)
+      (font "info_font" 84 null)
+      (font "axis_font" 62 null)
     ];
 
     image = [
-      (icon "sunrise_icon" "mdi:weather-sunset-up" 110)
-      (icon "sunset_icon" "mdi:weather-sunset-down" 110)
-      (icon "bus_icon" "mdi:bus-side" 84)
-      (icon "train_icon" "mdi:train-variant" 84)
-      (icon "ferry_icon" "mdi:ferry" 84)
+      (icon "sun_icon" "mdi:weather-sunset" sunIcon)
+      (icon "bus_icon" "mdi:bus-side" 92)
+      (icon "train_icon" "mdi:train-variant" 92)
+      (icon "ferry_icon" "mdi:ferry" 92)
     ]
     ++ lib.mapAttrsToList (condition: file: icon (conditionId condition) file 240) conditions;
 
