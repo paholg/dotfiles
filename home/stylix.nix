@@ -36,6 +36,7 @@
         gtk.enable = false;
         kitty.variant256Colors = true;
         firefox.profileNames = [ "default" ];
+        wayprompt.enable = false; # broken
         waybar.enable = false;
       };
     };
