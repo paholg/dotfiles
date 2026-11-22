@@ -2,7 +2,8 @@
 set -euo pipefail
 
 # @describe Compile and flash an ESPHome device, then show its logs.
-# @flag --logs  Only show logs, without compiling or flashing
+# @flag --logs    Only show logs, without compiling or flashing
+# @option --port  Serial port, for boards whose USB serial isn't named after their MAC
 # @arg device   Device name; picked interactively if not given
 
 eval "$(argc --argc-eval "$0" "$@")"
@@ -36,6 +37,10 @@ mac=$(nix eval --raw --file router/hosts.nix "$device.mac" 2>/dev/null ||
 
 # USB if this board is plugged in, otherwise over the air.
 port() {
+  if [[ -n ${argc_port:-} ]]; then
+    echo "$argc_port"
+    return
+  fi
   local ports=(/dev/serial/by-id/usb-Espressif_*_"$mac"-if00)
   [[ -e ${ports[0]} ]] && echo "${ports[0]}" || echo OTA
 }

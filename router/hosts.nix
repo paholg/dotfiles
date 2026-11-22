@@ -52,6 +52,11 @@ audioBoards
     mac = "44:1B:F6:C1:19:1C";
     clientId = "1:44:1b:f6:c1:19:1c";
   };
+  dashboard-reterminal = {
+    address = "10.0.0.16";
+    mac = "C4:9E:7E:19:08:80";
+    clientId = "1:c4:9e:7e:19:8:80";
+  };
   snapmaker-u1 = {
     address = "10.0.0.15";
     mac = "40:FD:F3:D9:F0:08";

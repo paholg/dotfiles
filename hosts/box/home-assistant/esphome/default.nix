@@ -3,6 +3,7 @@
   imports = [
     ./audio.nix
     ./bed-paper.nix
+    ./dashboard-reterminal.nix
     ./din-paper.nix
   ];
 
