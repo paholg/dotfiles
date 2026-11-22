@@ -180,6 +180,7 @@ let
     # xan # broken :(
     xh
     yaml-language-server
+    yamlfmt
     yazi
     yq-go
     zellij
