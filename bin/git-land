@@ -2,8 +2,11 @@
 set -euo pipefail
 
 # Land the current worktree's branch on main, without a merge commit: rebase it
-# onto main, then fast-forward main in the root worktree, where it's checked
-# out, and delete the branch.
+# onto main, then fast-forward main in the root worktree and delete the branch.
+#
+# From a linked worktree, main must be checked out in the root, and this
+# worktree is left detached on main. From the root itself, this switches to
+# main.
 #
 # On conflicts, the rebase stops here and main is left untouched.
 
@@ -28,22 +31,36 @@ fi
 
 # When run from a linked worktree, git may export GIT_DIR pointing at this
 # worktree, which would override `-C` and make the merge a no-op.
-in_root() { env -u GIT_DIR git -C "$root" "$@"; }
+root_git() { env -u GIT_DIR git -C "$root" "$@"; }
 
-if ! $is_root; then
-  root_branch=$(in_root branch --show-current)
+assert_root_on_main() {
+  local root_branch
+  root_branch=$(root_git branch --show-current)
   if [[ "$root_branch" != "main" ]]; then
     echo "Root worktree ($root) is on '${root_branch:-detached HEAD}', not main" >&2
     exit 1
   fi
+}
+
+# Run git in the root worktree, which must be on main.
+in_root() {
+  assert_root_on_main
+  root_git "$@"
+}
+
+# Check before rebasing, so a failure leaves everything untouched.
+if ! $is_root; then
+  assert_root_on_main
 fi
 
 git rebase main
 
-in_root merge --ff-only "$branch"
-
-# Leave a linked worktree detached on the updated main.
-if ! $is_root; then
+if $is_root; then
+  git switch main
+  git merge --ff-only "$branch"
+else
+  in_root merge --ff-only "$branch"
+  # Leave a linked worktree detached on the updated main.
   git switch --detach main
 fi
 
